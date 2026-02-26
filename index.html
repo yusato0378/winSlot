@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パチスロ設定推測ツール</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <h1 class="app-title">パチスロ設定推測ツール</h1>
+                <p class="app-subtitle">Setting Analyzer Pro</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 入力セクション -->
+            <section class="card input-section">
+                <h2 class="card-title">
+                    <span class="card-icon">&#9881;</span>
+                    データ入力
+                </h2>
+                <form id="analyze-form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="machine-select">機種名</label>
+                        <select id="machine-select" required>
+                            <option value="">-- 機種を選択してください --</option>
+                        </select>
+                    </div>
+
+                    <div class="machine-info-bar" id="machine-info-bar" style="display:none;">
+                        <span id="machine-type-badge" class="badge"></span>
+                        <span id="machine-ceiling-info" class="badge badge-sub"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="total-games">総ゲーム数</label>
+                            <input type="number" id="total-games" min="0" placeholder="例: 5000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから)</span></label>
+                            <input type="number" id="current-games" min="0" placeholder="例: 350">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="big-count" id="big-label">BIG回数</label>
+                            <input type="number" id="big-count" min="0" placeholder="例: 18" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-count" id="reg-label">REG回数</label>
+                            <input type="number" id="reg-count" min="0" placeholder="例: 12">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bonus-prob">ボーナス合算確率 <span class="label-hint">(自動計算)</span></label>
+                            <input type="text" id="bonus-prob" readonly placeholder="自動計算されます">
+                        </div>
+                        <div class="form-group">
+                            <label for="koyaku-count" id="koyaku-label">小役回数 <span class="label-hint">(任意)</span></label>
+                            <input type="number" id="koyaku-count" min="0" placeholder="例: 800">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="analyze-btn">
+                            <span class="btn-icon">&#9889;</span>
+                            推測する
+                        </button>
+                        <button type="button" class="btn-secondary" id="reset-btn">リセット</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 結果セクション -->
+            <div id="results-section" class="results-section" style="display:none;">
+
+                <!-- 設定推測結果 -->
+                <section class="card result-card">
+                    <h2 class="card-title">
+                        <span class="card-icon">&#127920;</span>
+                        設定推測結果
+                    </h2>
+                    <div id="setting-results" class="setting-results"></div>
+                    <div class="most-likely" id="most-likely"></div>
+                </section>
+
+                <!-- 推測要素 -->
+                <section class="card result-card">
+                    <h2 class="card-title">
+                        <span class="card-icon">&#128200;</span>
+                        推測要素
+                    </h2>
+                    <div id="factor-results" class="factor-results"></div>
+                </section>
+
+                <!-- 天井情報・期待値 -->
+                <section class="card result-card" id="ceiling-section" style="display:none;">
+                    <h2 class="card-title">
+                        <span class="card-icon">&#127919;</span>
+                        天井情報・期待値
+                    </h2>
+                    <div id="ceiling-results" class="ceiling-results"></div>
+                </section>
+
+                <!-- 機種スペック表 -->
+                <section class="card result-card">
+                    <h2 class="card-title">
+                        <span class="card-icon">&#128203;</span>
+                        機種スペック表
+                    </h2>
+                    <div class="table-wrapper">
+                        <table id="spec-table" class="spec-table">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
