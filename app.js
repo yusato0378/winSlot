@@ -699,30 +699,17 @@ function init() {
 }
 
 function populateMachineSelect() {
-    const NEW_2025_IDS = [
-        "umineko2", "koukaku", "dmc5", "crea_hihouden", "hihouden",
-        "tenken", "eva_bt", "valvrave2", "enen",
-        "bakemonogatari", "hokuto_tensei2", "tokyo_ghoul",
-        "kaguya_sama", "god_eater",
-        "tekken6", "prism_nana", "azurlane", "zettai4",
-        "railgun2", "onimusha3", "zenigata5", "tokyo_revengers",
-        "iza_banchou", "monhan_rise"
-    ];
 
     const aGroup = document.createElement("optgroup");
     aGroup.label = "【Aタイプ / BT機】";
     const atGroup = document.createElement("optgroup");
     atGroup.label = "【AT / ART機（スマスロ）】";
-    const newGroup = document.createElement("optgroup");
-    newGroup.label = "【2025〜2026年 新台】";
 
     MACHINES.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m.id;
         opt.textContent = m.name;
-        if (NEW_2025_IDS.includes(m.id)) {
-            newGroup.appendChild(opt);
-        } else if (m.type === "A") {
+        if (m.type === "A") {
             aGroup.appendChild(opt);
         } else {
             atGroup.appendChild(opt);
@@ -731,7 +718,6 @@ function populateMachineSelect() {
 
     $machineSelect.appendChild(aGroup);
     $machineSelect.appendChild(atGroup);
-    $machineSelect.appendChild(newGroup);
 }
 
 // ============================================================
