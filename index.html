@@ -26,11 +26,14 @@
                     データ入力
                 </h2>
                 <form id="analyze-form" autocomplete="off">
-                    <div class="form-group">
-                        <label for="machine-select">機種名</label>
-                        <select id="machine-select" required>
-                            <option value="">-- 機種を選択してください --</option>
-                        </select>
+                    <div class="form-group combo-group">
+                        <label for="machine-input">機種名</label>
+                        <div class="combo-wrapper" id="combo-wrapper">
+                            <input type="text" id="machine-input" placeholder="機種名を入力 or 選択" autocomplete="off">
+                            <button type="button" class="combo-toggle" id="combo-toggle" aria-label="候補を表示">&#9660;</button>
+                            <ul class="combo-list" id="combo-list"></ul>
+                        </div>
+                        <input type="hidden" id="machine-select" value="">
                     </div>
 
                     <div class="machine-info-bar" id="machine-info-bar" style="display:none;">

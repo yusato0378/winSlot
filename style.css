@@ -171,6 +171,113 @@ select:focus {
     box-shadow: 0 0 0 3px var(--accent-gold-dim);
 }
 
+/* ---- Combo Box (searchable dropdown) ---- */
+.combo-wrapper {
+    position: relative;
+}
+
+.combo-wrapper input[type="text"] {
+    padding-right: 40px;
+}
+
+.combo-toggle {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    width: 36px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    transition: color var(--transition);
+}
+
+.combo-toggle:hover {
+    color: var(--text-primary);
+}
+
+.combo-list {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 4px);
+    max-height: 320px;
+    overflow-y: auto;
+    background: #1c2040;
+    border: 1px solid rgba(100, 120, 255, 0.25);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    list-style: none;
+    padding: 4px 0;
+}
+
+.combo-list.open {
+    display: block;
+    animation: comboFadeIn 0.15s ease-out;
+}
+
+@keyframes comboFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.combo-list .combo-group-label {
+    padding: 8px 14px 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    user-select: none;
+}
+
+.combo-list li.combo-item {
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.combo-list li.combo-item:hover,
+.combo-list li.combo-item.active {
+    background: rgba(255, 213, 79, 0.12);
+}
+
+.combo-list li.combo-item .combo-match {
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.combo-list li.combo-no-match {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    pointer-events: none;
+    text-align: center;
+}
+
+.combo-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.combo-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.combo-list::-webkit-scrollbar-thumb {
+    background: rgba(100, 120, 255, 0.2);
+    border-radius: 3px;
+}
+
 input[readonly] {
     background: rgba(15, 17, 35, 0.4);
     color: var(--text-accent);

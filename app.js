@@ -662,6 +662,10 @@ const MACHINES = [
 // DOM要素
 // ============================================================
 const $machineSelect = document.getElementById("machine-select");
+const $machineInput  = document.getElementById("machine-input");
+const $comboList     = document.getElementById("combo-list");
+const $comboWrapper  = document.getElementById("combo-wrapper");
+const $comboToggle   = document.getElementById("combo-toggle");
 const $totalGames    = document.getElementById("total-games");
 const $currentGames  = document.getElementById("current-games");
 const $bigCount      = document.getElementById("big-count");
@@ -685,39 +689,156 @@ const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
 
 // ============================================================
+// コンボボックス（検索付きドロップダウン）
+// ============================================================
+function getMachineGroup(m) {
+    if (m.type === "A") return "Aタイプ";
+    return "AT / ART機";
+}
+
+let comboActiveIdx = -1;
+
+function buildComboItems(filter) {
+    $comboList.innerHTML = "";
+    comboActiveIdx = -1;
+    const query = (filter || "").toLowerCase();
+    const groups = {};
+
+    MACHINES.forEach(m => {
+        if (query && !m.name.toLowerCase().includes(query) && !m.id.includes(query)) return;
+        const g = getMachineGroup(m);
+        if (!groups[g]) groups[g] = [];
+        groups[g].push(m);
+    });
+
+    const groupOrder = ["Aタイプ", "AT / ART機"];
+    let hasItems = false;
+
+    groupOrder.forEach(gName => {
+        const items = groups[gName];
+        if (!items || items.length === 0) return;
+        hasItems = true;
+
+        const label = document.createElement("li");
+        label.className = "combo-group-label";
+        label.textContent = `【${gName}】`;
+        $comboList.appendChild(label);
+
+        items.forEach(m => {
+            const li = document.createElement("li");
+            li.className = "combo-item";
+            li.dataset.id = m.id;
+            if (query) {
+                const idx = m.name.toLowerCase().indexOf(query);
+                if (idx >= 0) {
+                    li.innerHTML =
+                        escapeHtml(m.name.substring(0, idx)) +
+                        '<span class="combo-match">' + escapeHtml(m.name.substring(idx, idx + query.length)) + '</span>' +
+                        escapeHtml(m.name.substring(idx + query.length));
+                } else {
+                    li.textContent = m.name;
+                }
+            } else {
+                li.textContent = m.name;
+            }
+            li.addEventListener("mousedown", e => { e.preventDefault(); selectComboItem(m); });
+            $comboList.appendChild(li);
+        });
+    });
+
+    if (!hasItems) {
+        const li = document.createElement("li");
+        li.className = "combo-no-match";
+        li.textContent = "該当する機種がありません";
+        $comboList.appendChild(li);
+    }
+}
+
+function escapeHtml(str) {
+    const d = document.createElement("div");
+    d.textContent = str;
+    return d.innerHTML;
+}
+
+function openCombo() {
+    buildComboItems($machineInput.value);
+    $comboList.classList.add("open");
+}
+
+function closeCombo() {
+    $comboList.classList.remove("open");
+    comboActiveIdx = -1;
+}
+
+function selectComboItem(machine) {
+    $machineInput.value = machine.name;
+    $machineSelect.value = machine.id;
+    closeCombo();
+    onMachineChange();
+}
+
+function comboKeyNav(e) {
+    const items = $comboList.querySelectorAll(".combo-item");
+    if (!items.length) return;
+
+    if (e.key === "ArrowDown") {
+        e.preventDefault();
+        comboActiveIdx = Math.min(comboActiveIdx + 1, items.length - 1);
+    } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        comboActiveIdx = Math.max(comboActiveIdx - 1, 0);
+    } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (comboActiveIdx >= 0 && items[comboActiveIdx]) {
+            const id = items[comboActiveIdx].dataset.id;
+            const m = MACHINES.find(x => x.id === id);
+            if (m) selectComboItem(m);
+        }
+        return;
+    } else if (e.key === "Escape") {
+        closeCombo();
+        return;
+    } else {
+        return;
+    }
+
+    items.forEach((it, i) => it.classList.toggle("active", i === comboActiveIdx));
+    items[comboActiveIdx]?.scrollIntoView({ block: "nearest" });
+}
+
+function initCombo() {
+    $machineInput.addEventListener("focus", openCombo);
+    $machineInput.addEventListener("input", () => {
+        $machineSelect.value = "";
+        onMachineChange();
+        openCombo();
+    });
+    $machineInput.addEventListener("keydown", comboKeyNav);
+    $machineInput.addEventListener("blur", () => setTimeout(closeCombo, 150));
+    $comboToggle.addEventListener("click", () => {
+        if ($comboList.classList.contains("open")) {
+            closeCombo();
+        } else {
+            $machineInput.focus();
+        }
+    });
+
+    document.addEventListener("click", e => {
+        if (!$comboWrapper.contains(e.target)) closeCombo();
+    });
+}
+
+// ============================================================
 // 初期化
 // ============================================================
 function init() {
-    populateMachineSelect();
-    $machineSelect.addEventListener("change", onMachineChange);
+    initCombo();
     $analyzeForm.addEventListener("submit", onAnalyze);
     $resetBtn.addEventListener("click", onReset);
 
     [$totalGames, $bigCount, $regCount].forEach(el => {
         el.addEventListener("input", updateBonusProb);
     });
-}
-
-function populateMachineSelect() {
-
-    const aGroup = document.createElement("optgroup");
-    aGroup.label = "【Aタイプ / BT機】";
-    const atGroup = document.createElement("optgroup");
-    atGroup.label = "【AT / ART機（スマスロ）】";
-
-    MACHINES.forEach(m => {
-        const opt = document.createElement("option");
-        opt.value = m.id;
-        opt.textContent = m.name;
-        if (m.type === "A") {
-            aGroup.appendChild(opt);
-        } else {
-            atGroup.appendChild(opt);
-        }
-    });
-
-    $machineSelect.appendChild(aGroup);
-    $machineSelect.appendChild(atGroup);
 }
 
 // ============================================================
@@ -797,6 +918,8 @@ function onAnalyze(e) {
 
 function onReset() {
     $analyzeForm.reset();
+    $machineInput.value = "";
+    $machineSelect.value = "";
     $bonusProb.value = "";
     $machineInfoBar.style.display = "none";
     $resultsSection.style.display = "none";
