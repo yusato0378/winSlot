@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アプリについて - パチスロ設定推測ツール</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <p class="app-subtitle"><a href="index.html" class="back-link">&larr; トップに戻る</a></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="card page-card">
+                <h1 class="page-title">パチスロ設定推測ツールとは</h1>
+
+                <div class="page-body">
+                    <h2>概要</h2>
+                    <p>パチスロ設定推測ツール（Setting Analyzer Pro）は、パチスロの実戦データからベイズ推定を用いて設定を確率的に推測するWebアプリケーションです。天井期待値の計算にも対応し、立ち回りの判断材料としてお使いいただけます。</p>
+
+                    <h2>主な機能</h2>
+
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <span class="feature-icon">&#127920;</span>
+                            <div>
+                                <h3>設定推測</h3>
+                                <p>総ゲーム数、BIG・REG回数、小役回数を入力すると、ベイズ推定（統計的手法）により各設定の推定確率を算出します。データが多いほど精度が高まります。</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">&#128200;</span>
+                            <div>
+                                <h3>推測要素の表示</h3>
+                                <p>BIG確率、REG確率、合算確率、小役確率について、実測値と各設定のスペック値を比較し、推測の根拠を分かりやすく表示します。</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">&#127919;</span>
+                            <div>
+                                <h3>天井期待値計算</h3>
+                                <p>AT/ART機について、現在のゲーム数から天井到達までの期待値を計算します。狙い目ゲーム数の参考にできます。</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">&#128203;</span>
+                            <div>
+                                <h3>機種スペック表</h3>
+                                <p>選択した機種の全設定のスペック（ボーナス確率、機械割など）を一覧で表示します。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>対応機種</h2>
+                    <p>Aタイプ（ジャグラーシリーズ、ハナハナシリーズなど）からAT/ART機（スマスロ）まで、現行の人気機種を幅広く収録しています。機種データは随時更新しています。</p>
+
+                    <h2>使い方</h2>
+                    <ol>
+                        <li>トップページで機種を選択（テキスト入力で絞り込み可能）</li>
+                        <li>データカウンターの数値（総ゲーム数、BIG回数、REG回数など）を入力</li>
+                        <li>「推測する」ボタンをタップ</li>
+                        <li>設定推測結果・推測要素・天井情報・機種スペック表が表示されます</li>
+                    </ol>
+
+                    <h2>推測の仕組み</h2>
+                    <p>本アプリはベイズ推定と呼ばれる統計的手法を採用しています。各設定のボーナス確率をもとに、入力された実測データが得られる「尤もらしさ（尤度）」を計算し、設定ごとの事後確率を求めます。計算には対数尤度とLog-Sum-Expトリックを用いて数値的安定性を確保しています。</p>
+
+                    <h2>注意事項</h2>
+                    <ul>
+                        <li>本アプリの推測結果はあくまで統計的な参考値です。実際の設定を保証するものではありません。</li>
+                        <li>パチスロは適度に楽しむ遊びです。のめり込みに注意しましょう。</li>
+                        <li>機種データは公開情報に基づいていますが、誤りがある場合はお問い合わせよりご連絡ください。</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="terms.html">利用規約</a>
+                <a href="contact.html">お問い合わせ</a>
+                <a href="about.html">アプリについて</a>
+            </div>
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+</body>
+</html>
