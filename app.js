@@ -1036,6 +1036,21 @@ function renderSettingResults(posteriors, machine) {
 }
 
 // ============================================================
+// 設定推測要素ページURL
+// ============================================================
+const GUESS_ELEMENT_PAGES = {
+    banchou4: "setGuessElement/oshiBanchou4/index.html",
+    discup_ultraremix: "setGuessElement/discupUltraremix/index.html",
+    umineko2: "setGuessElement/umineko2/index.html",
+    crea_hihouden: "setGuessElement/creaHihouden/index.html",
+    eva_bt: "setGuessElement/evaBt/index.html"
+};
+
+function getGuessElementUrl(machineId) {
+    return GUESS_ELEMENT_PAGES[machineId] || null;
+}
+
+// ============================================================
 // 描画: 推測要素
 // ============================================================
 function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
@@ -1100,6 +1115,14 @@ function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
         `;
         $factorResults.appendChild(el);
     });
+
+    const geUrl = getGuessElementUrl(machine.id);
+    if (geUrl) {
+        const linkBox = document.createElement("div");
+        linkBox.className = "ge-link-box";
+        linkBox.innerHTML = `<a href="${geUrl}">&#128270; その他の設定推測要素はこちら</a>`;
+        $factorResults.appendChild(linkBox);
+    }
 }
 
 function findClosestSetting(machine, key, actualDenom) {

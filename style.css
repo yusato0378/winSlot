@@ -772,3 +772,30 @@ input::placeholder {
         text-align: left;
     }
 }
+
+/* ---- Guess Element Link (in factor results) ---- */
+.ge-link-box {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.ge-link-box a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    background: rgba(38, 198, 218, 0.08);
+    border: 1px solid rgba(38, 198, 218, 0.2);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.ge-link-box a:hover {
+    background: rgba(38, 198, 218, 0.15);
+    color: #fff;
+    border-color: rgba(38, 198, 218, 0.4);
+}
