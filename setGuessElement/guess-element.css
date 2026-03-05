@@ -1,0 +1,356 @@
+/* ========================================
+   設定推測要素ページ 共通スタイル
+   ======================================== */
+
+.ge-container {
+    max-width: 760px;
+}
+
+/* ---- TOC Navigation ---- */
+.ge-nav {
+    padding: 20px 24px;
+}
+
+.ge-toc {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+}
+
+.ge-toc li a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+    border-left: 2px solid rgba(100, 120, 255, 0.15);
+}
+
+.ge-toc li a:hover {
+    color: var(--accent-gold);
+    background: var(--accent-gold-dim);
+    border-left-color: var(--accent-gold);
+}
+
+/* ---- Section ---- */
+.ge-section {
+    scroll-margin-top: 20px;
+}
+
+.ge-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.ge-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.ge-sub-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin: 24px 0 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent-cyan);
+}
+
+/* ---- Screen Grid (終了画面カード) ---- */
+.ge-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.ge-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.ge-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ge-screen-card {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid rgba(100, 120, 255, 0.12);
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.ge-screen-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 213, 79, 0.3);
+}
+
+.ge-screen-img {
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ge-screen-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ge-screen-placeholder {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.25);
+    text-align: center;
+}
+
+.ge-screen-info {
+    padding: 10px 12px;
+    background: rgba(15, 17, 35, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ge-screen-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ---- Badges ---- */
+.ge-badge,
+.ge-badge-inline {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.ge-badge-default {
+    background: rgba(157, 164, 199, 0.12);
+    color: var(--text-muted);
+}
+
+.ge-badge-even {
+    background: rgba(38, 198, 218, 0.12);
+    color: var(--accent-cyan);
+}
+
+.ge-badge-high-weak {
+    background: rgba(102, 187, 106, 0.12);
+    color: var(--accent-green);
+}
+
+.ge-badge-high-strong {
+    background: rgba(255, 167, 38, 0.15);
+    color: var(--setting-5);
+}
+
+.ge-badge-confirm2 {
+    background: rgba(38, 198, 218, 0.15);
+    color: var(--setting-2);
+}
+
+.ge-badge-confirm3 {
+    background: rgba(102, 187, 106, 0.15);
+    color: var(--setting-3);
+}
+
+.ge-badge-confirm4 {
+    background: rgba(253, 216, 53, 0.15);
+    color: var(--setting-4);
+}
+
+.ge-badge-confirm5 {
+    background: rgba(255, 167, 38, 0.18);
+    color: var(--setting-5);
+}
+
+.ge-badge-confirm6 {
+    background: rgba(239, 83, 80, 0.18);
+    color: var(--setting-6);
+}
+
+/* ---- Setting Table Enhancements ---- */
+.ge-table {
+    margin: 8px 0;
+}
+
+.ge-table th {
+    font-size: 0.8rem;
+}
+
+.ge-table td {
+    font-size: 0.85rem;
+}
+
+.ge-table-setting tbody tr:hover {
+    background: rgba(255, 213, 79, 0.06);
+}
+
+.ge-setting {
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.ge-setting.s1 { color: var(--setting-1); }
+.ge-setting.s2 { color: var(--setting-2); }
+.ge-setting.s3 { color: var(--setting-3); }
+.ge-setting.s4 { color: var(--setting-4); }
+.ge-setting.s5 { color: var(--setting-5); }
+.ge-setting.s6 { color: var(--setting-6); }
+
+.ge-col-diff {
+    font-size: 0.72rem !important;
+    color: var(--text-muted) !important;
+}
+
+.ge-diff-base {
+    color: var(--text-muted);
+}
+
+.ge-diff-up {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.ge-diff-up2 {
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.ge-diff-up3 {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+/* ---- Highlight Box ---- */
+.ge-highlight-box {
+    padding: 16px 20px;
+    background: rgba(255, 213, 79, 0.06);
+    border: 1px solid rgba(255, 213, 79, 0.15);
+    border-radius: var(--radius-sm);
+    margin: 12px 0;
+}
+
+.ge-highlight-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+}
+
+.ge-highlight-list {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.ge-highlight-list li::before {
+    content: "▸ ";
+    color: var(--accent-gold);
+}
+
+.ge-highlight-list li strong {
+    color: var(--text-primary);
+}
+
+/* ---- External Link ---- */
+.ge-external-link {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.ge-external-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    background: rgba(38, 198, 218, 0.08);
+    border: 1px solid rgba(38, 198, 218, 0.2);
+    border-radius: var(--radius-sm);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ge-external-link a:hover {
+    background: rgba(38, 198, 218, 0.15);
+    color: #fff;
+    border-color: rgba(38, 198, 218, 0.4);
+}
+
+/* ---- Bottom Back Button ---- */
+.ge-back-bottom {
+    margin: 24px 0 12px;
+    text-align: center;
+}
+
+.ge-back-btn {
+    display: inline-flex !important;
+    width: auto;
+    padding: 14px 36px;
+    text-decoration: none;
+}
+
+/* ---- Guess Element Link (main page) ---- */
+.ge-link-box {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.ge-link-box a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    background: rgba(38, 198, 218, 0.08);
+    border: 1px solid rgba(38, 198, 218, 0.2);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.ge-link-box a:hover {
+    background: rgba(38, 198, 218, 0.15);
+    color: #fff;
+    border-color: rgba(38, 198, 218, 0.4);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 520px) {
+    .ge-toc {
+        grid-template-columns: 1fr;
+    }
+
+    .ge-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .ge-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ge-screen-info {
+        padding: 8px 10px;
+    }
+
+    .ge-highlight-box {
+        padding: 14px 16px;
+    }
+}
