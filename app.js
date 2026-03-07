@@ -679,11 +679,14 @@ const $machineInfoBar   = document.getElementById("machine-info-bar");
 const $machineTypeBadge = document.getElementById("machine-type-badge");
 const $machineCeilingInfo = document.getElementById("machine-ceiling-info");
 const $resultsSection = document.getElementById("results-section");
+const $settingSection = document.getElementById("setting-section");
 const $settingResults = document.getElementById("setting-results");
 const $mostLikely    = document.getElementById("most-likely");
+const $factorSection = document.getElementById("factor-section");
 const $factorResults = document.getElementById("factor-results");
 const $ceilingSection = document.getElementById("ceiling-section");
 const $ceilingResults = document.getElementById("ceiling-results");
+const $specSection   = document.getElementById("spec-section");
 const $specTable     = document.getElementById("spec-table");
 const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
@@ -904,16 +907,39 @@ function onAnalyze(e) {
     const regCount    = parseInt($regCount.value) || 0;
     const koyakuCount = parseInt($koyakuCount.value) || 0;
 
-    if (totalGames <= 0) { alert("総ゲーム数を入力してください"); return; }
+    const hasTotalGames = totalGames > 0;
+    const hasCurrentGames = currentGames > 0;
+    const ceilingOnly = !hasTotalGames && hasCurrentGames;
 
-    const results = estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount);
-    renderSettingResults(results, machine);
-    renderFactors(machine, totalGames, bigCount, regCount, koyakuCount);
+    if (!hasTotalGames && !hasCurrentGames) {
+        alert("総ゲーム数または現在ゲーム数を入力してください");
+        return;
+    }
+
+    if (hasTotalGames) {
+        const results = estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount);
+        renderSettingResults(results, machine);
+        renderFactors(machine, totalGames, bigCount, regCount, koyakuCount);
+        renderSpecTable(machine);
+        $settingSection.style.display = "";
+        $factorSection.style.display = "";
+        $specSection.style.display = "";
+    } else {
+        $settingSection.style.display = "none";
+        $factorSection.style.display = "none";
+        $specSection.style.display = "none";
+    }
+
     renderCeiling(machine, currentGames);
-    renderSpecTable(machine);
+
+    if (ceilingOnly && (!machine.ceiling || machine.ceiling <= 0)) {
+        alert("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
+        return;
+    }
 
     $resultsSection.style.display = "";
-    $resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    const scrollTarget = ceilingOnly ? $ceilingSection : $resultsSection;
+    scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function onReset() {
@@ -923,6 +949,9 @@ function onReset() {
     $bonusProb.value = "";
     $machineInfoBar.style.display = "none";
     $resultsSection.style.display = "none";
+    $settingSection.style.display = "";
+    $factorSection.style.display = "";
+    $specSection.style.display = "";
     $regCount.closest(".form-group").style.display = "";
     $koyakuCount.closest(".form-group").style.display = "";
     $bigLabel.textContent = "BIG回数";

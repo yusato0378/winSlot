@@ -316,6 +316,18 @@ input::placeholder {
     border-color: rgba(38, 198, 218, 0.25);
 }
 
+.form-hint {
+    margin-top: 4px;
+    margin-bottom: 2px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+    background: rgba(38, 198, 218, 0.08);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: var(--radius-sm);
+    line-height: 1.6;
+}
+
 /* ---- Buttons ---- */
 .form-actions {
     display: flex;

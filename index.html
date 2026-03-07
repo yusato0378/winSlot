@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="google-adsense-account" content="ca-pub-9806077794369384">
-    <title>パチスロ設定推測ツール</title>
+    <title>パチスロ設定推測・期待値計算ツール | Setting Analyzer Pro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
     <div class="app-container">
         <header class="app-header">
             <div class="header-inner">
-                <h1 class="app-title">パチスロ設定推測ツール</h1>
+                <h1 class="app-title">パチスロ設定推測・期待値計算ツール</h1>
                 <p class="app-subtitle">Setting Analyzer Pro</p>
             </div>
         </header>
@@ -48,7 +48,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="total-games">総ゲーム数</label>
-                            <input type="number" id="total-games" min="0" placeholder="例: 5000" required>
+                            <input type="number" id="total-games" min="0" placeholder="例: 5000">
                         </div>
                         <div class="form-group">
                             <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから)</span></label>
@@ -59,7 +59,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="big-count" id="big-label">BIG回数</label>
-                            <input type="number" id="big-count" min="0" placeholder="例: 18" required>
+                            <input type="number" id="big-count" min="0" placeholder="例: 18">
                         </div>
                         <div class="form-group">
                             <label for="reg-count" id="reg-label">REG回数</label>
@@ -78,6 +78,8 @@
                         </div>
                     </div>
 
+                    <p class="form-hint">&#128161; 機種名＋現在ゲーム数だけで天井期待値を計算できます</p>
+
                     <div class="form-actions">
                         <button type="submit" class="btn-primary" id="analyze-btn">
                             <span class="btn-icon">&#9889;</span>
@@ -92,7 +94,7 @@
             <div id="results-section" class="results-section" style="display:none;">
 
                 <!-- 設定推測結果 -->
-                <section class="card result-card">
+                <section class="card result-card" id="setting-section">
                     <h2 class="card-title">
                         <span class="card-icon">&#127920;</span>
                         設定推測結果
@@ -102,7 +104,7 @@
                 </section>
 
                 <!-- 推測要素 -->
-                <section class="card result-card">
+                <section class="card result-card" id="factor-section">
                     <h2 class="card-title">
                         <span class="card-icon">&#128200;</span>
                         推測要素
@@ -120,7 +122,7 @@
                 </section>
 
                 <!-- 機種スペック表 -->
-                <section class="card result-card">
+                <section class="card result-card" id="spec-section">
                     <h2 class="card-title">
                         <span class="card-icon">&#128203;</span>
                         機種スペック表
