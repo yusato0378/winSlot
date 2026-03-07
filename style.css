@@ -811,3 +811,58 @@ input::placeholder {
     color: #fff;
     border-color: rgba(38, 198, 218, 0.4);
 }
+
+/* ---- 対応機種一覧 ---- */
+.machine-list-section {
+    margin-top: 32px;
+}
+
+.machine-list-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.machine-list-group-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin: 20px 0 10px;
+    padding-left: 4px;
+    border-left: 3px solid var(--accent-gold);
+    padding-left: 10px;
+}
+
+.machine-link-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px;
+}
+
+.machine-link-list li {
+    padding: 0;
+}
+
+.machine-link-list a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 0.88rem;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.machine-link-list a:hover {
+    background: rgba(38, 198, 218, 0.1);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .machine-link-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}

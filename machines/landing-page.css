@@ -1,0 +1,187 @@
+/* ========================================
+   機種別ランディングページ - Style
+   ======================================== */
+
+.lp-container {
+    max-width: 860px;
+}
+
+/* パンくずリスト */
+.lp-breadcrumb {
+    margin-bottom: 16px;
+    font-size: 0.82rem;
+}
+
+.lp-breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lp-breadcrumb li {
+    color: var(--text-muted);
+}
+
+.lp-breadcrumb li + li::before {
+    content: "›";
+    margin-right: 6px;
+    color: var(--text-muted);
+}
+
+.lp-breadcrumb a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+}
+
+.lp-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* 目次 */
+.lp-toc {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+}
+
+.lp-toc li {
+    margin-bottom: 6px;
+}
+
+.lp-toc li::before {
+    content: "▸ ";
+    color: var(--accent-gold);
+}
+
+.lp-toc a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.lp-toc a:hover {
+    text-decoration: underline;
+}
+
+/* セクション */
+.lp-section {
+    margin-bottom: 24px;
+}
+
+.lp-desc {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.lp-desc strong {
+    color: var(--accent-gold);
+}
+
+.lp-note {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* スペック表 */
+.lp-spec-table {
+    width: 100%;
+}
+
+/* 天井情報カード */
+.lp-ceiling-info {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.lp-ceiling-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 16px;
+    background: rgba(100, 120, 255, 0.08);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-sm);
+    text-align: center;
+}
+
+.lp-ceil-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.lp-ceil-val {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+/* EV テーブル */
+.lp-ev-table {
+    width: 100%;
+}
+
+.lp-ev-table td.positive,
+.lp-ev-table tr.positive td:nth-child(2) {
+    color: var(--accent-green);
+    font-weight: 700;
+}
+
+.lp-ev-table td.negative,
+.lp-ev-table tr.negative td:nth-child(2) {
+    color: var(--accent-red);
+}
+
+.lp-ev-table tr.positive {
+    background: rgba(102, 187, 106, 0.06);
+}
+
+/* CTA */
+.lp-cta {
+    text-align: center;
+    margin: 16px 0 8px;
+}
+
+.lp-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+/* 戻るボタン */
+.lp-back-bottom {
+    text-align: center;
+    margin: 32px 0 16px;
+}
+
+.lp-back-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 28px;
+}
+
+/* レスポンシブ */
+@media (max-width: 600px) {
+    .lp-ceiling-info {
+        flex-direction: column;
+    }
+
+    .lp-ceiling-item {
+        min-width: auto;
+    }
+
+    .lp-ev-table {
+        font-size: 0.82rem;
+    }
+}
