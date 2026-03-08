@@ -105,7 +105,7 @@ const MACHINES = [
     },
     {
         id: "discup_ultraremix",
-        name: "ディスクアップ ULTRAREMIX",
+        name: "A-SLOT+ ディスクアップ ULTRAREMIX",
         type: "A",
         bigLabel: "BIG",
         regLabel: "REG",
@@ -192,7 +192,7 @@ const MACHINES = [
     },
     {
         id: "valvrave",
-        name: "ヴァルヴレイヴ",
+        name: "革命機ヴァルヴレイヴ",
         type: "AT",
         bigLabel: "CZ初当たり",
         regLabel: "ボーナス",
@@ -227,7 +227,7 @@ const MACHINES = [
     },
     {
         id: "tokyo_ghoul",
-        name: "L東京喰種",
+        name: "L 東京喰種",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: "CZ初当たり",
@@ -281,7 +281,7 @@ const MACHINES = [
     },
     {
         id: "bakemonogatari",
-        name: "スマスロ化物語",
+        name: "スマスロ 化物語",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: null,
@@ -336,7 +336,7 @@ const MACHINES = [
     },
     {
         id: "koukaku",
-        name: "攻殻機動隊",
+        name: "スマスロ 攻殻機動隊",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: "CZ初当たり",
@@ -354,7 +354,7 @@ const MACHINES = [
     },
     {
         id: "dmc5",
-        name: "デビルメイクライ5",
+        name: "デビル メイ クライ 5",
         type: "AT",
         bigLabel: "ボーナス",
         regLabel: "ST",
@@ -390,7 +390,7 @@ const MACHINES = [
     },
     {
         id: "hihouden",
-        name: "秘宝伝",
+        name: "スマスロ 秘宝伝",
         type: "AT",
         bigLabel: "初当たり",
         regLabel: null,
@@ -444,7 +444,7 @@ const MACHINES = [
     },
     {
         id: "valvrave2",
-        name: "ヴァルヴレイヴ2",
+        name: "L革命機ヴァルヴレイヴ2",
         type: "AT",
         bigLabel: "初当たり合算",
         regLabel: null,
@@ -479,7 +479,7 @@ const MACHINES = [
     },
     {
         id: "tekken6",
-        name: "鉄拳6",
+        name: "スマスロ 鉄拳6",
         type: "AT",
         bigLabel: "ボーナス",
         regLabel: "AT初当たり",
@@ -515,7 +515,7 @@ const MACHINES = [
     },
     {
         id: "azurlane",
-        name: "アズールレーン",
+        name: "L アズールレーン THE ANIMATION",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: null,
@@ -533,7 +533,7 @@ const MACHINES = [
     },
     {
         id: "zettai4",
-        name: "絶対衝激IV",
+        name: "L 絶対衝激IV",
         type: "AT",
         bigLabel: "ボーナス",
         regLabel: "AT初当たり",
@@ -551,7 +551,7 @@ const MACHINES = [
     },
     {
         id: "railgun2",
-        name: "とある科学の超電磁砲2",
+        name: "スマスロ とある科学の超電磁砲2",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: "CZ初当たり",
@@ -569,7 +569,7 @@ const MACHINES = [
     },
     {
         id: "onimusha3",
-        name: "新鬼武者3",
+        name: "スマスロ 新鬼武者3",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: null,
@@ -587,7 +587,7 @@ const MACHINES = [
     },
     {
         id: "zenigata5",
-        name: "主役は銭形5",
+        name: "L主役は銭形5",
         type: "AT",
         bigLabel: "初当たり",
         regLabel: null,
@@ -604,7 +604,7 @@ const MACHINES = [
     },
     {
         id: "tokyo_revengers",
-        name: "東京リベンジャーズ",
+        name: "スマスロ 東京リベンジャーズ",
         type: "AT",
         bigLabel: "初当たり",
         regLabel: "AT初当たり",
@@ -640,7 +640,7 @@ const MACHINES = [
     },
     {
         id: "monhan_rise",
-        name: "モンスターハンターライズ",
+        name: "スマスロ モンスターハンターライズ",
         type: "AT",
         bigLabel: "AT初当たり",
         regLabel: null,
