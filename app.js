@@ -655,6 +655,219 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
         avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "enen2",
+        name: "Lパチスロ 炎炎ノ消防隊2",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: "炎炎ループ",
+        koyakuName: null,
+        settings: {
+            1: { big: 272, reg: 684, koyaku: null, payout: 97.7 },
+            2: { big: 269, reg: 662, koyaku: null, payout: 98.8 },
+            3: { big: 257, reg: 617, koyaku: null, payout: 101.2 },
+            4: { big: 242, reg: 546, koyaku: null, payout: 105.6 },
+            5: { big: 236, reg: 518, koyaku: null, payout: 110.2 },
+            6: { big: 227, reg: 486, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 850, ceilingTarget: 550, ceilingReward: 600,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "magireco",
+        name: "スマスロ マギアレコード 魔法少女まどか☆マギカ外伝",
+        type: "AT",
+        bigLabel: "ボーナス初当たり",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 240.6, reg: 654.6, koyaku: null, payout: 97.6 },
+            2: { big: 236.1, reg: 633.4, koyaku: null, payout: 98.9 },
+            3: { big: 222.8, reg: 571.8, koyaku: null, payout: 102.0 },
+            4: { big: 208.5, reg: 516.6, koyaku: null, payout: 106.0 },
+            5: { big: 195.1, reg: 456.5, koyaku: null, payout: 110.4 },
+            6: { big: 184.3, reg: 416.7, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 950, ceilingTarget: 550, ceilingReward: 500,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "okidoki_duo",
+        name: "スマスロ 沖ドキ！DUO アンコール",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 240.0, reg: null, koyaku: null, payout: 97.2 },
+            2: { big: 230.2, reg: null, koyaku: null, payout: 98.6 },
+            3: { big: 215.8, reg: null, koyaku: null, payout: 102.4 },
+            5: { big: 192.1, reg: null, koyaku: null, payout: 106.8 },
+            6: { big: 181.0, reg: null, koyaku: null, payout: 110.0 }
+        },
+        ceiling: 800, ceilingTarget: 550, ceilingReward: 500,
+        avgBonusReward: 300, normalCostPerGame: 2.0
+    },
+    {
+        id: "mushoku",
+        name: "L 無職転生 ～異世界行ったら本気だす～",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 416, reg: null, koyaku: null, payout: 97.7 },
+            2: { big: 406, reg: null, koyaku: null, payout: 99.1 },
+            3: { big: 394, reg: null, koyaku: null, payout: 100.9 },
+            4: { big: 361, reg: null, koyaku: null, payout: 105.4 },
+            5: { big: 327, reg: null, koyaku: null, payout: 109.5 },
+            6: { big: 292, reg: null, koyaku: null, payout: 113.7 }
+        },
+        ceiling: 1007, ceilingTarget: 600, ceilingReward: 700,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "sbj",
+        name: "スマスロスーパーブラックジャック",
+        type: "AT",
+        bigLabel: "ボーナス初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 241.7, reg: null, koyaku: null, payout: 97.8 },
+            2: { big: 238.8, reg: null, koyaku: null, payout: 98.7 },
+            3: { big: 235.9, reg: null, koyaku: null, payout: 100.1 },
+            4: { big: 201.8, reg: null, koyaku: null, payout: 105.7 },
+            5: { big: 194.9, reg: null, koyaku: null, payout: 110.0 },
+            6: { big: 181.3, reg: null, koyaku: null, payout: 112.7 }
+        },
+        ceiling: 999, ceilingTarget: 580, ceilingReward: 700,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "yoshimune",
+        name: "吉宗",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 378.9, reg: null, koyaku: null, payout: 97.8 },
+            2: { big: 369.6, reg: null, koyaku: null, payout: 99.1 },
+            3: { big: 358.8, reg: null, koyaku: null, payout: 100.6 },
+            4: { big: 335.1, reg: null, koyaku: null, payout: 104.1 },
+            5: { big: 318.5, reg: null, koyaku: null, payout: 107.1 },
+            6: { big: 292.4, reg: null, koyaku: null, payout: 112.0 }
+        },
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 800,
+        avgBonusReward: 600, normalCostPerGame: 2.3
+    },
+    {
+        id: "goblin_slayer2",
+        name: "スマスロ ゴブリンスレイヤーⅡ",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: "CZ初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 541.6, reg: 239.3, koyaku: null, payout: 97.6 },
+            2: { big: 526.4, reg: 232.3, koyaku: null, payout: 98.7 },
+            3: { big: 506.4, reg: 222.9, koyaku: null, payout: 100.4 },
+            4: { big: 453.2, reg: 200.4, koyaku: null, payout: 104.9 },
+            5: { big: 417.8, reg: 187.3, koyaku: null, payout: 109.7 },
+            6: { big: 402.4, reg: 181.9, koyaku: null, payout: 113.2 }
+        },
+        ceiling: 1500, ceilingTarget: 900, ceilingReward: 800,
+        avgBonusReward: 500, normalCostPerGame: 2.3
+    },
+    {
+        id: "otome4",
+        name: "L戦国乙女4 戦乱に閃く炯眼の軍師",
+        type: "AT",
+        bigLabel: "ボーナス+AT合算",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 272.7, reg: 429.2, koyaku: null, payout: 98.2 },
+            2: { big: 267.3, reg: 417.8, koyaku: null, payout: 99.0 },
+            3: { big: 255.3, reg: 393.6, koyaku: null, payout: 101.2 },
+            4: { big: 238.2, reg: 361.3, koyaku: null, payout: 105.2 },
+            5: { big: 223.2, reg: 334.1, koyaku: null, payout: 110.2 },
+            6: { big: 217.1, reg: 319.2, koyaku: null, payout: 113.0 }
+        },
+        ceiling: 799, ceilingTarget: 500, ceilingReward: 500,
+        avgBonusReward: 300, normalCostPerGame: 2.2
+    },
+    {
+        id: "toloveru",
+        name: "L ToLOVEるダークネス",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            2: { big: 352.0, reg: null, koyaku: null, payout: 98.0 },
+            3: { big: 345.7, reg: null, koyaku: null, payout: 99.0 },
+            4: { big: 328.4, reg: null, koyaku: null, payout: 102.5 },
+            5: { big: 311.3, reg: null, koyaku: null, payout: 105.8 },
+            6: { big: 311.1, reg: null, koyaku: null, payout: 110.1 }
+        },
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "baki",
+        name: "Ｌ範馬刃牙",
+        type: "AT",
+        bigLabel: "ボーナス",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 269.4, reg: 525.3, koyaku: null, payout: 97.7 },
+            2: { big: 265.7, reg: 517.1, koyaku: null, payout: 98.5 },
+            3: { big: 258.3, reg: 503.2, koyaku: null, payout: 100.5 },
+            4: { big: 252.1, reg: 484.5, koyaku: null, payout: 105.2 },
+            5: { big: 251.0, reg: 481.9, koyaku: null, payout: 107.9 },
+            6: { big: 250.1, reg: 480.4, koyaku: null, payout: 110.6 }
+        },
+        ceiling: 700, ceilingTarget: 400, ceilingReward: 500,
+        avgBonusReward: 350, normalCostPerGame: 2.2
+    },
+    {
+        id: "biohazard5",
+        name: "スマスロ バイオハザード5",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 325.8, reg: null, koyaku: null, payout: 97.8 },
+            2: { big: 314.4, reg: null, koyaku: null, payout: 98.8 },
+            3: { big: 298.2, reg: null, koyaku: null, payout: 100.6 },
+            4: { big: 271.4, reg: null, koyaku: null, payout: 104.6 },
+            5: { big: 249.6, reg: null, koyaku: null, payout: 108.9 },
+            6: { big: 236.2, reg: null, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "revuestarlight",
+        name: "L少女☆歌劇 レヴュースタァライト -The SLOT-",
+        type: "AT",
+        bigLabel: "ボーナス合算",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 184.8, reg: 359.6, koyaku: null, payout: 97.8 },
+            2: { big: 182.2, reg: 346.8, koyaku: null, payout: 98.8 },
+            4: { big: 169.9, reg: 277.1, koyaku: null, payout: 104.6 },
+            5: { big: 165.4, reg: 255.7, koyaku: null, payout: 106.9 },
+            6: { big: 160.6, reg: 232.5, koyaku: null, payout: 110.0 }
+        },
+        ceiling: 900, ceilingTarget: 550, ceilingReward: 600,
+        avgBonusReward: 400, normalCostPerGame: 2.2
     }
 ];
 
@@ -1098,7 +1311,19 @@ const GUESS_ELEMENT_PAGES = {
     zenigata5: "setGuessElement/zenigata5/index.html",
     tokyo_revengers: "setGuessElement/tokyoRevengers/index.html",
     iza_banchou: "setGuessElement/izaBanchou/index.html",
-    monhan_rise: "setGuessElement/monhanRise/index.html"
+    monhan_rise: "setGuessElement/monhanRise/index.html",
+    enen2: "setGuessElement/enen2/index.html",
+    magireco: "setGuessElement/magireco/index.html",
+    okidoki_duo: "setGuessElement/okidokiDuo/index.html",
+    mushoku: "setGuessElement/mushoku/index.html",
+    sbj: "setGuessElement/sbj/index.html",
+    yoshimune: "setGuessElement/yoshimune/index.html",
+    goblin_slayer2: "setGuessElement/goblinSlayer2/index.html",
+    otome4: "setGuessElement/otome4/index.html",
+    toloveru: "setGuessElement/toloveru/index.html",
+    baki: "setGuessElement/baki/index.html",
+    biohazard5: "setGuessElement/biohazard5/index.html",
+    revuestarlight: "setGuessElement/revuestarlight/index.html"
 };
 
 function getGuessElementUrl(machineId) {
