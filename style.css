@@ -689,6 +689,28 @@ input::placeholder {
     line-height: 1.8;
 }
 
+/* 解説記事一覧（guide/index.html）のリンクリスト */
+.guide-article-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+}
+.guide-article-list li {
+    margin-bottom: 8px;
+}
+.guide-article-list a {
+    display: block;
+    padding: 10px 14px;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition), color var(--transition);
+}
+.guide-article-list a:hover {
+    background: rgba(38, 198, 218, 0.1);
+    color: #fff;
+}
+
 .page-body li {
     margin-bottom: 4px;
 }
