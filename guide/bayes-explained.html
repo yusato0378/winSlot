@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
+    <meta name="description" content="ベイズ推定とは何か、実戦データがどう使われるか、確率の％で表示する理由を一般向けにやさしく解説します。">
+    <title>ベイズ推定で設定を推測する仕組みをわかりやすく解説 | Setting Analyzer Pro</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <p class="app-subtitle"><a href="../index.html" class="back-link">&larr; トップに戻る</a></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="card page-card">
+    <h1 class="page-title">ベイズ推定で設定を推測する仕組みをわかりやすく解説</h1>
+    <div class="page-body">
+        <p>当サイトの設定推測は「ベイズ推定」という統計手法を使っています。難しそうに聞こえますが、考え方自体はとてもシンプルです。この記事では、ベイズ推定の仕組みをパチスロの文脈でやさしく解説します。</p>
+
+        <h2>ベイズ推定を日常の感覚で理解する</h2>
+        <p>朝起きて空を見たら曇っていたとします。「午後は雨かもしれないな」と感じるでしょう。これが<strong>事前のイメージ（事前確率）</strong>です。</p>
+        <p>しかしスマホで気圧の上昇を確認したら、「やっぱり晴れそうだ」と予想を修正しますよね。このように<strong>新しいデータが手に入るたびに予想を更新する</strong>のが、ベイズ推定の核心です。</p>
+
+        <h2>パチスロではどう使うのか</h2>
+        <p>各機種のボーナス確率は設定ごとに公表されています。たとえば「設定1のBIG確率は1/280、設定6なら1/240」といった情報です。</p>
+        <p>打ち始めの段階では「どの設定も均等にありえる」と仮定します（事前確率）。そこに実戦データ——BIG回数・REG回数——を加えると、設定ごとに「このデータが出る確率（<strong>尤度</strong>）」が計算できます。</p>
+        <p>BIG・REGがよく当たっていれば、高設定の尤度が高くなります。逆にハマりが深ければ低設定の尤度が高くなります。事前確率と尤度を掛け合わせ、合計が100%になるように正規化したものが<strong>事後確率</strong>——つまりツールに表示される「設定○の確率○%」です。</p>
+
+        <h2>なぜ「確率」で表示するのか</h2>
+        <p>「設定6に確定！」と断言するのは統計的に正しくありません。同じ設定でも試行回数が少なければ結果は大きくブレるからです。</p>
+        <p>たとえば設定1でも、たまたま1,000ゲームでBIGが10回当たることはあります。その瞬間だけ見れば高設定に見えますが、3,000ゲーム、5,000ゲームとデータが増えるにつれて本来の確率に収束していきます。</p>
+        <p>確率で表示することで「可能性が高い」と「確定」の違いを正しく伝え、過信を防ぐことができます。</p>
+
+        <h2>データが少ないときの限界</h2>
+        <p>1,000ゲーム以下のデータでは偏りが非常に大きく、推測結果が大きく振れます。ツールを使う際は<strong>最低でも2,000〜3,000ゲーム</strong>のデータがある状態で参照するのがおすすめです。データが多いほど推測の精度は高まり、5,000ゲーム以上あればかなり信頼できる傾向が見えてきます。</p>
+
+        <p>※ パチスロは適度に楽しむ遊びです。のめり込みに注意しましょう。</p>
+    </div>
+</section>
+
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <a href="../terms.html">利用規約</a>
+                <a href="../contact.html">お問い合わせ</a>
+                <a href="../about.html">アプリについて</a>
+            </div>
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+</body>
+</html>
