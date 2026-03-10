@@ -142,6 +142,7 @@ body {
 
 input[type="number"],
 input[type="text"],
+input[type="email"],
 select {
     width: 100%;
     padding: 10px 14px;
