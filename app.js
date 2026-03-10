@@ -135,7 +135,7 @@ const MACHINES = [
             5: { big: 171.3, reg: 307.3, koyaku: null, payout: 108.4 },
             6: { big: 151.3, reg: 290.6, koyaku: null, payout: 110.0 }
         },
-        ceiling: 1000, ceilingTarget: 550, ceilingReward: 600,
+        ceiling: 1000, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
@@ -153,7 +153,7 @@ const MACHINES = [
             5: { big: 225.3, reg: null, koyaku: null, payout: 110.0 },
             6: { big: 221.1, reg: null, koyaku: null, payout: 113.1 }
         },
-        ceiling: 699, ceilingTarget: 450, ceilingReward: 500,
+        ceiling: 699, ceilingTarget: 450, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -170,7 +170,7 @@ const MACHINES = [
             5: { big: 258.7, reg: null, koyaku: null, payout: 110.0 },
             6: { big: 235.1, reg: null, koyaku: null, payout: 113.0 }
         },
-        ceiling: 1268, ceilingTarget: 800, ceilingReward: 1500,
+        ceiling: 1268, ceilingTarget: 800, ceilingReward: 1500, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 800, normalCostPerGame: 2.5
     },
     {
@@ -187,7 +187,7 @@ const MACHINES = [
             5: { big: 451, reg: 277, koyaku: null, payout: 108.1 },
             6: { big: 447, reg: 275, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1200, ceilingTarget: 800, ceilingReward: 500,
+        ceiling: 1200, ceilingTarget: 800, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
@@ -205,7 +205,7 @@ const MACHINES = [
             5: { big: 264, reg: 499, koyaku: null, payout: 107.9 },
             6: { big: 258, reg: 490, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1000, ceilingTarget: 700, ceilingReward: 400,
+        ceiling: 1000, ceilingTarget: 700, ceilingReward: 400, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.0
     },
     {
@@ -222,7 +222,7 @@ const MACHINES = [
             5: { big: 235.7, reg: null, koyaku: null, payout: 110.2 },
             6: { big: 222.9, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 795, ceilingTarget: 500, ceilingReward: 600,
+        ceiling: 795, ceilingTarget: 500, ceilingReward: 600, resetCeiling: 495, resetCeilingTarget: 300,
         avgBonusReward: 400, normalCostPerGame: 2.4
     },
     {
@@ -240,7 +240,7 @@ const MACHINES = [
             5: { big: 291.2, reg: 216.4, koyaku: null, payout: 110.3 },
             6: { big: 261.3, reg: 203.7, koyaku: null, payout: 114.9 }
         },
-        ceiling: 600, ceilingTarget: 350, ceilingReward: 500,
+        ceiling: 600, ceilingTarget: 350, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 50,
         avgBonusReward: 350, normalCostPerGame: 2.2
     },
     {
@@ -258,7 +258,7 @@ const MACHINES = [
             5: { big: 343, reg: null, koyaku: null, payout: 110.8 },
             6: { big: 335, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1100, ceilingTarget: 700, ceilingReward: 1000,
+        ceiling: 1100, ceilingTarget: 700, ceilingReward: 1000, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 600, normalCostPerGame: 2.0
     },
     {
@@ -276,7 +276,7 @@ const MACHINES = [
             5: { big: 302.2, reg: null, koyaku: null, payout: 110.0 },
             6: { big: 290.3, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1000, ceilingTarget: 600, ceilingReward: 1000,
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 1000, resetCeiling: 600, resetCeilingTarget: 300,
         avgBonusReward: 600, normalCostPerGame: 2.3
     },
     {
@@ -294,7 +294,7 @@ const MACHINES = [
             5: { big: 230.8, reg: null, koyaku: null, payout: 107.8 },
             6: { big: 219.6, reg: null, koyaku: null, payout: 112.1 }
         },
-        ceiling: 1000, ceilingTarget: 600, ceilingReward: 500,
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 500, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -312,7 +312,7 @@ const MACHINES = [
             5: { big: 283.2, reg: null, koyaku: null, payout: 111.1 },
             6: { big: 273.1, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1536, ceilingTarget: 900, ceilingReward: 1000,
+        ceiling: 1536, ceilingTarget: 900, ceilingReward: 1000, resetCeiling: 1280, resetCeilingTarget: 750,
         avgBonusReward: 600, normalCostPerGame: 2.3
     },
     // ==================== 2025〜2026年 新台 ====================
@@ -349,7 +349,7 @@ const MACHINES = [
             5: { big: 285.8, reg: 214.0, koyaku: null, payout: 109.3 },
             6: { big: 278.0, reg: 210.1, koyaku: null, payout: 112.2 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 600,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -367,7 +367,7 @@ const MACHINES = [
             5: { big: 217.3, reg: 329.5, koyaku: null, payout: 109.2 },
             6: { big: 204.1, reg: 303.9, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1000, ceilingTarget: 600, ceilingReward: 800,
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 800, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 500, normalCostPerGame: 2.2
     },
     {
@@ -403,7 +403,7 @@ const MACHINES = [
             5: { big: 264.0, reg: null, koyaku: null, payout: 110.1 },
             6: { big: 246.0, reg: null, koyaku: null, payout: 114.7 }
         },
-        ceiling: 799, ceilingTarget: 550, ceilingReward: 400,
+        ceiling: 799, ceilingTarget: 550, ceilingReward: 400, resetCeiling: 499, resetCeilingTarget: 300,
         avgBonusReward: 300, normalCostPerGame: 2.1
     },
     {
@@ -421,7 +421,7 @@ const MACHINES = [
             5: { big: 325.9, reg: null, koyaku: null, payout: 109.1 },
             6: { big: 312.8, reg: null, koyaku: null, payout: 112.1 }
         },
-        ceiling: 970, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 970, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
@@ -456,7 +456,7 @@ const MACHINES = [
             5: { big: 459, reg: null, koyaku: null, payout: 110.8 },
             6: { big: 456, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1500, ceilingTarget: 700, ceilingReward: 1200,
+        ceiling: 1500, ceilingTarget: 700, ceilingReward: 1200, resetCeiling: 1000, resetCeilingTarget: 500,
         avgBonusReward: 800, normalCostPerGame: 2.0
     },
     {
@@ -474,7 +474,7 @@ const MACHINES = [
             5: { big: 236, reg: null, koyaku: null, payout: 110.2 },
             6: { big: 227, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 850, ceilingTarget: 550, ceilingReward: 600,
+        ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -492,7 +492,7 @@ const MACHINES = [
             5: { big: 220.3, reg: 366.4, koyaku: null, payout: 110.3 },
             6: { big: 218.5, reg: 358.5, koyaku: null, payout: 114.9 }
         },
-        ceiling: 900, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 900, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 500, resetCeilingTarget: 300,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -510,7 +510,7 @@ const MACHINES = [
             5: { big: 290.1, reg: null, koyaku: null, payout: 110.1 },
             6: { big: 278.6, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 899, ceilingTarget: 550, ceilingReward: 700,
+        ceiling: 899, ceilingTarget: 550, ceilingReward: 700, resetCeiling: 555, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -528,7 +528,7 @@ const MACHINES = [
             5: { big: 483.0, reg: null, koyaku: null, payout: 110.6 },
             6: { big: 467.5, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 2000, ceilingTarget: 1200, ceilingReward: 1200,
+        ceiling: 2000, ceilingTarget: 1200, ceilingReward: 1200, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 600, normalCostPerGame: 2.3
     },
     {
@@ -564,7 +564,7 @@ const MACHINES = [
             5: { big: 248.1, reg: 145.7, koyaku: null, payout: 110.0 },
             6: { big: 235.3, reg: 137.5, koyaku: null, payout: 112.9 }
         },
-        ceiling: 999, ceilingTarget: 550, ceilingReward: 600,
+        ceiling: 999, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -582,7 +582,7 @@ const MACHINES = [
             5: { big: 297.9, reg: null, koyaku: null, payout: 109.2 },
             6: { big: 293.1, reg: null, koyaku: null, payout: 113.0 }
         },
-        ceiling: 1000, ceilingTarget: 500, ceilingReward: 700,
+        ceiling: 1000, ceilingTarget: 500, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
@@ -599,7 +599,7 @@ const MACHINES = [
             5: { big: 375.9, reg: null, koyaku: null, payout: 107.1 },
             6: { big: 300.5, reg: null, koyaku: null, payout: 112.1 }
         },
-        ceiling: 1250, ceilingTarget: 800, ceilingReward: 800,
+        ceiling: 1250, ceilingTarget: 800, ceilingReward: 800, resetCeiling: 850, resetCeilingTarget: 500,
         avgBonusReward: 500, normalCostPerGame: 2.3
     },
     {
@@ -617,7 +617,7 @@ const MACHINES = [
             5: { big: 249.1, reg: 393.8, koyaku: null, payout: 111.2 },
             6: { big: 240.1, reg: 373.1, koyaku: null, payout: 114.9 }
         },
-        ceiling: 1190, ceilingTarget: 700, ceilingReward: 800,
+        ceiling: 1190, ceilingTarget: 700, ceilingReward: 800, resetCeiling: 900, resetCeilingTarget: 550,
         avgBonusReward: 500, normalCostPerGame: 2.2
     },
     {
@@ -635,7 +635,7 @@ const MACHINES = [
             5: { big: 351.6, reg: null, koyaku: null, payout: 112.1 },
             6: { big: 312.1, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
@@ -653,7 +653,7 @@ const MACHINES = [
             5: { big: 237.1, reg: null, koyaku: null, payout: 110.1 },
             6: { big: 230.8, reg: null, koyaku: null, payout: 114.3 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -671,7 +671,7 @@ const MACHINES = [
             5: { big: 236, reg: 518, koyaku: null, payout: 110.2 },
             6: { big: 227, reg: 486, koyaku: null, payout: 114.9 }
         },
-        ceiling: 850, ceilingTarget: 550, ceilingReward: 600,
+        ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -689,7 +689,7 @@ const MACHINES = [
             5: { big: 195.1, reg: 456.5, koyaku: null, payout: 110.4 },
             6: { big: 184.3, reg: 416.7, koyaku: null, payout: 114.9 }
         },
-        ceiling: 950, ceilingTarget: 550, ceilingReward: 500,
+        ceiling: 950, ceilingTarget: 550, ceilingReward: 500, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -706,7 +706,7 @@ const MACHINES = [
             5: { big: 192.1, reg: null, koyaku: null, payout: 106.8 },
             6: { big: 181.0, reg: null, koyaku: null, payout: 110.0 }
         },
-        ceiling: 800, ceilingTarget: 550, ceilingReward: 500,
+        ceiling: 800, ceilingTarget: 550, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.0
     },
     {
@@ -724,7 +724,7 @@ const MACHINES = [
             5: { big: 327, reg: null, koyaku: null, payout: 109.5 },
             6: { big: 292, reg: null, koyaku: null, payout: 113.7 }
         },
-        ceiling: 1007, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 1007, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 689, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -742,7 +742,7 @@ const MACHINES = [
             5: { big: 194.9, reg: null, koyaku: null, payout: 110.0 },
             6: { big: 181.3, reg: null, koyaku: null, payout: 112.7 }
         },
-        ceiling: 999, ceilingTarget: 580, ceilingReward: 700,
+        ceiling: 999, ceilingTarget: 580, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -760,7 +760,7 @@ const MACHINES = [
             5: { big: 318.5, reg: null, koyaku: null, payout: 107.1 },
             6: { big: 292.4, reg: null, koyaku: null, payout: 112.0 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 800,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 800, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 600, normalCostPerGame: 2.3
     },
     {
@@ -778,7 +778,7 @@ const MACHINES = [
             5: { big: 417.8, reg: 187.3, koyaku: null, payout: 109.7 },
             6: { big: 402.4, reg: 181.9, koyaku: null, payout: 113.2 }
         },
-        ceiling: 1500, ceilingTarget: 900, ceilingReward: 800,
+        ceiling: 1500, ceilingTarget: 900, ceilingReward: 800, resetCeiling: 1000, resetCeilingTarget: 550,
         avgBonusReward: 500, normalCostPerGame: 2.3
     },
     {
@@ -796,7 +796,7 @@ const MACHINES = [
             5: { big: 223.2, reg: 334.1, koyaku: null, payout: 110.2 },
             6: { big: 217.1, reg: 319.2, koyaku: null, payout: 113.0 }
         },
-        ceiling: 799, ceilingTarget: 500, ceilingReward: 500,
+        ceiling: 799, ceilingTarget: 500, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.2
     },
     {
@@ -813,7 +813,7 @@ const MACHINES = [
             5: { big: 311.3, reg: null, koyaku: null, payout: 105.8 },
             6: { big: 311.1, reg: null, koyaku: null, payout: 110.1 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -831,7 +831,7 @@ const MACHINES = [
             5: { big: 251.0, reg: 481.9, koyaku: null, payout: 107.9 },
             6: { big: 250.1, reg: 480.4, koyaku: null, payout: 110.6 }
         },
-        ceiling: 700, ceilingTarget: 400, ceilingReward: 500,
+        ceiling: 700, ceilingTarget: 400, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 100,
         avgBonusReward: 350, normalCostPerGame: 2.2
     },
     {
@@ -849,7 +849,7 @@ const MACHINES = [
             5: { big: 249.6, reg: null, koyaku: null, payout: 108.9 },
             6: { big: 236.2, reg: null, koyaku: null, payout: 114.9 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 700,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2
     },
     {
@@ -866,7 +866,7 @@ const MACHINES = [
             5: { big: 165.4, reg: 255.7, koyaku: null, payout: 106.9 },
             6: { big: 160.6, reg: 232.5, koyaku: null, payout: 110.0 }
         },
-        ceiling: 900, ceilingTarget: 550, ceilingReward: 600,
+        ceiling: 900, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
     }
 ];
@@ -1218,13 +1218,15 @@ function estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount) 
 // ============================================================
 // 天井期待値計算
 // ============================================================
-function calculateCeilingEV(machine, currentGames) {
-    if (!machine.ceiling || currentGames >= machine.ceiling) return null;
+function calculateCeilingEV(machine, currentGames, overrideCeiling) {
+    const ceiling = overrideCeiling || machine.ceiling;
+    const ceilingReward = machine.ceilingReward;
+    if (!ceiling || currentGames >= ceiling) return null;
 
-    // 設定1（最も低い設定）を基準に計算
-    const s1 = machine.settings[1];
+    const s1key = Object.keys(machine.settings).map(Number).sort((a, b) => a - b)[0];
+    const s1 = machine.settings[s1key];
     const pBonus = 1 / s1.big;
-    const remaining = machine.ceiling - currentGames;
+    const remaining = ceiling - currentGames;
     const costPerGame = machine.normalCostPerGame;
 
     let ev = 0;
@@ -1233,7 +1235,7 @@ function calculateCeilingEV(machine, currentGames) {
         ev += pFirstAt * (machine.avgBonusReward - g * costPerGame);
     }
     const pReachCeiling = Math.pow(1 - pBonus, remaining);
-    ev += pReachCeiling * (machine.ceilingReward - remaining * costPerGame);
+    ev += pReachCeiling * (ceilingReward - remaining * costPerGame);
 
     return {
         evMedals: ev,
@@ -1471,34 +1473,21 @@ function findClosestCombined(machine, actualDenom) {
 // ============================================================
 // 描画: 天井情報・期待値
 // ============================================================
-function renderCeiling(machine, currentGames) {
-    if (!machine.ceiling) {
-        $ceilingSection.style.display = "none";
-        return;
-    }
-
-    $ceilingSection.style.display = "";
-    $ceilingResults.innerHTML = "";
+function renderCeilingBlock(container, label, ceiling, ceilingTarget, machine, currentGames) {
+    const header = document.createElement("h4");
+    header.className = "ceiling-block-header";
+    header.textContent = label;
+    container.appendChild(header);
 
     const items = [];
-
-    items.push({ label: "天井ゲーム数", value: `${machine.ceiling}G`, cls: "neutral" });
-    items.push({
-        label: "狙い目",
-        value: `${machine.ceilingTarget}G〜`,
-        cls: "neutral",
-        highlight: false
-    });
+    items.push({ label: "天井ゲーム数", value: `${ceiling}G`, cls: "neutral" });
+    items.push({ label: "狙い目", value: `${ceilingTarget}G〜`, cls: "neutral", highlight: false });
 
     if (currentGames > 0) {
-        const remaining = Math.max(0, machine.ceiling - currentGames);
-        items.push({
-            label: "天井までの残りゲーム数",
-            value: `${remaining}G`,
-            cls: "neutral"
-        });
+        const remaining = Math.max(0, ceiling - currentGames);
+        items.push({ label: "天井までの残りゲーム数", value: `${remaining}G`, cls: "neutral" });
 
-        const evData = calculateCeilingEV(machine, currentGames);
+        const evData = calculateCeilingEV(machine, currentGames, ceiling);
         if (evData) {
             const isPositive = evData.evYen >= 0;
             const sign = isPositive ? "+" : "";
@@ -1508,13 +1497,8 @@ function renderCeiling(machine, currentGames) {
                 cls: isPositive ? "positive" : "negative",
                 highlight: true
             });
-            items.push({
-                label: "天井到達確率",
-                value: `${evData.pReachCeiling.toFixed(1)}%`,
-                cls: "neutral"
-            });
-
-            const isTarget = currentGames >= machine.ceilingTarget;
+            items.push({ label: "天井到達確率", value: `${evData.pReachCeiling.toFixed(1)}%`, cls: "neutral" });
+            const isTarget = currentGames >= ceilingTarget;
             items.push({
                 label: "狙い目判定",
                 value: isTarget ? "打つべき！" : "まだ早い",
@@ -1523,11 +1507,7 @@ function renderCeiling(machine, currentGames) {
             });
         }
     } else {
-        items.push({
-            label: "期待値計算",
-            value: "「現在ゲーム数」を入力してください",
-            cls: "neutral"
-        });
+        items.push({ label: "期待値計算", value: "「現在ゲーム数」を入力してください", cls: "neutral" });
     }
 
     items.forEach(item => {
@@ -1537,8 +1517,27 @@ function renderCeiling(machine, currentGames) {
             <span class="ceiling-label">${item.label}</span>
             <span class="ceiling-value ${item.cls}">${item.value}</span>
         `;
-        $ceilingResults.appendChild(el);
+        container.appendChild(el);
     });
+}
+
+function renderCeiling(machine, currentGames) {
+    if (!machine.ceiling) {
+        $ceilingSection.style.display = "none";
+        return;
+    }
+
+    $ceilingSection.style.display = "";
+    $ceilingResults.innerHTML = "";
+
+    renderCeilingBlock($ceilingResults, "通常時", machine.ceiling, machine.ceilingTarget, machine, currentGames);
+
+    if (machine.resetCeiling) {
+        const sep = document.createElement("hr");
+        sep.className = "ceiling-separator";
+        $ceilingResults.appendChild(sep);
+        renderCeilingBlock($ceilingResults, "朝一リセット時（設定変更後）", machine.resetCeiling, machine.resetCeilingTarget, machine, currentGames);
+    }
 
     const note = document.createElement("div");
     note.className = "ceiling-note";

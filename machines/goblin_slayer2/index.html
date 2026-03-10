@@ -88,6 +88,7 @@
                 <ul class="lp-toc">
                     <li><a href="#spec">設定別スペック一覧</a></li>
                     <li><a href="#ceiling-ev">天井期待値一覧</a></li>
+                    <li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>
                     <li><a href="#tool">設定推測ツールを使う</a></li>
                 </ul>
             </nav>
@@ -145,6 +146,35 @@
                     </table>
                 </div>
                 <p class="lp-note">※ 期待値は設定1を基準に、通常時の消費メダルと天井恩恵から算出した概算値です。実際の期待値はモード状態や前兆等により変動します。</p>
+            </section>
+
+            <section class="card lp-section" id="reset-ceiling-ev">
+                <h2 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の天井期待値</h2>
+                <p class="lp-desc">朝一リセット時の天井は<strong>1000G</strong>に短縮されます。狙い目は<strong>550G〜</strong>が目安です。</p>
+                <div class="lp-ceiling-info">
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">1000G</span></div>
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">550G〜</span></div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="spec-table lp-ev-table">
+                        <thead>
+                            <tr><th>現在G数</th><th>期待値</th><th>天井到達率</th><th>判定</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="negative"><td>0G</td><td class="negative">-10,044円</td><td>15.8%</td><td>&#10005;</td></tr>
+                            <tr class="negative"><td>100G</td><td class="negative">-9,055円</td><td>19.0%</td><td>&#10005;</td></tr>
+                            <tr class="negative"><td>200G</td><td class="negative">-7,866円</td><td>22.8%</td><td>&#10005;</td></tr>
+                            <tr class="negative"><td>300G</td><td class="negative">-6,435円</td><td>27.4%</td><td>&#10005;</td></tr>
+                            <tr class="negative"><td>400G</td><td class="negative">-4,714円</td><td>33.0%</td><td>&#10005;</td></tr>
+                            <tr class="negative"><td>500G</td><td class="negative">-2,644円</td><td>39.7%</td><td>&#9651;</td></tr>
+                            <tr class="negative"><td>600G</td><td class="negative">-153円</td><td>47.7%</td><td>&#9711;</td></tr>
+                            <tr class="positive"><td>700G</td><td class="positive">+2,843円</td><td>57.4%</td><td>&#9711;</td></tr>
+                            <tr class="positive"><td>800G</td><td class="positive">+6,448円</td><td>69.1%</td><td>&#9711;</td></tr>
+                            <tr class="positive"><td>900G</td><td class="positive">+10,784円</td><td>83.1%</td><td>&#9711;</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="lp-note">※ 朝一リセット時の天井1000Gを基準に算出した概算値です。</p>
             </section>
 
             <section class="card lp-section">
