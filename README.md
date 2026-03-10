@@ -66,3 +66,21 @@
 - HTML / CSS / JavaScript のみで動作（サーバー不要）
 - ベイズ推定（対数尤度 + Log-Sum-Exp）で数値安定性を確保
 - モバイルレスポンシブ対応
+
+## お問い合わせフォーム（Formspree）
+
+お問い合わせページは [Formspree](https://formspree.io) で送信を受け付けています。利用するには以下を実施してください。
+
+1. [Formspree](https://formspree.io) に無料登録する
+2. 新しいフォームを作成し、表示される **Form ID**（`https://formspree.io/f/` の後ろの文字列）をコピーする
+3. `contact.html` を開き、フォームの `action` 属性内の `your-form-id` を、コピーした Form ID に置き換える
+
+```html
+<!-- 変更前 -->
+action="https://formspree.io/f/your-form-id"
+
+<!-- 変更後（例） -->
+action="https://formspree.io/f/abc123xyz"
+```
+
+送信後は `contact-thankyou.html` へリダイレクトされます。本番ドメインで利用する場合は、`_next` の hidden の値を本番URL（例: `https://あなたのドメイン.com/contact-thankyou.html`）に変更してください。

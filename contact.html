@@ -28,31 +28,38 @@
                 <div class="page-body">
                     <p>パチスロ設定推測ツールに関するご意見・ご要望・不具合報告などがございましたら、以下のフォームよりお気軽にお問い合わせください。</p>
 
-                    <form class="contact-form" id="contact-form">
+                    <!-- Formspree: https://formspree.io で無料登録し、フォーム作成後に表示されるIDで action の your-form-id を置き換えてください -->
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/mojkeavq" method="POST">
+                        <input type="hidden" name="_subject" value="[Setting Analyzer Pro] お問い合わせ">
+                        <input type="hidden" name="_next" value="https://win-slot-beta.vercel.app/contact-thankyou.html">
+                        <p class="contact-honeypot" aria-hidden="true">
+                            <label>記入しないでください: <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+                        </p>
+
                         <div class="form-group">
                             <label for="contact-name">お名前</label>
-                            <input type="text" id="contact-name" placeholder="お名前を入力" required>
+                            <input type="text" id="contact-name" name="name" placeholder="お名前を入力" required>
                         </div>
 
                         <div class="form-group">
                             <label for="contact-email">メールアドレス</label>
-                            <input type="text" id="contact-email" placeholder="example@mail.com" required>
+                            <input type="email" id="contact-email" name="email" placeholder="example@mail.com" required>
                         </div>
 
                         <div class="form-group">
                             <label for="contact-category">お問い合わせ種別</label>
-                            <select id="contact-category" required>
+                            <select id="contact-category" name="category" required>
                                 <option value="">-- 選択してください --</option>
-                                <option value="bug">不具合報告</option>
-                                <option value="feature">機能要望</option>
-                                <option value="machine">機種データの追加・修正</option>
-                                <option value="other">その他</option>
+                                <option value="不具合報告">不具合報告</option>
+                                <option value="機能要望">機能要望</option>
+                                <option value="機種データの追加・修正">機種データの追加・修正</option>
+                                <option value="その他">その他</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="contact-message">お問い合わせ内容</label>
-                            <textarea id="contact-message" rows="6" placeholder="お問い合わせ内容を入力してください" required></textarea>
+                            <textarea id="contact-message" name="message" rows="6" placeholder="お問い合わせ内容を入力してください" required></textarea>
                         </div>
 
                         <div class="form-actions">
@@ -64,7 +71,7 @@
                     </form>
 
                     <div class="contact-note">
-                        <p>※ 現在、お問い合わせフォームはデモ表示です。実際の送信機能を有効にするには、バックエンドの設定が必要です。</p>
+                        <p>※ ご記入いただいたメールアドレスに返信する場合がございます。内容確認後、通常1〜2営業日以内にご連絡いたします。</p>
                     </div>
                 </div>
             </section>
@@ -80,12 +87,5 @@
             <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
         </footer>
     </div>
-
-    <script>
-    document.getElementById("contact-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        alert("お問い合わせありがとうございます。\n（※ 現在デモモードのため、実際には送信されません）");
-    });
-    </script>
 </body>
 </html>
