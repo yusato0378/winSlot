@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
+    <meta name="description" content="サンプル数・モデル仮定・機種データの限界など、設定推測ツールの結果を正しく使うための注意点を解説します。">
+    <title>ツールの結果を信じすぎないための「落とし穴」 | Setting Analyzer Pro</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <p class="app-subtitle"><a href="../index.html" class="back-link">&larr; トップに戻る</a></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="card page-card">
+    <h1 class="page-title">ツールの結果を信じすぎないための「落とし穴」</h1>
+    <div class="page-body">
+        <p>当サイトの設定推測ツールはベイズ推定を用いて各設定の確率を算出しますが、万能ではありません。ツールを作った側だからこそ正直に書いておきたい「限界」と「落とし穴」をこの記事にまとめます。結果を正しく活用するために、ぜひ知っておいてください。</p>
+
+        <h2>落とし穴1：サンプル数が少ないと結果が暴れる</h2>
+        <p>これは他の記事でも触れていますが、最も重要なポイントです。1,000ゲーム以下のデータでは、たまたまBIGが多く引けただけで「設定6：50%」のような結果が出ることがあります。</p>
+        <p>統計の世界では「大数の法則」と言いますが、試行回数が少ないと確率は本来の値から大きくブレます。筆者の感覚では、<strong>3,000ゲーム未満の結果は「ふーん、そういう傾向もあるのか」程度に見るのがちょうどいい</strong>と思っています。</p>
+
+        <h2>落とし穴2：モデルの仮定と現実のズレ</h2>
+        <p>ツールは「各ゲームが独立に、設定ごとの確率でボーナスが抽選される」という前提で計算しています。しかし実際のパチスロには：</p>
+        <ul>
+            <li><strong>モード・ゾーン</strong>：特定のゲーム数帯で当たりやすくなる仕組み（天井もその一種）</li>
+            <li><strong>内部状態の遷移</strong>：高確・低確・超高確など、見えない状態変化</li>
+            <li><strong>CZ経由の当選</strong>：直接の初当たりではなく、CZを経由するパターン</li>
+        </ul>
+        <p>これらの要素はツールのモデルに完全には反映されていません。あくまで「ボーナス確率の設定差」に着目した推測であり、モード管理やゾーン狙いは別の判断が必要です。</p>
+
+        <h2>落とし穴3：機種データ自体の誤差</h2>
+        <p>ツールに登録されている各設定のボーナス確率は、メーカー公表値や解析サイトの情報をもとにしています。しかし：</p>
+        <ul>
+            <li>メーカーが公表しているのは「設計値」であり、実機の挙動と微妙にズレることがある</li>
+            <li>解析値も完全ではなく、サンプル不足による誤差が含まれている場合がある</li>
+            <li>アップデートや仕様変更で確率が変わることもある（まれですが）</li>
+        </ul>
+        <p>筆者としてはできる限り正確なデータを反映するよう心がけていますが、「数値が絶対に正しい」とは保証できません。気になる方は複数のサイトを照らし合わせて確認することをおすすめします。</p>
+
+        <h2>落とし穴4：事前確率の均等仮定</h2>
+        <p>ツールでは「どの設定も最初は同じ確率で存在する」と仮定しています（均等事前分布）。しかし現実のホールでは設定1が圧倒的に多く、設定6はごくわずかしか使われません。</p>
+        <p>つまり、ツールの結果は「データだけを見た場合の確率」であり、「この店は設定6をほとんど使わない」というホールの傾向は考慮されていません。ホールの設定配分を加味すると、高設定の確率は表示値よりさらに低くなることが多いです。</p>
+        <p>個人的にはこれが一番大きな「ギャップ」だと感じています。ツールの結果に加えて、ホールの癖やイベントの有無も総合的に判断するのが実戦では重要です。</p>
+
+        <h2>では、ツールは役に立たないのか？</h2>
+        <p>そんなことはありません。限界を知った上で使えば、<strong>感覚だけで判断するよりはるかにマシ</strong>です。</p>
+        <ul>
+            <li>「なんとなく高設定っぽい」を数値で裏付けられる</li>
+            <li>冷静に判断するための材料になる（熱くなっているときほど有効）</li>
+            <li>天井期待値は設定1基準なので、最悪ケースのガードとして機能する</li>
+        </ul>
+        <p>大事なのは「ツールの結果＝正解」ではなく「ツールの結果＝判断材料のひとつ」という意識を持つことです。</p>
+
+        <p>※ パチスロは適度に楽しむ遊びです。のめり込みに注意しましょう。</p>
+    </div>
+</section>
+
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <a href="../terms.html">利用規約</a>
+                <a href="../contact.html">お問い合わせ</a>
+                <a href="../about.html">アプリについて</a>
+            </div>
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+</body>
+</html>
