@@ -389,6 +389,8 @@ ${resetEvTableRows}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon.png">
+    <link rel="apple-touch-icon" href="../../favicon.png">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="description" content="${descKeywords}">
     <meta property="og:title" content="${pageTitle}">
