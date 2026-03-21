@@ -1,0 +1,11 @@
+#!/bin/sh
+# コミット完了後に現在ブランチを push（upstream が設定されているときのみ）
+# 有効化: リポジトリルートで git config core.hooksPath .githooks
+# 一時的にスキップ: git commit --no-verify
+
+if git rev-parse --verify @{u} >/dev/null 2>&1; then
+  git push
+else
+  echo "[.githooks/post-commit] 追跡ブランチ（upstream）が無いため push をスキップしました。"
+  echo "  初回は手動で: git push -u origin $(git branch --show-current)"
+fi

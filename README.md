@@ -1,145 +1,265 @@
-# パチスロ設定推測ツール - Setting Analyzer Pro
+# Setting Analyzer Pro（パチスロ設定推測・期待値計算ツール）
 
-パチスロの設定推測と天井期待値を算出できるWebアプリケーションです。
+パチスロ・スマスロの**設定推測**（ベイズ推定）と**天井期待値**をブラウザで計算できる静的サイトです。  
+機種データは `app.js` に保持し、解説記事・機種別ランディングページは Node スクリプトで HTML を生成します。
 
-## 機能
+---
 
-- **設定推測**: BIG/REG回数・小役回数からベイズ推定で各設定の確率を算出
-- **推測要素表示**: BIG確率・REG確率・合算確率と設定相当の判定
-- **天井期待値計算**: 現在ゲーム数から天井までの期待値を算出
-- **機種スペック表**: 選択した機種の全設定スペックを一覧表示
+## 目次
 
-## 収録機種（36機種）
+- [主な機能](#主な機能)
+- [技術スタック](#技術スタック)
+- [ディレクトリ構成](#ディレクトリ構成)
+- [ローカルでの確認](#ローカルでの確認)
+- [コミット後の自動 `git push`（任意）](#コミット後の自動-git-push任意)
+- [デプロイ（Vercel）](#デプロイvercel)
+- [ビルドスクリプト](#ビルドスクリプト)
+- [解説記事の追加](#解説記事の追加パターンb)
+- [機種別ランディングページの再生成](#機種別ランディングページの再生成)
+- [お問い合わせ（Formspree）](#お問い合わせformspree)
+- [Google AdSense / ads.txt](#google-adsense--adstxt)
+- [ファビコン](#ファビコン)
+- [SEO（sitemap / robots）](#seositemap--robots)
+- [収録機種について](#収録機種について)
+- [免責](#免責)
 
-### Aタイプ / BT機
-- アイムジャグラーEX
-- マイジャグラーV
-- ファンキージャグラー2
-- ゴーゴージャグラー3
-- ウルトラミラクルジャグラー
-- ディスクアップ ULTRAREMIX
+---
 
-### AT / ART機（スマスロ）
-- 甲鉄城のカバネリ
-- 押忍！番長4
-- スマスロ北斗の拳
-- からくりサーカス
-- ヴァルヴレイヴ
-- モンキーターンV
+## 主な機能
 
-### 2025〜2026年 新台
-- L東京喰種
-- かぐや様は告らせたい
-- ゴッドイーター リザレクション
-- スマスロ化物語
-- 北斗の拳 転生の章2
-- うみねこのなく頃に2
-- 攻殻機動隊
-- デビルメイクライ5
-- クレアの秘宝伝 BT
-- 秘宝伝
-- 転生したら剣でした
-- エヴァンゲリオン 約束の扉
-- ヴァルヴレイヴ2
-- 炎炎ノ消防隊
-- 鉄拳6
-- プリズムナナ
-- アズールレーン
-- 絶対衝激IV
-- とある科学の超電磁砲2
-- 新鬼武者3
-- 主役は銭形5
-- 東京リベンジャーズ
-- いざ！番長
-- モンスターハンターライズ
+| 機能 | 説明 |
+|------|------|
+| **設定推測** | 総ゲーム数・BIG/REG（機種によりラベル変更）・任意で小役回数から、各設定の推定確率（％）を算出 |
+| **天井期待値** | 現在ゲーム数から天井到達までの期待値・狙い目ゲーム数。機種により**通常時／朝一リセット時**を表示 |
+| **機種スペック表** | 選択機種の設定別スペックを一覧表示 |
+| **設定推測要素ページ** | `setGuessElement/` 配下に機種別の判別要素（外部画像リンク含む） |
+| **解説記事** | `guide/` に設定・天井・ツールの使い方などの記事（テンプレート＋本文で生成） |
 
-## 使い方
+- **天井のみ**：機種名と現在ゲーム数だけ入力して「推測する」でも、天井期待値ブロックのみ表示可能。
 
-1. `index.html` をブラウザで開く
-2. 機種をドロップダウンから選択
-3. 総ゲーム数・BIG回数・REG回数を入力
-4. 必要に応じて現在ゲーム数や小役回数を入力
-5. 「推測する」ボタンを押す
+---
 
-## 技術仕様
+## 技術スタック
 
-- HTML / CSS / JavaScript のみで動作（サーバー不要）
-- ベイズ推定（対数尤度 + Log-Sum-Exp）で数値安定性を確保
-- モバイルレスポンシブ対応
+- **フロント**: HTML / CSS / JavaScript（`index.html` + `app.js` + `style.css`）
+- **計算**: ベイズ推定（対数尤度 + Log-Sum-Exp で数値安定化）
+- **ホスティング想定**: 静的ファイルのまま配信（サーバー不要）
+- **ビルド**: Node.js（記事生成・機種LP生成のみ）
 
-## 解説記事（ガイド）の追加（パターンB: レイアウト + 本文）
+---
 
-解説記事は「レイアウト1本 + 本文だけ別ファイル」で管理しています。
+## ディレクトリ構成
 
-### フォルダ構成
+```
+winSlot/
+├── index.html              # メインアプリ
+├── app.js                  # 機種データ・推測・UI
+├── style.css
+├── favicon.png             # サイトアイコン
+├── ads.txt                 # AdSense 用（公開ルートに配置）
+├── robots.txt
+├── sitemap.xml             # 生成スクリプト実行時に更新される場合あり
+├── vercel.json             # Vercel ルーティング例
+│
+├── guide/                  # 解説記事（build-articles.js の出力）
+├── machines/               # 機種別LP（generate-landing-pages.js の出力）
+├── setGuessElement/        # 設定推測要素ページ（手動メンテ）
+│
+├── templates/
+│   └── article-layout.html # 解説記事の共通レイアウト
+├── articles/
+│   ├── manifest.json       # 記事メタデータ
+│   └── *.html              # 記事本文断片
+│
+├── build-articles.js       # guide/ を生成
+├── generate-landing-pages.js  # machines/ と sitemap 更新
+├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
+└── scripts/
+    └── add-favicon-setguess.js  # setGuessElement に favicon 挿入（任意）
+```
 
-- `templates/article-layout.html` … 共通レイアウト（ヘッダー・フッター・CSS）。変更すると全記事に反映されます。
-- `articles/manifest.json` … 記事一覧（slug・タイトル・説明文）。
-- `articles/{slug}.html` … 本文のみのHTML断片（`<section class="card page-card">` 〜 `</section>` の中身を書く）。
-- `guide/` … ビルド後の出力先。ここに `guide/{slug}.html` が生成されます。
+---
 
-### 記事を1本追加する手順
+## ローカルでの確認
 
-1. **manifest.json に1件追加**
+1. リポジトリをクローンまたは展開する  
+2. **`index.html` をブラウザで開く**（または Live Server / `npx serve .` などでルートを配信）
 
-   `articles/manifest.json` の配列に、次の形式で1要素追加します。
+> `file://` でもメインアプリは動きます。相対パスで `guide/` 等へ遷移する場合は、ルートをドキュメントルートにしたローカルサーバの方が安全です。
+
+### 使い方（アプリ）
+
+1. 機種名を入力または候補から選択  
+2. 総ゲーム数・BIG/REG 等を入力（天井のみなら現在ゲーム数のみでも可）  
+3. **推測する** を押す  
+
+---
+
+## コミット後の自動 `git push`（任意）
+
+**ファイルを保存しただけでは GitHub に送られません。**  
+Git は「コミット」された変更だけを push できます。このリポジトリでは、**コミットが終わった直後に `git push` する** Git フックを用意しています（Vercel は従来どおり **GitHub への push をトリガー**にデプロイ）。
+
+### 注意
+
+- **ローカルでのみ有効**です。`core.hooksPath` は各クローンごとに1回設定が必要です。
+- **すべてのコミットのあと**に push が走ります。まとめてコミットしたくない場合は `git commit --no-verify` でフックをスキップできます。
+- **upstream（`git push -u`）が未設定**のブランチでは push をスキップし、メッセージを出します。初回だけ手動で `git push -u origin <ブランチ名>` してください。
+
+### 有効化（リポジトリのルートで1回）
+
+```bash
+git config core.hooksPath .githooks
+```
+
+**macOS / Linux** ではフックに実行権限が必要なことがあります。
+
+```bash
+chmod +x .githooks/post-commit
+```
+
+**Windows（Git for Windows）** では通常、そのままで動きます。
+
+### 無効に戻す
+
+```bash
+git config --unset core.hooksPath
+```
+
+（デフォルトの `.git/hooks` に戻ります。）
+
+### フックの中身
+
+- `.githooks/post-commit` … 追跡ブランチがあるときだけ `git push` を実行
+
+---
+
+## デプロイ（Vercel）
+
+- プロジェクト**ルート**をそのままデプロイしてください（`index.html` がトップに来る構成）。  
+- `vercel.json` では `/` → `/index.html` の例を入れています。  
+- 本番ドメイン（例: `pachislot-setting.com`）に合わせて、`index.html` の `canonical` / `og:url`、各ページの絶対URL、`contact.html` の Formspree `_next`、**Search Console の所有権確認**などを揃えてください。
+
+---
+
+## ビルドスクリプト
+
+| コマンド | 内容 |
+|----------|------|
+| `node build-articles.js` | `templates/article-layout.html` + `articles/*` から `guide/*.html` と `guide/index.html` を生成 |
+| `node generate-landing-pages.js` | `app.js` と同系の機種データから `machines/*/index.html` を再生成し、`sitemap.xml` を更新 |
+
+**記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` はこのスクリプト対象外です（手編集）。
+
+---
+
+## 解説記事の追加（パターンB）
+
+レイアウト1本（`templates/article-layout.html`）＋本文だけ別ファイルで管理しています。
+
+### 手順
+
+1. **`articles/manifest.json`** に1件追加（`slug` は英数字とハイフンのみ推奨）
 
    ```json
    {
-     "slug": "記事のURL名（英数字とハイフンのみ）",
-     "title": "記事タイトル（そのまま&lt;title&gt;とh1に使います）",
-     "description": "記事の説明（meta description に使います）"
+     "slug": "my-article",
+     "title": "記事タイトル",
+     "description": "meta description 用の説明文"
    }
    ```
 
-2. **本文ファイルを作成**
-
-   `articles/{slug}.html` を新規作成します。中身は **本文だけ** のHTMLです（`<!DOCTYPE>` や `<head>` は不要）。例:
+2. **`articles/{slug}.html`** を新規作成（`<!DOCTYPE>` 不要）。既存記事と同様に次の骨子で:
 
    ```html
    <section class="card page-card">
-       <h1 class="page-title">記事のタイトル</h1>
+       <h1 class="page-title">記事タイトル</h1>
        <div class="page-body">
-           <p>リード文。</p>
-           <h2>大見出し</h2>
-           <p>本文…</p>
-           <h2>もうひとつの見出し</h2>
+           <p>リード文</p>
+           <h2>見出し</h2>
            <p>本文…</p>
        </div>
    </section>
    ```
 
-   - 見出しは `h2` / `h3`、本文は `p` で区切ると読みやすくなります。
-   - クラスは `page-card` / `page-title` / `page-body` のままにすると、既存のスタイルがそのまま効きます。
-
-3. **ビルドを実行**
+3. ルートで実行:
 
    ```bash
    node build-articles.js
    ```
 
-   実行後、`guide/{slug}.html` が更新または新規作成されます。ブラウザで `guide/{slug}.html` を開いて表示を確認してください。
+4. トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で `guide/{slug}.html` を追加。`sitemap.xml` にも URL を追加すると SEO 的に望ましいです。
 
-### レイアウトだけ変えたいとき
+### レイアウトだけ変更したいとき
 
-`templates/article-layout.html` を編集し、再度 `node build-articles.js` を実行すると、全記事に反映されます。本文ファイル（`articles/*.html`）は触らずに済みます。
+`templates/article-layout.html` を編集後、再度 `node build-articles.js` で全記事に反映されます。
 
 ---
 
-## お問い合わせフォーム（Formspree）
+## 機種別ランディングページの再生成
 
-お問い合わせページは [Formspree](https://formspree.io) で送信を受け付けています。利用するには以下を実施してください。
+- 機種データや LP テンプレートを `generate-landing-pages.js` 側で変更したら:
 
-1. [Formspree](https://formspree.io) に無料登録する
-2. 新しいフォームを作成し、表示される **Form ID**（`https://formspree.io/f/` の後ろの文字列）をコピーする
-3. `contact.html` を開き、フォームの `action` 属性内の `your-form-id` を、コピーした Form ID に置き換える
+  ```bash
+  node generate-landing-pages.js
+  ```
 
-```html
-<!-- 変更前 -->
-action="https://formspree.io/f/your-form-id"
+- 出力は `machines/{machine_id}/index.html`。**既存ファイルは上書き**されます。
 
-<!-- 変更後（例） -->
-action="https://formspree.io/f/abc123xyz"
-```
+---
 
-送信後は `contact-thankyou.html` へリダイレクトされます。本番ドメインで利用する場合は、`_next` の hidden の値を本番URL（例: `https://あなたのドメイン.com/contact-thankyou.html`）に変更してください。
+## お問い合わせ（Formspree）
+
+[Formspree](https://formspree.io) でフォーム送信を受け付けています。
+
+1. Formspree でフォームを作成し、**Form ID**（`https://formspree.io/f/` の後ろ）を取得  
+2. `contact.html` の `<form action="https://formspree.io/f/...">` をその ID に合わせる  
+3. 本番URL用に hidden の `_next` を `https://あなたのドメイン/contact-thankyou.html` などに変更  
+
+スパム対策用に `_gotcha`（ハニーポット）を入れています。
+
+---
+
+## Google AdSense / ads.txt
+
+- 各ページ `<head>` に AdSense スクリプトを埋め込んでいます（クライアントIDはご自身のものに差し替え可能）。  
+- **`ads.txt`** をサイト**ルート**に置き、クローラが `https://ドメイン/ads.txt` で取得できるようにしてください（Vercel ならリポジトリ直下でOK）。
+
+---
+
+## ファビコン
+
+- ルートに `favicon.png` を配置。  
+- `index.html`・静的ページ・`templates/article-layout.html`・`generate-landing-pages.js` 生成の `machines/*` から参照。  
+- `setGuessElement` を新規追加したとき、未反映なら必要に応じて:
+
+  ```bash
+  node scripts/add-favicon-setguess.js
+  ```
+
+---
+
+## SEO（sitemap / robots）
+
+- **`sitemap.xml`**: URL 一覧。`generate-landing-pages.js` 実行で更新される部分があります。新ドメインへ移行した場合は `loc` を本番ドメインに統一してください。  
+- **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。
+
+---
+
+## 収録機種について
+
+- **Aタイプ**（ジャグラー系・ディスクアップ・うみねこ2・秘宝系・エヴァBT など）と **AT/ART（スマスロ）** を収録。  
+- 収録数は **`app.js` 内の `MACHINES` 配列**が正。詳細な機種名一覧はデプロイ後のトップページ「対応機種一覧」でも確認できます。  
+- 機種追加時は `app.js` と `generate-landing-pages.js` のデータを同期し、`node generate-landing-pages.js` を実行。必要なら `setGuessElement/` と `index.html` のリンクも追加します。
+
+---
+
+## 免責
+
+本ツールの推測結果・期待値は**参考用**であり、実際の設定や収支を保証するものではありません。パチスロは法令とホールのルールを守り、**楽しめる範囲**でご利用ください。
+
+---
+
+## ライセンス
+
+未指定の場合はリポジトリ管理者の方針に従ってください。公開用リポジトリなら `LICENSE` ファイルの追加を推奨します。
