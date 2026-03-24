@@ -889,13 +889,48 @@ input::placeholder {
     padding-left: 10px;
 }
 
+.machine-list-group {
+    margin-bottom: 12px;
+}
+
+.machine-list-group > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.machine-list-group > summary::-webkit-details-marker {
+    display: none;
+}
+
+.machine-list-group > summary::before {
+    content: "▶";
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    margin-right: 8px;
+    transition: transform var(--transition);
+}
+
+.machine-list-group[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.machine-list-count {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
 .machine-link-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 6px 16px;
     list-style: none;
     padding: 0;
-    margin: 0 0 8px;
+    margin: 0 0 8px 14px;
 }
 
 .machine-link-list li {
