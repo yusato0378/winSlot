@@ -21,6 +21,8 @@
 - [ファビコン](#ファビコン)
 - [SEO（sitemap / robots）](#seositemap--robots)
 - [収録機種について](#収録機種について)
+- [AT / ART機（スマスロ）](#at--art機スマスロ)
+- [Aタイプ](#aタイプ)
 - [免責](#免責)
 
 ---
@@ -249,8 +251,71 @@ git config --unset core.hooksPath
 ## 収録機種について
 
 - **Aタイプ**（ジャグラー系・ディスクアップ・うみねこ2・秘宝系・エヴァBT など）と **AT/ART（スマスロ）** を収録。  
-- 収録数は **`app.js` 内の `MACHINES` 配列**が正。詳細な機種名一覧はデプロイ後のトップページ「対応機種一覧」でも確認できます。  
+- 収録数・スペックの**正本は `app.js` 内の `MACHINES` 配列**。下記リストはメンテ用の目次です（機種追加時は **ここ・`index.html` の対応機種一覧・`generate-landing-pages.js`** を揃えて更新してください）。  
 - 機種追加時は `app.js` と `generate-landing-pages.js` のデータを同期し、`node generate-landing-pages.js` を実行。必要なら `setGuessElement/` と `index.html` のリンクも追加します。
+
+### AT / ART機（スマスロ）
+
+| ID | 機種名 |
+|----|--------|
+| `kabaneri` | 甲鉄城のカバネリ |
+| `kabaneri_unato` | スマスロ 甲鉄城のカバネリ 海門決戦 |
+| `banchou4` | 押忍！番長4 |
+| `hokuto` | スマスロ北斗の拳 |
+| `karakuri` | からくりサーカス |
+| `valvrave` | 革命機ヴァルヴレイヴ |
+| `monkey_turn_v` | モンキーターンV |
+| `tokyo_ghoul` | L 東京喰種 |
+| `kaguya_sama` | かぐや様は告らせたい |
+| `god_eater` | ゴッドイーター リザレクション |
+| `bakemonogatari` | スマスロ 化物語 |
+| `hokuto_tensei2` | 北斗の拳 転生の章2 |
+| `koukaku` | スマスロ 攻殻機動隊 |
+| `dmc5` | デビル メイ クライ 5 |
+| `hihouden` | スマスロ 秘宝伝 |
+| `tenken` | 転生したら剣でした |
+| `valvrave2` | L革命機ヴァルヴレイヴ2 |
+| `enen` | 炎炎ノ消防隊 |
+| `tekken6` | スマスロ 鉄拳6 |
+| `prism_nana` | プリズムナナ |
+| `azurlane` | L アズールレーン THE ANIMATION |
+| `zettai4` | L 絶対衝激IV |
+| `railgun2` | スマスロ とある科学の超電磁砲2 |
+| `onimusha3` | スマスロ 新鬼武者3 |
+| `zenigata5` | L主役は銭形5 |
+| `tokyo_revengers` | スマスロ 東京リベンジャーズ |
+| `iza_banchou` | いざ！番長 |
+| `monhan_rise` | スマスロ モンスターハンターライズ |
+| `enen2` | Lパチスロ 炎炎ノ消防隊2 |
+| `magireco` | スマスロ マギアレコード 魔法少女まどか☆マギカ外伝 |
+| `okidoki_duo` | スマスロ 沖ドキ！DUO アンコール |
+| `mushoku` | L 無職転生 ～異世界行ったら本気だす～ |
+| `sbj` | スマスロスーパーブラックジャック |
+| `yoshimune` | 吉宗 |
+| `goblin_slayer2` | スマスロ ゴブリンスレイヤーⅡ |
+| `otome4` | L戦国乙女4 戦乱に閃く炯眼の軍師 |
+| `toloveru` | L ToLOVEるダークネス |
+| `baki` | Ｌ範馬刃牙 |
+| `biohazard5` | スマスロ バイオハザード5 |
+| `revuestarlight` | L少女☆歌劇 レヴュースタァライト -The SLOT- |
+
+### Aタイプ
+
+| ID | 機種名 |
+|----|--------|
+| `aim_juggler_ex` | アイムジャグラーEX |
+| `my_juggler_v` | マイジャグラーV |
+| `funky_juggler_2` | ファンキージャグラー2 |
+| `gogo_juggler_3` | ゴーゴージャグラー3 |
+| `ultra_miracle_juggler` | ウルトラミラクルジャグラー |
+| `discup_ultraremix` | A-SLOT+ ディスクアップ ULTRAREMIX |
+| `smaslo_hanabi` | スマスロ ハナビ |
+| `thunder_v` | スマスロ サンダーV |
+| `umineko2` | うみねこのなく頃に2 |
+| `crea_hihouden` | クレアの秘宝伝 BT |
+| `eva_bt` | エヴァンゲリオン 約束の扉 |
+
+LP のパスは `machines/{ID}/index.html` です。
 
 ---
 

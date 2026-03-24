@@ -119,6 +119,42 @@ const MACHINES = [
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 250, normalCostPerGame: 1.6
     },
+    {
+        id: "smaslo_hanabi",
+        name: "スマスロ ハナビ",
+        type: "A",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 297.9, reg: 394.8, koyaku: null, payout: 98.6 },
+            2: { big: 292.6, reg: 358.1, koyaku: null, payout: 100.4 },
+            3: { big: 290.0, reg: 343.3, koyaku: null, payout: 101.3 },
+            4: { big: 287.4, reg: 328.5, koyaku: null, payout: 102.1 },
+            5: { big: 284.9, reg: 313.6, koyaku: null, payout: 103.0 },
+            6: { big: 273.1, reg: 282.5, koyaku: null, payout: 106.4 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null,
+        avgBonusReward: 250, normalCostPerGame: 1.6
+    },
+    {
+        id: "thunder_v",
+        name: "スマスロ サンダーV",
+        type: "A",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 277.7, reg: 434.0, koyaku: null, payout: 98.5 },
+            2: { big: 275.4, reg: 394.8, koyaku: null, payout: 100.0 },
+            3: { big: 273.9, reg: 378.2, koyaku: null, payout: 101.0 },
+            4: { big: 272.3, reg: 361.5, koyaku: null, payout: 101.9 },
+            5: { big: 270.8, reg: 344.9, koyaku: null, payout: 102.9 },
+            6: { big: 264.3, reg: 313.6, koyaku: null, payout: 106.0 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null,
+        avgBonusReward: 250, normalCostPerGame: 1.6
+    },
     // ==================== AT / ART機（スマスロ） ====================
     {
         id: "kabaneri",
@@ -136,6 +172,24 @@ const MACHINES = [
             6: { big: 151.3, reg: 290.6, koyaku: null, payout: 110.0 }
         },
         ceiling: 1000, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
+        avgBonusReward: 400, normalCostPerGame: 2.3
+    },
+    {
+        id: "kabaneri_unato",
+        name: "スマスロ 甲鉄城のカバネリ 海門決戦",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: "ST",
+        koyakuName: null,
+        settings: {
+            1: { big: 254.2, reg: 422.5, koyaku: null, payout: 97.5 },
+            2: { big: 242.3, reg: 405.9, koyaku: null, payout: 98.5 },
+            3: { big: 239.6, reg: 398.7, koyaku: null, payout: 100.8 },
+            4: { big: 214.0, reg: 357.2, koyaku: null, payout: 106.0 },
+            5: { big: 203.2, reg: 332.6, koyaku: null, payout: 111.0 },
+            6: { big: 195.1, reg: 318.5, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 996, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 596, resetCeilingTarget: 320,
         avgBonusReward: 400, normalCostPerGame: 2.3
     },
     {
