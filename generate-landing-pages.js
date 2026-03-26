@@ -5,7 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const SITE_URL = "https://win-slot-beta.vercel.app";
+const SITE_URL = "https://pachislot-setting.com";
 
 const MACHINES = [
     { id: "aim_juggler_ex", name: "アイムジャグラーEX", type: "A", bigLabel: "BIG", regLabel: "REG", koyakuName: "ブドウ",
