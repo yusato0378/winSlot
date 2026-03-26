@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://win-slot-beta.vercel.app/sitemap.xml
+Sitemap: https://pachislot-setting.com/sitemap.xml
