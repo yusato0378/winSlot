@@ -4,104 +4,104 @@
     "title": "パチスロの設定とは？1〜6の違いと設定推測の基本",
     "description": "パチスロの設定1〜6で何が変わるか、なぜ設定推測が必要か、ツールでできることを初心者にも分かりやすく解説します。",
     "author": "slotterY",
-    "published": "2024-06-01"
+    "published": "2026-01-06"
   },
   {
     "slug": "bayes-explained",
     "title": "ベイズ推定で設定を推測する仕組みをわかりやすく解説",
     "description": "ベイズ推定とは何か、実戦データがどう使われるか、確率の％で表示する理由を一般向けにやさしく解説します。",
     "author": "slotterY",
-    "published": "2024-06-08"
+    "published": "2026-01-13"
   },
   {
     "slug": "ceiling-basics",
     "title": "天井（テンジョウ）とは？ゲーム数と期待値の関係",
     "description": "パチスロの天井の仕組み、なぜ○Gから狙い目と言うのか、朝一リセットでの天井短縮を解説します。",
     "author": "slotterY",
-    "published": "2024-06-15"
+    "published": "2026-01-20"
   },
   {
     "slug": "ceiling-ev-guide",
     "title": "天井期待値の見方と、立ち回りでの使い方",
     "description": "天井期待値ツールの「期待値○円」「狙い目○G〜」の意味、打ち方・やめどき、設定1基準の注意点を解説します。",
     "author": "slotterY",
-    "published": "2024-06-22"
+    "published": "2026-01-27"
   },
   {
     "slug": "data-counting",
     "title": "設定推測に使うデータの取り方（総ゲーム数・BIG・REGの数え方）",
     "description": "設定推測ツールに入力する総ゲーム数・BIG・REG回数の正しい数え方、データ量と精度、小役入力の意味を解説します。",
     "author": "slotterY",
-    "published": "2024-07-01"
+    "published": "2026-01-31"
   },
   {
     "slug": "juggler-guide",
     "title": "ジャグラー系（Aタイプ）の設定判別のポイント",
     "description": "ジャグラーのBIG/REG確率の設定差、何回転回せば推測が安定するか、ツール結果の見方を解説します。",
     "author": "slotterY",
-    "published": "2024-07-10"
+    "published": "2026-02-04"
   },
   {
     "slug": "at-ceiling-guide",
     "title": "スマスロ・AT機の天井狙いの基本（初心者向け）",
     "description": "スマスロの天井の種類、朝一リセットと通常時の違い、ツールの表示の見方を初心者向けに解説します。",
     "author": "slotterY",
-    "published": "2024-07-18"
+    "published": "2026-02-11"
   },
   {
     "slug": "reading-results",
     "title": "設定推測結果の％をどう読むか（判定の目安と注意点）",
     "description": "設定6が30％などの推測結果をどう解釈すべきか、データ量と信頼度の関係、参考値としての注意点を解説します。",
     "author": "slotterY",
-    "published": "2024-07-25"
+    "published": "2026-02-18"
   },
   {
     "slug": "how-to-use",
     "title": "当サイトの使い方まとめ（設定推測〜天井期待値まで一通り）",
     "description": "Setting Analyzer Proの全機能の使い方を機種選択から天井期待値の確認まで一通り解説。よくある質問も掲載。",
     "author": "slotterY",
-    "published": "2024-08-01"
+    "published": "2026-02-25"
   },
   {
     "slug": "glossary",
     "title": "パチスロの設定差・天井情報を調べる時に役立つ用語集",
     "description": "初当たり・機械割・天井・リセット・狙い目・期待値など、パチスロの基本用語を解説。当サイトの機能との対応も紹介。",
     "author": "slotterY",
-    "published": "2024-08-10"
+    "published": "2026-02-28"
   },
   {
     "slug": "payout-vs-ev",
     "title": "「機械割」と「天井期待値」は何が違う？混同しないための読み方",
     "description": "機械割（出玉率）と天井期待値の違い、それぞれの意味と当サイトのスペック表・天井期待値の見分け方を解説します。",
     "author": "slotterY",
-    "published": "2024-08-18"
+    "published": "2026-03-05"
   },
   {
     "slug": "reset-ceiling-tips",
     "title": "朝一リセット天井はどう見分ける？前日ゲーム数・店の癖を踏まえた注意点",
     "description": "朝一リセット天井の見分け方、前日データの確認法、店の癖から判断する方法と注意点を実体験交えて解説します。",
     "author": "slotterY",
-    "published": "2024-08-25"
+    "published": "2026-03-12"
   },
   {
     "slug": "setting-and-ceiling",
     "title": "設定推測と天井狙いを同時に使うときの判断フレーム",
     "description": "設定推測の％と天井期待値のプラスが同時にあるとき、どちらを優先すべきか。判断フレームを筆者の経験から解説します。",
     "author": "slotterY",
-    "published": "2024-09-01"
+    "published": "2026-03-19"
   },
   {
     "slug": "tool-limitations",
     "title": "ツールの結果を信じすぎないための「落とし穴」",
     "description": "サンプル数・モデル仮定・機種データの限界など、設定推測ツールの結果を正しく使うための注意点を解説します。",
     "author": "slotterY",
-    "published": "2024-09-10"
+    "published": "2026-03-25"
   },
   {
     "slug": "responsible-play",
     "title": "パチスロを「楽しむ範囲」で遊ぶための自己管理のコツ",
     "description": "予算管理・時間制限・のめり込み予防など、パチスロを楽しみながら自己管理するための考え方と公的相談窓口を紹介します。",
     "author": "slotterY",
-    "published": "2024-09-18"
+    "published": "2026-03-29"
   }
 ]

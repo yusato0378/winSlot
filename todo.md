@@ -49,19 +49,23 @@
 
 ---
 
-## 優先度 LOW（できれば対応）
+## フェーズ3（優先度 LOW：8〜9）— 完了
 
-- [ ] **8. プライバシーポリシーの具体化**
-  - 「アクセス解析について」の解析ツール名（Google Analytics 等）を明記
-  - 日付を現在に更新
+- [x] **8. プライバシーポリシーの具体化**
+  - Google AdSense（提供者・目的）を明記。GA4 等のアクセス解析は**現状未導入**と記載し、導入時はポリシー改定すると明記
+  - 最終更新日を更新
   - 対象ファイル: `privacy.html`
 
-- [ ] **9. contact-thankyou.html に AdSense スクリプトを追加**
-  - 他の全ページにある AdSense スクリプトをこのページにも追加して統一
+- [x] **9. contact-thankyou.html に AdSense スクリプトを追加**
+  - `google-adsense-account` メタと `adsbygoogle.js` を他ページと同様に追加
   - 対象ファイル: `contact-thankyou.html`
 
-- [ ] **10. AdSense 再審査を申請**
-  - 上記の改善が完了したら Google AdSense に再申請
+---
+
+## 手作業（リポジトリ外）
+
+- [x] **10. AdSense 再審査を申請**
+  - 本番デプロイ後、Google AdSense 管理画面からサイトを再申請する（コード変更では完了しません）
 
 ---
 
