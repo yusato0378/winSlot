@@ -32,20 +32,20 @@
 
 ---
 
-## 優先度 MEDIUM（強く推奨）
+## フェーズ2（優先度 MEDIUM：5〜7）— 完了
 
-- [ ] **5. setGuessElement に meta description を追加**
+- [x] **5. setGuessElement に meta description を追加**
   - 全43ページの `<head>` に機種名を含んだ固有の description を追加
-  - 一括対応スクリプトを用意するか手動で追記
+  - 一括スクリプト: `node patch-setguess-seo.js`（`generate-landing-pages.js` の機種名を参照）
   - 対象ファイル: `setGuessElement/*/index.html`
 
-- [ ] **6. setGuessElement から機種LPへの相互リンクを追加**
-  - 各ページのフッター付近に「この機種のスペック・天井期待値を見る → machines/{id}/」リンクを追加
-  - 対象ファイル: `setGuessElement/*/index.html`
+- [x] **6. setGuessElement から機種LPへの相互リンクを追加**
+  - 各ページの戻るボタン直前に「スペック・天井期待値」ナビ（`machines/{id}/`）を追加（同上スクリプト）
+  - 対象ファイル: `setGuessElement/*/index.html`, `setGuessElement/guess-element.css`
 
-- [ ] **7. glossary.html の見出し構造を修正**
-  - h1 → h3 と h2 を飛ばしている箇所を修正（h3 → h2 に変更）
-  - 対象ファイル: `articles/glossary.html`
+- [x] **7. glossary.html の見出し構造を修正**
+  - 用語見出しを h3 → h2 に変更（h1 の直下で h2 を飛ばさない）
+  - 対象ファイル: `articles/glossary.html` → `node build-articles.js` で `guide/glossary.html` を再生成
 
 ---
 

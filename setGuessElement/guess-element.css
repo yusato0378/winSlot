@@ -332,6 +332,19 @@
     border-color: rgba(38, 198, 218, 0.4);
 }
 
+/* ---- 機種LPへの導線 ---- */
+.ge-lp-nav .ge-lp-cta {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.ge-lp-nav .ge-lp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 520px) {
     .ge-toc {

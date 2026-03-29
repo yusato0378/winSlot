@@ -75,6 +75,7 @@ winSlot/
 │
 ├── build-articles.js       # guide/ を生成
 ├── generate-landing-pages.js  # machines/ と sitemap 更新
+├── patch-setguess-seo.js # setGuessElement の meta / 機種LP 導線を一括更新
 ├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
 └── scripts/
     └── add-favicon-setguess.js  # setGuessElement に favicon 挿入（任意）
@@ -150,8 +151,9 @@ git config --unset core.hooksPath
 |----------|------|
 | `node build-articles.js` | `templates/article-layout.html` + `articles/*` から `guide/*.html` と `guide/index.html` を生成 |
 | `node generate-landing-pages.js` | `app.js` と同系の機種データから `machines/*/index.html` を再生成し、`sitemap.xml` を更新 |
+| `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`generate-landing-pages.js` の `GUESS_ELEMENT_PAGES` と機種名と同期すること） |
 
-**記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` はこのスクリプト対象外です（手編集）。
+**記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` の SEO 用メタ・LP 導線は `patch-setguess-seo.js`、それ以外の本文は手編集です。
 
 ---
 
