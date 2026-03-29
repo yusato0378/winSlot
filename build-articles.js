@@ -3,7 +3,7 @@
  * 実行: node build-articles.js
  *
  * - templates/article-layout.html をレイアウトとして使用
- * - articles/manifest.json に記事一覧（slug, title, description）
+ * - articles/manifest.json に記事一覧（slug, title, description, author, published, updated 任意）
  * - articles/{slug}.html に本文（HTML断片）を配置
  * - 出力: guide/{slug}.html
  */
@@ -19,6 +19,30 @@ const OUTPUT_DIR = path.join(DIR, "guide");
 
 // guide/ に出力するため、CSS等は相対パス .. になる
 const BASE = "..";
+
+function escapeHtml(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function buildArticleFooter(article) {
+  const author = article.author || "slotterY";
+  const lines = [`<p class="article-byline"><strong>執筆</strong>：${escapeHtml(author)}</p>`];
+  if (article.published) {
+    lines.push(`<p class="article-date">公開日：${escapeHtml(article.published)}</p>`);
+  }
+  if (article.updated) {
+    lines.push(`<p class="article-updated">最終更新：${escapeHtml(article.updated)}</p>`);
+  }
+  return `
+            <aside class="article-footer-meta card" aria-label="記事情報">
+                ${lines.join("\n                ")}
+            </aside>`;
+}
 
 function build() {
   const layout = fs.readFileSync(LAYOUT_PATH, "utf8");
@@ -38,10 +62,12 @@ function build() {
     }
 
     const content = fs.readFileSync(bodyPath, "utf8");
+    const articleFooter = buildArticleFooter(article);
     let html = layout
       .replace(/\{\{TITLE\}\}/g, title)
       .replace(/\{\{DESCRIPTION\}\}/g, description)
       .replace(/\{\{CONTENT\}\}/, content)
+      .replace(/\{\{ARTICLE_FOOTER\}\}/g, articleFooter)
       .replace(/\{\{BASE\}\}/g, BASE);
 
     const outPath = path.join(OUTPUT_DIR, `${slug}.html`);
@@ -71,6 +97,7 @@ ${indexListItems}
     .replace(/\{\{TITLE\}\}/g, "解説・使い方")
     .replace(/\{\{DESCRIPTION\}\}/g, "設定推測や天井期待値の基礎を解説した記事一覧。ツールの使い方や用語の説明。")
     .replace(/\{\{CONTENT\}\}/, indexContent)
+    .replace(/\{\{ARTICLE_FOOTER\}\}/g, "")
     .replace(/\{\{BASE\}\}/g, BASE);
 
   fs.writeFileSync(path.join(OUTPUT_DIR, "index.html"), indexHtml, "utf8");

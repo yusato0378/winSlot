@@ -711,6 +711,27 @@ input::placeholder {
     color: #fff;
 }
 
+/* ガイド記事フッター（著者・公開日） */
+.article-footer-meta {
+    margin-top: 28px;
+    padding: 16px 20px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.article-footer-meta p {
+    margin: 0 0 6px;
+}
+
+.article-footer-meta p:last-child {
+    margin-bottom: 0;
+}
+
+.article-footer-meta strong {
+    color: var(--text-secondary);
+}
+
 .page-body li {
     margin-bottom: 4px;
 }

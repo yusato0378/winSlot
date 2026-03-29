@@ -82,6 +82,22 @@
     color: var(--accent-gold);
 }
 
+/* 手書き解説（機種LP） */
+.lp-editorial-body {
+    margin-top: 8px;
+}
+
+.lp-editorial-p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    margin: 0 0 14px;
+}
+
+.lp-editorial-p:last-of-type {
+    margin-bottom: 8px;
+}
+
 .lp-note {
     margin-top: 12px;
     font-size: 0.8rem;
