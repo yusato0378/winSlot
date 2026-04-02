@@ -163,13 +163,15 @@ git config --unset core.hooksPath
 
 ### 手順
 
-1. **`articles/manifest.json`** に1件追加（`slug` は英数字とハイフンのみ推奨）
+1. **`articles/manifest.json`** に1件追加（`slug` は英数字とハイフンのみ推奨）。**`author`**（省略時は `slotterY`）・**`published`**（`YYYY-MM-DD`）を入れると、記事ページの **h1 直下**・**JSON-LD**・**一覧**に反映されます。追記更新時は **`updated`** も利用可能です。
 
    ```json
    {
      "slug": "my-article",
      "title": "記事タイトル",
-     "description": "meta description 用の説明文"
+     "description": "meta description 用の説明文",
+     "author": "slotterY",
+     "published": "2026-04-02"
    }
    ```
 
@@ -192,7 +194,7 @@ git config --unset core.hooksPath
    node build-articles.js
    ```
 
-4. トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で `guide/{slug}.html` を追加。`sitemap.xml` にも URL を追加すると SEO 的に望ましいです。
+4. トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で `guide/{slug}.html` を追加。`guide/*.html` は `node generate-landing-pages.js` 実行時に `sitemap.xml` へ自動で列挙されます（`build-articles.js` のあとに実行すると新記事も反映されます）。
 
 ### レイアウトだけ変更したいとき
 

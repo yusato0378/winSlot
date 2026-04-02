@@ -711,7 +711,37 @@ input::placeholder {
     color: #fff;
 }
 
-/* ガイド記事フッター（著者・公開日） */
+.guide-article-list-item {
+    margin-bottom: 6px;
+}
+
+.guide-article-list-meta {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 4px 0 10px 14px;
+    line-height: 1.45;
+}
+
+/* ガイド記事タイトル直下（著者・公開日） */
+.article-meta-lead {
+    margin: -6px 0 18px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+
+.article-meta-lead .article-meta-sep {
+    opacity: 0.55;
+    margin: 0 0.35em;
+}
+
+.article-meta-lead strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ガイド記事フッター（最終更新のみ） */
 .article-footer-meta {
     margin-top: 28px;
     padding: 16px 20px;

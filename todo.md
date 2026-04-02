@@ -14,11 +14,11 @@
   - 対象ファイル: `generate-landing-pages.js`, `machines/*/index.html`（再生成）
 
 - [x] **2. 運営者情報・著者情報を明示（E-E-A-T対策）**
-  - `about.html` に運営者名・経歴・運営目的を追記
-  - `templates/article-layout.html` に `{{AUTHOR}}` / `{{DATE}}` プレースホルダを追加
-  - `articles/manifest.json` に `author` / `date` フィールドを追加
-  - `build-articles.js` を改修して著者名・公開日を記事に表示
-  - 対象ファイル: `about.html`, `templates/article-layout.html`, `articles/manifest.json`, `build-articles.js`
+  - `about.html` に運営者名・経歴・運営目的を追記（詳細は `plan.md`）
+  - `templates/article-layout.html` に `{{ARTICLE_HEAD_EXTRA}}`（JSON-LD）を追加
+  - `articles/manifest.json` に `author` / `published`（任意 `updated`）を記載
+  - `build-articles.js` で h1 直下に著者・公開日、`<head>` に Article JSON-LD、`guide/index` 一覧にも著者・公開日を表示
+  - 対象ファイル: `about.html`, `templates/article-layout.html`, `articles/manifest.json`, `build-articles.js`, `style.css`
 
 - [x] **3. sitemap.xml に guide/ 記事を追加**
   - `generate-landing-pages.js` の sitemap 生成ロジックに `guide/*.html` の URL を追加

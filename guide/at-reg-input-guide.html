@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
+    <meta name="description" content="なぜREG・ST・CZで表示が違うのか、スペック表の列とツール入力の対応、取り違えやすい点を解説します。">
+    <title>スマスロ・AT機の「REG」欄が機種で違う理由（CZ・ST・ループの読み替え） | Setting Analyzer Pro</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"スマスロ・AT機の「REG」欄が機種で違う理由（CZ・ST・ループの読み替え）","description":"なぜREG・ST・CZで表示が違うのか、スペック表の列とツール入力の対応、取り違えやすい点を解説します。","url":"https://pachislot-setting.com/guide/at-reg-input-guide.html","author":{"@type":"Person","name":"slotterY"},"publisher":{"@type":"Organization","name":"Setting Analyzer Pro","url":"https://pachislot-setting.com"},"datePublished":"2026-04-02","dateModified":"2026-04-02"}</script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <p class="app-subtitle"><a href="../index.html" class="back-link">&larr; トップに戻る</a></p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="card page-card">
+    <h1 class="page-title">スマスロ・AT機の「REG」欄が機種で違う理由（CZ・ST・ループの読み替え）</h1>
+    <div class="article-meta-lead" aria-label="記事情報"><span class="article-meta-item"><strong>著者</strong>：slotterY</span><span class="article-meta-sep" aria-hidden="true"> · </span><span class="article-meta-item"><strong>公開日</strong>：<time datetime="2026-04-02">2026-04-02</time></span></div>
+    <div class="page-body">
+        <p>当ツールでは、機種によって入力欄の名前が「REG」「ST」「CZ初当たり」「AT初当たり」などとバラバラに見えます。これは仕様ミスではなく、<strong>各機種のスペック表で何を「2つ目の抽選軸」として扱っているか</strong>が違うためです。この記事では、表示の違いの理由と、自分の実戦カウントをどう入力に合わせるかを整理します。</p>
+
+        <h2>なぜ「BIG」と「REG」だけでは足りないのか</h2>
+        <p>ジャグラーなどのAタイプでは、だいたい<strong>BIG</strong>と<strong>REG</strong>の2種類でボーナス確率が語られます。一方、AT機・スマスロでは次のようなパターンがあります。</p>
+        <ul>
+            <li>通常から<strong>AT（またはART）</strong>に入る抽選と、別ルートで当たる<strong>ボーナス</strong>が分かれている</li>
+            <li><strong>CZ（チャンスゾーン）</strong>からメイン区間に繋がる構成で、カタログ上「CZ初当たり」が設定差に載っている</li>
+            <li><strong>ST</strong>や<strong>炎炎ループ</strong>など、機種固有の名称で2列目が表記されている</li>
+        </ul>
+        <p>ツールは「設定ごとに公開されている2系統（または合算）の確率」を入力できるようにしているため、<strong>2列目のラベルが機種ごとに変わります</strong>。</p>
+
+        <h2>スペック表の列名と、ツールの入力欄の対応</h2>
+        <p>基本の考え方は次のとおりです。</p>
+        <ul>
+            <li><strong>1列目（初当たり・BIG・AT初当たりなど）</strong>：通常時からメインの高純増区間（やそれに準ずる区間）へ入る側の回数</li>
+            <li><strong>2列目（REG・ST・CZ・ループなど）</strong>：カタログ上の「もう一つの軸」に相当する回数。機種によって「ボーナス」「CZ」「ST」など名称が異なります</li>
+        </ul>
+        <p>たとえば「AT初当たり」と「CZ初当たり」の両方がある機種では、実戦で数えた<strong>CZに当選した回数</strong>を、ツールのCZ側（REG欄に相当する入力）に入れる、という対応になります。機種別ページの<strong>設定別スペック表</strong>の列見出しと、入力フォームのラベルを並べて確認すると取り違えにくくなります。</p>
+
+        <h2>よくある取り違え</h2>
+        <ul>
+            <li><strong>「REG」と書いてあるからジャグラーのREGと同じ</strong>→ AT機では「2列目の名称がREG相当として実装されているだけ」で、中身はST抽選やCZ抽選のことが多いです。意味は<strong>スペック表の定義</strong>で確認してください</li>
+            <li><strong>合算でしか公表されていない</strong>→ ツールは合算列に合わせて設計されている機種もあれば、2列に分けて入力する機種もあります。表の見方に合わせてください</li>
+            <li><strong>小役・示唆は別</strong>→ 終了画面や子役は「設定推測要素」ページ側の補助情報であり、本ツールのメイン入力は<strong>回数系（G数・各初当たり回数）</strong>が中心です</li>
+        </ul>
+
+        <h2>迷ったときの手順</h2>
+        <ol>
+            <li>機種を選び、画面上部のスペック表で<strong>列名</strong>を確認する</li>
+            <li>自分がカウンターで付けている項目が、どの列に相当するかメモする</li>
+            <li>入力後、推測要素の表示で「実測とスペック」が極端にズレていないかざっと見る</li>
+        </ol>
+
+        <h2>関連記事</h2>
+        <ul>
+            <li><a href="data-counting.html">設定推測に使うデータの取り方（総ゲーム数・BIG・REGの数え方）</a></li>
+            <li><a href="at-ceiling-guide.html">スマスロ・AT機の天井狙いの基本（初心者向け）</a></li>
+            <li><a href="glossary.html">天井・設定推測に役立つ用語集</a></li>
+        </ul>
+
+        <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        <p>※ パチスロは適度に楽しむ遊びです。のめり込みに注意しましょう。</p>
+    </div>
+</section>
+
+            
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <a href="../terms.html">利用規約</a>
+                <a href="../contact.html">お問い合わせ</a>
+                <a href="../about.html">アプリについて</a>
+            </div>
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+</body>
+</html>

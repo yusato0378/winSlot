@@ -103,5 +103,26 @@
     "description": "予算管理・時間制限・のめり込み予防など、パチスロを楽しみながら自己管理するための考え方と公的相談窓口を紹介します。",
     "author": "slotterY",
     "published": "2026-03-29"
+  },
+  {
+    "slug": "at-reg-input-guide",
+    "title": "スマスロ・AT機の「REG」欄が機種で違う理由（CZ・ST・ループの読み替え）",
+    "description": "なぜREG・ST・CZで表示が違うのか、スペック表の列とツール入力の対応、取り違えやすい点を解説します。",
+    "author": "slotterY",
+    "published": "2026-04-02"
+  },
+  {
+    "slug": "hyena-short-session-tool",
+    "title": "ハイエナ・短時間打法と設定推測ツールの相性",
+    "description": "短時間・台替えが多い立ち回りで推測が振れやすい理由と、ツールを活かすためのデータの積み方・考え方を解説します。",
+    "author": "slotterY",
+    "published": "2026-04-02"
+  },
+  {
+    "slug": "medal-yen-ceiling-ev",
+    "title": "メダル・コイン単価と期待値表示（1メダル＝○円の考え方）",
+    "description": "天井期待値の「円」表示とメダル・コインの関係、当サイトの換算前提と読み替えの注意点を解説します。",
+    "author": "slotterY",
+    "published": "2026-04-02"
   }
 ]
