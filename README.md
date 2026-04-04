@@ -301,6 +301,13 @@ git config --unset core.hooksPath
 | `toloveru` | L ToLOVEるダークネス |
 | `baki` | Ｌ範馬刃牙 |
 | `biohazard5` | スマスロ バイオハザード5 |
+| `eureka_seven_art` | 交響詩篇エウレカセブン HI-EVOLUTION ZERO TYPE-ART |
+| `shake_bt` | スマスロ シェイク ボーナストリガー |
+| `harem_ace_bt` | 翔べ！ハーレムエース |
+| `alex_bt` | スマスロ アレックスブライト |
+| `bofuri` | スマスロ痛いのは嫌なので防御力に極振りしたいと思います。 |
+| `nanatsu_maken` | L七つの魔剣が支配する |
+| `granbelm` | 回胴式遊技機 グランベルム |
 | `revuestarlight` | L少女☆歌劇 レヴュースタァライト -The SLOT- |
 
 ### Aタイプ

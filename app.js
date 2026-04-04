@@ -922,6 +922,128 @@ const MACHINES = [
         },
         ceiling: 900, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "eureka_seven_art",
+        name: "交響詩篇エウレカセブン HI-EVOLUTION ZERO TYPE-ART",
+        type: "AT",
+        bigLabel: "ボーナス合算",
+        regLabel: "ART初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 195.6, reg: 270.4, koyaku: null, payout: 98.1 },
+            2: { big: 192.8, reg: 255.7, koyaku: null, payout: 99.0 },
+            3: { big: 190.5, reg: 239.3, koyaku: null, payout: 100.3 },
+            4: { big: 186.7, reg: 210.7, koyaku: null, payout: 103.6 },
+            5: { big: 185.7, reg: 201.2, koyaku: null, payout: 104.8 },
+            6: { big: 183.1, reg: 188.7, koyaku: null, payout: 106.4 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "shake_bt",
+        name: "スマスロ シェイク ボーナストリガー",
+        type: "AT",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 350.5, reg: 425.6, koyaku: null, payout: 98.6 },
+            2: { big: 327.7, reg: 332.7, koyaku: null, payout: 100.6 },
+            5: { big: 341.3, reg: 409.6, koyaku: null, payout: 103.0 },
+            6: { big: 297.9, reg: 297.9, koyaku: null, payout: 106.1 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 400, normalCostPerGame: 1.4
+    },
+    {
+        id: "harem_ace_bt",
+        name: "翔べ！ハーレムエース",
+        type: "AT",
+        bigLabel: "ボーナス合算",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 234.1, reg: null, koyaku: null, payout: 98.1 },
+            2: { big: 220.7, reg: null, koyaku: null, payout: 99.9 },
+            5: { big: 186.7, reg: null, koyaku: null, payout: 104.7 },
+            6: { big: 158.7, reg: null, koyaku: null, payout: 110.0 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 350, normalCostPerGame: 1.2
+    },
+    {
+        id: "alex_bt",
+        name: "スマスロ アレックスブライト",
+        type: "AT",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 309.1, reg: 428.3, koyaku: null, payout: 98.8 },
+            2: { big: 303.4, reg: 409.6, koyaku: null, payout: 100.2 },
+            3: { big: 299.3, reg: 388.0, koyaku: null, payout: 101.2 },
+            4: { big: 297.2, reg: 376.0, koyaku: null, payout: 102.6 },
+            5: { big: 295.2, reg: 366.1, koyaku: null, payout: 104.1 },
+            6: { big: 287.4, reg: 312.1, koyaku: null, payout: 108.3 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 400, normalCostPerGame: 2.2
+    },
+    {
+        id: "bofuri",
+        name: "スマスロ痛いのは嫌なので防御力に極振りしたいと思います。",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 319.0, reg: null, koyaku: null, payout: 97.9 },
+            2: { big: 309.8, reg: null, koyaku: null, payout: 98.8 },
+            3: { big: 307.3, reg: null, koyaku: null, payout: 100.5 },
+            4: { big: 266.8, reg: null, koyaku: null, payout: 105.9 },
+            5: { big: 257.1, reg: null, koyaku: null, payout: 109.5 },
+            6: { big: 229.7, reg: null, koyaku: null, payout: 113.0 }
+        },
+        ceiling: 950, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 400,
+        avgBonusReward: 450, normalCostPerGame: 1.5
+    },
+    {
+        id: "nanatsu_maken",
+        name: "L七つの魔剣が支配する",
+        type: "AT",
+        bigLabel: "ボーナス初当たり",
+        regLabel: "ST初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 228.0, reg: 408.3, koyaku: null, payout: 97.9 },
+            2: { big: 222.0, reg: 394.9, koyaku: null, payout: 99.0 },
+            3: { big: 209.7, reg: 366.4, koyaku: null, payout: 101.1 },
+            4: { big: 185.6, reg: 314.0, koyaku: null, payout: 105.5 },
+            5: { big: 173.5, reg: 289.2, koyaku: null, payout: 108.5 },
+            6: { big: 164.7, reg: 272.3, koyaku: null, payout: 111.0 }
+        },
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 400,
+        avgBonusReward: 400, normalCostPerGame: 2.0
+    },
+    {
+        id: "granbelm",
+        name: "回胴式遊技機 グランベルム",
+        type: "AT",
+        bigLabel: "ボーナス",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 287.9, reg: 478.9, koyaku: null, payout: 97.6 },
+            2: { big: 283.1, reg: 466.6, koyaku: null, payout: 98.5 },
+            3: { big: 268.8, reg: 436.0, koyaku: null, payout: 100.7 },
+            4: { big: 247.7, reg: 393.8, koyaku: null, payout: 104.5 },
+            5: { big: 233.7, reg: 367.5, koyaku: null, payout: 107.6 },
+            6: { big: 223.8, reg: 346.1, koyaku: null, payout: 110.9 }
+        },
+        ceiling: 649, ceilingTarget: 400, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 400, normalCostPerGame: 1.5
     }
 ];
 

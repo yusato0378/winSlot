@@ -76,3 +76,28 @@
 ```
 
 **最重要は項目 1〜4**。これらが完了した段階で再審査に出せる状態になる。
+
+---
+
+## フェーズ4：新規機種7件の追加 — 完了
+
+> リストのうち「L ToLOVEるダークネス」「L 無職転生」は既存収録のため対象外。
+
+- [x] **データ準備**（7機種分のスペック・天井・コストを一次資料から整理）
+- [x] **`app.js`** に `MACHINES` エントリ7件追加（`id` / `bigLabel`・`regLabel` を機種仕様に合わせる）
+- [x] **`generate-landing-pages.js`** に同内容の `MACHINES` 行＋`EDITORIAL_BY_ID` 7件
+- [x] **`index.html`** 対応機種リンク＋AT件数・総数・meta/JSON-LDの機種数表記を更新
+- [x] **`about.html`** 等、機種数を記載している箇所があれば更新
+- [x] **`node generate-landing-pages.js`** で `machines/*` と `sitemap.xml` を再生成
+- [x] **（任意）** `setGuessElement` … **今回は未作成**（LP・本ツールのみ追加。必要なら後からページ＋`GUESS_ELEMENT_PAGES` 三箇所＋`patch-setguess-seo.js`）
+- [x] **`README.md`** 収録機種表の更新
+
+### 機種別サブチェック（7件）
+
+- [x] エウレカセブンART（`eureka_seven_art`）
+- [x] SHAKE BT（`shake_bt`）
+- [x] ハーレムエース BT（`harem_ace_bt`）
+- [x] ALEX BT（`alex_bt`）
+- [x] スマスロ痛いのは嫌なので防御力に極振りしたいと思います。（`bofuri`）
+- [x] 七つの魔剣が支配する（`nanatsu_maken`）
+- [x] 回胴式遊技機 グランベルム（`granbelm`）

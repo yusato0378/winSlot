@@ -119,6 +119,20 @@ const EDITORIAL_BY_ID = {
     biohazard5: `スマスロ バイオハザード5は、AT初当たり確率の設定差と天井設計が立ち回りを左右しやすいホラーアクション系AT機です。ハマりが深いほど天井期待値の比重が上がります。\n\n999G前後の天井とリセット短縮をセットで見ると、朝一と通常の切り替えがしやすくなります。\n\nサバイバルホラーの没入感を楽しみつつ、推測は参考値として扱いましょう。`,
 
     revuestarlight: `L少女☆歌劇 レヴュースタァライトは、ボーナス合算とAT初当たりの二系統でスペック差が現れる構成です。入力定義を誤ると推測がブレやすいので、カウンターの取り方を統一してください。\n\n900G前後の天井とリセット短縮があり、ゲーム数別期待値が立ち回りの補助になります。\n\nステージ演出の華やかさと、統計の地味さのギャップを理解しておくとツールの使い方がブレにくくなります。責任ある遊技を心がけてください。`,
+
+    eureka_seven_art: `交響詩篇エウレカセブン TYPE-ARTは、ボーナス合算とART初当たりの二系統で設定差が大きい6.5号機です。小役や示唆も材料になりますが、本ツールは主に回数系の入力を想定しています。\n\n天井非搭載のため、天井期待値は表示されず設定推測とスペック確認が主用途になります。長めのデータで合算・ARTのバランスを見るのがおすすめです。\n\n数値は公開情報ベースの参考値です。実機仕様の変更があればご自身でもご確認ください。`,
+
+    shake_bt: `スマスロ シェイク ボーナストリガーは、BIG・REGの二軸で設定差が現れるBT搭載ノーマルです。奇数・偶数で傾向が分かれるため、短期データの解釈には注意が必要です。\n\n天井は非搭載です。設定推測はカウンターの定義（BIG/REG）をスペック表に合わせて統一してください。\n\nBT中の技術介入やループ率はモデルに含めきれないため、推測結果は参考値として扱ってください。`,
+
+    harem_ace_bt: `翔べ！ハーレムエースは、ボーナス合算で設定差を読むBT搭載タイプです。設定によっては列構成が異なる表記もあるため、入力は「合算回数」中心に合わせると解釈が安定しやすいです。\n\n天井非搭載のため、長期の確率傾向を見る用途が中心になります。\n\n演出と数値のバランスを意識し、責任ある範囲でご利用ください。`,
+
+    alex_bt: `スマスロ アレックスブライトは、BIG・REGに設定差が大きいボーナストリガー機です。合算確率の推移から設定帯を推う打ち手が一般的です。\n\n天井は非搭載です。小役や終了画面の示唆は本ツールの主入力外となるため、推測は回数データの積み上げが基本です。\n\n参考値として活用し、過信は避けましょう。`,
+
+    bofuri: `スマスロ「防振り」は、AT初当たり確率の設定差と天井・設定変更時短縮天井が立ち回りの軸になりやすい機種です。CZや防御状態など複合仕様は簡易モデルで近似しています。\n\n950G前後の天井と短縮ラインをツールで確認し、現在ゲーム数とセットで見ると判断がしやすくなります。\n\n数値は公開スペックに基づく参考値です。`,
+
+    nanatsu_maken: `L七つの魔剣が支配するは、ボーナス初当たりとST初当たりの二系統で設定差が現れます。入力列とカウンターの対応を取り違えないことが精度の鍵です。\n\n通常時はST間最大1000G前後の天井、設定変更時は短縮ラインがあるため、ツールの通常／リセット表示を状況に合わせて読み替えてください。\n\nコナミ系の演出を楽しみつつ、推測はデータ量を意識しましょう。`,
+
+    granbelm: `回胴式遊技機 グランベルムは、ボーナスとAT初当たりの二系統でスペック差を読むAT機です。通常モードにより天井手前のゲーム数が変わる仕様は簡易モデルでは扱いきれないため、649G前後を代表値として期待値を見ています。\n\nCZ経由の当選などはモデル外要素が多いです。深いハマりでの目安として一覧表を活用してください。\n\n参考値としてご利用ください。`,
 };
 
 function formatEditorialParagraphs(text) {
@@ -285,6 +299,27 @@ const MACHINES = [
     { id: "revuestarlight", name: "L少女☆歌劇 レヴュースタァライト -The SLOT-", type: "AT", bigLabel: "ボーナス合算", regLabel: "AT初当たり", koyakuName: null,
       settings: { 1:{big:184.8,reg:359.6,koyaku:null,payout:97.8}, 2:{big:182.2,reg:346.8,koyaku:null,payout:98.8}, 4:{big:169.9,reg:277.1,koyaku:null,payout:104.6}, 5:{big:165.4,reg:255.7,koyaku:null,payout:106.9}, 6:{big:160.6,reg:232.5,koyaku:null,payout:110.0} },
       ceiling:900, ceilingTarget:550, ceilingReward:600, resetCeiling:600, resetCeilingTarget:350, avgBonusReward:400, normalCostPerGame:2.2 },
+    { id: "eureka_seven_art", name: "交響詩篇エウレカセブン HI-EVOLUTION ZERO TYPE-ART", type: "AT", bigLabel: "ボーナス合算", regLabel: "ART初当たり", koyakuName: null,
+      settings: { 1:{big:195.6,reg:270.4,koyaku:null,payout:98.1}, 2:{big:192.8,reg:255.7,koyaku:null,payout:99.0}, 3:{big:190.5,reg:239.3,koyaku:null,payout:100.3}, 4:{big:186.7,reg:210.7,koyaku:null,payout:103.6}, 5:{big:185.7,reg:201.2,koyaku:null,payout:104.8}, 6:{big:183.1,reg:188.7,koyaku:null,payout:106.4} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:2.2 },
+    { id: "shake_bt", name: "スマスロ シェイク ボーナストリガー", type: "AT", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
+      settings: { 1:{big:350.5,reg:425.6,koyaku:null,payout:98.6}, 2:{big:327.7,reg:332.7,koyaku:null,payout:100.6}, 5:{big:341.3,reg:409.6,koyaku:null,payout:103.0}, 6:{big:297.9,reg:297.9,koyaku:null,payout:106.1} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:1.4 },
+    { id: "harem_ace_bt", name: "翔べ！ハーレムエース", type: "AT", bigLabel: "ボーナス合算", regLabel: null, koyakuName: null,
+      settings: { 1:{big:234.1,reg:null,koyaku:null,payout:98.1}, 2:{big:220.7,reg:null,koyaku:null,payout:99.9}, 5:{big:186.7,reg:null,koyaku:null,payout:104.7}, 6:{big:158.7,reg:null,koyaku:null,payout:110.0} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:350, normalCostPerGame:1.2 },
+    { id: "alex_bt", name: "スマスロ アレックスブライト", type: "AT", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
+      settings: { 1:{big:309.1,reg:428.3,koyaku:null,payout:98.8}, 2:{big:303.4,reg:409.6,koyaku:null,payout:100.2}, 3:{big:299.3,reg:388.0,koyaku:null,payout:101.2}, 4:{big:297.2,reg:376.0,koyaku:null,payout:102.6}, 5:{big:295.2,reg:366.1,koyaku:null,payout:104.1}, 6:{big:287.4,reg:312.1,koyaku:null,payout:108.3} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:2.2 },
+    { id: "bofuri", name: "スマスロ痛いのは嫌なので防御力に極振りしたいと思います。", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
+      settings: { 1:{big:319.0,reg:null,koyaku:null,payout:97.9}, 2:{big:309.8,reg:null,koyaku:null,payout:98.8}, 3:{big:307.3,reg:null,koyaku:null,payout:100.5}, 4:{big:266.8,reg:null,koyaku:null,payout:105.9}, 5:{big:257.1,reg:null,koyaku:null,payout:109.5}, 6:{big:229.7,reg:null,koyaku:null,payout:113.0} },
+      ceiling:950, ceilingTarget:600, ceilingReward:700, resetCeiling:650, resetCeilingTarget:400, avgBonusReward:450, normalCostPerGame:1.5 },
+    { id: "nanatsu_maken", name: "L七つの魔剣が支配する", type: "AT", bigLabel: "ボーナス初当たり", regLabel: "ST初当たり", koyakuName: null,
+      settings: { 1:{big:228.0,reg:408.3,koyaku:null,payout:97.9}, 2:{big:222.0,reg:394.9,koyaku:null,payout:99.0}, 3:{big:209.7,reg:366.4,koyaku:null,payout:101.1}, 4:{big:185.6,reg:314.0,koyaku:null,payout:105.5}, 5:{big:173.5,reg:289.2,koyaku:null,payout:108.5}, 6:{big:164.7,reg:272.3,koyaku:null,payout:111.0} },
+      ceiling:1000, ceilingTarget:600, ceilingReward:700, resetCeiling:650, resetCeilingTarget:400, avgBonusReward:400, normalCostPerGame:2.0 },
+    { id: "granbelm", name: "回胴式遊技機 グランベルム", type: "AT", bigLabel: "ボーナス", regLabel: "AT初当たり", koyakuName: null,
+      settings: { 1:{big:287.9,reg:478.9,koyaku:null,payout:97.6}, 2:{big:283.1,reg:466.6,koyaku:null,payout:98.5}, 3:{big:268.8,reg:436.0,koyaku:null,payout:100.7}, 4:{big:247.7,reg:393.8,koyaku:null,payout:104.5}, 5:{big:233.7,reg:367.5,koyaku:null,payout:107.6}, 6:{big:223.8,reg:346.1,koyaku:null,payout:110.9} },
+      ceiling:649, ceilingTarget:400, ceilingReward:500, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:1.5 },
 ];
 
 const GUESS_ELEMENT_PAGES = {
