@@ -24,6 +24,7 @@
 - [AT / ART機（スマスロ）](#at--art機スマスロ)
 - [Aタイプ](#aタイプ)
 - [免責](#免責)
+- [Cursor Skills（エージェント）](#cursor-skillsエージェント)
 
 ---
 
@@ -77,9 +78,26 @@ winSlot/
 ├── generate-landing-pages.js  # machines/ と sitemap 更新
 ├── patch-setguess-seo.js # setGuessElement の meta / 機種LP 導線を一括更新
 ├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
+├── .cursor/
+│   └── skills/             # Cursor Agent Skills（リポジトリ単位・任意）
+│       ├── japanese-concise/
+│       └── post-implementation-security/
 └── scripts/
     └── add-favicon-setguess.js  # setGuessElement に favicon 挿入（任意）
 ```
+
+---
+
+## Cursor Skills（エージェント）
+
+このリポジトリ用の [Cursor Agent Skills](https://cursor.com/docs/skills) を `.cursor/skills/` に置いています（**プロジェクト限定**。他リポジトリには自動では効きません）。
+
+| Skill | 用途 |
+|-------|------|
+| `japanese-concise` | 日本語で簡潔に答える方針 |
+| `post-implementation-security` | 実装後の静的サイト向けセキュリティチェックリスト |
+
+チャットで `/japanese-concise` など Skill 名を指定して使えます（Cursor のバージョンにより UI が異なる場合があります）。
 
 ---
 
