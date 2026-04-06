@@ -106,7 +106,7 @@
 
 ## フェーズ5：2026/04/06 導入新台の追加 — 完了
 
-> スペック・天井は解析サイト・P-WORLD 等を参照し `app.js` に反映。**ヨルムンガンド**は天井未確定のため `ceiling: null`。**setGuessElement** は今回未作成（任意）。
+> スペック・天井は解析サイト・P-WORLD 等を参照し `app.js` に反映。**ヨルムンガンド**は天井未確定のため `ceiling: null`。**setGuessElement** は新台6種分を追加済み。
 
 ### 対象機種（実装済み `id`）
 
@@ -126,7 +126,7 @@
 - [x] **`about.html`** 等、機種数を書いている箇所があれば更新
 - [x] **`scripts/sort-machine-list.js`** に6件追加後、`node scripts/sort-machine-list.js` → `node scripts/patch-index-machine-sort.js` で一覧を50音順に反映
 - [x] **`node generate-landing-pages.js`** で `machines/*` と `sitemap.xml` を再生成
-- [ ] **（任意）** `setGuessElement` 新規ページ＋`GUESS_ELEMENT_PAGES` 三箇所＋`patch-setguess-seo.js` — **未作成**
+- [x] **（任意）** `setGuessElement` 新規ページ＋`GUESS_ELEMENT_PAGES` 三箇所＋`patch-setguess-seo.js`
 - [x] **`README.md`** 収録機種表の更新
 
 ### 機種別サブチェック（6件）

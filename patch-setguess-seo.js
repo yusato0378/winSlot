@@ -53,6 +53,12 @@ const GUESS_ELEMENT_PAGES = {
     baki: "setGuessElement/baki/index.html",
     biohazard5: "setGuessElement/biohazard5/index.html",
     revuestarlight: "setGuessElement/revuestarlight/index.html",
+    kyokou_suiritr: "setGuessElement/kyokouSuiritr/index.html",
+    isekai_quartet_bt: "setGuessElement/isekaiQuartetBt/index.html",
+    jormungand: "setGuessElement/jormungand/index.html",
+    akudama_drive: "setGuessElement/akudamaDrive/index.html",
+    shinuchi_yoshimune: "setGuessElement/shinuchiYoshimune/index.html",
+    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html",
 };
 
 function escapeAttr(str) {
