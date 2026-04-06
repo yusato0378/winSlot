@@ -50,6 +50,10 @@ const at = [
   ["machines/nanatsu_maken/", "L七つの魔剣が支配する"],
   ["machines/granbelm/", "回胴式遊技機 グランベルム"],
   ["machines/revuestarlight/", "L少女☆歌劇 レヴュースタァライト -The SLOT-"],
+  ["machines/akudama_drive/", "L アクダマドライブ"],
+  ["machines/kyokou_suiritr/", "L 虚構推理"],
+  ["machines/jormungand/", "スマスロ ヨルムンガンド"],
+  ["machines/shinuchi_yoshimune/", "真打 吉宗"],
 ];
 const aType = [
   ["machines/aim_juggler_ex/", "アイムジャグラーEX"],
@@ -63,6 +67,8 @@ const aType = [
   ["machines/umineko2/", "うみねこのなく頃に2"],
   ["machines/crea_hihouden/", "クレアの秘宝伝 BT"],
   ["machines/eva_bt/", "エヴァンゲリオン 約束の扉"],
+  ["machines/isekai_quartet_bt/", "A-SLOT+ 異世界かるてっと BT"],
+  ["machines/lb_triple_crown_seven/", "LB トリプルクラウンセブン"],
 ];
 /** 50音順に近づけるため、一覧表示名から並べ替え用キーを作る */
 function sortKey(displayName) {
@@ -70,6 +76,9 @@ function sortKey(displayName) {
     "L ToLOVEるダークネス": "とらぶるだーくねす",
     "L アズールレーン THE ANIMATION": "あずーるれーん",
     "A-SLOT+ ディスクアップ ULTRAREMIX": "でぃすくあっぷ",
+    "A-SLOT+ 異世界かるてっと BT": "いせかるてっと",
+    "LB トリプルクラウンセブン": "とりぷるくらうんせぶん",
+    "真打 吉宗": "しんうちよしむね",
   };
   if (overrides[displayName]) return overrides[displayName];
 

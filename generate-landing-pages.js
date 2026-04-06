@@ -133,6 +133,18 @@ const EDITORIAL_BY_ID = {
     nanatsu_maken: `L七つの魔剣が支配するは、ボーナス初当たりとST初当たりの二系統で設定差が現れます。入力列とカウンターの対応を取り違えないことが精度の鍵です。\n\n通常時はST間最大1000G前後の天井、設定変更時は短縮ラインがあるため、ツールの通常／リセット表示を状況に合わせて読み替えてください。\n\nコナミ系の演出を楽しみつつ、推測はデータ量を意識しましょう。`,
 
     granbelm: `回胴式遊技機 グランベルムは、ボーナスとAT初当たりの二系統でスペック差を読むAT機です。通常モードにより天井手前のゲーム数が変わる仕様は簡易モデルでは扱いきれないため、649G前後を代表値として期待値を見ています。\n\nCZ経由の当選などはモデル外要素が多いです。深いハマりでの目安として一覧表を活用してください。\n\n参考値としてご利用ください。`,
+
+    kyokou_suiritr: `L 虚構推理は、CZと本ボーナス（初当たり）の二系統があり、入力の定義を揃えると設定推測の解釈が安定しやすいスマスロです。ドーナツビジョン筐体で注目された機種ですが、数値面では合算の見え方が軸になります。\n\n天井は1000G前後と短縮ラインの併用が解説されており、深いゾーンでは期待値判断が立ち回りに効きやすいタイプです。実機の「+α」消化や店舗運用差には注意してください。\n\n公開スペックに基づく参考値です。仕様変更があれば公式情報でご確認ください。`,
+
+    isekai_quartet_bt: `A-SLOT+ 異世界かるてっと BTは、通常時のいせかる目とBIG直撃、さらにBT突入を絡めたボーナストリガー機です。BIGといせかる目の二列入力に対応し、設定差は主に当選確率に表れます。\n\n天井は非搭載のため、ツールは長期の確率傾向と回数バランスの確認が中心になります。BT中の挙動や完全攻略時の機械割は簡易モデルに織り込みきれません。\n\nサミー初のBT機として話題を集めた一台ですが、推測結果はあくまで補助線としてご利用ください。`,
+
+    jormungand: `スマスロ ヨルムンガンドは、CZ経由からAT「ヨルムンガンドラッシュ」へ入るゲーム数上乗せ型のスマスロです。AT初当たりとCZの設定差が推測の主戦場になります。\n\n天井の詳細は導入直後は要確認になる場合があります。本データでは天井非搭載としており、主に回数ベースの設定推測にご利用ください。\n\n軍武アニメ原作のテンポを楽しみつつ、数値は参考情報として扱いましょう。`,
+
+    akudama_drive: `L アクダマドライブは、CZとAT初当たりの二系統でスペック差が大きいスマスロです。高純増の上位ATが目玉になりがちですが、通常時の入力は表記に合わせてCZとATを分けて取ると解釈がブレにくくなります。\n\n天井は約967G＋αや短縮の589G＋αなど複数ラインが解説されています。ツールでは代表しやすいラインを載せていますが、条件によっては読み替えが必要です。\n\n三洋のオリジナル作品ベースの演出と、冷静なゲーム数管理の両立がコツです。`,
+
+    shinuchi_yoshimune: `真打 吉宗は、旧作「吉宗」と別機種のスマスロです。CZとAT初当たりの二系統で設定差を読み、1G連や高出力ゾーンが打ち味の核になります。\n\n天井はCZ間・AT間で尺が異なる解説があり、深いハマりでは期待値の見え方が変わります。本ツールではAT間を代表する長尺を天井として近似しています。\n\n大都の看板シリーズだけに導入も大きい機種ですが、推測はデータの蓄積が基本です。参考値としてご利用ください。`,
+
+    lb_triple_crown_seven: `LB トリプルクラウンセブンは、岡崎産業のBT搭載ノーマルで、BIG・REGの二軸から設定差を読み取るAタイプです。合算確率と出玉率の段差が推測の中心になります。\n\n天井は非搭載です。沖スロ系のモード選択や疑似遊技の細部はモデル化していません。\n\nクラシックな打ち味を重視する打ち手向けですが、設定判別はカウンターの正確さが信頼度に直結します。`,
 };
 
 function formatEditorialParagraphs(text) {
@@ -320,6 +332,24 @@ const MACHINES = [
     { id: "granbelm", name: "回胴式遊技機 グランベルム", type: "AT", bigLabel: "ボーナス", regLabel: "AT初当たり", koyakuName: null,
       settings: { 1:{big:287.9,reg:478.9,koyaku:null,payout:97.6}, 2:{big:283.1,reg:466.6,koyaku:null,payout:98.5}, 3:{big:268.8,reg:436.0,koyaku:null,payout:100.7}, 4:{big:247.7,reg:393.8,koyaku:null,payout:104.5}, 5:{big:233.7,reg:367.5,koyaku:null,payout:107.6}, 6:{big:223.8,reg:346.1,koyaku:null,payout:110.9} },
       ceiling:649, ceilingTarget:400, ceilingReward:500, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:1.5 },
+    { id: "kyokou_suiritr", name: "L 虚構推理", type: "AT", bigLabel: "初当たり", regLabel: "CZ", koyakuName: null,
+      settings: { 1:{big:349.0,reg:124.5,koyaku:null,payout:97.7}, 2:{big:341.3,reg:121.9,koyaku:null,payout:98.5}, 3:{big:329.3,reg:118.6,koyaku:null,payout:100.0}, 4:{big:300.2,reg:112.5,koyaku:null,payout:104.0}, 5:{big:279.7,reg:107.1,koyaku:null,payout:108.0}, 6:{big:264.8,reg:103.5,koyaku:null,payout:112.0} },
+      ceiling:1000, ceilingTarget:600, ceilingReward:700, resetCeiling:700, resetCeilingTarget:400, avgBonusReward:450, normalCostPerGame:1.6 },
+    { id: "isekai_quartet_bt", name: "A-SLOT+ 異世界かるてっと BT", type: "A", bigLabel: "BIG", regLabel: "いせかる目", koyakuName: null,
+      settings: { 1:{big:1337.5,reg:107.6,koyaku:null,payout:97.9}, 2:{big:1260.3,reg:106.2,koyaku:null,payout:99.9}, 3:{big:1187.0,reg:103.2,koyaku:null,payout:101.4}, 4:{big:1113.7,reg:100.1,koyaku:null,payout:102.9}, 5:{big:1040.3,reg:97.1,koyaku:null,payout:104.4}, 6:{big:923.0,reg:89.2,koyaku:null,payout:109.0} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, avgBonusReward:220, normalCostPerGame:1.5 },
+    { id: "jormungand", name: "スマスロ ヨルムンガンド", type: "AT", bigLabel: "AT初当たり", regLabel: "CZ", koyakuName: null,
+      settings: { 1:{big:333.8,reg:194.2,koyaku:null,payout:97.8}, 2:{big:323.3,reg:188.6,koyaku:null,payout:98.8}, 3:{big:305.4,reg:175.7,koyaku:null,payout:100.9}, 4:{big:291.6,reg:169.4,koyaku:null,payout:104.7}, 5:{big:291.1,reg:167.8,koyaku:null,payout:109.6}, 6:{big:290.1,reg:167.2,koyaku:null,payout:113.9} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:400, normalCostPerGame:1.6 },
+    { id: "akudama_drive", name: "L アクダマドライブ", type: "AT", bigLabel: "AT初当たり", regLabel: "CZ", koyakuName: null,
+      settings: { 1:{big:555.5,reg:166.1,koyaku:null,payout:97.4}, 2:{big:550.7,reg:165.3,koyaku:null,payout:98.0}, 3:{big:543.6,reg:163.8,koyaku:null,payout:99.5}, 4:{big:517.8,reg:159.3,koyaku:null,payout:102.5}, 5:{big:487.7,reg:154.8,koyaku:null,payout:106.5}, 6:{big:472.0,reg:152.1,koyaku:null,payout:112.0} },
+      ceiling:967, ceilingTarget:600, ceilingReward:700, resetCeiling:589, resetCeilingTarget:380, avgBonusReward:450, normalCostPerGame:1.6 },
+    { id: "shinuchi_yoshimune", name: "真打 吉宗", type: "AT", bigLabel: "AT初当たり", regLabel: "CZ", koyakuName: null,
+      settings: { 1:{big:488.9,reg:313.0,koyaku:null,payout:97.8}, 2:{big:471.5,reg:303.0,koyaku:null,payout:98.6}, 3:{big:438.5,reg:283.5,koyaku:null,payout:101.0}, 4:{big:398.1,reg:267.1,koyaku:null,payout:104.5}, 5:{big:377.0,reg:256.9,koyaku:null,payout:108.0}, 6:{big:354.9,reg:250.6,koyaku:null,payout:114.0} },
+      ceiling:1500, ceilingTarget:900, ceilingReward:850, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:550, normalCostPerGame:1.6 },
+    { id: "lb_triple_crown_seven", name: "LB トリプルクラウンセブン", type: "A", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
+      settings: { 1:{big:258.0,reg:590.4,koyaku:null,payout:97.5}, 2:{big:253.0,reg:580.0,koyaku:null,payout:99.0}, 3:{big:245.3,reg:561.4,koyaku:null,payout:101.0}, 4:{big:237.7,reg:543.0,koyaku:null,payout:103.0}, 5:{big:230.0,reg:524.3,koyaku:null,payout:105.0}, 6:{big:203.5,reg:464.8,koyaku:null,payout:112.1} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, avgBonusReward:280, normalCostPerGame:1.5 },
 ];
 
 const GUESS_ELEMENT_PAGES = {
@@ -450,7 +480,9 @@ function generatePage(machine) {
     const pageTitle = `${titleKeyword} | Setting Analyzer Pro`;
 
     const descKeywords = isAT
-        ? `${machine.name}の設定推測と天井期待値を自動計算。${machine.bigLabel}確率、出玉率から設定判別。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の天井期待値一覧表も掲載。`
+        ? (hasCeiling
+            ? `${machine.name}の設定推測と天井期待値を自動計算。${machine.bigLabel}確率、出玉率から設定判別。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の天井期待値一覧表も掲載。`
+            : `${machine.name}の設定推測ツール。${machine.bigLabel}確率${machine.regLabel ? `・${machine.regLabel}確率` : ""}、出玉率から設定判別。天井は非搭載または解析中の機種のため、スペック確認・設定推測にお使いください。`)
         : `${machine.name}の設定推測ツール。${machine.bigLabel}確率・${machine.regLabel}確率・合算確率から設定判別。各設定のスペック一覧も掲載。`;
 
     const spec = buildSpecTable(machine);

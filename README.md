@@ -309,6 +309,10 @@ git config --unset core.hooksPath
 | `nanatsu_maken` | L七つの魔剣が支配する |
 | `granbelm` | 回胴式遊技機 グランベルム |
 | `revuestarlight` | L少女☆歌劇 レヴュースタァライト -The SLOT- |
+| `kyokou_suiritr` | L 虚構推理 |
+| `jormungand` | スマスロ ヨルムンガンド |
+| `akudama_drive` | L アクダマドライブ |
+| `shinuchi_yoshimune` | 真打 吉宗 |
 
 ### Aタイプ
 
@@ -325,6 +329,8 @@ git config --unset core.hooksPath
 | `umineko2` | うみねこのなく頃に2 |
 | `crea_hihouden` | クレアの秘宝伝 BT |
 | `eva_bt` | エヴァンゲリオン 約束の扉 |
+| `isekai_quartet_bt` | A-SLOT+ 異世界かるてっと BT |
+| `lb_triple_crown_seven` | LB トリプルクラウンセブン |
 
 LP のパスは `machines/{ID}/index.html` です。
 

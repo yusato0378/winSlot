@@ -19,7 +19,7 @@ if (!reAt.test(html)) throw new Error("AT machine list block not found");
 html = html.replace(reAt, `$1${at}$3`);
 
 const reA =
-  /(Aタイプ<span class="machine-list-count">11機種<\/span><\/summary>\n                    <ul class="machine-link-list">\n)([\s\S]*?)(\n                    <\/ul>\n                <\/details>\n            <\/section>)/;
+  /(Aタイプ<span class="machine-list-count">\d+機種<\/span><\/summary>\n                    <ul class="machine-link-list">\n)([\s\S]*?)(\n                    <\/ul>\n                <\/details>\n            <\/section>)/;
 if (!reA.test(html)) throw new Error("A-type machine list block not found");
 html = html.replace(reA, `$1${aList}$3`);
 

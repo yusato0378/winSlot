@@ -1044,6 +1044,114 @@ const MACHINES = [
         },
         ceiling: 649, ceilingTarget: 400, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 1.5
+    },
+    {
+        id: "kyokou_suiritr",
+        name: "L 虚構推理",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: "CZ",
+        koyakuName: null,
+        settings: {
+            1: { big: 349.0, reg: 124.5, koyaku: null, payout: 97.7 },
+            2: { big: 341.3, reg: 121.9, koyaku: null, payout: 98.5 },
+            3: { big: 329.3, reg: 118.6, koyaku: null, payout: 100.0 },
+            4: { big: 300.2, reg: 112.5, koyaku: null, payout: 104.0 },
+            5: { big: 279.7, reg: 107.1, koyaku: null, payout: 108.0 },
+            6: { big: 264.8, reg: 103.5, koyaku: null, payout: 112.0 }
+        },
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
+        avgBonusReward: 450, normalCostPerGame: 1.6
+    },
+    {
+        id: "isekai_quartet_bt",
+        name: "A-SLOT+ 異世界かるてっと BT",
+        type: "A",
+        bigLabel: "BIG",
+        regLabel: "いせかる目",
+        koyakuName: null,
+        settings: {
+            1: { big: 1337.5, reg: 107.6, koyaku: null, payout: 97.9 },
+            2: { big: 1260.3, reg: 106.2, koyaku: null, payout: 99.9 },
+            3: { big: 1187.0, reg: 103.2, koyaku: null, payout: 101.4 },
+            4: { big: 1113.7, reg: 100.1, koyaku: null, payout: 102.9 },
+            5: { big: 1040.3, reg: 97.1, koyaku: null, payout: 104.4 },
+            6: { big: 923.0, reg: 89.2, koyaku: null, payout: 109.0 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null,
+        avgBonusReward: 220, normalCostPerGame: 1.5
+    },
+    {
+        id: "jormungand",
+        name: "スマスロ ヨルムンガンド",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: "CZ",
+        koyakuName: null,
+        settings: {
+            1: { big: 333.8, reg: 194.2, koyaku: null, payout: 97.8 },
+            2: { big: 323.3, reg: 188.6, koyaku: null, payout: 98.8 },
+            3: { big: 305.4, reg: 175.7, koyaku: null, payout: 100.9 },
+            4: { big: 291.6, reg: 169.4, koyaku: null, payout: 104.7 },
+            5: { big: 291.1, reg: 167.8, koyaku: null, payout: 109.6 },
+            6: { big: 290.1, reg: 167.2, koyaku: null, payout: 113.9 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 400, normalCostPerGame: 1.6
+    },
+    {
+        id: "akudama_drive",
+        name: "L アクダマドライブ",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: "CZ",
+        koyakuName: null,
+        settings: {
+            1: { big: 555.5, reg: 166.1, koyaku: null, payout: 97.4 },
+            2: { big: 550.7, reg: 165.3, koyaku: null, payout: 98.0 },
+            3: { big: 543.6, reg: 163.8, koyaku: null, payout: 99.5 },
+            4: { big: 517.8, reg: 159.3, koyaku: null, payout: 102.5 },
+            5: { big: 487.7, reg: 154.8, koyaku: null, payout: 106.5 },
+            6: { big: 472.0, reg: 152.1, koyaku: null, payout: 112.0 }
+        },
+        ceiling: 967, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 589, resetCeilingTarget: 380,
+        avgBonusReward: 450, normalCostPerGame: 1.6
+    },
+    {
+        id: "shinuchi_yoshimune",
+        name: "真打 吉宗",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: "CZ",
+        koyakuName: null,
+        settings: {
+            1: { big: 488.9, reg: 313.0, koyaku: null, payout: 97.8 },
+            2: { big: 471.5, reg: 303.0, koyaku: null, payout: 98.6 },
+            3: { big: 438.5, reg: 283.5, koyaku: null, payout: 101.0 },
+            4: { big: 398.1, reg: 267.1, koyaku: null, payout: 104.5 },
+            5: { big: 377.0, reg: 256.9, koyaku: null, payout: 108.0 },
+            6: { big: 354.9, reg: 250.6, koyaku: null, payout: 114.0 }
+        },
+        ceiling: 1500, ceilingTarget: 900, ceilingReward: 850, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 550, normalCostPerGame: 1.6
+    },
+    {
+        id: "lb_triple_crown_seven",
+        name: "LB トリプルクラウンセブン",
+        type: "A",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 258.0, reg: 590.4, koyaku: null, payout: 97.5 },
+            2: { big: 253.0, reg: 580.0, koyaku: null, payout: 99.0 },
+            3: { big: 245.3, reg: 561.4, koyaku: null, payout: 101.0 },
+            4: { big: 237.7, reg: 543.0, koyaku: null, payout: 103.0 },
+            5: { big: 230.0, reg: 524.3, koyaku: null, payout: 105.0 },
+            6: { big: 203.5, reg: 464.8, koyaku: null, payout: 112.1 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null,
+        avgBonusReward: 280, normalCostPerGame: 1.5
     }
 ];
 

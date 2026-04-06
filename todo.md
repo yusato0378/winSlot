@@ -101,3 +101,39 @@
 - [x] スマスロ痛いのは嫌なので防御力に極振りしたいと思います。（`bofuri`）
 - [x] 七つの魔剣が支配する（`nanatsu_maken`）
 - [x] 回胴式遊技機 グランベルム（`granbelm`）
+
+---
+
+## フェーズ5：2026/04/06 導入新台の追加 — 完了
+
+> スペック・天井は解析サイト・P-WORLD 等を参照し `app.js` に反映。**ヨルムンガンド**は天井未確定のため `ceiling: null`。**setGuessElement** は今回未作成（任意）。
+
+### 対象機種（実装済み `id`）
+
+| 区分 | `id` | 表記名 |
+|------|------|--------|
+| AT | `kyokou_suiritr` | L 虚構推理 |
+| A | `isekai_quartet_bt` | A-SLOT+ 異世界かるてっと BT |
+| AT | `jormungand` | スマスロ ヨルムンガンド |
+| AT | `akudama_drive` | L アクダマドライブ |
+| AT | `shinuchi_yoshimune` | 真打 吉宗 |
+| A | `lb_triple_crown_seven` | LB トリプルクラウンセブン |
+
+- [x] **一次情報の整理**（各機種：タイプ区分 AT vs A、BIG/REGラベル、通常コスト、天井・スペックの参照URL）
+- [x] **`app.js`** に `MACHINES` エントリ6件追加（既存 `yoshimune` 等との重複がないか確認）
+- [x] **`generate-landing-pages.js`** に同内容の `MACHINES` 行＋`EDITORIAL_BY_ID`（各200〜500字目安）
+- [x] **`index.html`** 対応機種リンク、AT/A件数・総数、meta / JSON-LD の機種数表記を更新
+- [x] **`about.html`** 等、機種数を書いている箇所があれば更新
+- [x] **`scripts/sort-machine-list.js`** に6件追加後、`node scripts/sort-machine-list.js` → `node scripts/patch-index-machine-sort.js` で一覧を50音順に反映
+- [x] **`node generate-landing-pages.js`** で `machines/*` と `sitemap.xml` を再生成
+- [ ] **（任意）** `setGuessElement` 新規ページ＋`GUESS_ELEMENT_PAGES` 三箇所＋`patch-setguess-seo.js` — **未作成**
+- [x] **`README.md`** 収録機種表の更新
+
+### 機種別サブチェック（6件）
+
+- [x] L 虚構推理（`kyokou_suiritr`）
+- [x] A-SLOT+ 異世界かるてっと BT（`isekai_quartet_bt`）
+- [x] スマスロ ヨルムンガンド（`jormungand`）
+- [x] L アクダマドライブ（`akudama_drive`）
+- [x] 真打 吉宗（`shinuchi_yoshimune`）
+- [x] LB トリプルクラウンセブン（`lb_triple_crown_seven`）
