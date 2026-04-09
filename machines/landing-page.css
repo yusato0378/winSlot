@@ -98,6 +98,27 @@
     text-decoration: underline;
 }
 
+/* 関連記事（機種LP） */
+.lp-related-list {
+    margin: 8px 0 0 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.lp-related-list li {
+    margin-bottom: 6px;
+}
+
+.lp-related-list a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.lp-related-list a:hover {
+    text-decoration: underline;
+}
+
 /* セクション */
 .lp-section {
     margin-bottom: 24px;

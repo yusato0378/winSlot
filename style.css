@@ -762,6 +762,31 @@ input::placeholder {
     color: var(--text-secondary);
 }
 
+.related-links {
+    margin-top: 18px;
+    padding: 18px 20px;
+}
+
+.related-links h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.related-links p {
+    margin: 0 0 10px;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+}
+
+.related-links ul {
+    margin: 8px 0 0 20px;
+}
+
+.related-links li {
+    margin-bottom: 6px;
+}
+
 .page-body li {
     margin-bottom: 4px;
 }

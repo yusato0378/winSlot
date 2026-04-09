@@ -559,6 +559,68 @@ function buildVariantNav(machine, currentVariant) {
             </nav>`;
 }
 
+function buildRelatedGuideLinks(machine, variant, basePrefix) {
+    const isAT = machine.type === "AT";
+    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
+    const guide = (slug) => `${basePrefix}guide/${slug}.html`;
+
+    const links = [];
+
+    // まずは variant の意図に寄せる
+    if (variant === "ceiling") {
+        links.push({ href: guide("ceiling-basics"), label: "天井とは？（基礎）" });
+        links.push({ href: guide("ceiling-ev-guide"), label: "天井期待値の見方・使い方" });
+        links.push({ href: guide("reset-ceiling-tips"), label: "朝一リセット天井の注意点" });
+        links.push({ href: guide("medal-yen-ceiling-ev"), label: "期待値（円表示）の前提" });
+    } else if (variant === "setting") {
+        links.push({ href: guide("setting-basics"), label: "設定推測の基本" });
+        links.push({ href: guide("data-counting"), label: "データの取り方（総G/BIG/REG）" });
+        links.push({ href: guide("reading-results"), label: "推測結果％の読み方" });
+        links.push({ href: guide("tool-limitations"), label: "ツールの落とし穴（注意点）" });
+    } else if (variant === "beginner") {
+        links.push({ href: guide("how-to-use"), label: "当サイトの使い方まとめ" });
+        links.push({ href: guide("data-counting"), label: "入力データの取り方" });
+        links.push({ href: guide("reading-results"), label: "結果の読み方" });
+        links.push({ href: guide("responsible-play"), label: "のめり込み防止（自己管理）" });
+    } else {
+        links.push({ href: guide("how-to-use"), label: "当サイトの使い方まとめ" });
+        links.push({ href: guide("setting-basics"), label: "設定推測の基本" });
+        if (hasCeiling) links.push({ href: guide("ceiling-basics"), label: "天井の基礎" });
+        links.push({ href: guide("tool-limitations"), label: "ツールの落とし穴（注意点）" });
+    }
+
+    // 機種タイプに寄せた補助リンク
+    if (!isAT) {
+        links.push({ href: guide("juggler-guide"), label: "Aタイプ（ジャグラー系）の判別ポイント" });
+    } else {
+        links.push({ href: guide("at-ceiling-guide"), label: "AT機の天井狙い（初心者向け）" });
+        links.push({ href: guide("at-reg-input-guide"), label: "AT機の「REG欄」の読み替え" });
+    }
+
+    // 重複排除して上から最大6件
+    const deduped = [];
+    const seen = new Set();
+    for (const l of links) {
+        if (seen.has(l.href)) continue;
+        seen.add(l.href);
+        deduped.push(l);
+        if (deduped.length >= 6) break;
+    }
+
+    const items = deduped
+        .map((l) => `                    <li><a href="${l.href}">${l.label}</a></li>`)
+        .join("\n");
+
+    return `
+            <section class="card lp-section" id="related-guides">
+                <h2 class="card-title"><span class="card-icon">&#128214;</span> 関連記事（解説・使い方）</h2>
+                <p class="lp-desc">設定推測・天井期待値の見方を補助する解説記事です。</p>
+                <ul class="lp-related-list">
+${items}
+                </ul>
+            </section>`;
+}
+
 function generatePage(machine, variant) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
@@ -699,6 +761,7 @@ ${editorialBody}
     tocItems.push(`<li><a href="#tool">設定推測ツールを使う</a></li>`);
 
     const variantNav = buildVariantNav(machine, v);
+    const relatedGuidesSection = buildRelatedGuideLinks(machine, v, paths.basePrefix);
 
     const variantIntro = v === "ceiling"
         ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#127919;</span> このページでわかること</h2><p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・天井期待値を中心にまとめています。</p></section>`
@@ -783,6 +846,7 @@ ${spec.tbody}
 ${ceilingSection}
 ${resetCeilingSection}
 ${guessElementLink}
+${relatedGuidesSection}
             <section class="card lp-section" id="tool">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
                 <p class="lp-desc">${machine.name}のデータを入力して、設定推測と天井期待値を自動計算できます。</p>

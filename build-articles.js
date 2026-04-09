@@ -88,6 +88,98 @@ function buildArticleFooter(article) {
             </aside>`;
 }
 
+function buildRelatedMachineLinks(slug) {
+  const m = (id, label, variant) => {
+    const suffix = variant ? `/${variant}/` : "/";
+    return { href: `${BASE}/machines/${id}${suffix}`, label };
+  };
+
+  // 記事テーマ別に「関連機種」への導線を用意（複数リンクで回遊を増やす）
+  const map = {
+    "ceiling-basics": [
+      m("hokuto", "スマスロ北斗の拳：天井・期待値", "ceiling"),
+      m("kabaneri", "甲鉄城のカバネリ：天井・期待値", "ceiling"),
+      m("banchou4", "押忍！番長4：天井・期待値", "ceiling"),
+      m("monkey_turn_v", "モンキーターンV：天井・期待値", "ceiling"),
+    ],
+    "ceiling-ev-guide": [
+      m("hokuto", "スマスロ北斗の拳：天井・期待値", "ceiling"),
+      m("tokyo_ghoul", "L 東京喰種：天井・期待値", "ceiling"),
+      m("biohazard5", "スマスロ バイオハザード5：天井・期待値", "ceiling"),
+      m("magireco", "スマスロ マギアレコード：天井・期待値", "ceiling"),
+    ],
+    "reset-ceiling-tips": [
+      m("hokuto", "スマスロ北斗の拳：朝一リセット含む期待値", "ceiling"),
+      m("tokyo_ghoul", "L 東京喰種：朝一リセット含む期待値", "ceiling"),
+      m("kabaneri", "甲鉄城のカバネリ：朝一リセット含む期待値", "ceiling"),
+      m("monkey_turn_v", "モンキーターンV：朝一リセット含む期待値", "ceiling"),
+    ],
+    "at-ceiling-guide": [
+      m("hokuto", "スマスロ北斗の拳：天井・期待値", "ceiling"),
+      m("kaguya_sama", "かぐや様は告らせたい：天井・期待値", "ceiling"),
+      m("god_eater", "ゴッドイーター：天井・期待値", "ceiling"),
+      m("enen", "炎炎ノ消防隊：天井・期待値", "ceiling"),
+    ],
+    "juggler-guide": [
+      m("aim_juggler_ex", "アイムジャグラーEX：設定差・推測", "setting"),
+      m("my_juggler_v", "マイジャグラーV：設定差・推測", "setting"),
+      m("funky_juggler_2", "ファンキージャグラー2：設定差・推測", "setting"),
+      m("gogo_juggler_3", "ゴーゴージャグラー3：設定差・推測", "setting"),
+    ],
+    "setting-basics": [
+      m("hokuto", "スマスロ北斗の拳：設定差・推測", "setting"),
+      m("kabaneri", "甲鉄城のカバネリ：設定差・推測", "setting"),
+      m("aim_juggler_ex", "アイムジャグラーEX：設定差・推測", "setting"),
+      m("my_juggler_v", "マイジャグラーV：設定差・推測", "setting"),
+    ],
+    "data-counting": [
+      m("hokuto", "スマスロ北斗の拳：初心者向け", "beginner"),
+      m("kabaneri", "甲鉄城のカバネリ：初心者向け", "beginner"),
+      m("aim_juggler_ex", "アイムジャグラーEX：初心者向け", "beginner"),
+      m("my_juggler_v", "マイジャグラーV：初心者向け", "beginner"),
+    ],
+    "reading-results": [
+      m("hokuto", "スマスロ北斗の拳：設定差・推測", "setting"),
+      m("kabaneri", "甲鉄城のカバネリ：設定差・推測", "setting"),
+      m("aim_juggler_ex", "アイムジャグラーEX：設定差・推測", "setting"),
+      m("my_juggler_v", "マイジャグラーV：設定差・推測", "setting"),
+    ],
+    "how-to-use": [
+      m("hokuto", "スマスロ北斗の拳：総合", null),
+      m("kabaneri", "甲鉄城のカバネリ：総合", null),
+      m("aim_juggler_ex", "アイムジャグラーEX：総合", null),
+      m("my_juggler_v", "マイジャグラーV：総合", null),
+    ],
+  };
+
+  const links = map[slug];
+  if (!links || links.length === 0) return "";
+
+  const items = links
+    .map((l) => `            <li><a href="${l.href}">${escapeHtml(l.label)}</a></li>`)
+    .join("\n");
+
+  return `
+        <aside class="card related-links" aria-label="関連機種">
+            <h2>関連機種</h2>
+            <p>記事内容を実際の機種ページで確認できます。</p>
+            <ul>
+${items}
+            </ul>
+        </aside>`;
+}
+
+function injectRelatedMachineLinksIntoArticle(html, slug) {
+  const block = buildRelatedMachineLinks(slug);
+  if (!block) return html;
+
+  // 記事本文（page-body）の末尾に追加する
+  const marker = "\n    </div>\n</section>";
+  const idx = html.lastIndexOf(marker);
+  if (idx === -1) return html + "\n" + block;
+  return html.slice(0, idx) + block + html.slice(idx);
+}
+
 function build() {
   const layout = fs.readFileSync(LAYOUT_PATH, "utf8");
   const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8"));
@@ -107,6 +199,7 @@ function build() {
 
     let content = fs.readFileSync(bodyPath, "utf8");
     content = injectMetaAfterFirstH1(content, buildArticleMetaLead(article));
+    content = injectRelatedMachineLinksIntoArticle(content, slug);
     const articleFooter = buildArticleFooter(article);
     const headExtra = buildArticleJsonLd(article);
     let html = layout
