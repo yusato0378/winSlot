@@ -6,6 +6,38 @@
     max-width: 860px;
 }
 
+/* ページ切り替え（意図別LP） */
+.lp-variant-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.lp-variant-link {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-card);
+    background: rgba(100, 120, 255, 0.08);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.lp-variant-link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 213, 79, 0.35);
+}
+
+.lp-variant-link.active {
+    border-color: rgba(255, 213, 79, 0.55);
+    background: rgba(255, 213, 79, 0.10);
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
 /* パンくずリスト */
 .lp-breadcrumb {
     margin-bottom: 16px;
