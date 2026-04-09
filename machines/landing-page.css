@@ -119,6 +119,18 @@
     text-decoration: underline;
 }
 
+/* 注意点（主要機種のみ表示） */
+.lp-caution-list {
+    margin: 10px 0 0 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.75;
+}
+
+.lp-caution-list li {
+    margin-bottom: 8px;
+}
+
 /* セクション */
 .lp-section {
     margin-bottom: 24px;

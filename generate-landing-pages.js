@@ -147,6 +147,82 @@ const EDITORIAL_BY_ID = {
     lb_triple_crown_seven: `LB トリプルクラウンセブンは、岡崎産業のBT搭載ノーマルで、BIG・REGの二軸から設定差を読み取るAタイプです。合算確率と出玉率の段差が推測の中心になります。\n\n天井は非搭載です。沖スロ系のモード選択や疑似遊技の細部はモデル化していません。\n\nクラシックな打ち味を重視する打ち手向けですが、設定判別はカウンターの正確さが信頼度に直結します。`,
 };
 
+/**
+ * 主要機種だけ「注意点（運用/入力/モデル外）」を追加して差別化する。
+ * - 量産ページでも、検索意図に対して「判断ミスしやすい所」を短く提示するのが狙い
+ * - 文言は“断定”せず「店舗運用差」「モデル外」前提で書く
+ */
+const CAUTIONS_BY_ID = {
+    hokuto: [
+        "朝一のリセット/据え置きで期待値の見え方が大きく変わります。前日最終G数と合わせて判断してください。",
+        "本ツールの天井期待値は設定1基準の概算です。内部状態（モード/前兆など）で実際の期待値は上下します。",
+        "データが浅いと推測％は大きく振れます。短時間の結果だけで断定しないのが安全です。",
+    ],
+    kabaneri: [
+        "リセット短縮の有無は店舗運用差が出やすいので、前日データとセットで見るのがコツです。",
+        "ST/示唆など体感要素はブレます。数字（初当たり・総回転）を軸に、補助材料として扱うのが無難です。",
+        "期待値表は簡易モデルです。モード/前兆込みの“厳密な期待値”ではない点に注意してください。",
+    ],
+    banchou4: [
+        "天井狙いの可否は当日のゲーム数履歴に依存します。宵越し前提での判断は店舗運用差に注意。",
+        "入力項目が少ない分、総ゲーム数の取り違えがそのまま推測に効きます（カウント定義を固定）。",
+        "推測％は“当たりの軽さ”に引っ張られます。短期の上振れ/下振れを前提に解釈してください。",
+    ],
+    karakuri: [
+        "「CZ合算」の定義（どれを数えるか）を揃えないと推測がブレやすい機種です。",
+        "深いハマりは期待値が見えやすい一方、内部状態で上下します。表は目安として使うのが安全です。",
+    ],
+    tokyo_ghoul: [
+        "天井・リセット天井がある前提で表示しますが、店舗運用差（据え置きなど）は必ず確認してください。",
+        "CZ/ATのカウントを混ぜると推測精度が落ちます。データの取り方を統一してください。",
+    ],
+    monhan_rise: [
+        "リセット条件の解釈が店舗で変わりやすい機種です。前日データ確認は必須です。",
+        "天井期待値は設定1基準の概算です。状態差でブレる点は織り込んでください。",
+    ],
+    god_eater: [
+        "朝一と通常で天井の見え方が変わります（リセット短縮の扱いに注意）。",
+        "期待値は概算です。内部状態や前兆の影響で上下します。",
+    ],
+    bakemonogatari: [
+        "短縮天井の扱いは条件で変わります。朝一の状況を分けて判断してください。",
+        "示唆演出の強弱より、まずは総回転と初当たり回数を優先して見るとブレにくいです。",
+    ],
+    okidoki_duo: [
+        "短期の上下振れが大きい機種です。推測％はサンプルが溜まってから信頼度が上がります。",
+        "天井期待値は設定1基準の概算です。ホール状況（設定配分）とは別物として扱ってください。",
+    ],
+    aim_juggler_ex: [
+        "REG確率の偏りは重要ですが、短期でも振れます。できれば数千G単位で見るのが安全です。",
+        "ブドウ（小役）を入れると精度が上がりますが、数え間違いは逆効果なので無理はしない方が良いです。",
+    ],
+    my_juggler_v: [
+        "短時間・台移動が多いと推測は不安定になります。同じ台でデータを溜めるほど有利です。",
+        "BIG/REGどちらかに寄った短期結果は起きます。合算と回転数も合わせて解釈してください。",
+    ],
+    funky_juggler_2: [
+        "REGとブドウの取りこぼし/数え間違いがあると推測が崩れます。まずはBIG/REGだけでもOKです。",
+        "数百Gでは結論が出にくいので、回転数を稼いでから判断する方が安全です。",
+    ],
+};
+
+function buildCautionSection(machine) {
+    const items = CAUTIONS_BY_ID[machine.id];
+    if (!items || items.length === 0) return "";
+    const lis = items
+        .slice(0, 3)
+        .map((t) => `                    <li>${escapeHtml(t)}</li>`)
+        .join("\n");
+    return `
+            <section class="card lp-section" id="cautions">
+                <h2 class="card-title"><span class="card-icon">&#9888;</span> 注意点（先に確認）</h2>
+                <ul class="lp-caution-list">
+${lis}
+                </ul>
+                <p class="lp-note">※ 本ページの数値・文章は参考情報です。店舗運用・個体差・遊技ルールに従ってご利用ください。</p>
+            </section>`;
+}
+
 function formatEditorialParagraphs(text) {
     if (!text) return "";
     return text
@@ -761,6 +837,7 @@ ${editorialBody}
     tocItems.push(`<li><a href="#tool">設定推測ツールを使う</a></li>`);
 
     const variantNav = buildVariantNav(machine, v);
+    const cautionSection = buildCautionSection(machine);
     const relatedGuidesSection = buildRelatedGuideLinks(machine, v, paths.basePrefix);
 
     const variantIntro = v === "ceiling"
@@ -820,6 +897,7 @@ ${breadcrumbJsonLd}
                 </ol>
             </nav>
 ${editorialSection}
+${cautionSection}
 ${variantIntro}
 ${variantNav}
             <nav class="card lp-section">
