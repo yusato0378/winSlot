@@ -170,6 +170,7 @@ git config --unset core.hooksPath
 | `node build-articles.js` | `templates/article-layout.html` + `articles/*` から `guide/*.html` と `guide/index.html` を生成 |
 | `node generate-landing-pages.js` | `app.js` と同系の機種データから `machines/*/index.html` を再生成し、`sitemap.xml` を更新 |
 | `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`generate-landing-pages.js` の `GUESS_ELEMENT_PAGES` と機種名と同期すること） |
+| `node scripts/gsc-analyze.js data/gsc.csv` | Search Console のCSV/TSV（検索パフォーマンス）を解析し、CTR低/順位11〜20の改善候補を `reports/gsc-actions.md` に出力 |
 
 **記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` の SEO 用メタ・LP 導線は `patch-setguess-seo.js`、それ以外の本文は手編集です。
 
@@ -267,6 +268,20 @@ git config --unset core.hooksPath
 
 - **`sitemap.xml`**: URL 一覧。`generate-landing-pages.js` 実行で更新される部分があります。新ドメインへ移行した場合は `loc` を本番ドメインに統一してください。  
 - **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。
+
+### Search Console（GSC）改善ループ（運用）
+
+1. Search Console → **検索パフォーマンス** から CSV/TSV をエクスポート（クエリ×ページ推奨）  
+2. `data/gsc.csv`（または任意のパス）に置く  
+3. 解析:
+
+```bash
+node scripts/gsc-analyze.js data/gsc.csv
+```
+
+4. 出力された `reports/gsc-actions.md` の上位から、title/description・見出し・内部リンクなどを改善していく  
+
+※ `data/gsc*.csv` は `.gitignore` しています（個人データ・運用データなのでコミットしない想定）。
 
 ---
 

@@ -1,0 +1,4 @@
+data/gsc*.csv
+data/gsc*.tsv
+data/gsc*.txt
+reports/gsc-actions*.md
