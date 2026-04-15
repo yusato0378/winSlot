@@ -1,6 +1,13 @@
 {
-  "routes": [
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/", "dest": "/index.html" }
+  "redirects": [
+    {
+      "source": "https://pachislot-setting.com/:path*",
+      "destination": "https://www.pachislot-setting.com/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
