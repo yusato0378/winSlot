@@ -177,7 +177,7 @@
 
 ### GSC → JSON 更新スクリプト
 
-- [ ] **2. `scripts/update-access-ranking-from-gsc.js` を新規作成**
+- [x] **2. `scripts/update-access-ranking-from-gsc.js` を新規作成**
   - 既存の `scripts/gsc-analyze.js` と同じ CSV/TSV パーサーを流用
   - 入力: GSC エクスポート（ページ列 + クリック数 + 表示回数）
   - 処理: `SITE_ORIGIN`（既定 `https://pachislot-setting.com`）配下の `machines/` パスのみ抽出 → クリック数降順 → 上位5件
