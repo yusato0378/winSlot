@@ -153,6 +153,7 @@
   - [x] `machines/*/index.html` に「関連記事（guide）」を機種タイプ/天井有無で出し分けて追加
   - [x] `guide/*.html` の本文末に「関連機種」ブロックを自動挿入（複数の `machines/{id}/` へのリンクを配置）
   - [x] トップ `index.html` に「よく見られる入口」枠を追加して機種LP（派生ページ含む）への深いリンクを増やす
+  - [x] 上記を「アクセスランキング（上位5）」に差し替え（`data/access-ranking.json` → `app.js` で fetch・描画、GSC 更新は `scripts/update-access-ranking-from-gsc.js`）
 
 - [ ] **3. “薄い量産”に見えない差別化（E-E-A-T寄せ）**
   - [x] 機種LPに「注意点（リセ運用/入力ミス/モデル外要素）」を主要機種だけ1〜3点表示して差別化
@@ -206,11 +207,11 @@
 
 ### 確認・仕上げ
 
-- [ ] **6. 動作確認**
+- [x] **6. 動作確認**
   - JSON あり / なし / 不正データ の3パターンでフォールバックが正しく動くか確認
   - テスト用 CSV で `update-access-ranking-from-gsc.js` を実行し、JSON が正しく更新されるか確認
 
-- [ ] **7. `README.md` のビルドスクリプト表に1行追記**
+- [x] **7. `README.md` のビルドスクリプト表に1行追記**
   - `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` の説明を追加
 
-- [ ] **8. `todo.md` フェーズ6 項目2 に差し替え済みサブ行を追記**
+- [x] **8. `todo.md` フェーズ6 項目2 に差し替え済みサブ行を追記**

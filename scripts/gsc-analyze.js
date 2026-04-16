@@ -150,8 +150,8 @@ function main() {
     return -1;
   };
 
-  const idxQuery = colIndex(["query", "検索キーワード", "検索語句", "検索語句数", "searchquery"]);
-  const idxPage = colIndex(["page", "ページ", "landingpage", "url"]);
+  const idxQuery = colIndex(["query", "検索キーワード", "検索語句", "検索語句数", "searchquery", "上位のクエリ"]);
+  const idxPage = colIndex(["page", "ページ", "上位のページ", "上位のぺーじ", "landingpage", "url"]);
   const idxClicks = colIndex(["clicks", "クリック数", "クリック"]);
   const idxImpr = colIndex(["impressions", "表示回数", "表示"]);
   const idxCtr = colIndex(["ctr", "クリック率"]);

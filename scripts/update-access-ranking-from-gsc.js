@@ -83,13 +83,18 @@ function parseNumberLike(s) {
 
 // ── URL → 相対パス変換 ──
 
+function stripWww(hostname) {
+  return hostname.replace(/^www\./, "");
+}
+
 function toRelativeHref(pageUrl) {
   const p = String(pageUrl || "").trim();
   if (!p) return null;
   let u;
   try { u = new URL(p); } catch { return null; }
   const base = new URL(SITE_ORIGIN);
-  if (u.origin !== base.origin) return null;
+  if (u.protocol !== base.protocol) return null;
+  if (stripWww(u.hostname) !== stripWww(base.hostname)) return null;
   let rel = (u.pathname || "/").replace(/^\//, "");
   if (rel.includes("..")) return null;
   if (p.endsWith("/") && rel && !rel.endsWith("/")) rel += "/";
@@ -152,7 +157,7 @@ function main() {
     return -1;
   };
 
-  const idxPage = colIndex(["page", "ページ", "landingpage", "url"]);
+  const idxPage = colIndex(["page", "ページ", "上位のページ", "上位のぺーじ", "landingpage", "url"]);
   const idxClicks = colIndex(["clicks", "クリック数", "クリック"]);
 
   if (idxPage === -1 || idxClicks === -1) {
