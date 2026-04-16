@@ -186,12 +186,12 @@
 
 ### フロントエンド（HTML / JS / CSS）
 
-- [ ] **3. `index.html` の該当ブロックを書き換え**
+- [x] **3. `index.html` の該当ブロックを書き換え**
   - 見出しを「アクセスランキング（上位5）」に変更
   - `<ul>` → `<ol id="access-ranking-list">` に置き換え（中身は空、JS で描画）
   - ランキング補足用の `<p id="access-ranking-note">` を追加
 
-- [ ] **4. `app.js` にランキング描画ロジックを追加**
+- [x] **4. `app.js` にランキング描画ロジックを追加**
   - `init()` から `initAccessRanking()` を呼び出し
   - `fetch("data/access-ranking.json")` → 成功時は JSON から `<ol>` を組み立て
   - `href` は `machines/` 形式のみ許可（`..` 禁止、正規表現でバリデーション）
@@ -199,7 +199,7 @@
   - `clicks` が数値のときだけ「（○○ クリック）」を横に表示
   - fetch 失敗・空データ時は従来の手動5件をフォールバック表示
 
-- [ ] **5. `style.css` にランキング用スタイルを追加**
+- [x] **5. `style.css` にランキング用スタイルを追加**
   - `.access-ranking-list`（`<ol>` 番号付き、縦並び）
   - `.access-ranking-note`（補足テキスト）
   - `.access-ranking-clicks`（クリック数の小さめ表示）

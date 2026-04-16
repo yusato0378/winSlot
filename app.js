@@ -1333,12 +1333,80 @@ function initCombo() {
 // ============================================================
 function init() {
     initCombo();
+    initAccessRanking();
     $analyzeForm.addEventListener("submit", onAnalyze);
     $resetBtn.addEventListener("click", onReset);
 
     [$totalGames, $bigCount, $regCount].forEach(el => {
         el.addEventListener("input", updateBonusProb);
     });
+}
+
+// ============================================================
+// アクセスランキング（data/access-ranking.json）
+// ============================================================
+const ACCESS_RANKING_FALLBACK = [
+    { href: "machines/hokuto/ceiling/", title: "スマスロ北斗の拳：天井・狙い目・期待値" },
+    { href: "machines/kabaneri/ceiling/", title: "甲鉄城のカバネリ：天井・狙い目・期待値" },
+    { href: "machines/banchou4/setting/", title: "押忍！番長4：設定差・設定推測" },
+    { href: "machines/aim_juggler_ex/setting/", title: "アイムジャグラーEX：設定判別（ボーナス/合算）" },
+    { href: "machines/my_juggler_v/setting/", title: "マイジャグラーV：設定判別（ボーナス/合算）" }
+];
+
+function isValidRankingHref(href) {
+    return /^machines\/[a-z0-9_/\-]+\/?$/i.test(String(href || ""))
+        && !String(href).includes("..");
+}
+
+function renderAccessRanking(items, note) {
+    const $list = document.getElementById("access-ranking-list");
+    const $note = document.getElementById("access-ranking-note");
+    if (!$list) return;
+
+    $list.innerHTML = "";
+    for (const it of items) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = it.href;
+        a.textContent = it.title;
+        li.appendChild(a);
+        if (Number.isFinite(it.clicks) && it.clicks > 0) {
+            const span = document.createElement("span");
+            span.className = "access-ranking-clicks";
+            span.textContent = `${Number(it.clicks).toLocaleString("ja-JP")} clicks`;
+            li.appendChild(span);
+        }
+        $list.appendChild(li);
+    }
+
+    if ($note) $note.textContent = note;
+}
+
+function initAccessRanking() {
+    if (!document.getElementById("access-ranking-list")) return;
+
+    fetch("data/access-ranking.json", { cache: "no-store" })
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(data => {
+            const raw = Array.isArray(data.items) ? data.items : [];
+            const items = raw
+                .filter(it => it && it.title && isValidRankingHref(it.href))
+                .slice(0, 5);
+
+            if (!items.length) {
+                renderAccessRanking(ACCESS_RANKING_FALLBACK, "");
+                return;
+            }
+
+            const hasClicks = items.some(it => Number.isFinite(it.clicks) && it.clicks > 0);
+            const note = hasClicks
+                ? `検索クリック数の多い順（更新: ${data.updated || "—"}）`
+                : "";
+            renderAccessRanking(items, note);
+        })
+        .catch(() => {
+            renderAccessRanking(ACCESS_RANKING_FALLBACK, "");
+        });
 }
 
 // ============================================================
