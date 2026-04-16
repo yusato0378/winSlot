@@ -29,7 +29,8 @@ const MACHINES = [
             6: { big: 255.0, reg: 255.0, koyaku: 5.83, payout: 105.5 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.8
+        avgBonusReward: 250, normalCostPerGame: 1.8,
+        addedDate: "2026-03-01"
     },
     {
         id: "my_juggler_v",
@@ -47,7 +48,8 @@ const MACHINES = [
             6: { big: 229.1, reg: 229.1, koyaku: 5.56, payout: 109.4 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.8
+        avgBonusReward: 250, normalCostPerGame: 1.8,
+        addedDate: "2026-03-01"
     },
     {
         id: "funky_juggler_2",
@@ -65,7 +67,8 @@ const MACHINES = [
             6: { big: 219.9, reg: 262.1, koyaku: 5.67, payout: 109.0 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.8
+        avgBonusReward: 250, normalCostPerGame: 1.8,
+        addedDate: "2026-03-01"
     },
     {
         id: "gogo_juggler_3",
@@ -83,7 +86,8 @@ const MACHINES = [
             6: { big: 234.9, reg: 234.9, koyaku: 5.92, payout: 106.5 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.8
+        avgBonusReward: 250, normalCostPerGame: 1.8,
+        addedDate: "2026-03-01"
     },
     {
         id: "ultra_miracle_juggler",
@@ -101,7 +105,8 @@ const MACHINES = [
             6: { big: 216.3, reg: 277.7, koyaku: 5.81, payout: 108.1 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.8
+        avgBonusReward: 250, normalCostPerGame: 1.8,
+        addedDate: "2026-03-01"
     },
     {
         id: "discup_ultraremix",
@@ -117,7 +122,8 @@ const MACHINES = [
             6: { big: 260.9, reg: 334.1, koyaku: null, payout: 107.7 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.6
+        avgBonusReward: 250, normalCostPerGame: 1.6,
+        addedDate: "2026-03-01"
     },
     {
         id: "smaslo_hanabi",
@@ -135,7 +141,8 @@ const MACHINES = [
             6: { big: 273.1, reg: 282.5, koyaku: null, payout: 106.4 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.6
+        avgBonusReward: 250, normalCostPerGame: 1.6,
+        addedDate: "2026-03-01"
     },
     {
         id: "thunder_v",
@@ -153,7 +160,8 @@ const MACHINES = [
             6: { big: 264.3, reg: 313.6, koyaku: null, payout: 106.0 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.6
+        avgBonusReward: 250, normalCostPerGame: 1.6,
+        addedDate: "2026-03-01"
     },
     // ==================== AT / ART機（スマスロ） ====================
     {
@@ -172,7 +180,8 @@ const MACHINES = [
             6: { big: 151.3, reg: 290.6, koyaku: null, payout: 110.0 }
         },
         ceiling: 1000, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "kabaneri_unato",
@@ -190,7 +199,8 @@ const MACHINES = [
             6: { big: 195.1, reg: 318.5, koyaku: null, payout: 114.9 }
         },
         ceiling: 996, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 596, resetCeilingTarget: 320,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "banchou4",
@@ -208,7 +218,8 @@ const MACHINES = [
             6: { big: 221.1, reg: null, koyaku: null, payout: 113.1 }
         },
         ceiling: 699, ceilingTarget: 450, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "hokuto",
@@ -225,7 +236,8 @@ const MACHINES = [
             6: { big: 235.1, reg: null, koyaku: null, payout: 113.0 }
         },
         ceiling: 1268, ceilingTarget: 800, ceilingReward: 1500, resetCeiling: 800, resetCeilingTarget: 500,
-        avgBonusReward: 800, normalCostPerGame: 2.5
+        avgBonusReward: 800, normalCostPerGame: 2.5,
+        addedDate: "2026-03-01"
     },
     {
         id: "karakuri",
@@ -242,7 +254,8 @@ const MACHINES = [
             6: { big: 447, reg: 275, koyaku: null, payout: 114.9 }
         },
         ceiling: 1200, ceilingTarget: 800, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "valvrave",
@@ -260,7 +273,8 @@ const MACHINES = [
             6: { big: 258, reg: 490, koyaku: null, payout: 114.9 }
         },
         ceiling: 1000, ceilingTarget: 700, ceilingReward: 400, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 300, normalCostPerGame: 2.0
+        avgBonusReward: 300, normalCostPerGame: 2.0,
+        addedDate: "2026-03-01"
     },
     {
         id: "monkey_turn_v",
@@ -277,7 +291,8 @@ const MACHINES = [
             6: { big: 222.9, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 795, ceilingTarget: 500, ceilingReward: 600, resetCeiling: 495, resetCeilingTarget: 300,
-        avgBonusReward: 400, normalCostPerGame: 2.4
+        avgBonusReward: 400, normalCostPerGame: 2.4,
+        addedDate: "2026-03-01"
     },
     {
         id: "tokyo_ghoul",
@@ -295,7 +310,8 @@ const MACHINES = [
             6: { big: 261.3, reg: 203.7, koyaku: null, payout: 114.9 }
         },
         ceiling: 600, ceilingTarget: 350, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 50,
-        avgBonusReward: 350, normalCostPerGame: 2.2
+        avgBonusReward: 350, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "kaguya_sama",
@@ -313,7 +329,8 @@ const MACHINES = [
             6: { big: 335, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 1100, ceilingTarget: 700, ceilingReward: 1000, resetCeiling: 800, resetCeilingTarget: 500,
-        avgBonusReward: 600, normalCostPerGame: 2.0
+        avgBonusReward: 600, normalCostPerGame: 2.0,
+        addedDate: "2026-03-01"
     },
     {
         id: "god_eater",
@@ -331,7 +348,8 @@ const MACHINES = [
             6: { big: 290.3, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 1000, resetCeiling: 600, resetCeilingTarget: 300,
-        avgBonusReward: 600, normalCostPerGame: 2.3
+        avgBonusReward: 600, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "bakemonogatari",
@@ -349,7 +367,8 @@ const MACHINES = [
             6: { big: 219.6, reg: null, koyaku: null, payout: 112.1 }
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 500, resetCeiling: 600, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "hokuto_tensei2",
@@ -367,7 +386,8 @@ const MACHINES = [
             6: { big: 273.1, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 1536, ceilingTarget: 900, ceilingReward: 1000, resetCeiling: 1280, resetCeilingTarget: 750,
-        avgBonusReward: 600, normalCostPerGame: 2.3
+        avgBonusReward: 600, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     // ==================== 2025〜2026年 新台 ====================
     {
@@ -386,7 +406,8 @@ const MACHINES = [
             6: { big: 313.6, reg: 360.1, koyaku: null, payout: 105.5 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.6
+        avgBonusReward: 250, normalCostPerGame: 1.6,
+        addedDate: "2026-03-01"
     },
     {
         id: "koukaku",
@@ -404,7 +425,8 @@ const MACHINES = [
             6: { big: 278.0, reg: 210.1, koyaku: null, payout: 112.2 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "dmc5",
@@ -422,7 +444,8 @@ const MACHINES = [
             6: { big: 204.1, reg: 303.9, koyaku: null, payout: 114.9 }
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 800, resetCeiling: 800, resetCeilingTarget: 500,
-        avgBonusReward: 500, normalCostPerGame: 2.2
+        avgBonusReward: 500, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "crea_hihouden",
@@ -440,7 +463,8 @@ const MACHINES = [
             6: { big: 240.1, reg: 247.3, koyaku: null, payout: 112.3 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 250, normalCostPerGame: 1.7
+        avgBonusReward: 250, normalCostPerGame: 1.7,
+        addedDate: "2026-03-01"
     },
     {
         id: "hihouden",
@@ -458,7 +482,8 @@ const MACHINES = [
             6: { big: 246.0, reg: null, koyaku: null, payout: 114.7 }
         },
         ceiling: 799, ceilingTarget: 550, ceilingReward: 400, resetCeiling: 499, resetCeilingTarget: 300,
-        avgBonusReward: 300, normalCostPerGame: 2.1
+        avgBonusReward: 300, normalCostPerGame: 2.1,
+        addedDate: "2026-03-01"
     },
     {
         id: "tenken",
@@ -476,7 +501,8 @@ const MACHINES = [
             6: { big: 312.8, reg: null, koyaku: null, payout: 112.1 }
         },
         ceiling: 970, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "eva_bt",
@@ -494,7 +520,8 @@ const MACHINES = [
             6: { big: 240.9, reg: 404.5, koyaku: null, payout: 110.9 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 300, normalCostPerGame: 1.7
+        avgBonusReward: 300, normalCostPerGame: 1.7,
+        addedDate: "2026-03-01"
     },
     {
         id: "valvrave2",
@@ -511,7 +538,8 @@ const MACHINES = [
             6: { big: 456, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 1500, ceilingTarget: 700, ceilingReward: 1200, resetCeiling: 1000, resetCeilingTarget: 500,
-        avgBonusReward: 800, normalCostPerGame: 2.0
+        avgBonusReward: 800, normalCostPerGame: 2.0,
+        addedDate: "2026-03-01"
     },
     {
         id: "enen",
@@ -529,7 +557,8 @@ const MACHINES = [
             6: { big: 227, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "tekken6",
@@ -547,7 +576,8 @@ const MACHINES = [
             6: { big: 218.5, reg: 358.5, koyaku: null, payout: 114.9 }
         },
         ceiling: 900, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 500, resetCeilingTarget: 300,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "prism_nana",
@@ -565,7 +595,8 @@ const MACHINES = [
             6: { big: 278.6, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 899, ceilingTarget: 550, ceilingReward: 700, resetCeiling: 555, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "azurlane",
@@ -583,7 +614,8 @@ const MACHINES = [
             6: { big: 467.5, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 2000, ceilingTarget: 1200, ceilingReward: 1200, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 600, normalCostPerGame: 2.3
+        avgBonusReward: 600, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "zettai4",
@@ -601,7 +633,8 @@ const MACHINES = [
             6: { big: 225, reg: 266, koyaku: null, payout: 112.5 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "railgun2",
@@ -619,7 +652,8 @@ const MACHINES = [
             6: { big: 235.3, reg: 137.5, koyaku: null, payout: 112.9 }
         },
         ceiling: 999, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "onimusha3",
@@ -637,7 +671,8 @@ const MACHINES = [
             6: { big: 293.1, reg: null, koyaku: null, payout: 113.0 }
         },
         ceiling: 1000, ceilingTarget: 500, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "zenigata5",
@@ -654,7 +689,8 @@ const MACHINES = [
             6: { big: 300.5, reg: null, koyaku: null, payout: 112.1 }
         },
         ceiling: 1250, ceilingTarget: 800, ceilingReward: 800, resetCeiling: 850, resetCeilingTarget: 500,
-        avgBonusReward: 500, normalCostPerGame: 2.3
+        avgBonusReward: 500, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "tokyo_revengers",
@@ -672,7 +708,8 @@ const MACHINES = [
             6: { big: 240.1, reg: 373.1, koyaku: null, payout: 114.9 }
         },
         ceiling: 1190, ceilingTarget: 700, ceilingReward: 800, resetCeiling: 900, resetCeilingTarget: 550,
-        avgBonusReward: 500, normalCostPerGame: 2.2
+        avgBonusReward: 500, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "iza_banchou",
@@ -690,7 +727,8 @@ const MACHINES = [
             6: { big: 312.1, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.3
+        avgBonusReward: 400, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "monhan_rise",
@@ -708,7 +746,8 @@ const MACHINES = [
             6: { big: 230.8, reg: null, koyaku: null, payout: 114.3 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "enen2",
@@ -726,7 +765,8 @@ const MACHINES = [
             6: { big: 227, reg: 486, koyaku: null, payout: 114.9 }
         },
         ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "magireco",
@@ -744,7 +784,8 @@ const MACHINES = [
             6: { big: 184.3, reg: 416.7, koyaku: null, payout: 114.9 }
         },
         ceiling: 950, ceilingTarget: 550, ceilingReward: 500, resetCeiling: 650, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "okidoki_duo",
@@ -761,7 +802,8 @@ const MACHINES = [
             6: { big: 181.0, reg: null, koyaku: null, payout: 110.0 }
         },
         ceiling: 800, ceilingTarget: 550, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 300, normalCostPerGame: 2.0
+        avgBonusReward: 300, normalCostPerGame: 2.0,
+        addedDate: "2026-03-01"
     },
     {
         id: "mushoku",
@@ -779,7 +821,8 @@ const MACHINES = [
             6: { big: 292, reg: null, koyaku: null, payout: 113.7 }
         },
         ceiling: 1007, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 689, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "sbj",
@@ -797,7 +840,8 @@ const MACHINES = [
             6: { big: 181.3, reg: null, koyaku: null, payout: 112.7 }
         },
         ceiling: 999, ceilingTarget: 580, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "yoshimune",
@@ -815,7 +859,8 @@ const MACHINES = [
             6: { big: 292.4, reg: null, koyaku: null, payout: 112.0 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 800, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 600, normalCostPerGame: 2.3
+        avgBonusReward: 600, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "goblin_slayer2",
@@ -833,7 +878,8 @@ const MACHINES = [
             6: { big: 402.4, reg: 181.9, koyaku: null, payout: 113.2 }
         },
         ceiling: 1500, ceilingTarget: 900, ceilingReward: 800, resetCeiling: 1000, resetCeilingTarget: 550,
-        avgBonusReward: 500, normalCostPerGame: 2.3
+        avgBonusReward: 500, normalCostPerGame: 2.3,
+        addedDate: "2026-03-01"
     },
     {
         id: "otome4",
@@ -851,7 +897,8 @@ const MACHINES = [
             6: { big: 217.1, reg: 319.2, koyaku: null, payout: 113.0 }
         },
         ceiling: 799, ceilingTarget: 500, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 300, normalCostPerGame: 2.2
+        avgBonusReward: 300, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "toloveru",
@@ -868,7 +915,8 @@ const MACHINES = [
             6: { big: 311.1, reg: null, koyaku: null, payout: 110.1 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "baki",
@@ -886,7 +934,8 @@ const MACHINES = [
             6: { big: 250.1, reg: 480.4, koyaku: null, payout: 110.6 }
         },
         ceiling: 700, ceilingTarget: 400, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 100,
-        avgBonusReward: 350, normalCostPerGame: 2.2
+        avgBonusReward: 350, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "biohazard5",
@@ -904,7 +953,8 @@ const MACHINES = [
             6: { big: 236.2, reg: null, koyaku: null, payout: 114.9 }
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "revuestarlight",
@@ -921,7 +971,8 @@ const MACHINES = [
             6: { big: 160.6, reg: 232.5, koyaku: null, payout: 110.0 }
         },
         ceiling: 900, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 600, resetCeilingTarget: 350,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-03-01"
     },
     {
         id: "eureka_seven_art",
@@ -939,7 +990,8 @@ const MACHINES = [
             6: { big: 183.1, reg: 188.7, koyaku: null, payout: 106.4 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-04-01"
     },
     {
         id: "shake_bt",
@@ -955,7 +1007,8 @@ const MACHINES = [
             6: { big: 297.9, reg: 297.9, koyaku: null, payout: 106.1 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 1.4
+        avgBonusReward: 400, normalCostPerGame: 1.4,
+        addedDate: "2026-04-01"
     },
     {
         id: "harem_ace_bt",
@@ -971,7 +1024,8 @@ const MACHINES = [
             6: { big: 158.7, reg: null, koyaku: null, payout: 110.0 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 350, normalCostPerGame: 1.2
+        avgBonusReward: 350, normalCostPerGame: 1.2,
+        addedDate: "2026-04-01"
     },
     {
         id: "alex_bt",
@@ -989,7 +1043,8 @@ const MACHINES = [
             6: { big: 287.4, reg: 312.1, koyaku: null, payout: 108.3 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 2.2
+        avgBonusReward: 400, normalCostPerGame: 2.2,
+        addedDate: "2026-04-01"
     },
     {
         id: "bofuri",
@@ -1007,7 +1062,8 @@ const MACHINES = [
             6: { big: 229.7, reg: null, koyaku: null, payout: 113.0 }
         },
         ceiling: 950, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 400,
-        avgBonusReward: 450, normalCostPerGame: 1.5
+        avgBonusReward: 450, normalCostPerGame: 1.5,
+        addedDate: "2026-04-01"
     },
     {
         id: "nanatsu_maken",
@@ -1025,7 +1081,8 @@ const MACHINES = [
             6: { big: 164.7, reg: 272.3, koyaku: null, payout: 111.0 }
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 400,
-        avgBonusReward: 400, normalCostPerGame: 2.0
+        avgBonusReward: 400, normalCostPerGame: 2.0,
+        addedDate: "2026-04-01"
     },
     {
         id: "granbelm",
@@ -1043,7 +1100,8 @@ const MACHINES = [
             6: { big: 223.8, reg: 346.1, koyaku: null, payout: 110.9 }
         },
         ceiling: 649, ceilingTarget: 400, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 1.5
+        avgBonusReward: 400, normalCostPerGame: 1.5,
+        addedDate: "2026-04-01"
     },
     {
         id: "kyokou_suiritr",
@@ -1061,7 +1119,8 @@ const MACHINES = [
             6: { big: 264.8, reg: 103.5, koyaku: null, payout: 112.0 }
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
-        avgBonusReward: 450, normalCostPerGame: 1.6
+        avgBonusReward: 450, normalCostPerGame: 1.6,
+        addedDate: "2026-04-06"
     },
     {
         id: "isekai_quartet_bt",
@@ -1079,7 +1138,8 @@ const MACHINES = [
             6: { big: 923.0, reg: 89.2, koyaku: null, payout: 109.0 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 220, normalCostPerGame: 1.5
+        avgBonusReward: 220, normalCostPerGame: 1.5,
+        addedDate: "2026-04-06"
     },
     {
         id: "jormungand",
@@ -1097,7 +1157,8 @@ const MACHINES = [
             6: { big: 290.1, reg: 167.2, koyaku: null, payout: 113.9 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 400, normalCostPerGame: 1.6
+        avgBonusReward: 400, normalCostPerGame: 1.6,
+        addedDate: "2026-04-06"
     },
     {
         id: "akudama_drive",
@@ -1115,7 +1176,8 @@ const MACHINES = [
             6: { big: 472.0, reg: 152.1, koyaku: null, payout: 112.0 }
         },
         ceiling: 967, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 589, resetCeilingTarget: 380,
-        avgBonusReward: 450, normalCostPerGame: 1.6
+        avgBonusReward: 450, normalCostPerGame: 1.6,
+        addedDate: "2026-04-06"
     },
     {
         id: "shinuchi_yoshimune",
@@ -1133,7 +1195,8 @@ const MACHINES = [
             6: { big: 354.9, reg: 250.6, koyaku: null, payout: 114.0 }
         },
         ceiling: 1500, ceilingTarget: 900, ceilingReward: 850, resetCeiling: null, resetCeilingTarget: null,
-        avgBonusReward: 550, normalCostPerGame: 1.6
+        avgBonusReward: 550, normalCostPerGame: 1.6,
+        addedDate: "2026-04-06"
     },
     {
         id: "lb_triple_crown_seven",
@@ -1151,7 +1214,8 @@ const MACHINES = [
             6: { big: 203.5, reg: 464.8, koyaku: null, payout: 112.1 }
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
-        avgBonusReward: 280, normalCostPerGame: 1.5
+        avgBonusReward: 280, normalCostPerGame: 1.5,
+        addedDate: "2026-04-06"
     }
 ];
 
@@ -1334,6 +1398,7 @@ function initCombo() {
 function init() {
     initCombo();
     initAccessRanking();
+    initNewMachines();
     $analyzeForm.addEventListener("submit", onAnalyze);
     $resetBtn.addEventListener("click", onReset);
 
@@ -1407,6 +1472,38 @@ function initAccessRanking() {
         .catch(() => {
             renderAccessRanking(ACCESS_RANKING_FALLBACK, "");
         });
+}
+
+// ============================================================
+// 新台ピックアップ（MACHINES の addedDate 降順 上位5件）
+// ============================================================
+function initNewMachines() {
+    const $list = document.getElementById("new-machines-list");
+    if (!$list) return;
+
+    const withDate = MACHINES
+        .filter(m => m.addedDate)
+        .sort((a, b) => (b.addedDate > a.addedDate ? 1 : b.addedDate < a.addedDate ? -1 : 0))
+        .slice(0, 5);
+
+    if (!withDate.length) return;
+
+    $list.innerHTML = "";
+    for (const m of withDate) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "machines/" + m.id + "/";
+        a.textContent = m.name;
+        li.appendChild(a);
+
+        const badge = document.createElement("span");
+        badge.className = "new-machine-date";
+        const parts = m.addedDate.split("-");
+        badge.textContent = Number(parts[1]) + "/" + Number(parts[2]) + " 追加";
+        li.appendChild(badge);
+
+        $list.appendChild(li);
+    }
 }
 
 // ============================================================
