@@ -160,3 +160,57 @@
 
 - [ ] **4. Search Console 起点の改善ループを回す**
   - [x] GSCのCSV/TSV（検索パフォーマンス）を解析して、改善候補（CTR低/順位11〜20）を自動で `reports/gsc-actions.md` に出す仕組みを追加
+
+---
+
+## フェーズ7：トップ「よく見られる入口」→ アクセスランキング TOP5 化
+
+> 目的：トップページの「よく見られる入口（すぐ探したい方向け）」（現在は手動5件固定）を、Search Console のクリック数に基づく **machines/ 配下のアクセスランキング上位5件** に差し替える。  
+> 静的ホスティングのため、ランキングデータは JSON ファイルとして配信し、定期的な運用で更新する方針。
+
+### データ層
+
+- [x] **1. `data/access-ranking.json` を新規作成**
+  - フォーマット: `{ "updated": "YYYY-MM-DD", "items": [{ "href", "title", "clicks" }, ...] }`
+  - 初期値は現行の手動5件（`clicks: null`）で埋めておく
+  - `.gitignore` には**含めない**（コミット対象）
+
+### GSC → JSON 更新スクリプト
+
+- [ ] **2. `scripts/update-access-ranking-from-gsc.js` を新規作成**
+  - 既存の `scripts/gsc-analyze.js` と同じ CSV/TSV パーサーを流用
+  - 入力: GSC エクスポート（ページ列 + クリック数 + 表示回数）
+  - 処理: `SITE_ORIGIN`（既定 `https://pachislot-setting.com`）配下の `machines/` パスのみ抽出 → クリック数降順 → 上位5件
+  - 出力: `data/access-ranking.json` を上書き（既存 JSON の `title` は可能な限り引き継ぐ）
+  - 実行例: `node scripts/update-access-ranking-from-gsc.js data/gsc.csv`
+
+### フロントエンド（HTML / JS / CSS）
+
+- [ ] **3. `index.html` の該当ブロックを書き換え**
+  - 見出しを「アクセスランキング（上位5）」に変更
+  - `<ul>` → `<ol id="access-ranking-list">` に置き換え（中身は空、JS で描画）
+  - ランキング補足用の `<p id="access-ranking-note">` を追加
+
+- [ ] **4. `app.js` にランキング描画ロジックを追加**
+  - `init()` から `initAccessRanking()` を呼び出し
+  - `fetch("data/access-ranking.json")` → 成功時は JSON から `<ol>` を組み立て
+  - `href` は `machines/` 形式のみ許可（`..` 禁止、正規表現でバリデーション）
+  - `innerHTML` は使わず `textContent` / `createElement` で描画（XSS 対策）
+  - `clicks` が数値のときだけ「（○○ クリック）」を横に表示
+  - fetch 失敗・空データ時は従来の手動5件をフォールバック表示
+
+- [ ] **5. `style.css` にランキング用スタイルを追加**
+  - `.access-ranking-list`（`<ol>` 番号付き、縦並び）
+  - `.access-ranking-note`（補足テキスト）
+  - `.access-ranking-clicks`（クリック数の小さめ表示）
+
+### 確認・仕上げ
+
+- [ ] **6. 動作確認**
+  - JSON あり / なし / 不正データ の3パターンでフォールバックが正しく動くか確認
+  - テスト用 CSV で `update-access-ranking-from-gsc.js` を実行し、JSON が正しく更新されるか確認
+
+- [ ] **7. `README.md` のビルドスクリプト表に1行追記**
+  - `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` の説明を追加
+
+- [ ] **8. `todo.md` フェーズ6 項目2 に差し替え済みサブ行を追記**

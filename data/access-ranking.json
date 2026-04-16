@@ -1,0 +1,30 @@
+{
+  "updated": "2026-04-16",
+  "items": [
+    {
+      "href": "machines/hokuto/ceiling/",
+      "title": "スマスロ北斗の拳：天井・狙い目・期待値",
+      "clicks": null
+    },
+    {
+      "href": "machines/kabaneri/ceiling/",
+      "title": "甲鉄城のカバネリ：天井・狙い目・期待値",
+      "clicks": null
+    },
+    {
+      "href": "machines/banchou4/setting/",
+      "title": "押忍！番長4：設定差・設定推測",
+      "clicks": null
+    },
+    {
+      "href": "machines/aim_juggler_ex/setting/",
+      "title": "アイムジャグラーEX：設定判別（ボーナス/合算）",
+      "clicks": null
+    },
+    {
+      "href": "machines/my_juggler_v/setting/",
+      "title": "マイジャグラーV：設定判別（ボーナス/合算）",
+      "clicks": null
+    }
+  ]
+}
