@@ -145,6 +145,12 @@ const EDITORIAL_BY_ID = {
     shinuchi_yoshimune: `真打 吉宗は、旧作「吉宗」と別機種のスマスロです。CZとAT初当たりの二系統で設定差を読み、1G連や高出力ゾーンが打ち味の核になります。\n\n天井はCZ間・AT間で尺が異なる解説があり、深いハマりでは期待値の見え方が変わります。本ツールではAT間を代表する長尺を天井として近似しています。\n\n大都の看板シリーズだけに導入も大きい機種ですが、推測はデータの蓄積が基本です。参考値としてご利用ください。`,
 
     lb_triple_crown_seven: `LB トリプルクラウンセブンは、岡崎産業のBT搭載ノーマルで、BIG・REGの二軸から設定差を読み取るAタイプです。合算確率と出玉率の段差が推測の中心になります。\n\n天井は非搭載です。沖スロ系のモード選択や疑似遊技の細部はモデル化していません。\n\nクラシックな打ち味を重視する打ち手向けですが、設定判別はカウンターの正確さが信頼度に直結します。`,
+
+    gundam_unicorn_kakusei_drive: `Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEは、通常時の彗星決戦［CZ］とAT初当たりの二系統でスペック差が現れるスマスロです。CZとATのカウンターを表記どおり分けて入力すると、ベイズ推測の解釈が安定しやすくなります。\n\n天井は解析により複数ライン（例：CZ系800G前後・設定変更時短縮など）が語られることがあり、本ツールでは代表しやすいラインを載せています。AT間の長尺天井など条件別の扱いは実機・解析の更新で要確認です。\n\n数値は公開情報・解析サイトの調査値に基づく参考です。+α消化や店舗運用差に注意してください。`,
+
+    million_god_kiseki: `スマスロ ミリオンゴッド-神々の軌跡-は、GOD GAMEを軸にした王道のミリオン系スマスロです。設定推測ではAT初当たり確率と総回転のバランスが主なインプットになります。\n\n天井の確定表記は導入直後は解析サイトの更新を確認してください。本データでは天井非搭載としており、主にスペック確認と回数ベースの推測にご利用ください。\n\nモード・履歴・確定役などモデル外要素が大きい機種のため、推測結果は補助線として扱いましょう。`,
+
+    animal_slot_dotch: `アニマルスロット ドッチは、BIG・REGの二軸と擬似ボーナス連打型のST「アニマルドリーム」が特徴の北電子スマスロです。通常時はリーチ目からの当選が多く、カウンターの取り方をスペック表に合わせることが重要です。\n\n天井はBIG消化後の長尺やREG後の短尺など複数パターンが解説されることがあり、本ツールではBIG後を代表するラインで近似しています。条件によっては読み替えが必要です。\n\n参考値としてご利用ください。`,
 };
 
 /**
@@ -426,6 +432,15 @@ const MACHINES = [
     { id: "lb_triple_crown_seven", name: "LB トリプルクラウンセブン", type: "A", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
       settings: { 1:{big:258.0,reg:590.4,koyaku:null,payout:97.5}, 2:{big:253.0,reg:580.0,koyaku:null,payout:99.0}, 3:{big:245.3,reg:561.4,koyaku:null,payout:101.0}, 4:{big:237.7,reg:543.0,koyaku:null,payout:103.0}, 5:{big:230.0,reg:524.3,koyaku:null,payout:105.0}, 6:{big:203.5,reg:464.8,koyaku:null,payout:112.1} },
       ceiling:null, ceilingTarget:null, ceilingReward:null, avgBonusReward:280, normalCostPerGame:1.5, addedDate: "2026-04-06" },
+    { id: "gundam_unicorn_kakusei_drive", name: "Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE", type: "AT", bigLabel: "CZ", regLabel: "AT初当たり", koyakuName: null,
+      settings: { 1:{big:298.5,reg:471.9,koyaku:null,payout:97.7}, 2:{big:287.0,reg:456.6,koyaku:null,payout:98.9}, 3:{big:265.1,reg:427.8,koyaku:null,payout:101.0}, 4:{big:247.7,reg:403.9,koyaku:null,payout:105.4}, 5:{big:243.9,reg:398.3,koyaku:null,payout:110.5}, 6:{big:239.8,reg:392.3,koyaku:null,payout:114.9} },
+      ceiling:800, ceilingTarget:500, ceilingReward:700, resetCeiling:400, resetCeilingTarget:250, avgBonusReward:450, normalCostPerGame:1.6, addedDate: "2026-04-20" },
+    { id: "million_god_kiseki", name: "スマスロ ミリオンゴッド-神々の軌跡-", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
+      settings: { 1:{big:533.0,reg:null,koyaku:null,payout:97.2}, 2:{big:420.0,reg:null,koyaku:null,payout:99.1}, 3:{big:496.0,reg:null,koyaku:null,payout:102.1}, 4:{big:338.0,reg:null,koyaku:null,payout:106.9}, 5:{big:455.0,reg:null,koyaku:null,payout:111.7}, 6:{big:295.0,reg:null,koyaku:null,payout:114.6} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:550, normalCostPerGame:1.5, addedDate: "2026-04-20" },
+    { id: "animal_slot_dotch", name: "アニマルスロット ドッチ", type: "AT", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
+      settings: { 1:{big:329.7,reg:349.5,koyaku:null,payout:97.6}, 2:{big:314.7,reg:342.8,koyaku:null,payout:98.7}, 3:{big:295.6,reg:339.4,koyaku:null,payout:100.4}, 4:{big:274.3,reg:328.1,koyaku:null,payout:103.5}, 5:{big:249.1,reg:321.5,koyaku:null,payout:107.5}, 6:{big:227.4,reg:314.3,koyaku:null,payout:108.2} },
+      ceiling:999, ceilingTarget:650, ceilingReward:480, resetCeiling:499, resetCeilingTarget:320, avgBonusReward:320, normalCostPerGame:1.5, addedDate: "2026-04-20" },
 ];
 
 const GUESS_ELEMENT_PAGES = {
@@ -477,7 +492,10 @@ const GUESS_ELEMENT_PAGES = {
     jormungand: "setGuessElement/jormungand/index.html",
     akudama_drive: "setGuessElement/akudamaDrive/index.html",
     shinuchi_yoshimune: "setGuessElement/shinuchiYoshimune/index.html",
-    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html"
+    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html",
+    gundam_unicorn_kakusei_drive: "setGuessElement/gundamUnicornKakuseiDrive/index.html",
+    million_god_kiseki: "setGuessElement/millionGodKiseki/index.html",
+    animal_slot_dotch: "setGuessElement/animalSlotDotch/index.html"
 };
 
 function calculateCeilingEV(machine, currentGames, overrideCeiling) {

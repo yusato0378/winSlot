@@ -59,6 +59,9 @@ const GUESS_ELEMENT_PAGES = {
     akudama_drive: "setGuessElement/akudamaDrive/index.html",
     shinuchi_yoshimune: "setGuessElement/shinuchiYoshimune/index.html",
     lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html",
+    gundam_unicorn_kakusei_drive: "setGuessElement/gundamUnicornKakuseiDrive/index.html",
+    million_god_kiseki: "setGuessElement/millionGodKiseki/index.html",
+    animal_slot_dotch: "setGuessElement/animalSlotDotch/index.html",
 };
 
 function escapeAttr(str) {

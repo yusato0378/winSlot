@@ -347,6 +347,9 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `jormungand` | スマスロ ヨルムンガンド |
 | `akudama_drive` | L アクダマドライブ |
 | `shinuchi_yoshimune` | 真打 吉宗 |
+| `gundam_unicorn_kakusei_drive` | Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE |
+| `million_god_kiseki` | スマスロ ミリオンゴッド-神々の軌跡- |
+| `animal_slot_dotch` | アニマルスロット ドッチ |
 
 ### Aタイプ
 

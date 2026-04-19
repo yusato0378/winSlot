@@ -1216,6 +1216,63 @@ const MACHINES = [
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 280, normalCostPerGame: 1.5,
         addedDate: "2026-04-06"
+    },
+    {
+        id: "gundam_unicorn_kakusei_drive",
+        name: "Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE",
+        type: "AT",
+        bigLabel: "CZ",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 298.5, reg: 471.9, koyaku: null, payout: 97.7 },
+            2: { big: 287.0, reg: 456.6, koyaku: null, payout: 98.9 },
+            3: { big: 265.1, reg: 427.8, koyaku: null, payout: 101.0 },
+            4: { big: 247.7, reg: 403.9, koyaku: null, payout: 105.4 },
+            5: { big: 243.9, reg: 398.3, koyaku: null, payout: 110.5 },
+            6: { big: 239.8, reg: 392.3, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 800, ceilingTarget: 500, ceilingReward: 700, resetCeiling: 400, resetCeilingTarget: 250,
+        avgBonusReward: 450, normalCostPerGame: 1.6,
+        addedDate: "2026-04-20"
+    },
+    {
+        id: "million_god_kiseki",
+        name: "スマスロ ミリオンゴッド-神々の軌跡-",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 533.0, reg: null, koyaku: null, payout: 97.2 },
+            2: { big: 420.0, reg: null, koyaku: null, payout: 99.1 },
+            3: { big: 496.0, reg: null, koyaku: null, payout: 102.1 },
+            4: { big: 338.0, reg: null, koyaku: null, payout: 106.9 },
+            5: { big: 455.0, reg: null, koyaku: null, payout: 111.7 },
+            6: { big: 295.0, reg: null, koyaku: null, payout: 114.6 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 550, normalCostPerGame: 1.5,
+        addedDate: "2026-04-20"
+    },
+    {
+        id: "animal_slot_dotch",
+        name: "アニマルスロット ドッチ",
+        type: "AT",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 329.7, reg: 349.5, koyaku: null, payout: 97.6 },
+            2: { big: 314.7, reg: 342.8, koyaku: null, payout: 98.7 },
+            3: { big: 295.6, reg: 339.4, koyaku: null, payout: 100.4 },
+            4: { big: 274.3, reg: 328.1, koyaku: null, payout: 103.5 },
+            5: { big: 249.1, reg: 321.5, koyaku: null, payout: 107.5 },
+            6: { big: 227.4, reg: 314.3, koyaku: null, payout: 108.2 }
+        },
+        ceiling: 999, ceilingTarget: 650, ceilingReward: 480, resetCeiling: 499, resetCeilingTarget: 320,
+        avgBonusReward: 320, normalCostPerGame: 1.5,
+        addedDate: "2026-04-20"
     }
 ];
 
@@ -1780,7 +1837,10 @@ const GUESS_ELEMENT_PAGES = {
     jormungand: "setGuessElement/jormungand/index.html",
     akudama_drive: "setGuessElement/akudamaDrive/index.html",
     shinuchi_yoshimune: "setGuessElement/shinuchiYoshimune/index.html",
-    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html"
+    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html",
+    gundam_unicorn_kakusei_drive: "setGuessElement/gundamUnicornKakuseiDrive/index.html",
+    million_god_kiseki: "setGuessElement/millionGodKiseki/index.html",
+    animal_slot_dotch: "setGuessElement/animalSlotDotch/index.html"
 };
 
 function getGuessElementUrl(machineId) {

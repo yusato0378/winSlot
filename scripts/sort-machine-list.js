@@ -54,6 +54,9 @@ const at = [
   ["machines/kyokou_suiritr/", "L 虚構推理"],
   ["machines/jormungand/", "スマスロ ヨルムンガンド"],
   ["machines/shinuchi_yoshimune/", "真打 吉宗"],
+  ["machines/gundam_unicorn_kakusei_drive/", "Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE"],
+  ["machines/million_god_kiseki/", "スマスロ ミリオンゴッド-神々の軌跡-"],
+  ["machines/animal_slot_dotch/", "アニマルスロット ドッチ"],
 ];
 const aType = [
   ["machines/aim_juggler_ex/", "アイムジャグラーEX"],

@@ -259,3 +259,36 @@
 
 - [x] **7. コメントアウト中のアクセスランキング枠を整理**
   - 新台枠が完成したら、ランキング用のコメントアウト HTML はそのまま残す（将来有効化用）
+
+---
+
+## フェーズ9：2026/04/20 導入新台の追加 — 完了
+
+> 新台カレンダー（例: 1geki.jp 2026年4月）上、同日は計6機種（パチンコ3／パチスロ3）。**本サイトの対象はパチスロ3機種のみ**（パチンコは非対象）。  
+> スペックは主に 1geki.jp の公開表を反映。天井はガンダムUC覚醒DRIVE・ドッチは代表ラインを設定、ミリオンゴッドは解析未確定のため `ceiling: null`。
+
+### 対象機種一覧（パチスロ3機種・予定 `id`）
+
+| 区分 | 仮 `id` | 表記名 |
+|------|---------|--------|
+| AT | `gundam_unicorn_kakusei_drive` | Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE |
+| AT | `million_god_kiseki` | スマスロ ミリオンゴッド-神々の軌跡- |
+| AT | `animal_slot_dotch` | アニマルスロット ドッチ |
+
+### 実装プラン（共通）
+
+- [x] **一次情報の整理**（各機種：タイプ区分 AT vs A、BIG/REG 等ラベル、通常コスト、天井・スペック・メーカー表記の参照URL／未確定は `ceiling: null` 等で明示）
+- [x] **`app.js`** に `MACHINES` エントリ3件追加（`addedDate: "2026-04-20"`、既存 `id` との重複なしを確認）
+- [x] **`generate-landing-pages.js`** に同内容の `MACHINES` 行＋`EDITORIAL_BY_ID`（各200〜500字目安）
+- [x] **`index.html`** 対応機種リンク、AT/A 件数・総数、meta / JSON-LD の機種数表記を更新
+- [x] **`about.html`** 等、機種数を書いている箇所があれば更新
+- [x] **`scripts/sort-machine-list.js`** に3件追加後、`node scripts/sort-machine-list.js` → `node scripts/patch-index-machine-sort.js` で一覧を50音順に反映
+- [x] **`node generate-landing-pages.js`** で `machines/*` と `sitemap.xml` を再生成
+- [x] **（任意）** `setGuessElement` 新規ページ＋`GUESS_ELEMENT_PAGES` 三箇所＋`node patch-setguess-seo.js`
+- [x] **`README.md`** 収録機種表の更新
+
+### 機種別サブチェック（3件）
+
+- [x] Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE（`gundam_unicorn_kakusei_drive`）
+- [x] スマスロ ミリオンゴッド-神々の軌跡-（`million_god_kiseki`）
+- [x] アニマルスロット ドッチ（`animal_slot_dotch`）
