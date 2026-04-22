@@ -20,7 +20,7 @@ const OUTPUT_DIR = path.join(DIR, "guide");
 // guide/ に出力するため、CSS等は相対パス .. になる
 const BASE = "..";
 /** 構造化データ・canonical 用（index.html の canonical と揃える） */
-const SITE_URL = "https://pachislot-setting.com";
+const SITE_URL = "https://www.pachislot-setting.com";
 
 function escapeHtml(str) {
   if (str == null) return "";

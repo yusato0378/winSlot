@@ -38,6 +38,105 @@
     font-weight: 700;
 }
 
+/* 読み進め（設定差 → 天井 → 初心者） */
+.lp-reading-flow-desc {
+    margin-top: 6px;
+}
+
+.lp-reading-flow-steps {
+    margin: 10px 0 0;
+    padding-left: 1.35rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.lp-reading-flow-steps a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.lp-reading-flow-steps a:hover {
+    text-decoration: underline;
+}
+
+.lp-reading-flow-note {
+    margin-top: 12px;
+    font-size: 0.82rem;
+}
+
+.lp-reading-flow-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.lp-reading-flow-row-split {
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+@media (min-width: 520px) {
+    .lp-reading-flow-row-split {
+        justify-content: space-between;
+    }
+}
+
+.lp-flow-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-card);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+    color: var(--text-primary);
+    background: rgba(100, 120, 255, 0.06);
+}
+
+.lp-flow-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 213, 79, 0.35);
+}
+
+.lp-flow-next {
+    border-color: rgba(255, 213, 79, 0.45);
+    background: rgba(255, 213, 79, 0.12);
+    color: var(--accent-gold);
+}
+
+.lp-flow-prev {
+    font-weight: 500;
+}
+
+.lp-flow-branch {
+    font-weight: 500;
+    background: rgba(100, 120, 255, 0.04);
+}
+
+.lp-reading-flow-meta {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.lp-reading-flow-sep {
+    opacity: 0.65;
+}
+
+.lp-flow-subtle-link {
+    color: var(--accent-cyan);
+    text-decoration: none;
+}
+
+.lp-flow-subtle-link:hover {
+    text-decoration: underline;
+}
+
 /* パンくずリスト */
 .lp-breadcrumb {
     margin-bottom: 16px;

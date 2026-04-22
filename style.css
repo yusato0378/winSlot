@@ -89,6 +89,81 @@ body {
     margin-top: 4px;
 }
 
+/* ---- トップ：補助導線（一覧・解説・定番機種） ---- */
+.home-shortcuts {
+    padding: 16px 18px;
+}
+
+.home-shortcuts-lead {
+    margin: 0 0 10px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.home-shortcuts-row {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    font-size: 0.9rem;
+}
+
+.home-shortcuts-row a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.home-shortcuts-row a:hover {
+    text-decoration: underline;
+}
+
+.home-shortcuts-cta {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 213, 79, 0.45);
+    background: rgba(255, 213, 79, 0.12);
+    color: var(--accent-gold) !important;
+    font-weight: 700 !important;
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.home-shortcuts-cta:hover {
+    text-decoration: none !important;
+    border-color: rgba(255, 213, 79, 0.65);
+    transform: translateY(-1px);
+}
+
+.home-shortcuts-label {
+    margin: 0 0 8px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.home-shortcuts-featured {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 0.84rem;
+}
+
+.home-shortcuts-featured a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+}
+
+.home-shortcuts-featured a:hover {
+    text-decoration: underline;
+}
+
 /* ---- Card ---- */
 .card {
     background: var(--bg-card);

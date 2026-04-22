@@ -10,7 +10,7 @@
  *   - 必須列: page（ページ）, clicks（クリック数）
  *
  * 環境変数:
- *   SITE_ORIGIN  本番オリジン（既定: https://pachislot-setting.com）
+ *   SITE_ORIGIN  本番オリジン（既定: https://www.pachislot-setting.com）
  *   RANKING_SIZE 上位何件を出すか（既定: 5）
  */
 const fs = require("fs");
@@ -19,7 +19,7 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const DEFAULT_INPUT = path.join(ROOT, "data", "gsc.csv");
 const OUT_PATH = path.join(ROOT, "data", "access-ranking.json");
-const SITE_ORIGIN = (process.env.SITE_ORIGIN || "https://pachislot-setting.com").replace(/\/$/, "");
+const SITE_ORIGIN = (process.env.SITE_ORIGIN || "https://www.pachislot-setting.com").replace(/\/$/, "");
 const RANKING_SIZE = Number(process.env.RANKING_SIZE) || 5;
 
 // ── CSV/TSV パーサー（gsc-analyze.js と同一ロジック） ──

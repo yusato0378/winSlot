@@ -5,7 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const SITE_URL = "https://pachislot-setting.com";
+const SITE_URL = "https://www.pachislot-setting.com";
 
 function escapeHtml(str) {
     if (str == null) return "";
@@ -653,6 +653,85 @@ function buildVariantNav(machine, currentVariant) {
             </nav>`;
 }
 
+/** 設定差 → 天井 → 初心者 の読み進め用相対パス */
+function flowHref(currentVariant, targetVariant) {
+    if (currentVariant === "main") {
+        if (targetVariant === "main") return "./";
+        return `${targetVariant}/`;
+    }
+    if (targetVariant === "main") return "../";
+    return `../${targetVariant}/`;
+}
+
+/**
+ * 内部リンクの回遊用。総合では「おすすめの読み順」を提示し、派生ページでは前後ナビを出す。
+ */
+function buildReadingFlowNav(machine, variant) {
+    const v = variant || "main";
+    const name = escapeHtml(machine.name);
+
+    if (v === "main") {
+        const hSetting = flowHref("main", "setting");
+        const hCeiling = flowHref("main", "ceiling");
+        const hBeginner = flowHref("main", "beginner");
+        return `
+            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="おすすめの読み順">
+                <h2 class="card-title"><span class="card-icon">&#8594;</span> おすすめの読み順</h2>
+                <p class="lp-desc lp-reading-flow-desc">${name}の各ページをじっくり読むときは、次の順だと流れがつかみやすいです。</p>
+                <ol class="lp-reading-flow-steps">
+                    <li><a href="${hSetting}">設定差・推測</a></li>
+                    <li><a href="${hCeiling}">天井・期待値</a></li>
+                    <li><a href="${hBeginner}">初心者向け</a></li>
+                </ol>
+                <p class="lp-note lp-reading-flow-note">※ 必須の順序ではありません。上の「ページ切り替え」から自由に移動できます。</p>
+            </nav>`;
+    }
+
+    if (v === "setting") {
+        return `
+            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="次に読むページ">
+                <h2 class="card-title"><span class="card-icon">&#8594;</span> 次に読む</h2>
+                <p class="lp-desc lp-reading-flow-desc">設定差を把握したら、天井の狙い目と期待値を確認しましょう。</p>
+                <div class="lp-reading-flow-row">
+                    <a class="lp-flow-btn lp-flow-next" href="${flowHref(v, "ceiling")}">次：天井・期待値を見る</a>
+                </div>
+                <p class="lp-reading-flow-meta">
+                    <a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページ</a>
+                    <span class="lp-reading-flow-sep" aria-hidden="true"> · </span>
+                    <a href="${flowHref(v, "beginner")}" class="lp-flow-subtle-link">初心者向けへ進む</a>
+                </p>
+            </nav>`;
+    }
+
+    if (v === "ceiling") {
+        return `
+            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="読み進め">
+                <h2 class="card-title"><span class="card-icon">&#8594;</span> 読み進め</h2>
+                <p class="lp-desc lp-reading-flow-desc">天井の数値を見たら、初心者向けで入力と結果の見方を押さえましょう。</p>
+                <div class="lp-reading-flow-row lp-reading-flow-row-split">
+                    <a class="lp-flow-btn lp-flow-prev" href="${flowHref(v, "setting")}">前：設定差・推測</a>
+                    <a class="lp-flow-btn lp-flow-next" href="${flowHref(v, "beginner")}">次：初心者向け</a>
+                </div>
+                <p class="lp-reading-flow-meta"><a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページへ</a></p>
+            </nav>`;
+    }
+
+    if (v === "beginner") {
+        return `
+            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="読み進め">
+                <h2 class="card-title"><span class="card-icon">&#8592;</span> 関連ページ</h2>
+                <p class="lp-desc lp-reading-flow-desc">数値の根拠を確認するときは設定差・天井ページに戻れます。</p>
+                <div class="lp-reading-flow-row lp-reading-flow-row-split">
+                    <a class="lp-flow-btn lp-flow-prev" href="${flowHref(v, "ceiling")}">前：天井・期待値</a>
+                    <a class="lp-flow-btn lp-flow-branch" href="${flowHref(v, "setting")}">設定差・推測</a>
+                </div>
+                <p class="lp-reading-flow-meta"><a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページへ戻る</a></p>
+            </nav>`;
+    }
+
+    return "";
+}
+
 function buildRelatedGuideLinks(machine, variant, basePrefix) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
@@ -711,6 +790,46 @@ function buildRelatedGuideLinks(machine, variant, basePrefix) {
                 <p class="lp-desc">設定推測・天井期待値の見方を補助する解説記事です。</p>
                 <ul class="lp-related-list">
 ${items}
+                </ul>
+            </section>`;
+}
+
+/** 機種LP間の内部リンク用。main は ../otherId/、派生ページは ../../otherId/ */
+function hrefToOtherMachineRoot(otherId, variant) {
+    return variant === "main" ? `../${otherId}/` : `../../${otherId}/`;
+}
+
+const RELATED_MACHINES_MAX = 6;
+
+/**
+ * 同タイプ（AT / A）を優先し、足りなければ他タイプから補充。id 昇順で安定化。
+ */
+function pickRelatedMachines(machine, allMachines) {
+    const sameType = allMachines
+        .filter((m) => m.id !== machine.id && m.type === machine.type)
+        .sort((a, b) => a.id.localeCompare(b.id));
+    const otherType = allMachines
+        .filter((m) => m.id !== machine.id && m.type !== machine.type)
+        .sort((a, b) => a.id.localeCompare(b.id));
+    return [...sameType, ...otherType].slice(0, RELATED_MACHINES_MAX);
+}
+
+function buildRelatedMachinesSection(machine, variant, allMachines) {
+    const picked = pickRelatedMachines(machine, allMachines);
+    if (!picked.length) return "";
+    const typeWord = machine.type === "AT" ? "AT / ART（スマスロ）" : "Aタイプ";
+    const links = picked
+        .map((m) => {
+            const href = hrefToOtherMachineRoot(m.id, variant);
+            return `                    <li><a href="${href}">${escapeHtml(m.name)}</a></li>`;
+        })
+        .join("\n");
+    return `
+            <section class="card lp-section" id="related-machines" aria-label="他機種へのリンク">
+                <h2 class="card-title"><span class="card-icon">&#9733;</span> あわせて読む他機種</h2>
+                <p class="lp-desc">同じ区分（${escapeHtml(typeWord)}）を優先してリンクしています。各機種の総合ページへ移動できます。</p>
+                <ul class="lp-related-list lp-related-machines-list">
+${links}
                 </ul>
             </section>`;
 }
@@ -855,8 +974,10 @@ ${editorialBody}
     tocItems.push(`<li><a href="#tool">設定推測ツールを使う</a></li>`);
 
     const variantNav = buildVariantNav(machine, v);
+    const readingFlowSection = buildReadingFlowNav(machine, v);
     const cautionSection = buildCautionSection(machine);
     const relatedGuidesSection = buildRelatedGuideLinks(machine, v, paths.basePrefix);
+    const relatedMachinesSection = buildRelatedMachinesSection(machine, v, MACHINES);
 
     const variantIntro = v === "ceiling"
         ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#127919;</span> このページでわかること</h2><p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・天井期待値を中心にまとめています。</p></section>`
@@ -918,6 +1039,7 @@ ${editorialSection}
 ${cautionSection}
 ${variantIntro}
 ${variantNav}
+${readingFlowSection}
             <nav class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="lp-toc">
@@ -943,6 +1065,7 @@ ${ceilingSection}
 ${resetCeilingSection}
 ${guessElementLink}
 ${relatedGuidesSection}
+${relatedMachinesSection}
             <section class="card lp-section" id="tool">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
                 <p class="lp-desc">${machine.name}のデータを入力して、設定推測と天井期待値を自動計算できます。</p>

@@ -181,7 +181,7 @@
 - [x] **2. `scripts/update-access-ranking-from-gsc.js` を新規作成**
   - 既存の `scripts/gsc-analyze.js` と同じ CSV/TSV パーサーを流用
   - 入力: GSC エクスポート（ページ列 + クリック数 + 表示回数）
-  - 処理: `SITE_ORIGIN`（既定 `https://pachislot-setting.com`）配下の `machines/` パスのみ抽出 → クリック数降順 → 上位5件
+  - 処理: `SITE_ORIGIN`（既定 `https://www.pachislot-setting.com`）配下の `machines/` パスのみ抽出 → クリック数降順 → 上位5件
   - 出力: `data/access-ranking.json` を上書き（既存 JSON の `title` は可能な限り引き継ぐ）
   - 実行例: `node scripts/update-access-ranking-from-gsc.js data/gsc.csv`
 
@@ -292,3 +292,29 @@
 - [x] Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE（`gundam_unicorn_kakusei_drive`）
 - [x] スマスロ ミリオンゴッド-神々の軌跡-（`million_god_kiseki`）
 - [x] アニマルスロット ドッチ（`animal_slot_dotch`）
+
+---
+
+## フェーズ10：内部リンク強化（クロール／インデックス）
+
+> 目的：Google の発見・回遊を強化する。**トップ → 各機種**は既存の一覧で担保済み。ここでは **機種 → 他機種** と **設定 → 天井 → 初心者** の明示的回遊を中心に実装する（プラン反映）。
+
+- [x] **1. 機種LPに「他機種」セクションを追加**
+  - `generate-landing-pages.js` に同タイプ（AT / A）中心で最大 N 件のリンクを生成する関数を追加
+  - 総合・`ceiling/`・`setting/`・`beginner/` の **全バリアント** に出力（相対パスは `basePrefix` に合わせる）
+  - 再生成: `node generate-landing-pages.js`
+
+- [x] **2. 「設定 → 天井 → 初心者」の次ページ導線を追加**
+  - `generatePage()` に読み順ナビ（例: 次に読むページへの `<a>`）を挿入
+  - `machines/landing-page.css` に最小限のスタイル（例: `.lp-flow-nav`）
+  - 再生成: `node generate-landing-pages.js`
+
+- [x] **3. `SITE_URL` / canonical を www に統一して再生成**
+  - `generate-landing-pages.js`・`build-articles.js` 等、`https://www.pachislot-setting.com` に揃える（sitemap と整合）
+  - `node generate-landing-pages.js`、必要なら `node build-articles.js`
+
+- [x] **4.（任意）トップ `index.html` の補助導線**
+  - `#machine-list` へのアンカーリンク、または短い固定おすすめ機種リンク
+
+- [x] **5.（任意）記事レイアウトから機種一覧へ**
+  - `templates/article-layout.html` または `build-articles.js` で「対応機種一覧（`../index.html#machine-list`）」の共通リンク
