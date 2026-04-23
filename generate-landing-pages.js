@@ -154,6 +154,63 @@ const EDITORIAL_BY_ID = {
 };
 
 /**
+ * 機種LP「解析メモ（導入後の補足）」。新台などは外部解析の要点を短く載せる（断定・非公表数値は避ける）。
+ */
+const PARSE_NOTES_BY_ID = {
+    gundam_unicorn_kakusei_drive: {
+        intro: "2026年4月20日導入のLパチスロ。解析では彗星決戦［CZ］当選とAT（覚醒サイド）初当たりが別系統として整理されることが多く、本ツールと同様に回数は分けて記録した方が推測の解釈が安定しやすいです。",
+        bullets: [
+            "天井は「CZストック消化基準」「AT間」「設定変更時の短縮」など条件でラインが分かれやすく、単一のゲーム数だけで比較すると誤読しやすいです。",
+            "液晶・先バレ・強チェなどの示唆は設定補助として扱い、公開スペックに基づくベイズ推測と併用するのが無難です。",
+        ],
+        externalHref: "https://1geki.jp/slot/l_gundam_uc2/",
+        externalText: "1GEKI.jp｜ガンダムユニコーン 覚醒DRIVE 解析（詳細・示唆）",
+    },
+    million_god_kiseki: {
+        intro: "2026年4月20日導入のスマスロ。導入後の解析では、終了画面・ボタン・履歴まわりの示唆整理が厚くなりやすい王道ミリオン系です。",
+        bullets: [
+            "本ツールの主入力は「AT初当たり（GOD GAME）」と総回転のバランスです。通常時モードや内部抽選の細部はモデルに含めていません。",
+            "天井・短縮の扱いは解析の更新が早いため、期待値の前提は各サイトの最新情報で確認してください。当サイトは現状「天井非搭載」としており、天井期待値は表示されません。",
+        ],
+        externalHref: "https://1geki.jp/slot/l_milliongod_kiseki/",
+        externalText: "1GEKI.jp｜ミリオンゴッド-神々の軌跡- 解析（詳細・示唆）",
+    },
+    animal_slot_dotch: {
+        intro: "2026年4月20日導入。擬似連打型のST「アニマルドリーム」と、通常時のBIG・REGが別レイヤーになりやすい構成です。",
+        bullets: [
+            "解析では天井が「BIG消化後の長尺」「REG消化後の短尺」など条件別に語られることがあり、自力で数えるときは区間の定義（何の直後から数えるか）を固定するとブレにくいです。",
+            "当ツールの天井999G／朝一499Gの期待値はBIG後・リセットを代表した近似です。REG直後など別条件では読み替えが必要です。",
+        ],
+        externalHref: "https://1geki.jp/slot/l_asd/",
+        externalText: "1GEKI.jp｜アニマルスロット ドッチ 解析（詳細・示唆）",
+    },
+};
+
+function buildParseNotesSection(machine) {
+    const p = PARSE_NOTES_BY_ID[machine.id];
+    if (!p) return "";
+    const bullets = (p.bullets || [])
+        .slice(0, 8)
+        .map((t) => `                    <li>${escapeHtml(t)}</li>`)
+        .join("\n");
+    const intro = p.intro
+        ? `                <p class="lp-desc">${escapeHtml(p.intro)}</p>\n`
+        : "";
+    const external =
+        p.externalHref && p.externalText
+            ? `                <p class="lp-parse-external"><a href="${escapeHtml(p.externalHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.externalText)}</a></p>\n`
+            : "";
+    return `
+            <section class="card lp-section" id="parse-notes">
+                <h2 class="card-title"><span class="card-icon">&#128300;</span> 解析メモ（導入後の補足）</h2>
+${intro}                <ul class="lp-parse-list">
+${bullets}
+                </ul>
+${external}                <p class="lp-note">※ 演出・天井の細部は各解析サイトの更新に依存します。本セクションは立ち回りの整理用です。</p>
+            </section>`;
+}
+
+/**
  * 主要機種だけ「注意点（運用/入力/モデル外）」を追加して差別化する。
  * - 量産ページでも、検索意図に対して「判断ミスしやすい所」を短く提示するのが狙い
  * - 文言は“断定”せず「店舗運用差」「モデル外」前提で書く
@@ -852,6 +909,8 @@ function generatePage(machine, variant) {
     const editorialRaw = machine.editorial != null ? machine.editorial : EDITORIAL_BY_ID[machine.id];
     const editorialBody = formatEditorialParagraphs(editorialRaw);
     const hasEditorial = editorialBody.length > 0;
+    const parseNotesSection = buildParseNotesSection(machine);
+    const hasParseNotes = parseNotesSection.length > 0;
 
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
     const s1key = settingKeys[0];
@@ -943,18 +1002,20 @@ ${editorialBody}
                 <p class="lp-note">※ 本解説は一般的な打ち手の整理であり、公式の仕様説明や設定保証ではありません。ホールの実情・個体差・遊技規則に従ってご利用ください。</p>
             </section>` : "";
 
+    const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath}` : "";
     const guessElementLink = guessElementPath
         ? `
             <section class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128270;</span> 設定推測要素</h2>
                 <p class="lp-desc">${machine.bigLabel}確率以外の設定推測要素（終了画面、子役確率など）を確認できます。</p>
                 <div class="lp-cta">
-                    <a href="../../${guessElementPath}" class="btn-primary lp-btn">設定推測要素の詳細を見る</a>
+                    <a href="${guessElementHref}" class="btn-primary lp-btn">設定推測要素の詳細を見る</a>
                 </div>
             </section>` : "";
 
     const tocItems = [];
     if (hasEditorial) tocItems.push(`<li><a href="#editorial">この機種について</a></li>`);
+    if (hasParseNotes) tocItems.push(`<li><a href="#parse-notes">解析メモ</a></li>`);
     if (v === "ceiling") {
         if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧</a></li>`);
         if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>`);
@@ -1036,6 +1097,7 @@ ${breadcrumbJsonLd}
                 </ol>
             </nav>
 ${editorialSection}
+${parseNotesSection}
 ${cautionSection}
 ${variantIntro}
 ${variantNav}

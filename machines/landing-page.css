@@ -262,6 +262,33 @@
     margin-bottom: 8px;
 }
 
+/* 解析メモ（新台など・機種LP） */
+.lp-parse-list {
+    margin: 10px 0 0 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.75;
+}
+
+.lp-parse-list li {
+    margin-bottom: 8px;
+}
+
+.lp-parse-external {
+    margin-top: 14px;
+    font-size: 0.92rem;
+}
+
+.lp-parse-external a {
+    color: var(--accent-cyan);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.lp-parse-external a:hover {
+    text-decoration: underline;
+}
+
 .lp-note {
     margin-top: 12px;
     font-size: 0.8rem;
