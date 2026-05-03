@@ -94,12 +94,16 @@ function buildDescription(machineName) {
     return `${machineName}の設定推測要素（終了画面・示唆演出・子役傾向など）を一覧。当サイトでは設定別スペック表・天井期待値も掲載。Setting Analyzer Pro。`;
 }
 
-function patchHtml(html, machineId, machineName) {
+const SITE_URL = "https://www.pachislot-setting.com";
+
+function patchHtml(html, machineId, machineName, dirName) {
     const desc = buildDescription(machineName);
+    const canonicalUrl = `${SITE_URL}/setGuessElement/${dirName}/`;
 
     let out = html;
 
     const descLine = `    <meta name="description" content="${escapeAttr(desc)}">`;
+    const canonicalLine = `    <link rel="canonical" href="${canonicalUrl}">`;
 
     if (/<meta\s+name="description"\s+content="/i.test(out)) {
         out = out.replace(
@@ -110,6 +114,13 @@ function patchHtml(html, machineId, machineName) {
         out = out.replace(
             /(<meta\s+name="google-site-verification"[^>]*>)\s*\n/i,
             `$1\n${descLine}\n`
+        );
+    }
+
+    if (!/<link\s+rel="canonical"/i.test(out)) {
+        out = out.replace(
+            /(<meta\s+name="description"[^>]*>)\s*\n/i,
+            `$1\n${canonicalLine}\n`
         );
     }
 
@@ -158,9 +169,10 @@ function main() {
             console.error("No machine name for id:", machineId);
             process.exit(1);
         }
+        const dirName = path.basename(path.dirname(full));
         const raw = fs.readFileSync(full, "utf8");
         const html = normalizeGuessHead(raw);
-        const next = patchHtml(html, machineId, machineName);
+        const next = patchHtml(html, machineId, machineName, dirName);
         if (next !== raw) {
             fs.writeFileSync(full, next, "utf8");
             console.log("Patched:", rel);

@@ -53,6 +53,11 @@ function injectMetaAfterFirstH1(html, metaLeadHtml) {
   return `${html.slice(0, end)}\n    ${metaLeadHtml}${html.slice(end)}`;
 }
 
+/** canonical タグ */
+function buildCanonicalTag(url) {
+  return `    <link rel="canonical" href="${url}">`;
+}
+
 /** Article JSON-LD（検索エンジン向け） */
 function buildArticleJsonLd(article) {
   const author = article.author || "slotterY";
@@ -201,7 +206,8 @@ function build() {
     content = injectMetaAfterFirstH1(content, buildArticleMetaLead(article));
     content = injectRelatedMachineLinksIntoArticle(content, slug);
     const articleFooter = buildArticleFooter(article);
-    const headExtra = buildArticleJsonLd(article);
+    const canonicalUrl = `${SITE_URL}/guide/${encodeURIComponent(slug)}.html`;
+    const headExtra = buildCanonicalTag(canonicalUrl) + "\n" + buildArticleJsonLd(article);
     let html = layout
       .replace(/\{\{TITLE\}\}/g, title)
       .replace(/\{\{DESCRIPTION\}\}/g, description)
@@ -249,12 +255,13 @@ ${indexListItems}
     </div>
 </section>`;
 
+  const indexHeadExtra = buildCanonicalTag(`${SITE_URL}/guide/index.html`);
   const indexHtml = layout
     .replace(/\{\{TITLE\}\}/g, "解説・使い方")
     .replace(/\{\{DESCRIPTION\}\}/g, "設定推測や天井期待値の基礎を解説した記事一覧。ツールの使い方や用語の説明。")
     .replace(/\{\{CONTENT\}\}/, indexContent)
     .replace(/\{\{ARTICLE_FOOTER\}\}/g, "")
-    .replace(/\{\{ARTICLE_HEAD_EXTRA\}\}/g, "")
+    .replace(/\{\{ARTICLE_HEAD_EXTRA\}\}/g, indexHeadExtra)
     .replace(/\{\{BASE\}\}/g, BASE);
 
   fs.writeFileSync(path.join(OUTPUT_DIR, "index.html"), indexHtml, "utf8");

@@ -318,3 +318,139 @@
 
 - [x] **5.（任意）記事レイアウトから機種一覧へ**
   - `templates/article-layout.html` または `build-articles.js` で「対応機種一覧（`../index.html#machine-list`）」の共通リンク
+
+---
+
+## フェーズ11：Google インデックス未登録の修正
+
+> **調査日:** 2026-05-03  
+> **現状:** Search Console で下記5種類のインデックス問題を確認（画像参照）  
+> - ページにリダイレクトがあります：**2ページ**（失敗）  
+> - 代替ページ（適切な canonical タグあり）：**8ページ**（開始前）  
+> - 重複：ユーザーにより正規ページとして選択されていません：**1ページ**（開始前）  
+> - 検出 - インデックス未登録：**313ページ**（開始前）← 最重大  
+> - クロール済み - インデックス未登録：**1ページ**（開始前）  
+
+---
+
+### 根本原因
+
+#### 原因A（最重要）: `guide/` と `setGuessElement/` ページに canonical タグが存在しない
+
+| ディレクトリ | ページ数 | canonical | サイトマップ登録 |
+|---|---|---|---|
+| `machines/` | 268 | ✅ あり | ✅ 268件 |
+| `setGuessElement/` | 52 | ❌ なし | ✅ 52件 |
+| `guide/` | 19 | ❌ なし | ✅ 19件 |
+| `articles/` | 18 | ❌ なし | ❌ 未登録 |
+
+- `guide/` は `build-articles.js` で生成されているが `<link rel="canonical">` が出力されていない。  
+- `setGuessElement/` は `patch-setguess-seo.js` で生成されているが同様に未出力。  
+- canonical なしのページは Google が URL バリアント（末尾スラッシュ有無・`?` パラメータ等）を重複と判断しやすい。  
+- → **「代替ページ（canonicalタグあり）」「重複」「インデックス未登録」の直接原因**
+
+#### 原因B（重要）: `articles/` 旧ページが削除されず孤立している
+
+- `articles/` 18ページはサイトマップ未登録だが、静的ファイルとして公開中。  
+- `guide/` の旧バージョン相当（ファイルサイズが `guide/` の半分以下、canonical なし）。  
+- Googlebot がクロールすると `guide/` との重複コンテンツと判定。  
+- 内部リンクからの参照はないが、Googlebot はサイト全体をクロールするため発見される。  
+- → **「重複」「代替ページ」の原因**
+
+#### 原因C（重要）: `vercel.json` の全パス SPA リライトが干渉している可能性
+
+```json
+{ "source": "/(.*)", "destination": "/index.html" }
+```
+
+- Vercel では static ファイルが存在するパスは rewrite をスキップするが、  
+  末尾スラッシュなし URL（例: `/machines/aim_juggler_ex`）にアクセスすると **308 リダイレクト** が発生。  
+- サイトマップは末尾スラッシュ付き URL で登録されているため、Google が  
+  末尾スラッシュなしでアクセスした場合にリダイレクト判定される。  
+- → **「ページにリダイレクトがあります」2ページの原因**
+
+#### 原因D（中期）: 機種サブページのコンテンツが薄い（テンプレート量産）
+
+- `machines/` 67機種 × 4ページ（main/ceiling/setting/beginner）= **268ページ**が類似テンプレート構造。  
+- 設定値テーブルと内部リンクが中心で、機種固有のオリジナルテキストが少ない。  
+- Google が「薄いコンテンツ」と判断しインデックスを後回しにする主因。  
+- → **「検出 - インデックス未登録」313ページの大半を占める原因**
+
+---
+
+### 修正タスク（優先順）
+
+#### P1（即時対応）— canonical タグ追加
+
+- [x] **A1. `build-articles.js` に canonical 出力を追加**
+  - `<head>` 内に `<link rel="canonical" href="https://www.pachislot-setting.com/guide/{{SLUG}}.html">` を挿入
+  - 対象: `build-articles.js`（テンプレート or 出力関数）
+  - 再生成: `node build-articles.js` → `guide/*.html` 19ファイル更新
+
+- [x] **A2. `patch-setguess-seo.js` に canonical 出力を追加**
+  - `<head>` 内に `<link rel="canonical" href="https://www.pachislot-setting.com/setGuessElement/{{SLUG}}/index.html">` を挿入  
+  - 再実行: `node patch-setguess-seo.js` → `setGuessElement/*/index.html` 52ファイル更新
+
+#### P1（即時対応）— `articles/` 旧ページの整理
+
+- [ ] **B1. `articles/` 全18ページに canonical を付与して `guide/` へ向ける**
+  - 各ファイルの `<head>` に `<link rel="canonical" href="https://www.pachislot-setting.com/guide/{{SLUG}}.html">` を追加
+  - `build-articles.js` に `articles/` 向け出力ロジックを追加するか、スクリプトで一括パッチ  
+  - **または** `articles/` を丸ごと削除し、`vercel.json` に 301 リダイレクトルールを追加（`/articles/:slug → /guide/:slug`）  
+  - ※ 削除が最もクリーンだが、外部リンクが存在する場合は canonical 対応が安全
+
+#### P2（短期対応）— vercel.json のリダイレクト整理
+
+- [ ] **C1. `vercel.json` に trailing slash リダイレクトを明示追加**
+  - Vercel の `trailingSlash: true` オプションを利用するか、各サブパスへの 301 リダイレクトを明示
+  - `articles/` を削除した場合は `/articles/:slug` → `/guide/:slug` の 301 リダイレクトも追加
+
+  ```json
+  {
+    "redirects": [
+      { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true }
+    ],
+    "rewrites": [
+      { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
+  ```
+
+#### P2（短期対応）— sitemap.xml の精度向上
+
+- [ ] **D1. `setGuessElement/index.html`（一覧ページ）をサイトマップに追加**
+  - 現状 `setGuessElement/` ルートの index.html がサイトマップ未登録
+  - `generate-landing-pages.js` の sitemap 生成に追加（`priority: 0.7`）
+
+- [ ] **D2. サイトマップの `lastmod` を最新化**
+  - 変更のあったページの `lastmod` を `2026-05-03` 等に更新してクロール促進
+
+#### P3（中期対応）— 薄いコンテンツページの対策
+
+- [ ] **E1. ceiling/setting/beginner ページへの機種固有テキスト追加**
+  - `generate-landing-pages.js` の ceiling/setting/beginner サブページ生成部分に  
+    機種固有の説明文（`EDITORIAL_BY_ID` 等を流用）を出力するロジックを追加  
+  - まず主要10〜15機種から着手
+
+- [ ] **E2. noindex 戦略の検討**（オプション）
+  - コンテンツが薄い beginner ページ等に `<meta name="robots" content="noindex">` を付与し、  
+    メインページと ceiling/setting ページへインデックスを集中させる選択肢も検討
+
+#### P3（仕上げ）— Search Console での対応確認
+
+- [ ] **F1. 修正後に Search Console で URL 検査 → 再クロールリクエスト**
+  - `guide/ceiling-basics.html` 等の代表 URL を手動リクエスト
+  - サイトマップを再送信して全体のクロール促進
+
+---
+
+### 期待効果
+
+| 対応 | 解消が期待される問題 |
+|---|---|
+| A1/A2: canonical 追加 | 代替ページ8件・重複1件・インデックス未登録の一部 |
+| B1: articles/ 整理 | 重複・代替ページ |
+| C1: vercel リダイレクト | リダイレクト2件 |
+| D1/D2: sitemap 更新 | 検出-未登録の促進（インデックス率向上） |
+| E1: コンテンツ充実 | 検出-インデックス未登録313件（中長期） |
