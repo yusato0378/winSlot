@@ -393,7 +393,7 @@
 
 #### P1（即時対応）— `articles/` 旧ページの整理
 
-- [ ] **B1. `articles/` 全18ページに canonical を付与して `guide/` へ向ける**
+- [x] **B1. `articles/` 全18ページに canonical を付与して `guide/` へ向ける**
   - 各ファイルの `<head>` に `<link rel="canonical" href="https://www.pachislot-setting.com/guide/{{SLUG}}.html">` を追加
   - `build-articles.js` に `articles/` 向け出力ロジックを追加するか、スクリプトで一括パッチ  
   - **または** `articles/` を丸ごと削除し、`vercel.json` に 301 リダイレクトルールを追加（`/articles/:slug → /guide/:slug`）  
