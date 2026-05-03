@@ -891,6 +891,124 @@ ${links}
             </section>`;
 }
 
+/** ceiling ページ：狙い目の根拠を機種データから自動生成 */
+function buildCeilingStrategySection(machine) {
+    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
+    const name = escapeHtml(machine.name);
+    const isAT = machine.type === "AT";
+
+    if (hasCeiling) {
+        const ceilG = machine.ceiling;
+        const targetG = machine.ceilingTarget;
+        const reward = machine.ceilingReward;
+        const remainAtTarget = ceilG - targetG;
+        const hasReset = machine.resetCeiling != null && machine.resetCeiling > 0;
+        return `
+            <section class="card lp-section" id="ceiling-strategy">
+                <h2 class="card-title"><span class="card-icon">&#128270;</span> 狙い目${targetG}G〜の根拠</h2>
+                <p class="lp-desc">${name}の天井は<strong>${ceilG}G</strong>で、${targetG}Gから打ち始めれば残り<strong>${remainAtTarget}G以内</strong>で天井に到達します。天井恩恵の約${reward}枚に対して、${targetG}Gからの投資が見合うラインとして${targetG}G〜が目安となります。</p>
+                <ul class="lp-caution-list">
+                    <li>天井${ceilG}G到達で恩恵約${reward}枚（換金率によって円換算は変わります）</li>
+                    <li>${targetG}G以上消化済みの台を探し、天井まで残り${remainAtTarget}G以内を確認するのが基本です</li>
+                    ${hasReset ? `<li>朝一リセット時は天井が${machine.resetCeiling}Gに短縮されます。リセット判別できると${machine.resetCeilingTarget}G〜からの狙い目も有効です</li>` : ""}
+                </ul>
+                <p class="lp-note">※ 期待値は設定1基準・概算値です。内部状態やモードにより実際の値は大きく変わります。</p>
+            </section>`;
+    }
+    if (!isAT) {
+        return `
+            <section class="card lp-section" id="ceiling-strategy">
+                <h2 class="card-title"><span class="card-icon">&#128270;</span> Aタイプの立ち回りポイント</h2>
+                <p class="lp-desc">${name}はAタイプで天井が存在しません。ボーナスは完全抽選のため、どのゲーム数からでも当選確率は同じです。</p>
+                <ul class="lp-caution-list">
+                    <li>設定推測には<strong>総回転数が多いほど精度が上がります</strong>。できれば3,000G以上のデータで判断してください</li>
+                    <li>BIG/REGの偶発的な偏りを避けるため、合算確率と出玉率を組み合わせて総合的に判断するのが基本です</li>
+                    <li>天井狙いではなく<strong>設定推測主体の立ち回り</strong>が適しています</li>
+                </ul>
+            </section>`;
+    }
+    return `
+            <section class="card lp-section" id="ceiling-strategy">
+                <h2 class="card-title"><span class="card-icon">&#128270;</span> 天井情報の確認方法</h2>
+                <p class="lp-desc">${name}は新台または解析中のため、天井ゲーム数が公開されていません。解析情報が公開され次第ツールへ反映します。</p>
+                <ul class="lp-caution-list">
+                    <li>現在は設定推測のスペックテーブルのみ対応しています</li>
+                    <li>天井・狙い目情報は解析サイトや公式情報と合わせて確認してください</li>
+                </ul>
+            </section>`;
+}
+
+/** setting ページ：設定差のポイントを機種データから自動生成 */
+function buildSettingHighlightSection(machine) {
+    const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
+    const s1key = settingKeys[0];
+    const s6key = settingKeys[settingKeys.length - 1];
+    const s1 = machine.settings[s1key];
+    const s6 = machine.settings[s6key];
+    if (!s1 || !s6) return "";
+
+    const name = escapeHtml(machine.name);
+    const bigLabel = escapeHtml(machine.bigLabel);
+    const payoutDiff = (s6.payout - s1.payout).toFixed(1);
+    const bigRatio = (s1.big / s6.big).toFixed(2);
+    const regRatio = (s1.reg && s6.reg) ? (s1.reg / s6.reg).toFixed(2) : null;
+    const koyakuRatio = (s1.koyaku && s6.koyaku) ? (s1.koyaku / s6.koyaku).toFixed(2) : null;
+
+    let mainText;
+    if (koyakuRatio && parseFloat(koyakuRatio) > parseFloat(bigRatio) && parseFloat(koyakuRatio) > (regRatio ? parseFloat(regRatio) : 0)) {
+        mainText = `${escapeHtml(machine.koyakuName)}の設定${s1key}（1/${Number(s1.koyaku).toFixed(1)}）と設定${s6key}（1/${Number(s6.koyaku).toFixed(1)}）の差は<strong>${koyakuRatio}倍</strong>で、最も設定差が出やすい指標です。`;
+    } else if (regRatio && parseFloat(regRatio) > parseFloat(bigRatio)) {
+        mainText = `${escapeHtml(machine.regLabel)}の設定${s1key}（1/${Number(s1.reg).toFixed(1)}）と設定${s6key}（1/${Number(s6.reg).toFixed(1)}）の差は<strong>${regRatio}倍</strong>で、設定差の主要な判別指標です。`;
+    } else {
+        mainText = `${bigLabel}確率の設定${s1key}（1/${Number(s1.big).toFixed(1)}）と設定${s6key}（1/${Number(s6.big).toFixed(1)}）の差は<strong>${bigRatio}倍</strong>で、設定差の主要な判別指標です。`;
+    }
+
+    return `
+            <section class="card lp-section" id="setting-highlight">
+                <h2 class="card-title"><span class="card-icon">&#128270;</span> 設定差のポイント</h2>
+                <p class="lp-desc">${name}の設定${s1key}〜設定${s6key}の出玉率の差は<strong>${payoutDiff}%</strong>（設定${s1key}:${s1.payout}% → 設定${s6key}:${s6.payout}%）です。${mainText}</p>
+                <ul class="lp-caution-list">
+                    <li>出玉率の差が${payoutDiff}%あるため、長期では設定差が収支に大きく影響します</li>
+                    <li>確率の偶発的な振れを抑えるため、<strong>3,000G以上</strong>のデータで判断するのが推測の基本です</li>
+                    <li>設定推測ツールに実データを入力すると、各設定の推測確率（%）が自動計算されます</li>
+                </ul>
+            </section>`;
+}
+
+/** beginner ページ：3ステップガイドを機種データから自動生成 */
+function buildBeginnerStepsSection(machine) {
+    const name = escapeHtml(machine.name);
+    const bigLabel = escapeHtml(machine.bigLabel);
+    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
+    const inputItems = [`<li><strong>総回転数</strong>（打った合計ゲーム数）</li>`];
+    inputItems.push(`<li><strong>${bigLabel}回数</strong></li>`);
+    if (machine.regLabel) inputItems.push(`<li><strong>${escapeHtml(machine.regLabel)}回数</strong></li>`);
+    if (machine.koyakuName) inputItems.push(`<li><strong>${escapeHtml(machine.koyakuName)}回数</strong>（わかれば精度アップ）</li>`);
+
+    return `
+            <section class="card lp-section" id="beginner-steps">
+                <h2 class="card-title"><span class="card-icon">&#128204;</span> ${name}の使い方（3ステップ）</h2>
+                <ol class="lp-caution-list">
+                    <li>
+                        <strong>ステップ1：機種を選ぶ</strong><br>
+                        トップページの機種一覧から「${name}」を選択します。
+                    </li>
+                    <li>
+                        <strong>ステップ2：データを入力する</strong><br>
+                        遊技中・遊技後に以下のデータを入力してください。<br>
+                        <ul style="margin-top:0.4em;padding-left:1.4em;">
+                            ${inputItems.join("\n                            ")}
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>ステップ3：結果を読む</strong><br>
+                        各設定の推測確率（%）と${hasCeiling ? "天井期待値（G数別）" : "設定別スペック"}が表示されます。設定6の確率が高いほど高設定の可能性が上がります。
+                    </li>
+                </ol>
+                <p class="lp-note">※ 推測結果はあくまで確率の参考値です。実際の設定を保証するものではありません。</p>
+            </section>`;
+}
+
 function generatePage(machine, variant) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
@@ -1039,6 +1157,11 @@ ${editorialBody}
     const cautionSection = buildCautionSection(machine);
     const relatedGuidesSection = buildRelatedGuideLinks(machine, v, paths.basePrefix);
     const relatedMachinesSection = buildRelatedMachinesSection(machine, v, MACHINES);
+    const variantExtraSection =
+        v === "ceiling" ? buildCeilingStrategySection(machine) :
+        v === "setting" ? buildSettingHighlightSection(machine) :
+        v === "beginner" ? buildBeginnerStepsSection(machine) :
+        "";
 
     const variantIntro = v === "ceiling"
         ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#127919;</span> このページでわかること</h2><p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・天井期待値を中心にまとめています。</p></section>`
@@ -1109,6 +1232,7 @@ ${readingFlowSection}
                 </ul>
             </nav>
 
+${v === "beginner" ? variantExtraSection : ""}
             <section class="card lp-section" id="spec">
                 <h2 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h2>
                 <p class="lp-desc">${machine.name}（${meta.typeLabel}）の設定別スペック表です。${machine.bigLabel}確率と出玉率に注目して設定判別に活用してください。</p>
@@ -1125,6 +1249,7 @@ ${spec.tbody}
             </section>
 ${ceilingSection}
 ${resetCeilingSection}
+${v !== "beginner" ? variantExtraSection : ""}
 ${guessElementLink}
 ${relatedGuidesSection}
 ${relatedMachinesSection}

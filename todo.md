@@ -428,7 +428,7 @@
 
 #### P3（中期対応）— 薄いコンテンツページの対策
 
-- [ ] **E1. ceiling/setting/beginner ページへの機種固有テキスト追加**
+- [x] **E1. ceiling/setting/beginner ページへの機種固有テキスト追加**
   - `generate-landing-pages.js` の ceiling/setting/beginner サブページ生成部分に  
     機種固有の説明文（`EDITORIAL_BY_ID` 等を流用）を出力するロジックを追加  
   - まず主要10〜15機種から着手
