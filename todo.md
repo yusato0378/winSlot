@@ -401,7 +401,7 @@
 
 #### P2（短期対応）— vercel.json のリダイレクト整理
 
-- [ ] **C1. `vercel.json` に trailing slash リダイレクトを明示追加**
+- [x] **C1. `vercel.json` に trailing slash リダイレクトを明示追加**
   - Vercel の `trailingSlash: true` オプションを利用するか、各サブパスへの 301 リダイレクトを明示
   - `articles/` を削除した場合は `/articles/:slug` → `/guide/:slug` の 301 リダイレクトも追加
 

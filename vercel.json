@@ -1,9 +1,9 @@
 {
+  "trailingSlash": true,
   "redirects": [
     { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
