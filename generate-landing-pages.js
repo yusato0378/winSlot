@@ -1199,9 +1199,75 @@ MACHINES.forEach(m => {
     });
 });
 
-// setGuessElement pages
+// setGuessElement/index.html（一覧ページ）生成
+const machineNameMap = Object.fromEntries(MACHINES.map(m => [m.id, m.name]));
+const sgListItems = Object.entries(GUESS_ELEMENT_PAGES)
+    .map(([id, rel]) => {
+        const dirName = path.basename(path.dirname(rel));
+        const name = machineNameMap[id] || id;
+        return `                    <li class="guide-article-list-item"><a href="${dirName}/">${name} 設定推測要素</a></li>`;
+    })
+    .join("\n");
+
+const sgIndexHtml = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
+    <meta name="description" content="パチスロ各機種の設定推測要素（終了画面・示唆演出・子役傾向など）一覧。${Object.keys(GUESS_ELEMENT_PAGES).length}機種対応。Setting Analyzer Pro。">
+    <link rel="canonical" href="${SITE_URL}/setGuessElement/">
+    <title>設定推測要素一覧（全機種） | Setting Analyzer Pro</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-inner">
+                <p class="app-subtitle"><a href="../index.html" class="back-link">&larr; トップに戻る</a></p>
+            </div>
+        </header>
+        <main class="main-content">
+            <section class="card page-card">
+                <h1 class="page-title">設定推測要素一覧（全機種）</h1>
+                <div class="page-body">
+                    <p>各機種の設定推測要素（終了画面・示唆演出・子役傾向など）をまとめています。機種名をタップして確認してください。</p>
+                    <ul class="guide-article-list">
+${sgListItems}
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="../index.html#machine-list">対応機種一覧</a>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <a href="../terms.html">利用規約</a>
+                <a href="../contact.html">お問い合わせ</a>
+                <a href="../about.html">アプリについて</a>
+            </div>
+            <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
+        </footer>
+    </div>
+</body>
+</html>`;
+
+const sgIndexPath = path.join(__dirname, "setGuessElement", "index.html");
+fs.writeFileSync(sgIndexPath, sgIndexHtml, "utf-8");
+console.log("Created: setGuessElement/index.html");
+
+// setGuessElement pages（サイトマップ：ルート一覧ページ + 各機種ページ）
+const today = new Date().toISOString().slice(0, 10);
+sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/setGuessElement/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.7</priority>\n  </url>`);
 Object.values(GUESS_ELEMENT_PAGES).forEach(p => {
-    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
+    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
 });
 
 // guide/ 解説記事

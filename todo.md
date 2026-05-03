@@ -419,11 +419,11 @@
 
 #### P2（短期対応）— sitemap.xml の精度向上
 
-- [ ] **D1. `setGuessElement/index.html`（一覧ページ）をサイトマップに追加**
+- [x] **D1. `setGuessElement/index.html`（一覧ページ）をサイトマップに追加**
   - 現状 `setGuessElement/` ルートの index.html がサイトマップ未登録
   - `generate-landing-pages.js` の sitemap 生成に追加（`priority: 0.7`）
 
-- [ ] **D2. サイトマップの `lastmod` を最新化**
+- [x] **D2. サイトマップの `lastmod` を最新化**
   - 変更のあったページの `lastmod` を `2026-05-03` 等に更新してクロール促進
 
 #### P3（中期対応）— 薄いコンテンツページの対策
