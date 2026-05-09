@@ -1273,6 +1273,82 @@ const MACHINES = [
         ceiling: 999, ceilingTarget: 650, ceilingReward: 480, resetCeiling: 499, resetCeilingTarget: 320,
         avgBonusReward: 320, normalCostPerGame: 1.5,
         addedDate: "2026-04-20"
+    },
+    {
+        id: "biohazard_re3",
+        name: "スマスロ バイオハザードRE:3",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 399.0, reg: null, koyaku: null, payout: 97.5 },
+            2: { big: 391.4, reg: null, koyaku: null, payout: 98.6 },
+            3: { big: 372.8, reg: null, koyaku: null, payout: 100.9 },
+            4: { big: 349.8, reg: null, koyaku: null, payout: 105.4 },
+            5: { big: 323.5, reg: null, koyaku: null, payout: 110.5 },
+            6: { big: 311.2, reg: null, koyaku: null, payout: 113.1 }
+        },
+        ceiling: 1000, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 650, resetCeilingTarget: 400,
+        avgBonusReward: 350, normalCostPerGame: 2.2,
+        addedDate: "2026-05-11"
+    },
+    {
+        id: "big_dream_golden_pusher",
+        name: "スマスロ ビッグドリーム THE GOLDEN PUSHER",
+        type: "AT",
+        bigLabel: "CZ",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 337.7, reg: 629.3, koyaku: null, payout: 97.4 },
+            2: { big: 333.3, reg: 615.3, koyaku: null, payout: 98.8 },
+            3: { big: 326.6, reg: 599.1, koyaku: null, payout: 100.1 },
+            4: { big: 316.4, reg: 562.6, koyaku: null, payout: 104.4 },
+            5: { big: 311.4, reg: 551.1, koyaku: null, payout: 106.5 },
+            6: { big: 303.4, reg: 536.2, koyaku: null, payout: 111.3 }
+        },
+        ceiling: 1499, ceilingTarget: 900, ceilingReward: 800, resetCeiling: 999, resetCeilingTarget: 600,
+        avgBonusReward: 700, normalCostPerGame: 1.6,
+        addedDate: "2026-05-11"
+    },
+    {
+        id: "super_rio_ace2",
+        name: "スマスロスーパーリオエース2",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 289.8, reg: null, koyaku: null, payout: 97.7 },
+            2: { big: 281.9, reg: null, koyaku: null, payout: 98.7 },
+            3: { big: 268.0, reg: null, koyaku: null, payout: 100.5 },
+            4: { big: 238.9, reg: null, koyaku: null, payout: 105.1 },
+            5: { big: 230.0, reg: null, koyaku: null, payout: 109.1 },
+            6: { big: 219.2, reg: null, koyaku: null, payout: 112.1 }
+        },
+        ceiling: 750, ceilingTarget: 450, ceilingReward: 350, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 350, normalCostPerGame: 1.6,
+        addedDate: "2026-05-11"
+    },
+    {
+        id: "takt_op_destiny",
+        name: "Lタクトオーパス デスティニー",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 358.5, reg: null, koyaku: null, payout: 97.6 },
+            2: { big: 350.3, reg: null, koyaku: null, payout: 98.2 },
+            3: { big: 330.5, reg: null, koyaku: null, payout: 100.3 },
+            4: { big: 299.3, reg: null, koyaku: null, payout: 104.7 },
+            5: { big: 297.8, reg: null, koyaku: null, payout: 108.7 },
+            6: { big: 297.4, reg: null, koyaku: null, payout: 113.5 }
+        },
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 500, resetCeilingTarget: 300,
+        avgBonusReward: 350, normalCostPerGame: 1.4,
+        addedDate: "2026-05-11"
     }
 ];
 

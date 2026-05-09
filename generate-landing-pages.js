@@ -151,6 +151,14 @@ const EDITORIAL_BY_ID = {
     million_god_kiseki: `スマスロ ミリオンゴッド-神々の軌跡-は、GOD GAMEを軸にした王道のミリオン系スマスロです。設定推測ではAT初当たり確率と総回転のバランスが主なインプットになります。\n\n天井の確定表記は導入直後は解析サイトの更新を確認してください。本データでは天井非搭載としており、主にスペック確認と回数ベースの推測にご利用ください。\n\nモード・履歴・確定役などモデル外要素が大きい機種のため、推測結果は補助線として扱いましょう。`,
 
     animal_slot_dotch: `アニマルスロット ドッチは、BIG・REGの二軸と擬似ボーナス連打型のST「アニマルドリーム」が特徴の北電子スマスロです。通常時はリーチ目からの当選が多く、カウンターの取り方をスペック表に合わせることが重要です。\n\n天井はBIG消化後の長尺やREG後の短尺など複数パターンが解説されることがあり、本ツールではBIG後を代表するラインで近似しています。条件によっては読み替えが必要です。\n\n参考値としてご利用ください。`,
+
+    biohazard_re3: `スマスロ バイオハザードRE:3は、AT初当たり確率の設定差と天井・CZスルー天井が立ち回りを支えるホラーアクション系スマスロです。2026年5月11日導入のエンターライズ製AT機です。\n\n天井は1000G＋αでAT当選（設定変更時650G＋αに短縮）。またCZを6回連続失敗後の7回目は成功濃厚というCZスルー天井も搭載されています。ゲーム数とスルー回数を合わせて管理すると立ち回り精度が上がります。\n\n設定推測はAT初当たり確率が主戦場です。CZ確率は設定1のみ公開（1/143.3）で他設定は未公開のため、本ツールではAT初当たり一本軸での推測になります。参考値としてご利用ください。`,
+
+    big_dream_golden_pusher: `スマスロ ビッグドリーム THE GOLDEN PUSHERは、サミー製のメダルプッシャーゲーム融合型スマスロです。2026年5月11日導入。コイン単価が約5.7円とスマスロ史上最高水準の荒れ機種で、プレミアムAT「DREAM JP BONUS」では4桁枚数スタートも狙えます。\n\n天井は最大1499Gで、設定変更時は999Gに短縮。設定や前ATの種類によって引き継ぐ天井ゲーム数が333・555・999・1499Gから変動します。本ツールでは最大1499Gを代表ラインとして掲載しており、実際の期待値は引き継ぎ条件で大きく変わります。\n\nCZ確率とAT確率の二系統で設定差が現れます。本ツールではCZを「big」列、AT初当たりを「reg」列として入力してください。荒れ仕様のため推測精度には大量データが必要です。参考値としてご利用ください。`,
+
+    super_rio_ace2: `スマスロスーパーリオエース2は、山佐ネクスト製のハッキング演出が特徴のスマスロAT機です。2026年5月11日導入。メインAT「リオラッシュ」（純増約2.5枚/G）と上位AT「リオラッシュエクストラ」（純増約4.5枚/G）の二段階構成です。\n\n天井は750G＋α（ボーナス間）で、設定変更時は天井がリセットされます。加えてボーナス7回スルーで8回目AT濃厚というスルー天井も搭載（設定変更時は4スルー後5回目に短縮）。本ツールの天井期待値は750G天井を基準としており、スルー天井は別途カウントが必要です。\n\nAT初当たり確率の設定差が主な推測軸になります。数値は公開スペック基準の参考値です。`,
+
+    takt_op_destiny: `Lタクトオーパス デスティニーは、アムテックス製の「takt op.Destiny」原作スマスロです。2026年5月11日導入。AT「バトルオーケストラ」（純増約2.6枚/G、初期150枚＋α）への道筋として、CZ・報酬CHANCE・DESTINY BONUSの3ルートが用意されています。\n\nAT天井は999G＋α、CZ天井は500G＋α（設定変更時300G＋αに短縮）。設定変更時は天井がリセットされモードBorC確定となります。本ツールではAT天井999Gを主天井、リセット短縮ラインとしてCZ天井500Gを掲載しています。\n\nAT初当たり確率が主な設定推測の軸です。高設定ほど設定差が小さく短期での判別は困難です。特化ゾーン「歓喜の歌」に入ると4桁上乗せ濃厚となる高射幸仕様のため、推測結果は補助線としてご利用ください。`,
 };
 
 /**
@@ -183,6 +191,46 @@ const PARSE_NOTES_BY_ID = {
         ],
         externalHref: "https://1geki.jp/slot/l_asd/",
         externalText: "1GEKI.jp｜アニマルスロット ドッチ 解析（詳細・示唆）",
+    },
+    biohazard_re3: {
+        intro: "2026年5月11日導入のエンターライズ製スマスロ。CZ「ネメシスバトル」（約8G+α・期待度約37%）経由でAT「ハザードラッシュ」を目指す構成です。",
+        bullets: [
+            "CZスルー天井：6回連続失敗後の7回目CZは成功（AT）濃厚。ゲーム数天井とスルー回数を並行してカウントすることが重要です。",
+            "設定変更時は天井が1000G→650Gに短縮。朝一の立ち回りにはリセット判断が有効な場合があります。",
+            "CZ確率は設定1（1/143.3）のみ公開で他設定は調査中。本ツールはAT初当たりのみで推測します。CZ確率が出揃い次第更新予定です。",
+        ],
+        externalHref: "https://chonborista.com/slot/enta-slot/253191/",
+        externalText: "ちょんぼりすた｜バイオハザードRE:3 解析まとめ",
+    },
+    big_dream_golden_pusher: {
+        intro: "2026年5月11日導入のサミー製スマスロ。メダルプッシャーゲーム融合型で、コイン単価約5.7円とスマスロ歴代最高水準の荒れ仕様です。",
+        bullets: [
+            "天井は最大1499G。ただし通常AT終了後は333・555・999・1499Gの中から引き継ぎゲーム数が決まるため、前歴により大きく変動します。設定変更時は999Gに短縮。",
+            "プレミアムAT「DREAM JP BONUS」（確率約1/8445）に当選すると4桁枚数スタートが濃厚。荒れ機種につき短期の推測精度は低めです。",
+            "本ツールではCZを「CZ」列、AT初当たりを「AT初当たり」列に入力してください。設定差はCZ確率の方がAT確率より大きいです。",
+        ],
+        externalHref: "https://nana-press.com/kaiseki/machine/1151/",
+        externalText: "なな徹｜ビッグドリーム THE GOLDEN PUSHER 解析まとめ",
+    },
+    super_rio_ace2: {
+        intro: "2026年5月11日導入の山佐ネクスト製スマスロ。独自の「ハッキング」演出とノワールタイム（G数巻き戻し+0G連上乗せ）が特徴のAT機です。",
+        bullets: [
+            "ボーナス間天井750G+α（設定変更で天井リセット）と、7スルーで8回目AT濃厚のスルー天井が並存。立ち回りにはスルー回数もカウントする必要があります。",
+            "設定変更時はスルー天井が4スルー→5回目AT濃厚に短縮。朝一はスルー回数リセットにも注意してください。",
+            "本ツールの天井期待値は750G天井を基準とした近似値です。スルー天井到達時の恩恵は別途考慮してください。",
+        ],
+        externalHref: "https://chonborista.com/slot/yamasa-slot/255067/",
+        externalText: "ちょんぼりすた｜スーパーリオエース2 解析まとめ",
+    },
+    takt_op_destiny: {
+        intro: "2026年5月11日導入のアムテックス製スマスロ。「takt op.Destiny」原作のAT機で、CZ天井（500G）とAT天井（999G）の二重天井構造が特徴です。",
+        bullets: [
+            "設定変更時は天井リセット＋モードB or C確定（300G以内にCZ当選濃厚）。朝一のリセット判断が有効な場面が多い機種です。",
+            "上位特化ゾーン「歓喜の歌」で4桁上乗せ濃厚。AT後は約4割でモードCに移行し100G+α以内にCZ当選が見込めるため、やめどきの確認が重要です。",
+            "設定6でも初当たり確率の差が小さく（6と5で約1/298差）、短期判別は難しい設計です。複数要素の示唆を組み合わせる必要があります。",
+        ],
+        externalHref: "https://chonborista.com/slot/amute/254099/",
+        externalText: "ちょんぼりすた｜タクトオーパス デスティニー 解析まとめ",
     },
 };
 
@@ -498,6 +546,18 @@ const MACHINES = [
     { id: "animal_slot_dotch", name: "アニマルスロット ドッチ", type: "AT", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
       settings: { 1:{big:329.7,reg:349.5,koyaku:null,payout:97.6}, 2:{big:314.7,reg:342.8,koyaku:null,payout:98.7}, 3:{big:295.6,reg:339.4,koyaku:null,payout:100.4}, 4:{big:274.3,reg:328.1,koyaku:null,payout:103.5}, 5:{big:249.1,reg:321.5,koyaku:null,payout:107.5}, 6:{big:227.4,reg:314.3,koyaku:null,payout:108.2} },
       ceiling:999, ceilingTarget:650, ceilingReward:480, resetCeiling:499, resetCeilingTarget:320, avgBonusReward:320, normalCostPerGame:1.5, addedDate: "2026-04-20" },
+    { id: "biohazard_re3", name: "スマスロ バイオハザードRE:3", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
+      settings: { 1:{big:399.0,reg:null,koyaku:null,payout:97.5}, 2:{big:391.4,reg:null,koyaku:null,payout:98.6}, 3:{big:372.8,reg:null,koyaku:null,payout:100.9}, 4:{big:349.8,reg:null,koyaku:null,payout:105.4}, 5:{big:323.5,reg:null,koyaku:null,payout:110.5}, 6:{big:311.2,reg:null,koyaku:null,payout:113.1} },
+      ceiling:1000, ceilingTarget:600, ceilingReward:400, resetCeiling:650, resetCeilingTarget:400, avgBonusReward:350, normalCostPerGame:2.2, addedDate: "2026-05-11" },
+    { id: "big_dream_golden_pusher", name: "スマスロ ビッグドリーム THE GOLDEN PUSHER", type: "AT", bigLabel: "CZ", regLabel: "AT初当たり", koyakuName: null,
+      settings: { 1:{big:337.7,reg:629.3,koyaku:null,payout:97.4}, 2:{big:333.3,reg:615.3,koyaku:null,payout:98.8}, 3:{big:326.6,reg:599.1,koyaku:null,payout:100.1}, 4:{big:316.4,reg:562.6,koyaku:null,payout:104.4}, 5:{big:311.4,reg:551.1,koyaku:null,payout:106.5}, 6:{big:303.4,reg:536.2,koyaku:null,payout:111.3} },
+      ceiling:1499, ceilingTarget:900, ceilingReward:800, resetCeiling:999, resetCeilingTarget:600, avgBonusReward:700, normalCostPerGame:1.6, addedDate: "2026-05-11" },
+    { id: "super_rio_ace2", name: "スマスロスーパーリオエース2", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
+      settings: { 1:{big:289.8,reg:null,koyaku:null,payout:97.7}, 2:{big:281.9,reg:null,koyaku:null,payout:98.7}, 3:{big:268.0,reg:null,koyaku:null,payout:100.5}, 4:{big:238.9,reg:null,koyaku:null,payout:105.1}, 5:{big:230.0,reg:null,koyaku:null,payout:109.1}, 6:{big:219.2,reg:null,koyaku:null,payout:112.1} },
+      ceiling:750, ceilingTarget:450, ceilingReward:350, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:350, normalCostPerGame:1.6, addedDate: "2026-05-11" },
+    { id: "takt_op_destiny", name: "Lタクトオーパス デスティニー", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
+      settings: { 1:{big:358.5,reg:null,koyaku:null,payout:97.6}, 2:{big:350.3,reg:null,koyaku:null,payout:98.2}, 3:{big:330.5,reg:null,koyaku:null,payout:100.3}, 4:{big:299.3,reg:null,koyaku:null,payout:104.7}, 5:{big:297.8,reg:null,koyaku:null,payout:108.7}, 6:{big:297.4,reg:null,koyaku:null,payout:113.5} },
+      ceiling:999, ceilingTarget:600, ceilingReward:400, resetCeiling:500, resetCeilingTarget:300, avgBonusReward:350, normalCostPerGame:1.4, addedDate: "2026-05-11" },
 ];
 
 const GUESS_ELEMENT_PAGES = {
