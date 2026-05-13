@@ -1365,10 +1365,8 @@ const $currentGames  = document.getElementById("current-games");
 const $bigCount      = document.getElementById("big-count");
 const $regCount      = document.getElementById("reg-count");
 const $bonusProb     = document.getElementById("bonus-prob");
-const $koyakuCount   = document.getElementById("koyaku-count");
 const $bigLabel      = document.getElementById("big-label");
 const $regLabel      = document.getElementById("reg-label");
-const $koyakuLabel   = document.getElementById("koyaku-label");
 const $machineInfoBar   = document.getElementById("machine-info-bar");
 const $machineTypeBadge = document.getElementById("machine-type-badge");
 const $machineCeilingInfo = document.getElementById("machine-ceiling-info");
@@ -1668,15 +1666,6 @@ function onMachineChange() {
         $regCount.closest(".form-group").style.display = "none";
         $regCount.value = "";
     }
-
-    if (machine.koyakuName) {
-        $koyakuLabel.innerHTML = machine.koyakuName + '回数 <span class="label-hint">(任意)</span>';
-        $koyakuCount.closest(".form-group").style.display = "";
-    } else {
-        $koyakuLabel.innerHTML = '小役回数 <span class="label-hint">(任意)</span>';
-        $koyakuCount.closest(".form-group").style.display = "none";
-        $koyakuCount.value = "";
-    }
 }
 
 function updateBonusProb() {
@@ -1700,7 +1689,6 @@ function onAnalyze(e) {
     const currentGames = parseInt($currentGames.value) || 0;
     const bigCount    = parseInt($bigCount.value) || 0;
     const regCount    = parseInt($regCount.value) || 0;
-    const koyakuCount = parseInt($koyakuCount.value) || 0;
 
     const hasTotalGames = totalGames > 0;
     const hasCurrentGames = currentGames > 0;
@@ -1712,9 +1700,9 @@ function onAnalyze(e) {
     }
 
     if (hasTotalGames) {
-        const results = estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount);
+        const results = estimateSettings(machine, totalGames, bigCount, regCount);
         renderSettingResults(results, machine);
-        renderFactors(machine, totalGames, bigCount, regCount, koyakuCount);
+        renderFactors(machine, totalGames, bigCount, regCount);
         renderSpecTable(machine);
         $settingSection.style.display = "";
         $factorSection.style.display = "";
@@ -1750,16 +1738,14 @@ function onReset() {
     $specSection.style.display = "";
     $specSection.open = false;
     $regCount.closest(".form-group").style.display = "";
-    $koyakuCount.closest(".form-group").style.display = "";
     $bigLabel.textContent = "BIG回数";
     $regLabel.textContent = "REG回数";
-    $koyakuLabel.innerHTML = '小役回数 <span class="label-hint">(任意)</span>';
 }
 
 // ============================================================
 // ベイズ推定による設定推測
 // ============================================================
-function estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount) {
+function estimateSettings(machine, totalGames, bigCount, regCount) {
     const settingKeys = Object.keys(machine.settings).map(Number);
     const logLikelihoods = {};
 
@@ -1775,12 +1761,6 @@ function estimateSettings(machine, totalGames, bigCount, regCount, koyakuCount) 
         if (spec.reg !== null && regCount > 0) {
             const pReg = 1 / spec.reg;
             logL += regCount * Math.log(pReg) + (totalGames - regCount) * Math.log(1 - pReg);
-        }
-
-        // 小役の尤度（データがある場合のみ）
-        if (spec.koyaku !== null && koyakuCount > 0) {
-            const pKoyaku = 1 / spec.koyaku;
-            logL += koyakuCount * Math.log(pKoyaku) + (totalGames - koyakuCount) * Math.log(1 - pKoyaku);
         }
 
         logLikelihoods[s] = logL;
@@ -1866,7 +1846,7 @@ function renderSettingResults(posteriors, machine) {
 // ============================================================
 // 描画: 推測要素
 // ============================================================
-function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
+function renderFactors(machine, totalGames, bigCount, regCount) {
     $factorResults.innerHTML = "";
     const items = [];
 
@@ -1896,15 +1876,6 @@ function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
             label: "合算確率",
             value: `1/${combinedProb.toFixed(1)}`,
             hint: findClosestCombined(machine, combinedProb)
-        });
-    }
-
-    if (machine.koyakuName && koyakuCount > 0 && totalGames > 0) {
-        const koyakuProb = totalGames / koyakuCount;
-        items.push({
-            label: `${machine.koyakuName}確率`,
-            value: `1/${koyakuProb.toFixed(2)}`,
-            hint: findClosestSetting(machine, "koyaku", koyakuProb)
         });
     }
 
