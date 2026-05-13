@@ -59,6 +59,7 @@ winSlot/
 ├── app.js                  # 機種データ・推測・UI
 ├── style.css
 ├── favicon.png             # サイトアイコン
+├── og-default.png          # OGP / Twitter カード用（トップ）
 ├── ads.txt                 # AdSense 用（公開ルートに配置）
 ├── robots.txt
 ├── sitemap.xml             # 生成スクリプト実行時に更新される場合あり
@@ -169,7 +170,7 @@ git config --unset core.hooksPath
 |----------|------|
 | `node build-articles.js` | `templates/article-layout.html` + `articles/*` から `guide/*.html` と `guide/index.html` を生成 |
 | `node generate-landing-pages.js` | `app.js` と同系の機種データから `machines/*/index.html` を再生成し、`sitemap.xml` を更新 |
-| `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`generate-landing-pages.js` の `GUESS_ELEMENT_PAGES` と機種名と同期すること） |
+| `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`app.js` の `MACHINES[].guessElementPath` と機種名と同期すること） |
 | `node scripts/gsc-analyze.js data/gsc.csv` | Search Console のCSV/TSV（検索パフォーマンス）を解析し、CTR低/順位11〜20の改善候補を `reports/gsc-actions.md` に出力 |
 | `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` | GSC エクスポートから `machines/` 配下のクリック数上位5件を `data/access-ranking.json` に更新（トップのアクセスランキング表示用） |
 
@@ -268,9 +269,31 @@ git config --unset core.hooksPath
 ## SEO（sitemap / robots）
 
 - **`sitemap.xml`**: URL 一覧。`generate-landing-pages.js` 実行で更新される部分があります。新ドメインへ移行した場合は `loc` を本番ドメインに統一してください。  
-- **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。
+- **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。  
+- **`og-default.png`**: トップの SNS シェア用（`og:image` / `twitter:image`）。差し替える場合は 1200×630 前後の PNG を推奨します。
+
+### Lighthouse（パフォーマンスの目安）
+
+初回描画まわりの改善として、トップでは **Google Fonts のウェイトを 900 除外**（見出しは 700 に統一）、**AdSense スクリプトを `</body>` 直前**へ移しています。さらに詰める場合は次で計測します。
+
+1. 別ターミナルで静的配信（例）: `npx serve . -p 8080`  
+2. 計測: `npx lighthouse http://127.0.0.1:8080/ --only-categories=performance --view`  
+3. レポートの **LCP 要素** と **CLS** を確認し、フォント読み込み・広告枠のレイアウトシフトなどを順に潰す
 
 ### Search Console（GSC）改善ループ（運用）
+
+#### ベースライン記録（改善の起点）
+
+定期的（例: 月1回または施策前後）に次を記録しておくと、施策の効果測定がしやすいです。
+
+1. Search Console → **検索パフォーマンス** → 期間を「過去3ヶ月」などに設定  
+2. **ページ** フィルタで `https://www.pachislot-setting.com/`（トップ）を選択し、**総クリック数・総表示回数・平均CTR・平均掲載順位**をメモまたはスプレッドシートに保存  
+3. 同様に主要機種LP（例: `/machines/hokuto/`、`/machines/kabaneri/`）をそれぞれフィルタして同じ4指標を記録  
+4. **クエリ** タブで、トップと主要LPそれぞれ **上位20クエリ**（クリック数または表示回数順）をエクスポートまたはスクリーンショットで残す  
+
+以降の改善（メタ・導線・速度）は、このベースラインとの差分で評価します。
+
+#### CSV からの自動解析
 
 1. Search Console → **検索パフォーマンス** から CSV/TSV をエクスポート（クエリ×ページ推奨）  
 2. `data/gsc.csv`（または任意のパス）に置く  
@@ -283,6 +306,16 @@ node scripts/gsc-analyze.js data/gsc.csv
 4. 出力された `reports/gsc-actions.md` の上位から、title/description・見出し・内部リンクなどを改善していく  
 
 ※ `data/gsc*.csv` は `.gitignore` しています（個人データ・運用データなのでコミットしない想定）。
+
+#### 新機種追加時のチェックリスト（SEO・整合性）
+
+`app.js` の `MACHINES` に機種を追加したあと、次を忘れずに行う。
+
+1. **`node generate-landing-pages.js`** を実行する（`machines/{id}/` の LP と **`sitemap.xml`** の URL・`lastmod` が更新される）  
+2. トップの **`index.html`** に「対応機種一覧」のリンク行がある場合は、該当 `<details>` 内の `<ul>` に同機種の `<li><a href="machines/{id}/">…</a></li>` を追加する  
+3. 設定推測要素ページを持つ機種は、`MACHINES` に **`guessElementPath`**（例: `setGuessElement/fooBar/index.html`）を設定する  
+4. デプロイ後、Search Console の **サイトマップ** から `sitemap.xml` を再送信する（任意だが推奨）  
+5. 数週間後に GSC で新 URL の **表示・クリック** が付き始めているか確認する
 
 ---
 

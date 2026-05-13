@@ -7,42 +7,59 @@
     <link rel="apple-touch-icon" href="favicon.png">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="google-adsense-account" content="ca-pub-9806077794369384">
-    <meta name="description" content="パチスロ・スマスロの設定推測と天井期待値を自動計算。北斗の拳、番長4、カバネリなど最新67機種対応。ボーナス回数と回転数から設定判別。機種別の天井狙い目・期待値一覧も掲載。">
-    <meta property="og:title" content="パチスロ設定推測・期待値計算ツール | Setting Analyzer Pro">
-    <meta property="og:description" content="パチスロ・スマスロの設定推測と天井期待値を自動計算。最新67機種対応。">
+    <meta name="description" content="パチスロ・スマスロの設定判別（ベイズ推定）と天井期待値を無料で計算。総ゲーム数とボーナス回数から設定の確率、現在ゲーム数から天井までの期待値を表示。67機種対応。機種別の詳細ページも。">
+    <meta property="og:title" content="パチスロ設定推測・天井期待値計算ツール | Setting Analyzer Pro">
+    <meta property="og:description" content="設定判別と天井期待値をブラウザで計算。67機種対応。総ゲーム数・回数入力で各設定の確率、現在Gで天井期待値。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.pachislot-setting.com/">
     <meta property="og:locale" content="ja_JP">
+    <meta property="og:image" content="https://www.pachislot-setting.com/og-default.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="パチスロ設定推測・天井期待値ツール Setting Analyzer Pro">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="パチスロ設定推測・天井期待値計算ツール">
+    <meta name="twitter:description" content="設定判別と天井期待値をブラウザで計算。67機種対応。">
+    <meta name="twitter:image" content="https://www.pachislot-setting.com/og-default.png">
     <link rel="canonical" href="https://www.pachislot-setting.com/">
-    <title>パチスロ設定推測・期待値計算ツール | Setting Analyzer Pro</title>
+    <title>パチスロ設定推測・天井期待値計算ツール | Setting Analyzer Pro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
-         crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Setting Analyzer Pro",
-        "alternateName": "パチスロ設定推測・期待値計算ツール",
-        "description": "パチスロ・スマスロの設定推測と天井期待値を自動計算するWebアプリ。最新67機種対応。",
-        "url": "https://www.pachislot-setting.com/",
-        "applicationCategory": "UtilityApplication",
-        "operatingSystem": "Web",
-        "inLanguage": "ja",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "JPY"
-        },
-        "featureList": [
-            "ベイズ推定による設定推測",
-            "天井期待値計算",
-            "ゲーム数別期待値一覧",
-            "設定推測要素の表示",
-            "機種スペック表"
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Setting Analyzer Pro",
+                "alternateName": "パチスロ設定推測・天井期待値計算ツール",
+                "url": "https://www.pachislot-setting.com/",
+                "inLanguage": "ja"
+            },
+            {
+                "@type": "WebApplication",
+                "name": "Setting Analyzer Pro",
+                "alternateName": "パチスロ設定推測・天井期待値計算ツール",
+                "description": "パチスロ・スマスロの設定推測（ベイズ推定）と天井期待値をブラウザで計算するWebアプリ。67機種対応。",
+                "url": "https://www.pachislot-setting.com/",
+                "applicationCategory": "UtilityApplication",
+                "operatingSystem": "Web",
+                "inLanguage": "ja",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "JPY"
+                },
+                "featureList": [
+                    "総ゲーム数とボーナス回数からベイズ推定による設定の推定確率（％）",
+                    "天井あり機種は現在ゲーム数から天井期待値・狙い目・到達確率の概算",
+                    "推測要素と機種スペック表は折りたたみで表示",
+                    "機種別ランディングページ（設定・天井・初心者向け）への導線",
+                    "解説記事（guide）への導線"
+                ]
+            }
         ]
     }
     </script>
@@ -57,6 +74,21 @@
         </header>
 
         <main class="main-content">
+            <p class="home-lead">総ゲーム数とボーナス回数（機種に応じてBIG・REG等）を入れると、公開スペックに基づき<strong>各設定の推定確率</strong>を表示します。天井がある機種は<strong>現在ゲーム数</strong>だけでも、天井までの<strong>期待値の目安</strong>と狙い目を確認できます（結果は参考値です）。</p>
+            <nav class="home-inline-nav" aria-label="人気機種と解説へのショートカット">
+                <span class="home-inline-nav-label">定番:</span>
+                <a href="machines/hokuto/">スマスロ北斗の拳</a>
+                <span class="home-inline-nav-sep">·</span>
+                <a href="machines/kabaneri/">甲鉄城のカバネリ</a>
+                <span class="home-inline-nav-sep">·</span>
+                <a href="machines/banchou4/">押忍！番長4</a>
+                <span class="home-inline-nav-sep">·</span>
+                <a href="machines/aim_juggler_ex/">アイムジャグラーEX</a>
+                <span class="home-inline-nav-sep">·</span>
+                <a href="guide/how-to-use.html">使い方</a>
+                <span class="home-inline-nav-sep">·</span>
+                <a href="guide/">解説一覧</a>
+            </nav>
             <!-- 入力セクション -->
             <section class="card input-section">
                 <h2 class="card-title">
@@ -320,5 +352,7 @@
     </div>
 
     <script src="app.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9806077794369384"
+         crossorigin="anonymous"></script>
 </body>
 </html>
