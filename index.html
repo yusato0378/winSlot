@@ -57,22 +57,6 @@
         </header>
 
         <main class="main-content">
-            <nav class="card home-shortcuts" aria-label="主要コンテンツへの導線">
-                <p class="home-shortcuts-lead">一覧や解説から探す</p>
-                <ul class="home-shortcuts-row">
-                    <li><a class="home-shortcuts-cta" href="#machine-list">対応機種一覧へ</a></li>
-                    <li><a href="guide/">解説・使い方一覧</a></li>
-                    <li><a href="guide/how-to-use.html">使い方まとめ</a></li>
-                </ul>
-                <p class="home-shortcuts-label">詳細ページの例（設定推測・天井）</p>
-                <ul class="home-shortcuts-featured">
-                    <li><a href="machines/hokuto/">スマスロ北斗の拳</a></li>
-                    <li><a href="machines/kabaneri/">甲鉄城のカバネリ</a></li>
-                    <li><a href="machines/banchou4/">押忍！番長4</a></li>
-                    <li><a href="machines/aim_juggler_ex/">アイムジャグラーEX</a></li>
-                    <li><a href="machines/my_juggler_v/">マイジャグラーV</a></li>
-                </ul>
-            </nav>
             <!-- 入力セクション -->
             <section class="card input-section">
                 <h2 class="card-title">
@@ -95,38 +79,42 @@
                         <span id="machine-ceiling-info" class="badge badge-sub"></span>
                     </div>
 
+                    <!-- 設定判別の主要入力 -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="total-games">総ゲーム数</label>
                             <input type="number" id="total-games" min="0" placeholder="例: 5000">
                         </div>
                         <div class="form-group">
-                            <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから)</span></label>
-                            <input type="number" id="current-games" min="0" placeholder="例: 350">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
                             <label for="big-count" id="big-label">BIG回数</label>
                             <input type="number" id="big-count" min="0" placeholder="例: 18">
                         </div>
-                        <div class="form-group">
-                            <label for="reg-count" id="reg-label">REG回数</label>
-                            <input type="number" id="reg-count" min="0" placeholder="例: 12">
-                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-count" id="reg-label">REG回数</label>
+                        <input type="number" id="reg-count" min="0" placeholder="例: 12">
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bonus-prob">ボーナス合算確率 <span class="label-hint">(自動計算)</span></label>
-                            <input type="text" id="bonus-prob" readonly placeholder="自動計算されます">
-                        </div>
-                        <div class="form-group">
-                            <label for="koyaku-count" id="koyaku-label">小役回数 <span class="label-hint">(任意)</span></label>
-                            <input type="number" id="koyaku-count" min="0" placeholder="例: 800">
-                        </div>
+                    <!-- 天井計算用 -->
+                    <div class="form-group">
+                        <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
+                        <input type="number" id="current-games" min="0" placeholder="例: 350">
                     </div>
+
+                    <!-- 詳細入力（折り畳み） -->
+                    <details class="form-details">
+                        <summary>詳細入力（合算確率・小役）</summary>
+                        <div class="form-row form-details-content">
+                            <div class="form-group">
+                                <label for="bonus-prob">合算確率 <span class="label-hint">(自動計算)</span></label>
+                                <input type="text" id="bonus-prob" readonly placeholder="自動計算されます">
+                            </div>
+                            <div class="form-group">
+                                <label for="koyaku-count" id="koyaku-label">小役回数 <span class="label-hint">(任意)</span></label>
+                                <input type="number" id="koyaku-count" min="0" placeholder="例: 800">
+                            </div>
+                        </div>
+                    </details>
 
                     <p class="form-hint">&#128161; 機種名＋現在ゲーム数だけで天井期待値を計算できます</p>
 
@@ -143,7 +131,7 @@
             <!-- 結果セクション -->
             <div id="results-section" class="results-section" style="display:none;">
 
-                <!-- 設定推測結果 -->
+                <!-- 設定推測結果（常時展開） -->
                 <section class="card result-card" id="setting-section">
                     <h2 class="card-title">
                         <span class="card-icon">&#127920;</span>
@@ -153,16 +141,7 @@
                     <div class="most-likely" id="most-likely"></div>
                 </section>
 
-                <!-- 推測要素 -->
-                <section class="card result-card" id="factor-section">
-                    <h2 class="card-title">
-                        <span class="card-icon">&#128200;</span>
-                        推測要素
-                    </h2>
-                    <div id="factor-results" class="factor-results"></div>
-                </section>
-
-                <!-- 天井情報・期待値 -->
+                <!-- 天井情報・期待値（常時展開） -->
                 <section class="card result-card" id="ceiling-section" style="display:none;">
                     <h2 class="card-title">
                         <span class="card-icon">&#127919;</span>
@@ -171,20 +150,30 @@
                     <div id="ceiling-results" class="ceiling-results"></div>
                 </section>
 
-                <!-- 機種スペック表 -->
-                <section class="card result-card" id="spec-section">
-                    <h2 class="card-title">
+                <!-- 推測要素（折り畳み） -->
+                <details class="card result-card" id="factor-section">
+                    <summary class="card-summary">
+                        <span class="card-icon">&#128200;</span>
+                        推測要素
+                    </summary>
+                    <div id="factor-results" class="factor-results"></div>
+                </details>
+
+                <!-- 機種スペック表（折り畳み） -->
+                <details class="card result-card" id="spec-section">
+                    <summary class="card-summary">
                         <span class="card-icon">&#128203;</span>
                         機種スペック表
-                    </h2>
+                    </summary>
                     <div class="table-wrapper">
                         <table id="spec-table" class="spec-table">
                             <thead></thead>
                             <tbody></tbody>
                         </table>
                     </div>
-                </section>
+                </details>
             </div>
+
             <!-- 対応機種一覧 -->
             <section class="card machine-list-section" id="machine-list">
                 <h2 class="card-title">
@@ -192,17 +181,6 @@
                     対応機種一覧
                 </h2>
                 <p class="machine-list-desc">各機種の設定推測・天井期待値の詳細ページはこちら</p>
-
-                <!-- アクセスランキング（上位5）: 現在は「新台ピックアップ」を表示中。
-                     アクセスが十分に増えたら、このコメントを解除して新台枠と差し替え or 併用する。
-                     有効化する場合: (1) コメント解除  (2) 新台枠の card を削除 or 下に移動  (3) app.js の initAccessRanking() が動作する
-                <div class="card" style="margin: 14px 0 18px;">
-                    <h3 style="margin-bottom: 8px;">&#128293; アクセスランキング（上位5）</h3>
-                    <p class="access-ranking-note" id="access-ranking-note"></p>
-                    <ol class="access-ranking-list" id="access-ranking-list">
-                    </ol>
-                </div>
-                -->
 
                 <div class="card" style="margin: 14px 0 18px;">
                     <h3 style="margin-bottom: 8px;">&#127381; 新台ピックアップ</h3>
@@ -300,28 +278,32 @@
                     <span class="card-icon">&#128214;</span>
                     解説・使い方
                 </h2>
-                <p class="machine-list-desc">設定推測や天井期待値の基礎を解説した記事です。ツールの使い方もまとめています。</p>
                 <ul class="machine-link-list">
-                    <li><a href="guide/setting-basics.html">パチスロの設定とは？1〜6の違いと設定推測の基本</a></li>
-                    <li><a href="guide/bayes-explained.html">ベイズ推定で設定を推測する仕組みをわかりやすく解説</a></li>
-                    <li><a href="guide/ceiling-basics.html">天井（テンジョウ）とは？ゲーム数と期待値の関係</a></li>
-                    <li><a href="guide/ceiling-ev-guide.html">天井期待値の見方と、立ち回りでの使い方</a></li>
-                    <li><a href="guide/data-counting.html">設定推測に使うデータの取り方</a></li>
-                    <li><a href="guide/juggler-guide.html">ジャグラー系（Aタイプ）の設定判別のポイント</a></li>
-                    <li><a href="guide/at-ceiling-guide.html">スマスロ・AT機の天井狙いの基本</a></li>
-                    <li><a href="guide/reading-results.html">設定推測結果の％をどう読むか</a></li>
                     <li><a href="guide/how-to-use.html">当サイトの使い方まとめ</a></li>
-                    <li><a href="guide/glossary.html">天井・設定推測に役立つ用語集</a></li>
-                    <li><a href="guide/payout-vs-ev.html">「機械割」と「天井期待値」の違い</a></li>
-                    <li><a href="guide/reset-ceiling-tips.html">朝一リセット天井の見分け方と注意点</a></li>
-                    <li><a href="guide/setting-and-ceiling.html">設定推測と天井狙いの判断フレーム</a></li>
-                    <li><a href="guide/tool-limitations.html">ツールの結果を信じすぎないための落とし穴</a></li>
-                    <li><a href="guide/responsible-play.html">パチスロを楽しむ範囲で遊ぶ自己管理のコツ</a></li>
-                    <li><a href="guide/at-reg-input-guide.html">スマスロ・AT機の「REG」欄が機種で違う理由</a></li>
-                    <li><a href="guide/hyena-short-session-tool.html">ハイエナ・短時間打法と設定推測ツールの相性</a></li>
-                    <li><a href="guide/medal-yen-ceiling-ev.html">メダル・コイン単価と期待値表示（1メダル＝○円）</a></li>
+                    <li><a href="guide/setting-basics.html">パチスロの設定とは？1〜6の違いと設定推測の基本</a></li>
+                    <li><a href="guide/ceiling-basics.html">天井とは？ゲーム数と期待値の関係</a></li>
+                    <li><a href="guide/ceiling-ev-guide.html">天井期待値の見方と立ち回りでの使い方</a></li>
+                    <li><a href="guide/data-counting.html">設定推測に使うデータの取り方</a></li>
                 </ul>
-                <p style="margin-top: 0.5rem;"><a href="guide/">▶ 解説記事一覧を見る</a></p>
+                <details class="machine-list-group" style="margin-top: 8px;">
+                    <summary class="machine-list-group-title" style="font-size: 0.85rem; color: var(--text-secondary);">さらに見る<span class="machine-list-count">13件</span></summary>
+                    <ul class="machine-link-list" style="margin-top: 8px;">
+                        <li><a href="guide/juggler-guide.html">ジャグラー系（Aタイプ）の設定判別のポイント</a></li>
+                        <li><a href="guide/at-ceiling-guide.html">スマスロ・AT機の天井狙いの基本</a></li>
+                        <li><a href="guide/reading-results.html">設定推測結果の％をどう読むか</a></li>
+                        <li><a href="guide/bayes-explained.html">ベイズ推定で設定を推測する仕組みをわかりやすく解説</a></li>
+                        <li><a href="guide/glossary.html">天井・設定推測に役立つ用語集</a></li>
+                        <li><a href="guide/payout-vs-ev.html">「機械割」と「天井期待値」の違い</a></li>
+                        <li><a href="guide/reset-ceiling-tips.html">朝一リセット天井の見分け方と注意点</a></li>
+                        <li><a href="guide/setting-and-ceiling.html">設定推測と天井狙いの判断フレーム</a></li>
+                        <li><a href="guide/tool-limitations.html">ツールの結果を信じすぎないための落とし穴</a></li>
+                        <li><a href="guide/responsible-play.html">パチスロを楽しむ範囲で遊ぶ自己管理のコツ</a></li>
+                        <li><a href="guide/at-reg-input-guide.html">スマスロ・AT機の「REG」欄が機種で違う理由</a></li>
+                        <li><a href="guide/hyena-short-session-tool.html">ハイエナ・短時間打法と設定推測ツールの相性</a></li>
+                        <li><a href="guide/medal-yen-ceiling-ev.html">メダル・コイン単価と期待値表示（1メダル＝○円）</a></li>
+                    </ul>
+                </details>
+                <p style="margin-top: 10px;"><a href="guide/">▶ 解説記事一覧を見る</a></p>
             </section>
 
         </main>

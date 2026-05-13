@@ -1240,3 +1240,75 @@ input::placeholder {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* ---- <details> result cards (推測要素・スペック表) ---- */
+details.result-card > summary.card-summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    user-select: none;
+    padding-bottom: 0;
+    position: relative;
+}
+
+details.result-card > summary.card-summary::-webkit-details-marker {
+    display: none;
+}
+
+details.result-card > summary.card-summary::after {
+    content: "▼";
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+}
+
+details.result-card[open] > summary.card-summary {
+    margin-bottom: 20px;
+}
+
+details.result-card[open] > summary.card-summary::after {
+    transform: rotate(180deg);
+}
+
+/* ---- <details> form sub-inputs (合算確率・小役) ---- */
+.form-details {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.form-details > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    padding: 7px 0;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-details > summary::-webkit-details-marker {
+    display: none;
+}
+
+.form-details > summary::before {
+    content: "▶";
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+}
+
+.form-details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.form-details-content {
+    margin-top: 8px;
+}

@@ -123,7 +123,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 250, normalCostPerGame: 1.6,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/discupUltraremix/index.html", addedDate: "2026-03-01"
     },
     {
         id: "smaslo_hanabi",
@@ -181,7 +181,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/kabaneri/index.html", addedDate: "2026-03-01"
     },
     {
         id: "kabaneri_unato",
@@ -219,7 +219,7 @@ const MACHINES = [
         },
         ceiling: 699, ceilingTarget: 450, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/oshiBanchou4/index.html", addedDate: "2026-03-01"
     },
     {
         id: "hokuto",
@@ -237,7 +237,7 @@ const MACHINES = [
         },
         ceiling: 1268, ceilingTarget: 800, ceilingReward: 1500, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 800, normalCostPerGame: 2.5,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/hokuto/index.html", addedDate: "2026-03-01"
     },
     {
         id: "karakuri",
@@ -255,7 +255,7 @@ const MACHINES = [
         },
         ceiling: 1200, ceilingTarget: 800, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/karakuri/index.html", addedDate: "2026-03-01"
     },
     {
         id: "valvrave",
@@ -274,7 +274,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 700, ceilingReward: 400, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.0,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/valvrave/index.html", addedDate: "2026-03-01"
     },
     {
         id: "monkey_turn_v",
@@ -292,7 +292,7 @@ const MACHINES = [
         },
         ceiling: 795, ceilingTarget: 500, ceilingReward: 600, resetCeiling: 495, resetCeilingTarget: 300,
         avgBonusReward: 400, normalCostPerGame: 2.4,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/monkeyTurnV/index.html", addedDate: "2026-03-01"
     },
     {
         id: "tokyo_ghoul",
@@ -311,7 +311,7 @@ const MACHINES = [
         },
         ceiling: 600, ceilingTarget: 350, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 50,
         avgBonusReward: 350, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/tokyoGhoul/index.html", addedDate: "2026-03-01"
     },
     {
         id: "kaguya_sama",
@@ -330,7 +330,7 @@ const MACHINES = [
         },
         ceiling: 1100, ceilingTarget: 700, ceilingReward: 1000, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 600, normalCostPerGame: 2.0,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/kaguyaSama/index.html", addedDate: "2026-03-01"
     },
     {
         id: "god_eater",
@@ -349,7 +349,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 1000, resetCeiling: 600, resetCeilingTarget: 300,
         avgBonusReward: 600, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/godEater/index.html", addedDate: "2026-03-01"
     },
     {
         id: "bakemonogatari",
@@ -368,7 +368,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 500, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/bakemonogatari/index.html", addedDate: "2026-03-01"
     },
     {
         id: "hokuto_tensei2",
@@ -387,7 +387,7 @@ const MACHINES = [
         },
         ceiling: 1536, ceilingTarget: 900, ceilingReward: 1000, resetCeiling: 1280, resetCeilingTarget: 750,
         avgBonusReward: 600, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/hokutoTensei2/index.html", addedDate: "2026-03-01"
     },
     // ==================== 2025〜2026年 新台 ====================
     {
@@ -407,7 +407,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 250, normalCostPerGame: 1.6,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/umineko2/index.html", addedDate: "2026-03-01"
     },
     {
         id: "koukaku",
@@ -426,7 +426,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/koukaku/index.html", addedDate: "2026-03-01"
     },
     {
         id: "dmc5",
@@ -445,7 +445,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 800, resetCeiling: 800, resetCeilingTarget: 500,
         avgBonusReward: 500, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/dmc5/index.html", addedDate: "2026-03-01"
     },
     {
         id: "crea_hihouden",
@@ -464,7 +464,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 250, normalCostPerGame: 1.7,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/creaHihouden/index.html", addedDate: "2026-03-01"
     },
     {
         id: "hihouden",
@@ -483,7 +483,7 @@ const MACHINES = [
         },
         ceiling: 799, ceilingTarget: 550, ceilingReward: 400, resetCeiling: 499, resetCeilingTarget: 300,
         avgBonusReward: 300, normalCostPerGame: 2.1,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/hihouden/index.html", addedDate: "2026-03-01"
     },
     {
         id: "tenken",
@@ -502,7 +502,7 @@ const MACHINES = [
         },
         ceiling: 970, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/tenken/index.html", addedDate: "2026-03-01"
     },
     {
         id: "eva_bt",
@@ -521,7 +521,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 300, normalCostPerGame: 1.7,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/evaBt/index.html", addedDate: "2026-03-01"
     },
     {
         id: "valvrave2",
@@ -539,7 +539,7 @@ const MACHINES = [
         },
         ceiling: 1500, ceilingTarget: 700, ceilingReward: 1200, resetCeiling: 1000, resetCeilingTarget: 500,
         avgBonusReward: 800, normalCostPerGame: 2.0,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/valvrave2/index.html", addedDate: "2026-03-01"
     },
     {
         id: "enen",
@@ -558,7 +558,7 @@ const MACHINES = [
         },
         ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/enen/index.html", addedDate: "2026-03-01"
     },
     {
         id: "tekken6",
@@ -577,7 +577,7 @@ const MACHINES = [
         },
         ceiling: 900, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 500, resetCeilingTarget: 300,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/tekken6/index.html", addedDate: "2026-03-01"
     },
     {
         id: "prism_nana",
@@ -596,7 +596,7 @@ const MACHINES = [
         },
         ceiling: 899, ceilingTarget: 550, ceilingReward: 700, resetCeiling: 555, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/prismNana/index.html", addedDate: "2026-03-01"
     },
     {
         id: "azurlane",
@@ -615,7 +615,7 @@ const MACHINES = [
         },
         ceiling: 2000, ceilingTarget: 1200, ceilingReward: 1200, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 600, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/azurlane/index.html", addedDate: "2026-03-01"
     },
     {
         id: "zettai4",
@@ -634,7 +634,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/zettai4/index.html", addedDate: "2026-03-01"
     },
     {
         id: "railgun2",
@@ -653,7 +653,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 699, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/railgun2/index.html", addedDate: "2026-03-01"
     },
     {
         id: "onimusha3",
@@ -672,7 +672,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 500, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/onimusha3/index.html", addedDate: "2026-03-01"
     },
     {
         id: "zenigata5",
@@ -690,7 +690,7 @@ const MACHINES = [
         },
         ceiling: 1250, ceilingTarget: 800, ceilingReward: 800, resetCeiling: 850, resetCeilingTarget: 500,
         avgBonusReward: 500, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/zenigata5/index.html", addedDate: "2026-03-01"
     },
     {
         id: "tokyo_revengers",
@@ -709,7 +709,7 @@ const MACHINES = [
         },
         ceiling: 1190, ceilingTarget: 700, ceilingReward: 800, resetCeiling: 900, resetCeilingTarget: 550,
         avgBonusReward: 500, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/tokyoRevengers/index.html", addedDate: "2026-03-01"
     },
     {
         id: "iza_banchou",
@@ -728,7 +728,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/izaBanchou/index.html", addedDate: "2026-03-01"
     },
     {
         id: "monhan_rise",
@@ -747,7 +747,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/monhanRise/index.html", addedDate: "2026-03-01"
     },
     {
         id: "enen2",
@@ -766,7 +766,7 @@ const MACHINES = [
         },
         ceiling: 850, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/enen2/index.html", addedDate: "2026-03-01"
     },
     {
         id: "magireco",
@@ -785,7 +785,7 @@ const MACHINES = [
         },
         ceiling: 950, ceilingTarget: 550, ceilingReward: 500, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/magireco/index.html", addedDate: "2026-03-01"
     },
     {
         id: "okidoki_duo",
@@ -803,7 +803,7 @@ const MACHINES = [
         },
         ceiling: 800, ceilingTarget: 550, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.0,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/okidokiDuo/index.html", addedDate: "2026-03-01"
     },
     {
         id: "mushoku",
@@ -822,7 +822,7 @@ const MACHINES = [
         },
         ceiling: 1007, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 689, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/mushoku/index.html", addedDate: "2026-03-01"
     },
     {
         id: "sbj",
@@ -841,7 +841,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 580, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/sbj/index.html", addedDate: "2026-03-01"
     },
     {
         id: "yoshimune",
@@ -860,7 +860,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 800, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 600, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/yoshimune/index.html", addedDate: "2026-03-01"
     },
     {
         id: "goblin_slayer2",
@@ -879,7 +879,7 @@ const MACHINES = [
         },
         ceiling: 1500, ceilingTarget: 900, ceilingReward: 800, resetCeiling: 1000, resetCeilingTarget: 550,
         avgBonusReward: 500, normalCostPerGame: 2.3,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/goblinSlayer2/index.html", addedDate: "2026-03-01"
     },
     {
         id: "otome4",
@@ -898,7 +898,7 @@ const MACHINES = [
         },
         ceiling: 799, ceilingTarget: 500, ceilingReward: 500, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 300, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/otome4/index.html", addedDate: "2026-03-01"
     },
     {
         id: "toloveru",
@@ -916,7 +916,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 650, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/toloveru/index.html", addedDate: "2026-03-01"
     },
     {
         id: "baki",
@@ -935,7 +935,7 @@ const MACHINES = [
         },
         ceiling: 700, ceilingTarget: 400, ceilingReward: 500, resetCeiling: 200, resetCeilingTarget: 100,
         avgBonusReward: 350, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/baki/index.html", addedDate: "2026-03-01"
     },
     {
         id: "biohazard5",
@@ -954,7 +954,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 666, resetCeilingTarget: 400,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/biohazard5/index.html", addedDate: "2026-03-01"
     },
     {
         id: "revuestarlight",
@@ -972,7 +972,7 @@ const MACHINES = [
         },
         ceiling: 900, ceilingTarget: 550, ceilingReward: 600, resetCeiling: 600, resetCeilingTarget: 350,
         avgBonusReward: 400, normalCostPerGame: 2.2,
-        addedDate: "2026-03-01"
+        guessElementPath: "setGuessElement/revuestarlight/index.html", addedDate: "2026-03-01"
     },
     {
         id: "eureka_seven_art",
@@ -1120,7 +1120,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 700, resetCeilingTarget: 400,
         avgBonusReward: 450, normalCostPerGame: 1.6,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/kyokouSuiritr/index.html", addedDate: "2026-04-06"
     },
     {
         id: "isekai_quartet_bt",
@@ -1139,7 +1139,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 220, normalCostPerGame: 1.5,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/isekaiQuartetBt/index.html", addedDate: "2026-04-06"
     },
     {
         id: "jormungand",
@@ -1158,7 +1158,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 400, normalCostPerGame: 1.6,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/jormungand/index.html", addedDate: "2026-04-06"
     },
     {
         id: "akudama_drive",
@@ -1177,7 +1177,7 @@ const MACHINES = [
         },
         ceiling: 967, ceilingTarget: 600, ceilingReward: 700, resetCeiling: 589, resetCeilingTarget: 380,
         avgBonusReward: 450, normalCostPerGame: 1.6,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/akudamaDrive/index.html", addedDate: "2026-04-06"
     },
     {
         id: "shinuchi_yoshimune",
@@ -1196,7 +1196,7 @@ const MACHINES = [
         },
         ceiling: 1500, ceilingTarget: 900, ceilingReward: 850, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 550, normalCostPerGame: 1.6,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/shinuchiYoshimune/index.html", addedDate: "2026-04-06"
     },
     {
         id: "lb_triple_crown_seven",
@@ -1215,7 +1215,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null,
         avgBonusReward: 280, normalCostPerGame: 1.5,
-        addedDate: "2026-04-06"
+        guessElementPath: "setGuessElement/lbTripleCrownSeven/index.html", addedDate: "2026-04-06"
     },
     {
         id: "gundam_unicorn_kakusei_drive",
@@ -1234,7 +1234,7 @@ const MACHINES = [
         },
         ceiling: 800, ceilingTarget: 500, ceilingReward: 700, resetCeiling: 400, resetCeilingTarget: 250,
         avgBonusReward: 450, normalCostPerGame: 1.6,
-        addedDate: "2026-04-20"
+        guessElementPath: "setGuessElement/gundamUnicornKakuseiDrive/index.html", addedDate: "2026-04-20"
     },
     {
         id: "million_god_kiseki",
@@ -1253,7 +1253,7 @@ const MACHINES = [
         },
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 550, normalCostPerGame: 1.5,
-        addedDate: "2026-04-20"
+        guessElementPath: "setGuessElement/millionGodKiseki/index.html", addedDate: "2026-04-20"
     },
     {
         id: "animal_slot_dotch",
@@ -1272,7 +1272,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 650, ceilingReward: 480, resetCeiling: 499, resetCeilingTarget: 320,
         avgBonusReward: 320, normalCostPerGame: 1.5,
-        addedDate: "2026-04-20"
+        guessElementPath: "setGuessElement/animalSlotDotch/index.html", addedDate: "2026-04-20"
     },
     {
         id: "biohazard_re3",
@@ -1746,7 +1746,9 @@ function onReset() {
     $resultsSection.style.display = "none";
     $settingSection.style.display = "";
     $factorSection.style.display = "";
+    $factorSection.open = false;
     $specSection.style.display = "";
+    $specSection.open = false;
     $regCount.closest(".form-group").style.display = "";
     $koyakuCount.closest(".form-group").style.display = "";
     $bigLabel.textContent = "BIG回数";
@@ -1862,68 +1864,6 @@ function renderSettingResults(posteriors, machine) {
 }
 
 // ============================================================
-// 設定推測要素ページURL
-// ============================================================
-const GUESS_ELEMENT_PAGES = {
-    banchou4: "setGuessElement/oshiBanchou4/index.html",
-    discup_ultraremix: "setGuessElement/discupUltraremix/index.html",
-    umineko2: "setGuessElement/umineko2/index.html",
-    crea_hihouden: "setGuessElement/creaHihouden/index.html",
-    eva_bt: "setGuessElement/evaBt/index.html",
-    kabaneri: "setGuessElement/kabaneri/index.html",
-    hokuto: "setGuessElement/hokuto/index.html",
-    karakuri: "setGuessElement/karakuri/index.html",
-    valvrave: "setGuessElement/valvrave/index.html",
-    monkey_turn_v: "setGuessElement/monkeyTurnV/index.html",
-    tokyo_ghoul: "setGuessElement/tokyoGhoul/index.html",
-    kaguya_sama: "setGuessElement/kaguyaSama/index.html",
-    god_eater: "setGuessElement/godEater/index.html",
-    bakemonogatari: "setGuessElement/bakemonogatari/index.html",
-    hokuto_tensei2: "setGuessElement/hokutoTensei2/index.html",
-    koukaku: "setGuessElement/koukaku/index.html",
-    dmc5: "setGuessElement/dmc5/index.html",
-    hihouden: "setGuessElement/hihouden/index.html",
-    tenken: "setGuessElement/tenken/index.html",
-    valvrave2: "setGuessElement/valvrave2/index.html",
-    enen: "setGuessElement/enen/index.html",
-    tekken6: "setGuessElement/tekken6/index.html",
-    prism_nana: "setGuessElement/prismNana/index.html",
-    azurlane: "setGuessElement/azurlane/index.html",
-    zettai4: "setGuessElement/zettai4/index.html",
-    railgun2: "setGuessElement/railgun2/index.html",
-    onimusha3: "setGuessElement/onimusha3/index.html",
-    zenigata5: "setGuessElement/zenigata5/index.html",
-    tokyo_revengers: "setGuessElement/tokyoRevengers/index.html",
-    iza_banchou: "setGuessElement/izaBanchou/index.html",
-    monhan_rise: "setGuessElement/monhanRise/index.html",
-    enen2: "setGuessElement/enen2/index.html",
-    magireco: "setGuessElement/magireco/index.html",
-    okidoki_duo: "setGuessElement/okidokiDuo/index.html",
-    mushoku: "setGuessElement/mushoku/index.html",
-    sbj: "setGuessElement/sbj/index.html",
-    yoshimune: "setGuessElement/yoshimune/index.html",
-    goblin_slayer2: "setGuessElement/goblinSlayer2/index.html",
-    otome4: "setGuessElement/otome4/index.html",
-    toloveru: "setGuessElement/toloveru/index.html",
-    baki: "setGuessElement/baki/index.html",
-    biohazard5: "setGuessElement/biohazard5/index.html",
-    revuestarlight: "setGuessElement/revuestarlight/index.html",
-    kyokou_suiritr: "setGuessElement/kyokouSuiritr/index.html",
-    isekai_quartet_bt: "setGuessElement/isekaiQuartetBt/index.html",
-    jormungand: "setGuessElement/jormungand/index.html",
-    akudama_drive: "setGuessElement/akudamaDrive/index.html",
-    shinuchi_yoshimune: "setGuessElement/shinuchiYoshimune/index.html",
-    lb_triple_crown_seven: "setGuessElement/lbTripleCrownSeven/index.html",
-    gundam_unicorn_kakusei_drive: "setGuessElement/gundamUnicornKakuseiDrive/index.html",
-    million_god_kiseki: "setGuessElement/millionGodKiseki/index.html",
-    animal_slot_dotch: "setGuessElement/animalSlotDotch/index.html"
-};
-
-function getGuessElementUrl(machineId) {
-    return GUESS_ELEMENT_PAGES[machineId] || null;
-}
-
-// ============================================================
 // 描画: 推測要素
 // ============================================================
 function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
@@ -1989,7 +1929,7 @@ function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount) {
         $factorResults.appendChild(el);
     });
 
-    const geUrl = getGuessElementUrl(machine.id);
+    const geUrl = machine.guessElementPath || null;
     if (geUrl) {
         const linkBox = document.createElement("div");
         linkBox.className = "ge-link-box";
