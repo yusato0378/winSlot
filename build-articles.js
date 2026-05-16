@@ -95,8 +95,11 @@ function buildArticleFooter(article) {
 
 function buildRelatedMachineLinks(slug) {
   const m = (id, label, variant) => {
-    const suffix = variant ? `/${variant}/` : "/";
-    return { href: `${BASE}/machines/${id}${suffix}`, label };
+    let pathSuffix = "/";
+    if (variant === "ceiling") pathSuffix = "/#lp-ceiling";
+    else if (variant === "setting") pathSuffix = "/#lp-setting";
+    else if (variant === "beginner") pathSuffix = "/#tool";
+    return { href: `${BASE}/machines/${id}${pathSuffix}`, label };
   };
 
   // 記事テーマ別に「関連機種」への導線を用意（複数リンクで回遊を増やす）

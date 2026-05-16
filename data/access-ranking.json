@@ -2,7 +2,7 @@
   "updated": "2026-04-16",
   "items": [
     {
-      "href": "machines/shinuchi_yoshimune/setting/",
+      "href": "machines/shinuchi_yoshimune/#lp-setting",
       "title": "setting（タイトル要確認）",
       "clicks": 1
     },
@@ -17,12 +17,12 @@
       "clicks": 0
     },
     {
-      "href": "machines/hokuto/setting/",
+      "href": "machines/hokuto/#lp-setting",
       "title": "setting（タイトル要確認）",
       "clicks": 0
     },
     {
-      "href": "machines/shake_bt/setting/",
+      "href": "machines/shake_bt/#lp-setting",
       "title": "setting（タイトル要確認）",
       "clicks": 0
     }

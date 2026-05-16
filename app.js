@@ -1542,16 +1542,17 @@ function init() {
 // アクセスランキング（data/access-ranking.json）
 // ============================================================
 const ACCESS_RANKING_FALLBACK = [
-    { href: "machines/hokuto/ceiling/", title: "スマスロ北斗の拳：天井・狙い目・期待値" },
-    { href: "machines/kabaneri/ceiling/", title: "甲鉄城のカバネリ：天井・狙い目・期待値" },
-    { href: "machines/banchou4/setting/", title: "押忍！番長4：設定差・設定推測" },
-    { href: "machines/aim_juggler_ex/setting/", title: "アイムジャグラーEX：設定判別（ボーナス/合算）" },
-    { href: "machines/my_juggler_v/setting/", title: "マイジャグラーV：設定判別（ボーナス/合算）" }
+    { href: "machines/hokuto/#lp-ceiling", title: "スマスロ北斗の拳：天井期待値" },
+    { href: "machines/kabaneri/#lp-ceiling", title: "甲鉄城のカバネリ：天井期待値" },
+    { href: "machines/banchou4/#lp-setting", title: "押忍！番長4：設定推測・設定差" },
+    { href: "machines/aim_juggler_ex/#lp-setting", title: "アイムジャグラーEX：設定判別（ボーナス/合算）" },
+    { href: "machines/my_juggler_v/#lp-setting", title: "マイジャグラーV：設定判別（ボーナス/合算）" }
 ];
 
 function isValidRankingHref(href) {
-    return /^machines\/[a-z0-9_/\-]+\/?$/i.test(String(href || ""))
-        && !String(href).includes("..");
+    const s = String(href || "");
+    return /^machines\/[a-z0-9_-]+\/?(?:#[\w\-]+)?$/i.test(s)
+        && !s.includes("..");
 }
 
 function renderAccessRanking(items, note) {

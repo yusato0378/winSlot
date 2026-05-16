@@ -218,14 +218,14 @@ function main() {
     mdLines.push(`| query | page | impressions | clicks | ctr | pos | 推奨 |`);
     mdLines.push(`|---|---|---:|---:|---:|---:|---|`);
     for (const x of ctrLow.slice(0, 80)) {
-      const rec = x.page.includes("/machines/") ? "title/desc寄せ + 冒頭/注意点/関連記事" : "title/desc寄せ + 見出し/導線";
+      const rec = x.page.includes("/machines/") ? "title/desc寄せ + 冒頭/注意点 + #lp-setting/#lp-ceiling 導線" : "title/desc寄せ + 見出し/導線";
       mdLines.push(`| ${x.query.replace(/\|/g, "\\|")} | ${x.page.replace(/\|/g, "\\|")} | ${Math.round(x.impressions)} | ${Math.round(x.clicks)} | ${(x.ctr * 100).toFixed(2)}% | ${toFixedOrDash(x.position, 1)} | ${rec} |`);
     }
   }
 
   mdLines.push(``);
   mdLines.push(`## 次にやる（順位 11〜20：少しの強化で上がりやすい帯）`);
-  mdLines.push(`- 施策: 見出しの追加/再配置、関連リンク増、検索意図に合わせた“意図別ページ”へ誘導（ceiling/setting/beginner）`);
+  mdLines.push(`- 施策: 見出しの追加/再配置、関連リンク増、機種LPなら同一URL内の #lp-setting / #lp-ceiling / #tool への導線強化`);
   mdLines.push(``);
   if (posMid.length === 0) {
     mdLines.push(`該当なし。`);

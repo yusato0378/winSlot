@@ -250,7 +250,7 @@ function buildParseNotesSection(machine) {
             : "";
     return `
             <section class="card lp-section" id="parse-notes">
-                <h2 class="card-title"><span class="card-icon">&#128300;</span> 解析メモ（導入後の補足）</h2>
+                <h3 class="card-title"><span class="card-icon">&#128300;</span> 解析メモ（導入後の補足）</h3>
 ${intro}                <ul class="lp-parse-list">
 ${bullets}
                 </ul>
@@ -686,269 +686,35 @@ function buildSpecTable(machine) {
     return { thead, tbody: rows.join("\n") };
 }
 
-function getMachinePageMeta(machine, variant) {
+/** 機種LPは `/machines/{id}/` のみ。タイトル・description は設定差＋天井の1ページ構成を示す。 */
+function getMachinePageMeta(machine) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
     const typeLabel = isAT ? "AT/ART機（スマスロ）" : "Aタイプ";
-
-    // 既存（総合）
-    if (!variant || variant === "main") {
-        const titleKeyword = isAT
-            ? `${machine.name} 設定推測・天井期待値`
-            : `${machine.name} 設定判別・ボーナス確率`;
-        const descKeywords = isAT
-            ? (hasCeiling
-                ? `${machine.name}の設定推測と天井期待値を自動計算。${machine.bigLabel}確率、出玉率から設定判別。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の天井期待値一覧表も掲載。`
-                : `${machine.name}の設定推測ツール。${machine.bigLabel}確率${machine.regLabel ? `・${machine.regLabel}確率` : ""}、出玉率から設定判別。天井は非搭載または解析中の機種のため、スペック確認・設定推測にお使いください。`)
-            : `${machine.name}の設定推測ツール。${machine.bigLabel}確率・${machine.regLabel}確率・合算確率から設定判別。各設定のスペック一覧も掲載。`;
-        return { titleKeyword, descKeywords, typeLabel };
+    const regFrag = machine.regLabel ? `・${machine.regLabel}確率` : "";
+    const titleKeyword = isAT
+        ? `${machine.name} 設定推測・設定差と天井期待値`
+        : `${machine.name} 設定判別・設定差とスペック`;
+    let descKeywords;
+    if (isAT) {
+        descKeywords = hasCeiling
+            ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井期待値をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の期待値一覧とトップの計算ツールへの導線。`
+            : `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`;
+    } else {
+        descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}・合算・出玉率）と設定推測ツールへの導線を掲載。`;
     }
-
-    if (variant === "ceiling") {
-        const titleKeyword = hasCeiling
-            ? `${machine.name} 天井・狙い目・期待値`
-            : `${machine.name} 天井（非搭載/解析中）・立ち回りの注意点`;
-        const descKeywords = hasCeiling
-            ? `${machine.name}の天井ゲーム数、狙い目（${machine.ceilingTarget}G〜）と天井期待値一覧を掲載。設定1基準の概算で、現在G数別の期待値と到達率を確認できます。`
-            : `${machine.name}の天井情報まとめ。天井は非搭載または解析中のため、設定推測・スペック確認と併せて立ち回りの注意点を整理します。`;
-        return { titleKeyword, descKeywords, typeLabel };
-    }
-
-    if (variant === "setting") {
-        const titleKeyword = isAT
-            ? `${machine.name} 設定差・設定推測（確率/出玉率）`
-            : `${machine.name} 設定判別（ボーナス/合算/小役）`;
-        const descKeywords = isAT
-            ? `${machine.name}の設定差（${machine.bigLabel}確率・出玉率）を一覧で確認。データ入力で設定推測も可能です。`
-            : `${machine.name}の設定判別用に、BIG/REG/合算${machine.koyakuName ? `・${machine.koyakuName}` : ""}と出玉率を一覧化。データ入力で設定推測もできます。`;
-        return { titleKeyword, descKeywords, typeLabel };
-    }
-
-    if (variant === "beginner") {
-        const titleKeyword = `${machine.name} 設定推測の見方（初心者向け）`;
-        const descKeywords = `${machine.name}の設定推測・天井期待値の見方を初心者向けに解説。入力のコツ、結果％の読み方、注意点をまとめます。`;
-        return { titleKeyword, descKeywords, typeLabel };
-    }
-
-    return getMachinePageMeta(machine, "main");
+    return { titleKeyword, descKeywords, typeLabel };
 }
 
-function getMachinePagePaths(machine, variant) {
-    // machines/{id}/ は既存のURLとして維持。派生ページは /ceiling/ /setting/ /beginner/
-    const slug = variant && variant !== "main" ? `${variant}/` : "";
-    const urlPath = `/machines/${machine.id}/${slug}`;
+function getMachinePagePaths(machine) {
+    const urlPath = `/machines/${machine.id}/`;
     const url = `${SITE_URL}${urlPath}`;
-    const basePrefix = variant && variant !== "main" ? "../../../" : "../../";
+    const basePrefix = "../../";
     const topHref = `${basePrefix}index.html`;
     const faviconHref = `${basePrefix}favicon.png`;
     const styleHref = `${basePrefix}style.css`;
     const lpCssHref = `${basePrefix}machines/landing-page.css`;
-    return { slug, urlPath, url, basePrefix, topHref, faviconHref, styleHref, lpCssHref };
-}
-
-function buildVariantNav(machine, currentVariant) {
-    const items = [
-        { v: "main", label: "総合" },
-        { v: "ceiling", label: "天井・期待値" },
-        { v: "setting", label: "設定差・推測" },
-        { v: "beginner", label: "初心者向け" },
-    ];
-    const links = items.map(({ v, label }) => {
-        const href =
-            v === "main"
-                ? (currentVariant === "main" ? "./" : "../")
-                : (currentVariant === "main" ? `${v}/` : `../${v}/`);
-        const cls = v === currentVariant ? "lp-variant-link active" : "lp-variant-link";
-        return `<a class="${cls}" href="${href}">${label}</a>`;
-    });
-    return `
-            <nav class="card lp-section lp-variant-nav" aria-label="ページ切り替え">
-                <h2 class="card-title"><span class="card-icon">&#128279;</span> ページ切り替え</h2>
-                <div class="lp-variant-links">
-                    ${links.join("\n                    ")}
-                </div>
-            </nav>`;
-}
-
-/** 設定差 → 天井 → 初心者 の読み進め用相対パス */
-function flowHref(currentVariant, targetVariant) {
-    if (currentVariant === "main") {
-        if (targetVariant === "main") return "./";
-        return `${targetVariant}/`;
-    }
-    if (targetVariant === "main") return "../";
-    return `../${targetVariant}/`;
-}
-
-/**
- * 内部リンクの回遊用。総合では「おすすめの読み順」を提示し、派生ページでは前後ナビを出す。
- */
-function buildReadingFlowNav(machine, variant) {
-    const v = variant || "main";
-    const name = escapeHtml(machine.name);
-
-    if (v === "main") {
-        const hSetting = flowHref("main", "setting");
-        const hCeiling = flowHref("main", "ceiling");
-        const hBeginner = flowHref("main", "beginner");
-        return `
-            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="おすすめの読み順">
-                <h2 class="card-title"><span class="card-icon">&#8594;</span> おすすめの読み順</h2>
-                <p class="lp-desc lp-reading-flow-desc">${name}の各ページをじっくり読むときは、次の順だと流れがつかみやすいです。</p>
-                <ol class="lp-reading-flow-steps">
-                    <li><a href="${hSetting}">設定差・推測</a></li>
-                    <li><a href="${hCeiling}">天井・期待値</a></li>
-                    <li><a href="${hBeginner}">初心者向け</a></li>
-                </ol>
-                <p class="lp-note lp-reading-flow-note">※ 必須の順序ではありません。上の「ページ切り替え」から自由に移動できます。</p>
-            </nav>`;
-    }
-
-    if (v === "setting") {
-        return `
-            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="次に読むページ">
-                <h2 class="card-title"><span class="card-icon">&#8594;</span> 次に読む</h2>
-                <p class="lp-desc lp-reading-flow-desc">設定差を把握したら、天井の狙い目と期待値を確認しましょう。</p>
-                <div class="lp-reading-flow-row">
-                    <a class="lp-flow-btn lp-flow-next" href="${flowHref(v, "ceiling")}">次：天井・期待値を見る</a>
-                </div>
-                <p class="lp-reading-flow-meta">
-                    <a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページ</a>
-                    <span class="lp-reading-flow-sep" aria-hidden="true"> · </span>
-                    <a href="${flowHref(v, "beginner")}" class="lp-flow-subtle-link">初心者向けへ進む</a>
-                </p>
-            </nav>`;
-    }
-
-    if (v === "ceiling") {
-        return `
-            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="読み進め">
-                <h2 class="card-title"><span class="card-icon">&#8594;</span> 読み進め</h2>
-                <p class="lp-desc lp-reading-flow-desc">天井の数値を見たら、初心者向けで入力と結果の見方を押さえましょう。</p>
-                <div class="lp-reading-flow-row lp-reading-flow-row-split">
-                    <a class="lp-flow-btn lp-flow-prev" href="${flowHref(v, "setting")}">前：設定差・推測</a>
-                    <a class="lp-flow-btn lp-flow-next" href="${flowHref(v, "beginner")}">次：初心者向け</a>
-                </div>
-                <p class="lp-reading-flow-meta"><a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページへ</a></p>
-            </nav>`;
-    }
-
-    if (v === "beginner") {
-        return `
-            <nav class="card lp-section lp-reading-flow" id="reading-flow" aria-label="読み進め">
-                <h2 class="card-title"><span class="card-icon">&#8592;</span> 関連ページ</h2>
-                <p class="lp-desc lp-reading-flow-desc">数値の根拠を確認するときは設定差・天井ページに戻れます。</p>
-                <div class="lp-reading-flow-row lp-reading-flow-row-split">
-                    <a class="lp-flow-btn lp-flow-prev" href="${flowHref(v, "ceiling")}">前：天井・期待値</a>
-                    <a class="lp-flow-btn lp-flow-branch" href="${flowHref(v, "setting")}">設定差・推測</a>
-                </div>
-                <p class="lp-reading-flow-meta"><a href="${flowHref(v, "main")}" class="lp-flow-subtle-link">総合ページへ戻る</a></p>
-            </nav>`;
-    }
-
-    return "";
-}
-
-function buildRelatedGuideLinks(machine, variant, basePrefix) {
-    const isAT = machine.type === "AT";
-    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
-    const guide = (slug) => `${basePrefix}guide/${slug}.html`;
-
-    const links = [];
-
-    // まずは variant の意図に寄せる
-    if (variant === "ceiling") {
-        links.push({ href: guide("ceiling-basics"), label: "天井とは？（基礎）" });
-        links.push({ href: guide("ceiling-ev-guide"), label: "天井期待値の見方・使い方" });
-        links.push({ href: guide("reset-ceiling-tips"), label: "朝一リセット天井の注意点" });
-        links.push({ href: guide("medal-yen-ceiling-ev"), label: "期待値（円表示）の前提" });
-    } else if (variant === "setting") {
-        links.push({ href: guide("setting-basics"), label: "設定推測の基本" });
-        links.push({ href: guide("data-counting"), label: "データの取り方（総G/BIG/REG）" });
-        links.push({ href: guide("reading-results"), label: "推測結果％の読み方" });
-        links.push({ href: guide("tool-limitations"), label: "ツールの落とし穴（注意点）" });
-    } else if (variant === "beginner") {
-        links.push({ href: guide("how-to-use"), label: "当サイトの使い方まとめ" });
-        links.push({ href: guide("data-counting"), label: "入力データの取り方" });
-        links.push({ href: guide("reading-results"), label: "結果の読み方" });
-        links.push({ href: guide("responsible-play"), label: "のめり込み防止（自己管理）" });
-    } else {
-        links.push({ href: guide("how-to-use"), label: "当サイトの使い方まとめ" });
-        links.push({ href: guide("setting-basics"), label: "設定推測の基本" });
-        if (hasCeiling) links.push({ href: guide("ceiling-basics"), label: "天井の基礎" });
-        links.push({ href: guide("tool-limitations"), label: "ツールの落とし穴（注意点）" });
-    }
-
-    // 機種タイプに寄せた補助リンク
-    if (!isAT) {
-        links.push({ href: guide("juggler-guide"), label: "Aタイプ（ジャグラー系）の判別ポイント" });
-    } else {
-        links.push({ href: guide("at-ceiling-guide"), label: "AT機の天井狙い（初心者向け）" });
-        links.push({ href: guide("at-reg-input-guide"), label: "AT機の「REG欄」の読み替え" });
-    }
-
-    // 重複排除して上から最大6件
-    const deduped = [];
-    const seen = new Set();
-    for (const l of links) {
-        if (seen.has(l.href)) continue;
-        seen.add(l.href);
-        deduped.push(l);
-        if (deduped.length >= 6) break;
-    }
-
-    const items = deduped
-        .map((l) => `                    <li><a href="${l.href}">${l.label}</a></li>`)
-        .join("\n");
-
-    return `
-            <section class="card lp-section" id="related-guides">
-                <h2 class="card-title"><span class="card-icon">&#128214;</span> 関連記事（解説・使い方）</h2>
-                <p class="lp-desc">設定推測・天井期待値の見方を補助する解説記事です。</p>
-                <ul class="lp-related-list">
-${items}
-                </ul>
-            </section>`;
-}
-
-/** 機種LP間の内部リンク用。main は ../otherId/、派生ページは ../../otherId/ */
-function hrefToOtherMachineRoot(otherId, variant) {
-    return variant === "main" ? `../${otherId}/` : `../../${otherId}/`;
-}
-
-const RELATED_MACHINES_MAX = 6;
-
-/**
- * 同タイプ（AT / A）を優先し、足りなければ他タイプから補充。id 昇順で安定化。
- */
-function pickRelatedMachines(machine, allMachines) {
-    const sameType = allMachines
-        .filter((m) => m.id !== machine.id && m.type === machine.type)
-        .sort((a, b) => a.id.localeCompare(b.id));
-    const otherType = allMachines
-        .filter((m) => m.id !== machine.id && m.type !== machine.type)
-        .sort((a, b) => a.id.localeCompare(b.id));
-    return [...sameType, ...otherType].slice(0, RELATED_MACHINES_MAX);
-}
-
-function buildRelatedMachinesSection(machine, variant, allMachines) {
-    const picked = pickRelatedMachines(machine, allMachines);
-    if (!picked.length) return "";
-    const typeWord = machine.type === "AT" ? "AT / ART（スマスロ）" : "Aタイプ";
-    const links = picked
-        .map((m) => {
-            const href = hrefToOtherMachineRoot(m.id, variant);
-            return `                    <li><a href="${href}">${escapeHtml(m.name)}</a></li>`;
-        })
-        .join("\n");
-    return `
-            <section class="card lp-section" id="related-machines" aria-label="他機種へのリンク">
-                <h2 class="card-title"><span class="card-icon">&#9733;</span> あわせて読む他機種</h2>
-                <p class="lp-desc">同じ区分（${escapeHtml(typeWord)}）を優先してリンクしています。各機種の総合ページへ移動できます。</p>
-                <ul class="lp-related-list lp-related-machines-list">
-${links}
-                </ul>
-            </section>`;
+    return { urlPath, url, basePrefix, topHref, faviconHref, styleHref, lpCssHref };
 }
 
 /** ceiling ページ：狙い目の根拠を機種データから自動生成 */
@@ -965,7 +731,7 @@ function buildCeilingStrategySection(machine) {
         const hasReset = machine.resetCeiling != null && machine.resetCeiling > 0;
         return `
             <section class="card lp-section" id="ceiling-strategy">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> 狙い目${targetG}G〜の根拠</h2>
+                <h3 class="card-title"><span class="card-icon">&#128270;</span> 狙い目${targetG}G〜の根拠</h3>
                 <p class="lp-desc">${name}の天井は<strong>${ceilG}G</strong>で、${targetG}Gから打ち始めれば残り<strong>${remainAtTarget}G以内</strong>で天井に到達します。天井恩恵の約${reward}枚に対して、${targetG}Gからの投資が見合うラインとして${targetG}G〜が目安となります。</p>
                 <ul class="lp-caution-list">
                     <li>天井${ceilG}G到達で恩恵約${reward}枚（換金率によって円換算は変わります）</li>
@@ -978,7 +744,7 @@ function buildCeilingStrategySection(machine) {
     if (!isAT) {
         return `
             <section class="card lp-section" id="ceiling-strategy">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> Aタイプの立ち回りポイント</h2>
+                <h3 class="card-title"><span class="card-icon">&#128270;</span> Aタイプの立ち回りポイント</h3>
                 <p class="lp-desc">${name}はAタイプで天井が存在しません。ボーナスは完全抽選のため、どのゲーム数からでも当選確率は同じです。</p>
                 <ul class="lp-caution-list">
                     <li>設定推測には<strong>総回転数が多いほど精度が上がります</strong>。できれば3,000G以上のデータで判断してください</li>
@@ -989,7 +755,7 @@ function buildCeilingStrategySection(machine) {
     }
     return `
             <section class="card lp-section" id="ceiling-strategy">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> 天井情報の確認方法</h2>
+                <h3 class="card-title"><span class="card-icon">&#128270;</span> 天井情報の確認方法</h3>
                 <p class="lp-desc">${name}は新台または解析中のため、天井ゲーム数が公開されていません。解析情報が公開され次第ツールへ反映します。</p>
                 <ul class="lp-caution-list">
                     <li>現在は設定推測のスペックテーブルのみ対応しています</li>
@@ -1025,7 +791,7 @@ function buildSettingHighlightSection(machine) {
 
     return `
             <section class="card lp-section" id="setting-highlight">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> 設定差のポイント</h2>
+                <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定差のポイント</h3>
                 <p class="lp-desc">${name}の設定${s1key}〜設定${s6key}の出玉率の差は<strong>${payoutDiff}%</strong>（設定${s1key}:${s1.payout}% → 設定${s6key}:${s6.payout}%）です。${mainText}</p>
                 <ul class="lp-caution-list">
                     <li>出玉率の差が${payoutDiff}%あるため、長期では設定差が収支に大きく影響します</li>
@@ -1035,47 +801,12 @@ function buildSettingHighlightSection(machine) {
             </section>`;
 }
 
-/** beginner ページ：3ステップガイドを機種データから自動生成 */
-function buildBeginnerStepsSection(machine) {
-    const name = escapeHtml(machine.name);
-    const bigLabel = escapeHtml(machine.bigLabel);
-    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
-    const inputItems = [`<li><strong>総回転数</strong>（打った合計ゲーム数）</li>`];
-    inputItems.push(`<li><strong>${bigLabel}回数</strong></li>`);
-    if (machine.regLabel) inputItems.push(`<li><strong>${escapeHtml(machine.regLabel)}回数</strong></li>`);
-    if (machine.koyakuName) inputItems.push(`<li><strong>${escapeHtml(machine.koyakuName)}回数</strong>（わかれば精度アップ）</li>`);
-
-    return `
-            <section class="card lp-section" id="beginner-steps">
-                <h2 class="card-title"><span class="card-icon">&#128204;</span> ${name}の使い方（3ステップ）</h2>
-                <ol class="lp-caution-list">
-                    <li>
-                        <strong>ステップ1：機種を選ぶ</strong><br>
-                        トップページの機種一覧から「${name}」を選択します。
-                    </li>
-                    <li>
-                        <strong>ステップ2：データを入力する</strong><br>
-                        遊技中・遊技後に以下のデータを入力してください。<br>
-                        <ul style="margin-top:0.4em;padding-left:1.4em;">
-                            ${inputItems.join("\n                            ")}
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>ステップ3：結果を読む</strong><br>
-                        各設定の推測確率（%）と${hasCeiling ? "天井期待値（G数別）" : "設定別スペック"}が表示されます。設定6の確率が高いほど高設定の可能性が上がります。
-                    </li>
-                </ol>
-                <p class="lp-note">※ 推測結果はあくまで確率の参考値です。実際の設定を保証するものではありません。</p>
-            </section>`;
-}
-
-function generatePage(machine, variant) {
+function generatePage(machine) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
 
-    const v = variant || "main";
-    const meta = getMachinePageMeta(machine, v);
-    const paths = getMachinePagePaths(machine, v);
+    const meta = getMachinePageMeta(machine);
+    const paths = getMachinePagePaths(machine);
     const titleKeyword = meta.titleKeyword;
     const pageTitle = `${titleKeyword} | Setting Analyzer Pro`;
     const descKeywords = meta.descKeywords;
@@ -1089,6 +820,7 @@ function generatePage(machine, variant) {
     const hasEditorial = editorialBody.length > 0;
     const parseNotesSection = buildParseNotesSection(machine);
     const hasParseNotes = parseNotesSection.length > 0;
+    const hasCaution = CAUTIONS_BY_ID[machine.id] && CAUTIONS_BY_ID[machine.id].length > 0;
 
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
     const s1key = settingKeys[0];
@@ -1121,16 +853,13 @@ function generatePage(machine, variant) {
         "@type": "BreadcrumbList",
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "トップ", "item": `${SITE_URL}/` },
-            { "@type": "ListItem", "position": 2, "name": machine.name, "item": `${SITE_URL}/machines/${machine.id}/` },
-            ...(v !== "main"
-                ? [{ "@type": "ListItem", "position": 3, "name": titleKeyword, "item": paths.url }]
-                : [])
+            { "@type": "ListItem", "position": 2, "name": machine.name, "item": `${SITE_URL}/machines/${machine.id}/` }
         ]
     }, null, 8);
 
     const ceilingSection = hasCeiling ? `
             <section class="card lp-section" id="ceiling-ev">
-                <h2 class="card-title"><span class="card-icon">&#127919;</span> 天井期待値一覧（ゲーム数別）</h2>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 天井期待値一覧（ゲーム数別）</h3>
                 <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の天井期待値です。狙い目は<strong>${machine.ceilingTarget}G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">${machine.ceiling}G</span></div>
@@ -1152,7 +881,7 @@ ${evTableRows}
 
     const resetCeilingSection = hasCeiling && machine.resetCeiling ? `
             <section class="card lp-section" id="reset-ceiling-ev">
-                <h2 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の天井期待値</h2>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の天井期待値</h3>
                 <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">${machine.resetCeiling}G</span></div>
@@ -1183,53 +912,55 @@ ${editorialBody}
     const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath}` : "";
     const guessElementLink = guessElementPath
         ? `
-            <section class="card lp-section">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> 設定推測要素</h2>
+            <section class="card lp-section" id="guess-element">
+                <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定推測要素</h3>
                 <p class="lp-desc">${machine.bigLabel}確率以外の設定推測要素（終了画面、子役確率など）を確認できます。</p>
                 <div class="lp-cta">
                     <a href="${guessElementHref}" class="btn-primary lp-btn">設定推測要素の詳細を見る</a>
                 </div>
             </section>` : "";
 
+    const settingHighlightHtml = buildSettingHighlightSection(machine);
+    const ceilingStrategyHtml = buildCeilingStrategySection(machine);
+
     const tocItems = [];
     if (hasEditorial) tocItems.push(`<li><a href="#editorial">この機種について</a></li>`);
+    if (hasCaution) tocItems.push(`<li><a href="#cautions">注意点（先に確認）</a></li>`);
+    tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
+    if (settingHighlightHtml.trim()) tocItems.push(`<li><a href="#setting-highlight">設定差のポイント</a></li>`);
+    tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
     if (hasParseNotes) tocItems.push(`<li><a href="#parse-notes">解析メモ</a></li>`);
-    if (v === "ceiling") {
-        if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧</a></li>`);
-        if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>`);
-        tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-    } else if (v === "setting") {
-        tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-        if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧</a></li>`);
-    } else if (v === "beginner") {
-        tocItems.push(`<li><a href="#tool">設定推測ツールを使う</a></li>`);
-        tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-        if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧</a></li>`);
-    } else {
-        tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-        if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧</a></li>`);
-        if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>`);
-    }
-    tocItems.push(`<li><a href="#tool">設定推測ツールを使う</a></li>`);
+    if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
+    tocItems.push(`<li><a href="#lp-ceiling">天井期待値</a></li>`);
+    if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧（表）</a></li>`);
+    if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>`);
+    tocItems.push(`<li><a href="#tool">設定推測ツールで計算</a></li>`);
 
-    const variantNav = buildVariantNav(machine, v);
-    const readingFlowSection = buildReadingFlowNav(machine, v);
+    const pageJumpsNav = `
+            <nav class="card lp-section lp-page-jumps" aria-label="ページ内の移動">
+                <h2 class="card-title"><span class="card-icon">&#128205;</span> このページ内の移動</h2>
+                <div class="lp-page-jumps-links">
+                    <a class="lp-page-jump" href="#lp-setting">設定推測・設定差</a>
+                    <a class="lp-page-jump" href="#lp-ceiling">天井期待値</a>
+                    <a class="lp-page-jump" href="#tool">ツールで計算</a>
+                </div>
+            </nav>`;
+
     const cautionSection = buildCautionSection(machine);
-    const relatedGuidesSection = buildRelatedGuideLinks(machine, v, paths.basePrefix);
-    const relatedMachinesSection = buildRelatedMachinesSection(machine, v, MACHINES);
-    const variantExtraSection =
-        v === "ceiling" ? buildCeilingStrategySection(machine) :
-        v === "setting" ? buildSettingHighlightSection(machine) :
-        v === "beginner" ? buildBeginnerStepsSection(machine) :
-        "";
 
-    const variantIntro = v === "ceiling"
-        ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#127919;</span> このページでわかること</h2><p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・天井期待値を中心にまとめています。</p></section>`
-        : v === "setting"
-            ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#127922;</span> このページでわかること</h2><p class="lp-desc">${escapeHtml(machine.name)}の設定差（確率/出玉率）と、設定推測に使う見方を中心にまとめています。</p></section>`
-            : v === "beginner"
-                ? `<section class="card lp-section"><h2 class="card-title"><span class="card-icon">&#128214;</span> 初心者向けのポイント</h2><p class="lp-desc">データの取り方、結果％の読み方、注意点を短く整理します。まずは「機種名＋現在ゲーム数」だけでも天井期待値が見られます。</p></section>`
-                : "";
+    const pillarSettingIntro = `
+            <div class="card lp-section lp-pillar-head">
+                <h2 class="card-title" id="lp-setting"><span class="card-icon">&#127922;</span> 設定推測・設定差</h2>
+                <p class="lp-desc">${escapeHtml(machine.name)}の設定別スペック、設定差の見方、（該当機種のみ）解析メモ・設定推測要素への導線をまとめています。</p>
+            </div>`;
+
+    const pillarCeilingIntro = `
+            <div class="card lp-section lp-pillar-head">
+                <h2 class="card-title" id="lp-ceiling"><span class="card-icon">&#127919;</span> 天井期待値</h2>
+                <p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・期待値一覧（該当機種のみ）です。</p>
+            </div>`;
+
+    const guideHowToHref = `${paths.basePrefix}guide/how-to-use.html`;
 
     const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -1239,14 +970,14 @@ ${editorialBody}
     <link rel="icon" type="image/png" sizes="32x32" href="${paths.faviconHref}">
     <link rel="apple-touch-icon" href="${paths.faviconHref}">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
-    <meta name="description" content="${descKeywords}">
-    <meta property="og:title" content="${pageTitle}">
-    <meta property="og:description" content="${descKeywords}">
+    <meta name="description" content="${escapeHtml(descKeywords)}">
+    <meta property="og:title" content="${escapeHtml(pageTitle)}">
+    <meta property="og:description" content="${escapeHtml(descKeywords)}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="${paths.url}">
     <meta property="og:locale" content="ja_JP">
     <link rel="canonical" href="${paths.url}">
-    <title>${pageTitle}</title>
+    <title>${escapeHtml(pageTitle)}</title>
     <link rel="stylesheet" href="${paths.styleHref}">
     <link rel="stylesheet" href="${paths.lpCssHref}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1266,8 +997,8 @@ ${breadcrumbJsonLd}
         <header class="app-header">
             <div class="header-inner">
                 <p class="app-subtitle"><a href="${paths.topHref}" class="back-link">&larr; トップに戻る</a></p>
-                <h1 class="app-title">${machine.name}</h1>
-                <p class="app-subtitle">${titleKeyword}</p>
+                <h1 class="app-title">${escapeHtml(machine.name)}</h1>
+                <p class="app-subtitle">${escapeHtml(titleKeyword)}</p>
             </div>
         </header>
 
@@ -1276,15 +1007,12 @@ ${breadcrumbJsonLd}
             <nav class="lp-breadcrumb" aria-label="パンくずリスト">
                 <ol>
                     <li><a href="${paths.topHref}">トップ</a></li>
-                    ${v === "main" ? `<li>${machine.name}</li>` : `<li><a href="../">${machine.name}</a></li>\n                    <li>${titleKeyword}</li>`}
+                    <li>${escapeHtml(machine.name)}</li>
                 </ol>
             </nav>
 ${editorialSection}
-${parseNotesSection}
 ${cautionSection}
-${variantIntro}
-${variantNav}
-${readingFlowSection}
+${pageJumpsNav}
             <nav class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="lp-toc">
@@ -1292,10 +1020,12 @@ ${readingFlowSection}
                 </ul>
             </nav>
 
-${v === "beginner" ? variantExtraSection : ""}
+            <div class="lp-pillar" aria-label="設定推測・設定差">
+${pillarSettingIntro}
+${settingHighlightHtml}
             <section class="card lp-section" id="spec">
-                <h2 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h2>
-                <p class="lp-desc">${machine.name}（${meta.typeLabel}）の設定別スペック表です。${machine.bigLabel}確率と出玉率に注目して設定判別に活用してください。</p>
+                <h3 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h3>
+                <p class="lp-desc">${escapeHtml(machine.name)}（${escapeHtml(meta.typeLabel)}）の設定別スペック表です。${escapeHtml(machine.bigLabel)}確率と出玉率に注目して設定判別に活用してください。</p>
                 <div class="table-wrapper">
                     <table class="spec-table lp-spec-table">
                         <thead>
@@ -1307,18 +1037,24 @@ ${spec.tbody}
                     </table>
                 </div>
             </section>
+${parseNotesSection}
+${guessElementLink}
+            </div>
+
+            <div class="lp-pillar" aria-label="天井期待値">
+${pillarCeilingIntro}
+${ceilingStrategyHtml}
 ${ceilingSection}
 ${resetCeilingSection}
-${v !== "beginner" ? variantExtraSection : ""}
-${guessElementLink}
-${relatedGuidesSection}
-${relatedMachinesSection}
+            </div>
+
             <section class="card lp-section" id="tool">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
-                <p class="lp-desc">${machine.name}のデータを入力して、設定推測と天井期待値を自動計算できます。</p>
+                <p class="lp-desc">${escapeHtml(machine.name)}のデータを入力して、設定推測と天井期待値を自動計算できます。</p>
                 <div class="lp-cta">
                     <a href="${paths.topHref}" class="btn-primary lp-btn">設定推測ツールを開く</a>
                 </div>
+                <p class="lp-desc lp-tool-extra"><a href="${guideHowToHref}">使い方ガイド（初心者向け）</a></p>
             </section>
 
             <div class="lp-back-bottom">
@@ -1367,21 +1103,11 @@ MACHINES.forEach(m => {
     const dir = path.join(machinesDir, m.id);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const html = generatePage(m, "main");
+    const html = generatePage(m);
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
     console.log(`Created: machines/${m.id}/index.html`);
 
     sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <priority>0.8</priority>\n  </url>`);
-
-    // intent variants (ロングテール入口)
-    ["ceiling", "setting", "beginner"].forEach((v) => {
-        const vDir = path.join(dir, v);
-        if (!fs.existsSync(vDir)) fs.mkdirSync(vDir, { recursive: true });
-        const vHtml = generatePage(m, v);
-        fs.writeFileSync(path.join(vDir, "index.html"), vHtml, "utf-8");
-        console.log(`Created: machines/${m.id}/${v}/index.html`);
-        sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/${v}/</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <priority>0.75</priority>\n  </url>`);
-    });
 });
 
 // setGuessElement/index.html（一覧ページ）生成

@@ -1,7 +1,13 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true }
+    { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true },
+    { "source": "/machines/:machineId/ceiling", "destination": "/machines/:machineId/", "permanent": true },
+    { "source": "/machines/:machineId/ceiling/", "destination": "/machines/:machineId/", "permanent": true },
+    { "source": "/machines/:machineId/setting", "destination": "/machines/:machineId/", "permanent": true },
+    { "source": "/machines/:machineId/setting/", "destination": "/machines/:machineId/", "permanent": true },
+    { "source": "/machines/:machineId/beginner", "destination": "/machines/:machineId/", "permanent": true },
+    { "source": "/machines/:machineId/beginner/", "destination": "/machines/:machineId/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }

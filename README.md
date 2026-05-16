@@ -159,7 +159,9 @@ git config --unset core.hooksPath
 ## デプロイ（Vercel）
 
 - プロジェクト**ルート**をそのままデプロイしてください（`index.html` がトップに来る構成）。  
-- `vercel.json` では `/` → `/index.html` の例を入れています。  
+- `vercel.json` では `/` → `/index.html` のリライトに加え、`/articles/:slug` → `/guide/:slug`、および旧機種LPパス（`/machines/:id/ceiling`・`setting`・`beginner` など）→ `/machines/:id/` の **301 リダイレクト**を定義しています（`trailingSlash: true` に合わせ、末尾スラッシュあり／なしの両方をカバー）。  
+- **`vercel.json` のリダイレクト定義**は `node scripts/verify-vercel-machine-redirects.js` で確認できます（デプロイ前のチェックに利用）。  
+- **デプロイ直後（本番）**: Search Console の **URL 検査**で旧パス（例: `/machines/hokuto/ceiling/`）が正規の `machines/{id}/` へリダイレクトされることを確認し、必要なら **インデックス登録をリクエスト**。**サイトマップ**から `sitemap.xml` の再送信も推奨。数週間後に **ページ** レポートでインデックスの推移を確認する（即時には完了しない運用タスク）。  
 - 本番ドメイン（例: `pachislot-setting.com`）に合わせて、`index.html` の `canonical` / `og:url`、各ページの絶対URL、`contact.html` の Formspree `_next`、**Search Console の所有権確認**などを揃えてください。
 
 ---
@@ -173,6 +175,7 @@ git config --unset core.hooksPath
 | `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`app.js` の `MACHINES[].guessElementPath` と機種名と同期すること） |
 | `node scripts/gsc-analyze.js data/gsc.csv` | Search Console のCSV/TSV（検索パフォーマンス）を解析し、CTR低/順位11〜20の改善候補を `reports/gsc-actions.md` に出力 |
 | `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` | GSC エクスポートから `machines/` 配下のクリック数上位5件を `data/access-ranking.json` に更新（トップのアクセスランキング表示用） |
+| `node scripts/verify-vercel-machine-redirects.js` | `vercel.json` の `/articles/:slug` → `/guide/:slug` と、機種LP旧パス（`ceiling` / `setting` / `beginner`・末尾スラッシュ有無）→ `/machines/:machineId/` の **301 定義**が揃っているか検証 |
 
 **記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` の SEO 用メタ・LP 導線は `patch-setguess-seo.js`、それ以外の本文は手編集です。
 
@@ -231,7 +234,8 @@ git config --unset core.hooksPath
   node generate-landing-pages.js
   ```
 
-- 出力は `machines/{machine_id}/index.html`。**既存ファイルは上書き**されます。
+- 出力は `machines/{machine_id}/index.html` のみ（1機種1URL）。**既存ファイルは上書き**されます。  
+- 旧構成の `/machines/{id}/ceiling/` 等へブックマークや外部リンクがある場合は、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
 
 ---
 
