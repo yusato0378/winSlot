@@ -226,30 +226,10 @@
     padding: 12px 28px;
 }
 
-/* 単一URL構成：ページ内ジャンプ */
-.lp-page-jumps-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.lp-page-jump {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid var(--border-card);
-    background: rgba(100, 120, 255, 0.08);
-    color: var(--accent-cyan);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.lp-page-jump:hover {
-    transform: translateY(-1px);
-    border-color: rgba(255, 213, 79, 0.35);
+.lp-scroll-anchor {
+    height: 0;
+    overflow: hidden;
+    scroll-margin-top: 1rem;
 }
 
 .lp-pillar {
@@ -260,6 +240,7 @@
 
 #lp-setting,
 #lp-ceiling,
+#reset-ceiling-ev,
 #tool {
     scroll-margin-top: 1rem;
 }

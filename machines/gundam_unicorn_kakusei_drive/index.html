@@ -85,37 +85,14 @@
                 </ol>
             </nav>
 
-            <section class="card lp-section" id="editorial">
-                <h2 class="card-title"><span class="card-icon">&#128172;</span> この機種について</h2>
-                <div class="lp-editorial-body">
-                    <p class="lp-editorial-p">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEは、通常時の彗星決戦［CZ］とAT初当たりの二系統でスペック差が現れるスマスロです。CZとATのカウンターを表記どおり分けて入力すると、ベイズ推測の解釈が安定しやすくなります。</p>
-                    <p class="lp-editorial-p">天井は解析により複数ライン（例：CZ系800G前後・設定変更時短縮など）が語られることがあり、本ツールでは代表しやすいラインを載せています。AT間の長尺天井など条件別の扱いは実機・解析の更新で要確認です。</p>
-                    <p class="lp-editorial-p">数値は公開情報・解析サイトの調査値に基づく参考です。+α消化や店舗運用差に注意してください。</p>
-                </div>
-                <p class="lp-note">※ 本解説は一般的な打ち手の整理であり、公式の仕様説明や設定保証ではありません。ホールの実情・個体差・遊技規則に従ってご利用ください。</p>
-            </section>
-
-
-            <nav class="card lp-section lp-page-jumps" aria-label="ページ内の移動">
-                <h2 class="card-title"><span class="card-icon">&#128205;</span> このページ内の移動</h2>
-                <div class="lp-page-jumps-links">
-                    <a class="lp-page-jump" href="#lp-setting">設定推測・設定差</a>
-                    <a class="lp-page-jump" href="#lp-ceiling">天井期待値</a>
-                    <a class="lp-page-jump" href="#tool">ツールで計算</a>
-                </div>
-            </nav>
             <nav class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="lp-toc">
-                    <li><a href="#editorial">この機種について</a></li>
                     <li><a href="#lp-setting">設定推測・設定差</a></li>
-                    <li><a href="#setting-highlight">設定差のポイント</a></li>
                     <li><a href="#spec">設定別スペック一覧</a></li>
-                    <li><a href="#parse-notes">解析メモ</a></li>
                     <li><a href="#guess-element">設定推測要素</a></li>
-                    <li><a href="#lp-ceiling">天井期待値</a></li>
-                    <li><a href="#ceiling-ev">天井期待値一覧（表）</a></li>
-                    <li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>
+                    <li><a href="#lp-ceiling">期待値一覧（表）</a></li>
+                    <li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>
                     <li><a href="#tool">設定推測ツールで計算</a></li>
                 </ul>
             </nav>
@@ -124,18 +101,8 @@
 
             <div class="card lp-section lp-pillar-head">
                 <h2 class="card-title" id="lp-setting"><span class="card-icon">&#127922;</span> 設定推測・設定差</h2>
-                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEの設定別スペック、設定差の見方、（該当機種のみ）解析メモ・設定推測要素への導線をまとめています。</p>
+                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEの設定別スペックと、該当機種のみ設定推測要素への導線をまとめています。</p>
             </div>
-
-            <section class="card lp-section" id="setting-highlight">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定差のポイント</h3>
-                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEの設定1〜設定6の出玉率の差は<strong>17.2%</strong>（設定1:97.7% → 設定6:114.9%）です。CZ確率の設定1（1/298.5）と設定6（1/239.8）の差は<strong>1.24倍</strong>で、設定差の主要な判別指標です。</p>
-                <ul class="lp-caution-list">
-                    <li>出玉率の差が17.2%あるため、長期では設定差が収支に大きく影響します</li>
-                    <li>確率の偶発的な振れを抑えるため、<strong>3,000G以上</strong>のデータで判断するのが推測の基本です</li>
-                    <li>設定推測ツールに実データを入力すると、各設定の推測確率（%）が自動計算されます</li>
-                </ul>
-            </section>
             <section class="card lp-section" id="spec">
                 <h3 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h3>
                 <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE（AT/ART機（スマスロ））の設定別スペック表です。CZ確率と出玉率に注目して設定判別に活用してください。</p>
@@ -156,17 +123,6 @@
                 </div>
             </section>
 
-            <section class="card lp-section" id="parse-notes">
-                <h3 class="card-title"><span class="card-icon">&#128300;</span> 解析メモ（導入後の補足）</h3>
-                <p class="lp-desc">2026年4月20日導入のLパチスロ。解析では彗星決戦［CZ］当選とAT（覚醒サイド）初当たりが別系統として整理されることが多く、本ツールと同様に回数は分けて記録した方が推測の解釈が安定しやすいです。</p>
-                <ul class="lp-parse-list">
-                    <li>天井は「CZストック消化基準」「AT間」「設定変更時の短縮」など条件でラインが分かれやすく、単一のゲーム数だけで比較すると誤読しやすいです。</li>
-                    <li>液晶・先バレ・強チェなどの示唆は設定補助として扱い、公開スペックに基づくベイズ推測と併用するのが無難です。</li>
-                </ul>
-                <p class="lp-parse-external"><a href="https://1geki.jp/slot/l_gundam_uc2/" target="_blank" rel="noopener noreferrer">1GEKI.jp｜ガンダムユニコーン 覚醒DRIVE 解析（詳細・示唆）</a></p>
-                <p class="lp-note">※ 演出・天井の細部は各解析サイトの更新に依存します。本セクションは立ち回りの整理用です。</p>
-            </section>
-
             <section class="card lp-section" id="guess-element">
                 <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定推測要素</h3>
                 <p class="lp-desc">CZ確率以外の設定推測要素（終了画面、子役確率など）を確認できます。</p>
@@ -176,27 +132,11 @@
             </section>
             </div>
 
-            <div class="lp-pillar" aria-label="天井期待値">
+            <div class="lp-pillar" aria-label="期待値の表">
 
-            <div class="card lp-section lp-pillar-head">
-                <h2 class="card-title" id="lp-ceiling"><span class="card-icon">&#127919;</span> 天井期待値</h2>
-                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEの天井ゲーム数・狙い目・期待値一覧（該当機種のみ）です。</p>
-            </div>
-
-            <section class="card lp-section" id="ceiling-strategy">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 狙い目500G〜の根拠</h3>
-                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEの天井は<strong>800G</strong>で、500Gから打ち始めれば残り<strong>300G以内</strong>で天井に到達します。天井恩恵の約700枚に対して、500Gからの投資が見合うラインとして500G〜が目安となります。</p>
-                <ul class="lp-caution-list">
-                    <li>天井800G到達で恩恵約700枚（換金率によって円換算は変わります）</li>
-                    <li>500G以上消化済みの台を探し、天井まで残り300G以内を確認するのが基本です</li>
-                    <li>朝一リセット時は天井が400Gに短縮されます。リセット判別できると250G〜からの狙い目も有効です</li>
-                </ul>
-                <p class="lp-note">※ 期待値は設定1基準・概算値です。内部状態やモードにより実際の値は大きく変わります。</p>
-            </section>
-
-            <section class="card lp-section" id="ceiling-ev">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 天井期待値一覧（ゲーム数別）</h3>
-                <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の天井期待値です。狙い目は<strong>500G〜</strong>が目安です。</p>
+            <section class="card lp-section" id="lp-ceiling">
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 期待値一覧（ゲーム数別）</h3>
+                <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の一覧です。狙い目は<strong>500G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">800G</span></div>
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">500G〜</span></div>
@@ -223,7 +163,7 @@
             </section>
 
             <section class="card lp-section" id="reset-ceiling-ev">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の天井期待値</h3>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の期待値一覧</h3>
                 <p class="lp-desc">朝一リセット時の天井は<strong>400G</strong>に短縮されます。狙い目は<strong>250G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">400G</span></div>
@@ -245,10 +185,9 @@
                 <p class="lp-note">※ 朝一リセット時の天井400Gを基準に算出した概算値です。</p>
             </section>
             </div>
-
             <section class="card lp-section" id="tool">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
-                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEのデータを入力して、設定推測と天井期待値を自動計算できます。</p>
+                <p class="lp-desc">Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEのデータを入力して、設定推測と期待値を自動計算できます。</p>
                 <div class="lp-cta">
                     <a href="../../index.html" class="btn-primary lp-btn">設定推測ツールを開く</a>
                 </div>

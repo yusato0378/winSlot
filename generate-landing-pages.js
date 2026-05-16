@@ -16,247 +16,6 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;");
 }
 
-/** 機種LP用の手書き解説（200〜500字目安）。未設定の機種はセクション非表示。 */
-const EDITORIAL_BY_ID = {
-    kabaneri: `甲鉄城のカバネリは、AT中の伸びと天井到達までのゲーム数バランスが打ち手の核になります。初当たり確率は設定差が大きく、実戦データが十分溜まるほどベイズ推測の解像度が上がりやすい機種です。\n\n天井は1000G前後が目安で、狙い目はツール上の期待値がプラスに転じ始める帯から検討するのが一般的です。朝一リセットで天井が短くなる店舗もあるため、前日の残りゲーム数とセットで見ると判断がブレにくくなります。\n\n設定判別では初当たり頻度だけでなく、ST継続の体感や示唆演出の傾向も材料になりますが、本サイトの数値はあくまで公開スペックに基づく参考値です。無理な期待値狙いは避け、資金管理と併せてご利用ください。`,
-
-    hokuto: `スマスロ北斗の拳は、AT初当たり確率の設定差と長尺の天井が立ち回りを左右する代表格です。ゲーム数が深いほど天井期待値の影響が大きくなるため、現在位置と狙い目帯を数値で把握しておく意味が大きい機種と言えます。\n\n天井・リセット天井の扱いは店舗運用で変わりやすい点に注意が必要です。ツールの期待値は設定1基準の簡易モデルであり、モードや内部状態の差は反映しきれません。\n\n設定推測では総回転と初当たり回数のバランスが鍵になります。データが浅いうちは推定確率が振れやすいので、長めに記録してから解釈するのがおすすめです。`,
-
-    banchou4: `押忍！番長4は、初当たり確率の設定差が比較的クリアに出やすいAT機として知られています。REGが無い構成のため、入力項目がシンプルで推測モデルと相性が良いのも特徴です。\n\n天井は699Gが目安で、深いゾーンに入った際の期待値判断が打ち続け・見切りの材料になります。前日からの持ち越しがあるホールでは、朝一のリセット有無で天井の見え方が変わるため注意してください。\n\n演出やモードで確率が揺れる局面もあるため、推測結果は「長期の傾向」を見る補助ツールとして使うのが安全です。`,
-
-    bakemonogatari: `スマスロ化物語は、AT初当たりからの展開比重が高く、スペック差が実戦体感に現れやすいタイプです。総ゲーム数に対する初当たり回数が、設定推測の主なインプットになります。\n\n天井は1000G前後を軸に期待値を見る打ち手が多く、ツールのゲーム数別期待値は「今どの帯か」を把握するのに便利です。朝一短縮天井がある場合は別枠で評価が必要です。\n\n化物語系は示唆演出の派手さが打ち手のモチベーションに直結しがちですが、設定判別はあくまでデータの積み上げが中心です。短時間の結果に一喜一憂せず、記録を継続してください。`,
-
-    okidoki_duo: `沖ドキ！DUO アンコールは、初当たり確率の設定差と沖スルー感の強さがポイントになる機種です。ハマりが深いほど天井期待値の比重が上がるため、現在ゲーム数の管理が重要になります。\n\nスペック表では設定6帯の初当たりが軽くなる傾向が読み取れますが、実戦では短期で大きく振れることがあります。推測結果はサンプル数が十分なときほど信頼度が上がります。\n\n「沖」系特有のテンポと天井の相対関係を意識し、無理な期待値プレイにならないよう予算と時間の上限を決めておくと安全です。`,
-
-    aim_juggler_ex: `アイムジャグラーEXは、BIG・REG・ブドウの三要素が揃った王道ジャグラー系です。設定差は合算確率と小役に現れるため、カウンターを正確に取るほど推測精度が上がります。\n\nAタイプは天井が無い機種が多く、長期の確率収束を見るスタイルになります。数千ゲーム単位のデータがあると設定6寄りの示唆が強まりやすい一方、数百ゲームでは振れ幅が大きい点に注意してください。\n\nREG単独の偏りは設定推測で拾いやすいシグナルですが、偶発的な連チャンでも一時的に推定が膨らみます。トータルの回転数と合わせて解釈しましょう。`,
-
-    my_juggler_v: `マイジャグラーVは、シリーズの中でも設定差が比較的フラットになりやすい一方、データ量次第では推測に寄せていける機種です。BIGとREGのバランス、ブドウの頻度が主な観測点になります。\n\nジャグラー全般に言えることですが、ハイエナ的な短時間打法では推測ツールの信頼度が下がります。同じ台で継続して記録を溜めるほど、スペック差が統計的に浮かび上がりやすくなります。\n\n「設定が付いているか」ではなく「今のデータがどの設定帯に近いか」を見るツールだと捉えると、結果の読み違いを減らせます。`,
-
-    discup_ultraremix: `A-SLOT+ ディスクアップ ULTRAREMIXは、BIG・REGの比率と出玉率の設定差が特徴的なA+タイプです。小役が無い分、入力がシンプルで推測モデルと相性が良い面があります。\n\n一部設定が表から省略されている場合は補間データを利用しているため、厳密な公式値との差異に留意してください。遊技目的はあくまで参考情報として扱います。\n\nディスクアップ系はテンポと音楽性が打ち手を支える機種ですが、設定判別は冷静に回転数を積むほど有利です。短時間の結果だけで判断しないよう心がけましょう。`,
-
-    smaslo_hanabi: `スマスロ ハナビは、BIG・REGのバランス型スペックで設定差が段階的に付く構成です。花火シリーズの軽快な演出の一方、データ面では合算確率と出玉率が推測の軸になります。\n\nAタイプのため天井は基本的に無く、長期の統計的傾向を見るスタイルになります。数千ゲーム規模のデータがあると、設定6寄りのシグナルが読みやすくなる傾向があります。\n\nハナビ系は「快適に回せる」ことが強みですが、設定推測は退屈な記録作業の積み重ねが精度を作ります。カウンターの取り違えにだけは注意してください。`,
-
-    kabaneri_unato: `スマスロ 甲鉄城のカバネリ 海門決戦は、前作の枠組みを踏襲しつつスペックと天井設計が調整された後継機です。初当たり確率の設定差と天井到達までのゲーム数が、立ち回り判断の中心になります。\n\n996G前後の天井やリセット時の短縮天井は店舗運用で解釈が変わるため、ホールの前日データと併せて見るのがおすすめです。期待値表は設定1基準の概算です。\n\nアニメ原作ファンには演出期待が高い一方、設定判別は数値の積み上げが基本です。推測結果は参考値として、責任ある遊技を心がけてください。`,
-
-    hokuto_tensei2: `北斗の拳 転生の章2は、AT初当たりから天井までの尺が長めで、ゲーム数管理が特に重要な機種です。深いハマりほど天井期待値の影響が大きくなるタイプと言えます。\n\n1536G級の天井やリセット天井の別ラインがあるため、ツール上で通常時とリセット時を分けて期待値を確認できるのが利点です。実戦では内部状態やモードでブレる点に注意してください。\n\n設定推測は初当たり回数と総回転の比率が鍵になります。データが浅い間は推定確率が振れやすいので、長めの記録を推奨します。`,
-
-    kaguya_sama: `かぐや様は告らせたいは、ボーナス初当たりからAT展開へ繋がる構成で、スペック差が初当たり頻度に表れやすい機種です。天井・リセット天井の二段構えを意識した立ち回りが求められます。\n\n狙い目ゲーム数付近では期待値の符号が変わりやすいため、ツールの一覧表で「今いる帯」を把握しておくと判断がしやすくなります。\n\n恋愛コメディ系の演出はテンポが良い一方、設定判別は地味なカウンター管理が不可欠です。推測は補助線として使い、過信は避けましょう。`,
-
-    koukaku: `スマスロ 攻殻機動隊は、AT初当たりとCZ初当たりの二系統を扱うスペックで、入力項目が多い分だけ材料も増える機種です。合算の見え方を理解しておくと推測結果の解釈が安定します。\n\n天井は1000G前後を軸に、リセット時は短くなるラインがあります。店舗ごとの運用差が大きいので、前日からのゲーム数確認は欠かせません。\n\n作品世界観の没入感と数値の冷静さのバランスが長く打つコツです。ツールの数値は公開情報ベースの参考値としてご利用ください。`,
-
-    karakuri: `からくりサーカスは、AT初当たりとCZ合算の設定差が特徴的な機種です。スペック表の「CZ合算」列は、推測時の解釈に直結するため、入力データの取り方を間違えないことが重要です。\n\n天井は1200G前後が目安で、深いゾーンでは期待値判断が打ち手の意思決定に効きます。ただし内部状態や示唆でブレる局面もあるため、期待値は目安と捉えてください。\n\n長尺のストーリー演出が魅力ですが、設定判別は地道な記録が鍵です。短時間の結果に振り回されないよう、データ量を意識しましょう。`,
-
-    god_eater: `ゴッドイーター リザレクションは、AT初当たり確率の設定差と天井恩恵の厚さが打ち味を作る機種です。ハマりが深くなるほど天井期待値の比重が上がるため、現在ゲーム数の把握が欠かせません。\n\nリセット天井ラインがある場合は、朝一と通常で期待値の見え方が変わります。ツールの二段表示を活用し、状況に合わせて読み替えてください。\n\nアクション性の高い演出はモチベーションを上げますが、設定推測は統計の積み上げです。予算と時間の上限を決め、責任ある遊技を心がけてください。`,
-
-    funky_juggler_2: `ファンキージャグラー2は、BIG・REG・ブドウの三拍子で設定差を読み取る王道ジャグラー系です。合算確率と小役の偏りが推測の主戦場になるため、カウンターの精度がそのまま結果の信頼度に直結します。\n\nAタイプのため本機に天井はなく、長期の統計的収束を前提にした立ち回りになります。数百ゲームでは上下振れが大きいので、数千ゲーム規模で傾向を見る意識が重要です。\n\nジャグラーは「快打感」が魅力ですが、設定推測は地味な記録の積み重ねが鍵です。推測結果は参考値として扱い、過信は避けましょう。`,
-
-    gogo_juggler_3: `ゴーゴージャグラー3は、シリーズらしいテンポの良さと、BIG・REG・ブドウのバランスで設定差が現れる構成です。REGやブドウの出方が推測要素として効きやすいため、入力漏れにだけ注意してください。\n\n天井のないAタイプのため、ツールは長期確率の傾向を見る用途が中心です。短時間の結果だけで設定を断定しようとすると誤読しやすい点に留意が必要です。\n\n同じ台で継続してデータを溜めるほど、スペック差が浮かび上がりやすくなります。ハイエナ的な短打では推測の意味が薄くなることを理解しておきましょう。`,
-
-    ultra_miracle_juggler: `ウルトラミラクルジャグラーは、BIG・REG・ブドウの設定差をモダンな演出とともに楽しめるジャグラー系です。合算確率と小役頻度が推測の軸になるため、実測値とスペック表の突き合わせが分かりやすい機種です。\n\n天井がないAタイプのため、期待値の主戦場は「長期の確率」です。サンプルが少ないうちは推定確率が大きく振れるのが普通なので、焦らず記録を増やす姿勢が大切です。\n\n演出の派手さと統計の地味さのギャップを意識し、ツールは補助線として使うと安全です。遊技は計画範囲内で楽しんでください。`,
-
-    thunder_v: `スマスロ サンダーVは、BIG・REGのバランス型スペックで設定差が段階的に付くAタイプです。合算確率と出玉率の推移から、長期的な傾向を読み取るスタイルが基本になります。\n\n天井は想定されていないため、ハマり時の「天井期待値」ではなく、回転数を積んだときの設定推測が主な活用方法です。数千ゲーム単位のデータがあると解像度が上がりやすいです。\n\nクラシックな打ち味を重視する打ち手に向いていますが、設定判別は冷静なカウンター管理が欠かせません。本サイトの数値は参考情報としてご利用ください。`,
-
-    umineko2: `うみねこのなく頃に2は、BIG・REGの確率差と出玉率の段差が特徴的なAタイプです。合算の見え方が推測の中心になるため、各カウンターを正確に取ることが精度向上の近道です。\n\n天井がない構成のため、ツールは長期の統計的傾向を見る用途が中心になります。短期の連チャンや不調で推定が大きく動くことは珍しくないので、解釈に注意してください。\n\n原作ファンには演出期待が高い一方、設定推測はデータの蓄積が物を言います。無理な資金移動は避け、責任ある範囲でご利用ください。`,
-
-    crea_hihouden: `クレアの秘宝伝 BTは、BIG・REGの設定差と出玉率のバランスが推測の核になるAタイプです。秘宝伝シリーズらしいテンポ感の一方、数値面では合算確率の推移を追うのが基本になります。\n\n天井がないため、深いハマりでも「天井到達」ではなく「確率の収束」を見る視点が重要です。データ量が増えるほど設定帯のシグナルが読みやすくなる傾向があります。\n\n演出や示唆に一喜一憂せず、ツールの推測は長期傾向の参考として使うと読み違いが減ります。`,
-
-    eva_bt: `エヴァンゲリオン 約束の扉は、BIG・REGの確率差と出玉率が段階的に変わるAタイプです。平均ボーナス枚数の前提が他機種と異なる場合があるため、スペック表の出玉率と合わせて解釈すると安心です。\n\n天井のない構成のため、設定推測は回転数とボーナス回数の比率が主戦場になります。サンプルが浅いうちは推定が振れやすい点は他のAタイプと同様です。\n\n作品の世界観を楽しみつつ、設定判別は統計の積み上げだと割り切ると、ツールの使い方がブレにくくなります。`,
-
-    valvrave: `革命機ヴァルヴレイヴは、CZ初当たりとボーナス（REG相当）の二系統を扱うスペックで、入力項目が多い分だけ推測の材料も増える機種です。表の見方（どちらの列が何に対応するか）を押さえると解釈が安定します。\n\n天井は1000G前後が目安で、深いゾーンでは期待値判断が立ち回りに効きます。設定1基準の期待値は概算であり、内部状態のブレは織り込みが必要です。\n\nロボットアニメらしい展開の厚みがある一方、設定推測は地道な記録が鍵です。ツールの数値は参考値としてご利用ください。`,
-
-    monkey_turn_v: `モンキーターンVは、AT初当たり確率の設定差と中〜長尺の天井が打ち味を決める機種です。ゲーム数が深いほど天井期待値の影響が大きくなるため、現在位置の把握が重要になります。\n\nリセット天井で短くなるラインがあるため、朝一と通常で期待値の見え方を切り替えて読むと判断がしやすくなります。店舗運用差には注意してください。\n\nスポーツレース系のテンポは打ち続けやすい反面、無理な期待値プレイは禁物です。予算と時間の上限を決めて遊技しましょう。`,
-
-    tokyo_ghoul: `L 東京喰種は、AT初当たりとCZ初当たりの二系統があり、スペック表の読み方が推測精度に直結する機種です。入力データの取り方を誤ると推定がブレやすいので、カウンターの定義を統一してください。\n\n天井は600G前後が目安で、リセット時はさらに短いラインがあります。ツールの二段表示を状況に合わせて使い分けると、狙い目帯の判断がしやすくなります。\n\nダークな演出と数値の冷静さのバランスが長く打つコツです。推測結果は保証ではないことを忘れずに。`,
-
-    dmc5: `デビル メイ クライ 5は、ボーナスとST（REG相当）の二系統で設定差が現れるAT機です。合算の見え方を理解しておくと、推測結果の解釈が安定しやすくなります。\n\n天井・リセット天井の両方を意識する立ち回りになりやすく、ゲーム数別期待値は「今どの帯か」の把握に便利です。設定1基準の概算である点は共通の注意事項です。\n\nアクション性の高い演出は没入感を高めますが、設定判別はデータの蓄積が基本です。責任ある遊技を心がけてください。`,
-
-    hihouden: `スマスロ 秘宝伝は、初当たり確率の設定差と天井恩恵が打ち手の判断を左右しやすい機種です。ハマりが深いほど天井期待値の比重が上がるため、現在ゲーム数の管理が欠かせません。\n\n799G前後の天井とリセット時の短縮ラインを理解しておくと、ツールの一覧表が立ち回りの補助になります。店舗や台の実情で前後する点に注意してください。\n\n秘宝伝らしいテンポと期待値の冷静さを両立させるのがコツです。推測は参考値として扱いましょう。`,
-
-    tenken: `転生したら剣でしたは、AT初当たり確率の設定差が比較的クリアに現れやすいタイプのAT機です。総回転に対する初当たり回数が推測の主なインプットになります。\n\n天井は970G前後が目安で、リセット天井もセットで見ると朝一の判断がしやすくなります。期待値は設定1基準の簡易モデルです。\n\n異世界転生モチーフの演出を楽しみつつ、設定判別は統計の積み上げだと割り切ると安全です。`,
-
-    valvrave2: `L革命機ヴァルヴレイヴ2は、初当たり合算の設定差と長大な天井が特徴的な機種です。ゲーム数が深いほど天井期待値の影響が大きくなるため、一覧表での帯の確認が有効です。\n\n1500G級の天井やリセット時の短縮ラインがあり、状況に応じて読み替える必要があります。恩恵枚数も大きめなので期待値の振れに注意してください。\n\n前作からの進化を体感しやすい一方、設定推測はデータ量が物を言います。無理な期待値狙いは避けましょう。`,
-
-    enen: `炎炎ノ消防隊は、初当たり確率の設定差と天井設計が立ち回りの軸になるAT機です。ハマりが深いゾーンでは期待値判断が打ち続け・見切りに効きやすいタイプです。\n\n850G前後の天井とリセット天井の組み合わせを理解しておくと、ツールの表示が意思決定の補助になります。店舗運用で前後する点は念頭に置いてください。\n\n熱い演出と冷静な数値のバランスが長く打つコツです。推測結果は保証ではありません。`,
-
-    tekken6: `スマスロ 鉄拳6は、ボーナスとAT初当たりの二系統でスペック差が現れる構成です。入力の取り方を統一すると推測の解釈が安定しやすくなります。\n\n天井・リセット天井があり、ゲーム数別期待値で「今いる帯」を把握すると判断がしやすいです。格闘ゲームらしいテンポの良さと期待値の見方は別物だと心得てください。\n\n対戦モチーフの没入感を楽しみつつ、設定判別は記録の蓄積が基本です。`,
-
-    prism_nana: `プリズムナナは、初当たり確率の設定差と天井恩恵が打ち味を支えるAT機です。899G前後の天井とリセット短縮を意識した立ち回りが求められます。\n\n深いハマりほど天井期待値の比重が上がるため、現在ゲーム数の管理が欠かせません。期待値表は設定1基準の概算です。\n\nライブ・アイドル系の演出を楽しみつつ、ツールは補助線として使うと読み違いが減ります。`,
-
-    azurlane: `L アズールレーン THE ANIMATIONは、AT初当たりの設定差が比較的広く、天井尺も長めに取られた機種です。ゲーム数管理と期待値の帯確認が立ち回りの中心になりやすいです。\n\n2000G級の天井は到達までの分散が大きくなりがちなため、期待値は「目安」として扱うのが安全です。内部状態やモードの影響も無視できません。\n\n艦隊モチーフの収集感を楽しみつつ、設定推測は長期データが有利です。責任ある遊技を心がけてください。`,
-
-    zettai4: `L 絶対衝激IVは、ボーナスとAT初当たりの二系統で設定差を読み取るAT機です。スペック表の列の意味を押さえると推測結果の解釈が安定します。\n\n本データでは天井を持たない扱いのため、主な活用は設定推測と出玉率の比較になります。実機の天井仕様が追加される場合は別途確認が必要です。\n\nバトル系のテンポを楽しみつつ、ツールは統計の補助として使いましょう。`,
-
-    railgun2: `スマスロ とある科学の超電磁砲2は、AT初当たりとCZ初当たりの二系統があり、入力の精度が推測に直結する機種です。合算の見方を誤ると推定がブレやすい点に注意してください。\n\n天井は999G前後が目安で、リセット時は短くなるラインがあります。ゲーム数別期待値で帯を確認すると判断材料になります。\n\n学園超能力モチーフの演出と数値の冷静さのバランスがコツです。参考値としてご利用ください。`,
-
-    onimusha3: `スマスロ 新鬼武者3は、AT初当たり確率の設定差と天井設計が立ち回りを左右しやすい機種です。ハマりが深いほど天井期待値の影響が大きくなります。\n\n1000G前後の天井とリセット短縮をセットで見ると、朝一と通常の切り替えがしやすくなります。期待値は概算です。\n\n時代劇×アクションの没入感を楽しみつつ、設定判別はデータの積み上げが基本です。`,
-
-    zenigata5: `L主役は銭形5は、初当たり確率の設定差と長尺の天井が特徴的なAT機です。1250G級の天井は分散が大きくなりがちなため、期待値は目安として扱うのが無難です。\n\nリセット天井のラインもあり、ツールの二段表示を活用すると状況判断がしやすくなります。店舗運用差に注意してください。\n\nルパンシリーズらしい軽妙な演出と、冷静なゲーム数管理の両立が長く打つコツです。`,
-
-    tokyo_revengers: `スマスロ 東京リベンジャーズは、初当たりとAT初当たりの二系統を扱うスペックで、入力の取り方が推測精度に効きます。列の定義を統一して記録してください。\n\n天井は1190G前後が目安で、リセット時は短いラインがあります。深いゾーンでは期待値判断が打ち手の意思決定に効きやすいです。\n\nタイムリープ劇のテンポを楽しみつつ、ツールは参考情報として使いましょう。`,
-
-    iza_banchou: `いざ！番長は、初当たり確率の設定差と天井・リセット天井の組み合わせが打ち味を作る番長系AT機です。ゲーム数別期待値で帯を把握すると判断がしやすくなります。\n\n999G前後の天井を軸に、朝一は短縮ラインを意識する立ち回りが一般的です。設定1基準の期待値は簡易モデルです。\n\n番長らしい熱さと、統計の地味さのギャップを理解しておくとツールの使い方がブレにくくなります。`,
-
-    monhan_rise: `スマスロ モンスターハンターライズは、AT初当たり確率の設定差と天井設計が立ち回りの核になりやすい機種です。ハマりが深いほど天井期待値の比重が上がります。\n\n999G前後の天井が目安で、店舗によってはリセット条件の解釈が変わります。前日データの確認は欠かせません。\n\n狩猟アクションの没入感を楽しみつつ、設定推測はデータ蓄積が物を言います。`,
-
-    enen2: `Lパチスロ 炎炎ノ消防隊2は、初当たりと炎炎ループ（REG相当）の二系統で設定差が現れる構成です。入力の定義を誤ると推測がブレやすいので、カウンターの取り方を揃えてください。\n\n天井・リセット天井は前作系統を踏襲する打ち手が多く、ゲーム数別期待値が立ち回りの補助になります。\n\n続編らしい演出の厚みがある一方、設定判別は統計の積み上げです。参考値としてご利用ください。`,
-
-    magireco: `スマスロ マギアレコードは、ボーナス初当たりとAT初当たりの二系統があり、材料が多い分だけ入力の整合性が重要です。スペック表の列と実測の対応を押さえましょう。\n\n天井は950G前後が目安で、リセット短縮もセットで見ると朝一の判断がしやすくなります。\n\n魔法少女まどか☆マギカ外伝の世界観を楽しみつつ、ツールは補助線として使うと安全です。`,
-
-    mushoku: `L 無職転生は、AT初当たり確率の設定差と天井・リセット天井が立ち回りを左右しやすい機種です。ハマりが深いほど期待値判断の意味が大きくなります。\n\n1007G前後の天井と短縮ラインを理解しておくと、一覧表の見方が直感的になります。店舗運用差に注意してください。\n\n異世界転生の長尺ストーリーを楽しみつつ、設定推測はデータ量が鍵です。`,
-
-    sbj: `スマスロスーパーブラックジャックは、ボーナス初当たり中心のスペックで設定差が初当たり頻度に表れやすいタイプです。総回転とボーナス回数の比率が推測の主戦場になります。\n\n天井は999G前後が目安で、リセット短縮もあります。深いゾーンでは期待値が意思決定に効きやすい点は他AT機と同様です。\n\nカジノテイストの演出を楽しみつつ、推測結果は保証ではないことを忘れずに。`,
-
-    yoshimune: `吉宗は、初当たり確率の設定差と天井恩恵が打ち味を支えるAT機です。999G前後の天井を軸に、ゲーム数別期待値で帯を確認する立ち回りが一般的です。\n\nリセット天井の扱いは店舗差が出やすいため、前日データと併せて見ると判断がブレにくくなります。\n\n歴史・和風テイストの没入感と、冷静なカウンター管理の両立が長く打つコツです。`,
-
-    goblin_slayer2: `スマスロ ゴブリンスレイヤーⅡは、AT初当たりとCZ初当たりの二系統でスペック差が現れる機種です。入力の定義を統一すると推測の解釈が安定しやすくなります。\n\n1500G級の天井とリセット短縮があり、長尺ハマりでは期待値の比重が大きくなりがちです。設定1基準は概算です。\n\nダークファンタジーの世界観を楽しみつつ、設定判別は記録の蓄積が基本です。`,
-
-    otome4: `L戦国乙女4は、ボーナス+AT合算とAT初当たりの二系統があり、表の読み方が推測に直結します。どの数値をどこに入れるかを最初に決めておくとブレが減ります。\n\n799G前後の天井が目安で、深いゾーンでは期待値判断が有効です。リセット条件は店舗差に注意してください。\n\n戦国乙女らしいキャラ魅力を楽しみつつ、ツールは参考値として使いましょう。`,
-
-    toloveru: `L ToLOVEるダークネスは、AT初当たり確率の設定差と天井・リセット天井が立ち回りの軸になりやすい機種です。表では設定2からの記載があるため、入力時の設定キーに注意してください。\n\n999G前後の天井を軸に期待値を見る打ち手が多く、一覧表で帯を把握すると判断がしやすくなります。\n\nコメディ系のテンポを楽しみつつ、設定推測は統計の積み上げです。`,
-
-    baki: `Ｌ範馬刃牙は、ボーナスとAT初当たりの二系統で設定差が現れるAT機です。入力の取り方を揃えると推測結果の解釈が安定しやすくなります。\n\n天井は700G前後が目安で、さらに短いリセットラインもあります。浅〜中間帯から期待値の符号が変わりやすいタイプなので一覧表が有効です。\n\nバトル漫画らしい熱量と、冷静なゲーム数管理のバランスがコツです。`,
-
-    biohazard5: `スマスロ バイオハザード5は、AT初当たり確率の設定差と天井設計が立ち回りを左右しやすいホラーアクション系AT機です。ハマりが深いほど天井期待値の比重が上がります。\n\n999G前後の天井とリセット短縮をセットで見ると、朝一と通常の切り替えがしやすくなります。\n\nサバイバルホラーの没入感を楽しみつつ、推測は参考値として扱いましょう。`,
-
-    revuestarlight: `L少女☆歌劇 レヴュースタァライトは、ボーナス合算とAT初当たりの二系統でスペック差が現れる構成です。入力定義を誤ると推測がブレやすいので、カウンターの取り方を統一してください。\n\n900G前後の天井とリセット短縮があり、ゲーム数別期待値が立ち回りの補助になります。\n\nステージ演出の華やかさと、統計の地味さのギャップを理解しておくとツールの使い方がブレにくくなります。責任ある遊技を心がけてください。`,
-
-    eureka_seven_art: `交響詩篇エウレカセブン TYPE-ARTは、ボーナス合算とART初当たりの二系統で設定差が大きい6.5号機です。小役や示唆も材料になりますが、本ツールは主に回数系の入力を想定しています。\n\n天井非搭載のため、天井期待値は表示されず設定推測とスペック確認が主用途になります。長めのデータで合算・ARTのバランスを見るのがおすすめです。\n\n数値は公開情報ベースの参考値です。実機仕様の変更があればご自身でもご確認ください。`,
-
-    shake_bt: `スマスロ シェイク ボーナストリガーは、BIG・REGの二軸で設定差が現れるBT搭載ノーマルです。奇数・偶数で傾向が分かれるため、短期データの解釈には注意が必要です。\n\n天井は非搭載です。設定推測はカウンターの定義（BIG/REG）をスペック表に合わせて統一してください。\n\nBT中の技術介入やループ率はモデルに含めきれないため、推測結果は参考値として扱ってください。`,
-
-    harem_ace_bt: `翔べ！ハーレムエースは、ボーナス合算で設定差を読むBT搭載タイプです。設定によっては列構成が異なる表記もあるため、入力は「合算回数」中心に合わせると解釈が安定しやすいです。\n\n天井非搭載のため、長期の確率傾向を見る用途が中心になります。\n\n演出と数値のバランスを意識し、責任ある範囲でご利用ください。`,
-
-    alex_bt: `スマスロ アレックスブライトは、BIG・REGに設定差が大きいボーナストリガー機です。合算確率の推移から設定帯を推う打ち手が一般的です。\n\n天井は非搭載です。小役や終了画面の示唆は本ツールの主入力外となるため、推測は回数データの積み上げが基本です。\n\n参考値として活用し、過信は避けましょう。`,
-
-    bofuri: `スマスロ「防振り」は、AT初当たり確率の設定差と天井・設定変更時短縮天井が立ち回りの軸になりやすい機種です。CZや防御状態など複合仕様は簡易モデルで近似しています。\n\n950G前後の天井と短縮ラインをツールで確認し、現在ゲーム数とセットで見ると判断がしやすくなります。\n\n数値は公開スペックに基づく参考値です。`,
-
-    nanatsu_maken: `L七つの魔剣が支配するは、ボーナス初当たりとST初当たりの二系統で設定差が現れます。入力列とカウンターの対応を取り違えないことが精度の鍵です。\n\n通常時はST間最大1000G前後の天井、設定変更時は短縮ラインがあるため、ツールの通常／リセット表示を状況に合わせて読み替えてください。\n\nコナミ系の演出を楽しみつつ、推測はデータ量を意識しましょう。`,
-
-    granbelm: `回胴式遊技機 グランベルムは、ボーナスとAT初当たりの二系統でスペック差を読むAT機です。通常モードにより天井手前のゲーム数が変わる仕様は簡易モデルでは扱いきれないため、649G前後を代表値として期待値を見ています。\n\nCZ経由の当選などはモデル外要素が多いです。深いハマりでの目安として一覧表を活用してください。\n\n参考値としてご利用ください。`,
-
-    kyokou_suiritr: `L 虚構推理は、CZと本ボーナス（初当たり）の二系統があり、入力の定義を揃えると設定推測の解釈が安定しやすいスマスロです。ドーナツビジョン筐体で注目された機種ですが、数値面では合算の見え方が軸になります。\n\n天井は1000G前後と短縮ラインの併用が解説されており、深いゾーンでは期待値判断が立ち回りに効きやすいタイプです。実機の「+α」消化や店舗運用差には注意してください。\n\n公開スペックに基づく参考値です。仕様変更があれば公式情報でご確認ください。`,
-
-    isekai_quartet_bt: `A-SLOT+ 異世界かるてっと BTは、通常時のいせかる目とBIG直撃、さらにBT突入を絡めたボーナストリガー機です。BIGといせかる目の二列入力に対応し、設定差は主に当選確率に表れます。\n\n天井は非搭載のため、ツールは長期の確率傾向と回数バランスの確認が中心になります。BT中の挙動や完全攻略時の機械割は簡易モデルに織り込みきれません。\n\nサミー初のBT機として話題を集めた一台ですが、推測結果はあくまで補助線としてご利用ください。`,
-
-    jormungand: `スマスロ ヨルムンガンドは、CZ経由からAT「ヨルムンガンドラッシュ」へ入るゲーム数上乗せ型のスマスロです。AT初当たりとCZの設定差が推測の主戦場になります。\n\n天井の詳細は導入直後は要確認になる場合があります。本データでは天井非搭載としており、主に回数ベースの設定推測にご利用ください。\n\n軍武アニメ原作のテンポを楽しみつつ、数値は参考情報として扱いましょう。`,
-
-    akudama_drive: `L アクダマドライブは、CZとAT初当たりの二系統でスペック差が大きいスマスロです。高純増の上位ATが目玉になりがちですが、通常時の入力は表記に合わせてCZとATを分けて取ると解釈がブレにくくなります。\n\n天井は約967G＋αや短縮の589G＋αなど複数ラインが解説されています。ツールでは代表しやすいラインを載せていますが、条件によっては読み替えが必要です。\n\n三洋のオリジナル作品ベースの演出と、冷静なゲーム数管理の両立がコツです。`,
-
-    shinuchi_yoshimune: `真打 吉宗は、旧作「吉宗」と別機種のスマスロです。CZとAT初当たりの二系統で設定差を読み、1G連や高出力ゾーンが打ち味の核になります。\n\n天井はCZ間・AT間で尺が異なる解説があり、深いハマりでは期待値の見え方が変わります。本ツールではAT間を代表する長尺を天井として近似しています。\n\n大都の看板シリーズだけに導入も大きい機種ですが、推測はデータの蓄積が基本です。参考値としてご利用ください。`,
-
-    lb_triple_crown_seven: `LB トリプルクラウンセブンは、岡崎産業のBT搭載ノーマルで、BIG・REGの二軸から設定差を読み取るAタイプです。合算確率と出玉率の段差が推測の中心になります。\n\n天井は非搭載です。沖スロ系のモード選択や疑似遊技の細部はモデル化していません。\n\nクラシックな打ち味を重視する打ち手向けですが、設定判別はカウンターの正確さが信頼度に直結します。`,
-
-    gundam_unicorn_kakusei_drive: `Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVEは、通常時の彗星決戦［CZ］とAT初当たりの二系統でスペック差が現れるスマスロです。CZとATのカウンターを表記どおり分けて入力すると、ベイズ推測の解釈が安定しやすくなります。\n\n天井は解析により複数ライン（例：CZ系800G前後・設定変更時短縮など）が語られることがあり、本ツールでは代表しやすいラインを載せています。AT間の長尺天井など条件別の扱いは実機・解析の更新で要確認です。\n\n数値は公開情報・解析サイトの調査値に基づく参考です。+α消化や店舗運用差に注意してください。`,
-
-    million_god_kiseki: `スマスロ ミリオンゴッド-神々の軌跡-は、GOD GAMEを軸にした王道のミリオン系スマスロです。設定推測ではAT初当たり確率と総回転のバランスが主なインプットになります。\n\n天井の確定表記は導入直後は解析サイトの更新を確認してください。本データでは天井非搭載としており、主にスペック確認と回数ベースの推測にご利用ください。\n\nモード・履歴・確定役などモデル外要素が大きい機種のため、推測結果は補助線として扱いましょう。`,
-
-    animal_slot_dotch: `アニマルスロット ドッチは、BIG・REGの二軸と擬似ボーナス連打型のST「アニマルドリーム」が特徴の北電子スマスロです。通常時はリーチ目からの当選が多く、カウンターの取り方をスペック表に合わせることが重要です。\n\n天井はBIG消化後の長尺やREG後の短尺など複数パターンが解説されることがあり、本ツールではBIG後を代表するラインで近似しています。条件によっては読み替えが必要です。\n\n参考値としてご利用ください。`,
-
-    biohazard_re3: `スマスロ バイオハザードRE:3は、AT初当たり確率の設定差と天井・CZスルー天井が立ち回りを支えるホラーアクション系スマスロです。2026年5月11日導入のエンターライズ製AT機です。\n\n天井は1000G＋αでAT当選（設定変更時650G＋αに短縮）。またCZを6回連続失敗後の7回目は成功濃厚というCZスルー天井も搭載されています。ゲーム数とスルー回数を合わせて管理すると立ち回り精度が上がります。\n\n設定推測はAT初当たり確率が主戦場です。CZ確率は設定1のみ公開（1/143.3）で他設定は未公開のため、本ツールではAT初当たり一本軸での推測になります。参考値としてご利用ください。`,
-
-    big_dream_golden_pusher: `スマスロ ビッグドリーム THE GOLDEN PUSHERは、サミー製のメダルプッシャーゲーム融合型スマスロです。2026年5月11日導入。コイン単価が約5.7円とスマスロ史上最高水準の荒れ機種で、プレミアムAT「DREAM JP BONUS」では4桁枚数スタートも狙えます。\n\n天井は最大1499Gで、設定変更時は999Gに短縮。設定や前ATの種類によって引き継ぐ天井ゲーム数が333・555・999・1499Gから変動します。本ツールでは最大1499Gを代表ラインとして掲載しており、実際の期待値は引き継ぎ条件で大きく変わります。\n\nCZ確率とAT確率の二系統で設定差が現れます。本ツールではCZを「big」列、AT初当たりを「reg」列として入力してください。荒れ仕様のため推測精度には大量データが必要です。参考値としてご利用ください。`,
-
-    super_rio_ace2: `スマスロスーパーリオエース2は、山佐ネクスト製のハッキング演出が特徴のスマスロAT機です。2026年5月11日導入。メインAT「リオラッシュ」（純増約2.5枚/G）と上位AT「リオラッシュエクストラ」（純増約4.5枚/G）の二段階構成です。\n\n天井は750G＋α（ボーナス間）で、設定変更時は天井がリセットされます。加えてボーナス7回スルーで8回目AT濃厚というスルー天井も搭載（設定変更時は4スルー後5回目に短縮）。本ツールの天井期待値は750G天井を基準としており、スルー天井は別途カウントが必要です。\n\nAT初当たり確率の設定差が主な推測軸になります。数値は公開スペック基準の参考値です。`,
-
-    takt_op_destiny: `Lタクトオーパス デスティニーは、アムテックス製の「takt op.Destiny」原作スマスロです。2026年5月11日導入。AT「バトルオーケストラ」（純増約2.6枚/G、初期150枚＋α）への道筋として、CZ・報酬CHANCE・DESTINY BONUSの3ルートが用意されています。\n\nAT天井は999G＋α、CZ天井は500G＋α（設定変更時300G＋αに短縮）。設定変更時は天井がリセットされモードBorC確定となります。本ツールではAT天井999Gを主天井、リセット短縮ラインとしてCZ天井500Gを掲載しています。\n\nAT初当たり確率が主な設定推測の軸です。高設定ほど設定差が小さく短期での判別は困難です。特化ゾーン「歓喜の歌」に入ると4桁上乗せ濃厚となる高射幸仕様のため、推測結果は補助線としてご利用ください。`,
-};
-
-/**
- * 機種LP「解析メモ（導入後の補足）」。新台などは外部解析の要点を短く載せる（断定・非公表数値は避ける）。
- */
-const PARSE_NOTES_BY_ID = {
-    gundam_unicorn_kakusei_drive: {
-        intro: "2026年4月20日導入のLパチスロ。解析では彗星決戦［CZ］当選とAT（覚醒サイド）初当たりが別系統として整理されることが多く、本ツールと同様に回数は分けて記録した方が推測の解釈が安定しやすいです。",
-        bullets: [
-            "天井は「CZストック消化基準」「AT間」「設定変更時の短縮」など条件でラインが分かれやすく、単一のゲーム数だけで比較すると誤読しやすいです。",
-            "液晶・先バレ・強チェなどの示唆は設定補助として扱い、公開スペックに基づくベイズ推測と併用するのが無難です。",
-        ],
-        externalHref: "https://1geki.jp/slot/l_gundam_uc2/",
-        externalText: "1GEKI.jp｜ガンダムユニコーン 覚醒DRIVE 解析（詳細・示唆）",
-    },
-    million_god_kiseki: {
-        intro: "2026年4月20日導入のスマスロ。導入後の解析では、終了画面・ボタン・履歴まわりの示唆整理が厚くなりやすい王道ミリオン系です。",
-        bullets: [
-            "本ツールの主入力は「AT初当たり（GOD GAME）」と総回転のバランスです。通常時モードや内部抽選の細部はモデルに含めていません。",
-            "天井・短縮の扱いは解析の更新が早いため、期待値の前提は各サイトの最新情報で確認してください。当サイトは現状「天井非搭載」としており、天井期待値は表示されません。",
-        ],
-        externalHref: "https://1geki.jp/slot/l_milliongod_kiseki/",
-        externalText: "1GEKI.jp｜ミリオンゴッド-神々の軌跡- 解析（詳細・示唆）",
-    },
-    animal_slot_dotch: {
-        intro: "2026年4月20日導入。擬似連打型のST「アニマルドリーム」と、通常時のBIG・REGが別レイヤーになりやすい構成です。",
-        bullets: [
-            "解析では天井が「BIG消化後の長尺」「REG消化後の短尺」など条件別に語られることがあり、自力で数えるときは区間の定義（何の直後から数えるか）を固定するとブレにくいです。",
-            "当ツールの天井999G／朝一499Gの期待値はBIG後・リセットを代表した近似です。REG直後など別条件では読み替えが必要です。",
-        ],
-        externalHref: "https://1geki.jp/slot/l_asd/",
-        externalText: "1GEKI.jp｜アニマルスロット ドッチ 解析（詳細・示唆）",
-    },
-    biohazard_re3: {
-        intro: "2026年5月11日導入のエンターライズ製スマスロ。CZ「ネメシスバトル」（約8G+α・期待度約37%）経由でAT「ハザードラッシュ」を目指す構成です。",
-        bullets: [
-            "CZスルー天井：6回連続失敗後の7回目CZは成功（AT）濃厚。ゲーム数天井とスルー回数を並行してカウントすることが重要です。",
-            "設定変更時は天井が1000G→650Gに短縮。朝一の立ち回りにはリセット判断が有効な場合があります。",
-            "CZ確率は設定1（1/143.3）のみ公開で他設定は調査中。本ツールはAT初当たりのみで推測します。CZ確率が出揃い次第更新予定です。",
-        ],
-        externalHref: "https://chonborista.com/slot/enta-slot/253191/",
-        externalText: "ちょんぼりすた｜バイオハザードRE:3 解析まとめ",
-    },
-    big_dream_golden_pusher: {
-        intro: "2026年5月11日導入のサミー製スマスロ。メダルプッシャーゲーム融合型で、コイン単価約5.7円とスマスロ歴代最高水準の荒れ仕様です。",
-        bullets: [
-            "天井は最大1499G。ただし通常AT終了後は333・555・999・1499Gの中から引き継ぎゲーム数が決まるため、前歴により大きく変動します。設定変更時は999Gに短縮。",
-            "プレミアムAT「DREAM JP BONUS」（確率約1/8445）に当選すると4桁枚数スタートが濃厚。荒れ機種につき短期の推測精度は低めです。",
-            "本ツールではCZを「CZ」列、AT初当たりを「AT初当たり」列に入力してください。設定差はCZ確率の方がAT確率より大きいです。",
-        ],
-        externalHref: "https://nana-press.com/kaiseki/machine/1151/",
-        externalText: "なな徹｜ビッグドリーム THE GOLDEN PUSHER 解析まとめ",
-    },
-    super_rio_ace2: {
-        intro: "2026年5月11日導入の山佐ネクスト製スマスロ。独自の「ハッキング」演出とノワールタイム（G数巻き戻し+0G連上乗せ）が特徴のAT機です。",
-        bullets: [
-            "ボーナス間天井750G+α（設定変更で天井リセット）と、7スルーで8回目AT濃厚のスルー天井が並存。立ち回りにはスルー回数もカウントする必要があります。",
-            "設定変更時はスルー天井が4スルー→5回目AT濃厚に短縮。朝一はスルー回数リセットにも注意してください。",
-            "本ツールの天井期待値は750G天井を基準とした近似値です。スルー天井到達時の恩恵は別途考慮してください。",
-        ],
-        externalHref: "https://chonborista.com/slot/yamasa-slot/255067/",
-        externalText: "ちょんぼりすた｜スーパーリオエース2 解析まとめ",
-    },
-    takt_op_destiny: {
-        intro: "2026年5月11日導入のアムテックス製スマスロ。「takt op.Destiny」原作のAT機で、CZ天井（500G）とAT天井（999G）の二重天井構造が特徴です。",
-        bullets: [
-            "設定変更時は天井リセット＋モードB or C確定（300G以内にCZ当選濃厚）。朝一のリセット判断が有効な場面が多い機種です。",
-            "上位特化ゾーン「歓喜の歌」で4桁上乗せ濃厚。AT後は約4割でモードCに移行し100G+α以内にCZ当選が見込めるため、やめどきの確認が重要です。",
-            "設定6でも初当たり確率の差が小さく（6と5で約1/298差）、短期判別は難しい設計です。複数要素の示唆を組み合わせる必要があります。",
-        ],
-        externalHref: "https://chonborista.com/slot/amute/254099/",
-        externalText: "ちょんぼりすた｜タクトオーパス デスティニー 解析まとめ",
-    },
-};
-
-function buildParseNotesSection(machine) {
-    const p = PARSE_NOTES_BY_ID[machine.id];
-    if (!p) return "";
-    const bullets = (p.bullets || [])
-        .slice(0, 8)
-        .map((t) => `                    <li>${escapeHtml(t)}</li>`)
-        .join("\n");
-    const intro = p.intro
-        ? `                <p class="lp-desc">${escapeHtml(p.intro)}</p>\n`
-        : "";
-    const external =
-        p.externalHref && p.externalText
-            ? `                <p class="lp-parse-external"><a href="${escapeHtml(p.externalHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.externalText)}</a></p>\n`
-            : "";
-    return `
-            <section class="card lp-section" id="parse-notes">
-                <h3 class="card-title"><span class="card-icon">&#128300;</span> 解析メモ（導入後の補足）</h3>
-${intro}                <ul class="lp-parse-list">
-${bullets}
-                </ul>
-${external}                <p class="lp-note">※ 演出・天井の細部は各解析サイトの更新に依存します。本セクションは立ち回りの整理用です。</p>
-            </section>`;
-}
 
 /**
  * 主要機種だけ「注意点（運用/入力/モデル外）」を追加して差別化する。
@@ -332,16 +91,6 @@ ${lis}
                 </ul>
                 <p class="lp-note">※ 本ページの数値・文章は参考情報です。店舗運用・個体差・遊技ルールに従ってご利用ください。</p>
             </section>`;
-}
-
-function formatEditorialParagraphs(text) {
-    if (!text) return "";
-    return text
-        .split(/\n\n/)
-        .map((p) => p.trim())
-        .filter(Boolean)
-        .map((p) => `                    <p class="lp-editorial-p">${escapeHtml(p)}</p>`)
-        .join("\n");
 }
 
 const MACHINES = [
@@ -717,90 +466,6 @@ function getMachinePagePaths(machine) {
     return { urlPath, url, basePrefix, topHref, faviconHref, styleHref, lpCssHref };
 }
 
-/** ceiling ページ：狙い目の根拠を機種データから自動生成 */
-function buildCeilingStrategySection(machine) {
-    const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
-    const name = escapeHtml(machine.name);
-    const isAT = machine.type === "AT";
-
-    if (hasCeiling) {
-        const ceilG = machine.ceiling;
-        const targetG = machine.ceilingTarget;
-        const reward = machine.ceilingReward;
-        const remainAtTarget = ceilG - targetG;
-        const hasReset = machine.resetCeiling != null && machine.resetCeiling > 0;
-        return `
-            <section class="card lp-section" id="ceiling-strategy">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 狙い目${targetG}G〜の根拠</h3>
-                <p class="lp-desc">${name}の天井は<strong>${ceilG}G</strong>で、${targetG}Gから打ち始めれば残り<strong>${remainAtTarget}G以内</strong>で天井に到達します。天井恩恵の約${reward}枚に対して、${targetG}Gからの投資が見合うラインとして${targetG}G〜が目安となります。</p>
-                <ul class="lp-caution-list">
-                    <li>天井${ceilG}G到達で恩恵約${reward}枚（換金率によって円換算は変わります）</li>
-                    <li>${targetG}G以上消化済みの台を探し、天井まで残り${remainAtTarget}G以内を確認するのが基本です</li>
-                    ${hasReset ? `<li>朝一リセット時は天井が${machine.resetCeiling}Gに短縮されます。リセット判別できると${machine.resetCeilingTarget}G〜からの狙い目も有効です</li>` : ""}
-                </ul>
-                <p class="lp-note">※ 期待値は設定1基準・概算値です。内部状態やモードにより実際の値は大きく変わります。</p>
-            </section>`;
-    }
-    if (!isAT) {
-        return `
-            <section class="card lp-section" id="ceiling-strategy">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> Aタイプの立ち回りポイント</h3>
-                <p class="lp-desc">${name}はAタイプで天井が存在しません。ボーナスは完全抽選のため、どのゲーム数からでも当選確率は同じです。</p>
-                <ul class="lp-caution-list">
-                    <li>設定推測には<strong>総回転数が多いほど精度が上がります</strong>。できれば3,000G以上のデータで判断してください</li>
-                    <li>BIG/REGの偶発的な偏りを避けるため、合算確率と出玉率を組み合わせて総合的に判断するのが基本です</li>
-                    <li>天井狙いではなく<strong>設定推測主体の立ち回り</strong>が適しています</li>
-                </ul>
-            </section>`;
-    }
-    return `
-            <section class="card lp-section" id="ceiling-strategy">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 天井情報の確認方法</h3>
-                <p class="lp-desc">${name}は新台または解析中のため、天井ゲーム数が公開されていません。解析情報が公開され次第ツールへ反映します。</p>
-                <ul class="lp-caution-list">
-                    <li>現在は設定推測のスペックテーブルのみ対応しています</li>
-                    <li>天井・狙い目情報は解析サイトや公式情報と合わせて確認してください</li>
-                </ul>
-            </section>`;
-}
-
-/** setting ページ：設定差のポイントを機種データから自動生成 */
-function buildSettingHighlightSection(machine) {
-    const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
-    const s1key = settingKeys[0];
-    const s6key = settingKeys[settingKeys.length - 1];
-    const s1 = machine.settings[s1key];
-    const s6 = machine.settings[s6key];
-    if (!s1 || !s6) return "";
-
-    const name = escapeHtml(machine.name);
-    const bigLabel = escapeHtml(machine.bigLabel);
-    const payoutDiff = (s6.payout - s1.payout).toFixed(1);
-    const bigRatio = (s1.big / s6.big).toFixed(2);
-    const regRatio = (s1.reg && s6.reg) ? (s1.reg / s6.reg).toFixed(2) : null;
-    const koyakuRatio = (s1.koyaku && s6.koyaku) ? (s1.koyaku / s6.koyaku).toFixed(2) : null;
-
-    let mainText;
-    if (koyakuRatio && parseFloat(koyakuRatio) > parseFloat(bigRatio) && parseFloat(koyakuRatio) > (regRatio ? parseFloat(regRatio) : 0)) {
-        mainText = `${escapeHtml(machine.koyakuName)}の設定${s1key}（1/${Number(s1.koyaku).toFixed(1)}）と設定${s6key}（1/${Number(s6.koyaku).toFixed(1)}）の差は<strong>${koyakuRatio}倍</strong>で、最も設定差が出やすい指標です。`;
-    } else if (regRatio && parseFloat(regRatio) > parseFloat(bigRatio)) {
-        mainText = `${escapeHtml(machine.regLabel)}の設定${s1key}（1/${Number(s1.reg).toFixed(1)}）と設定${s6key}（1/${Number(s6.reg).toFixed(1)}）の差は<strong>${regRatio}倍</strong>で、設定差の主要な判別指標です。`;
-    } else {
-        mainText = `${bigLabel}確率の設定${s1key}（1/${Number(s1.big).toFixed(1)}）と設定${s6key}（1/${Number(s6.big).toFixed(1)}）の差は<strong>${bigRatio}倍</strong>で、設定差の主要な判別指標です。`;
-    }
-
-    return `
-            <section class="card lp-section" id="setting-highlight">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定差のポイント</h3>
-                <p class="lp-desc">${name}の設定${s1key}〜設定${s6key}の出玉率の差は<strong>${payoutDiff}%</strong>（設定${s1key}:${s1.payout}% → 設定${s6key}:${s6.payout}%）です。${mainText}</p>
-                <ul class="lp-caution-list">
-                    <li>出玉率の差が${payoutDiff}%あるため、長期では設定差が収支に大きく影響します</li>
-                    <li>確率の偶発的な振れを抑えるため、<strong>3,000G以上</strong>のデータで判断するのが推測の基本です</li>
-                    <li>設定推測ツールに実データを入力すると、各設定の推測確率（%）が自動計算されます</li>
-                </ul>
-            </section>`;
-}
-
 function generatePage(machine) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
@@ -815,11 +480,6 @@ function generatePage(machine) {
     const evTableRows = buildEvTable(machine);
     const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling, machine.resetCeilingTarget) : "";
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
-    const editorialRaw = machine.editorial != null ? machine.editorial : EDITORIAL_BY_ID[machine.id];
-    const editorialBody = formatEditorialParagraphs(editorialRaw);
-    const hasEditorial = editorialBody.length > 0;
-    const parseNotesSection = buildParseNotesSection(machine);
-    const hasParseNotes = parseNotesSection.length > 0;
     const hasCaution = CAUTIONS_BY_ID[machine.id] && CAUTIONS_BY_ID[machine.id].length > 0;
 
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
@@ -858,9 +518,9 @@ function generatePage(machine) {
     }, null, 8);
 
     const ceilingSection = hasCeiling ? `
-            <section class="card lp-section" id="ceiling-ev">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 天井期待値一覧（ゲーム数別）</h3>
-                <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の天井期待値です。狙い目は<strong>${machine.ceilingTarget}G〜</strong>が目安です。</p>
+            <section class="card lp-section" id="lp-ceiling">
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 期待値一覧（ゲーム数別）</h3>
+                <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の一覧です。狙い目は<strong>${machine.ceilingTarget}G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">${machine.ceiling}G</span></div>
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">${machine.ceilingTarget}G〜</span></div>
@@ -881,7 +541,7 @@ ${evTableRows}
 
     const resetCeilingSection = hasCeiling && machine.resetCeiling ? `
             <section class="card lp-section" id="reset-ceiling-ev">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の天井期待値</h3>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の期待値一覧</h3>
                 <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>が目安です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">${machine.resetCeiling}G</span></div>
@@ -900,15 +560,6 @@ ${resetEvTableRows}
                 <p class="lp-note">※ 朝一リセット時の天井${machine.resetCeiling}Gを基準に算出した概算値です。</p>
             </section>` : "";
 
-    const editorialSection = hasEditorial ? `
-            <section class="card lp-section" id="editorial">
-                <h2 class="card-title"><span class="card-icon">&#128172;</span> この機種について</h2>
-                <div class="lp-editorial-body">
-${editorialBody}
-                </div>
-                <p class="lp-note">※ 本解説は一般的な打ち手の整理であり、公式の仕様説明や設定保証ではありません。ホールの実情・個体差・遊技規則に従ってご利用ください。</p>
-            </section>` : "";
-
     const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath}` : "";
     const guessElementLink = guessElementPath
         ? `
@@ -920,45 +571,35 @@ ${editorialBody}
                 </div>
             </section>` : "";
 
-    const settingHighlightHtml = buildSettingHighlightSection(machine);
-    const ceilingStrategyHtml = buildCeilingStrategySection(machine);
-
     const tocItems = [];
-    if (hasEditorial) tocItems.push(`<li><a href="#editorial">この機種について</a></li>`);
     if (hasCaution) tocItems.push(`<li><a href="#cautions">注意点（先に確認）</a></li>`);
     tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
-    if (settingHighlightHtml.trim()) tocItems.push(`<li><a href="#setting-highlight">設定差のポイント</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-    if (hasParseNotes) tocItems.push(`<li><a href="#parse-notes">解析メモ</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
-    tocItems.push(`<li><a href="#lp-ceiling">天井期待値</a></li>`);
-    if (hasCeiling) tocItems.push(`<li><a href="#ceiling-ev">天井期待値一覧（表）</a></li>`);
-    if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の天井期待値</a></li>`);
+    if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">期待値一覧（表）</a></li>`);
+    if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
     tocItems.push(`<li><a href="#tool">設定推測ツールで計算</a></li>`);
-
-    const pageJumpsNav = `
-            <nav class="card lp-section lp-page-jumps" aria-label="ページ内の移動">
-                <h2 class="card-title"><span class="card-icon">&#128205;</span> このページ内の移動</h2>
-                <div class="lp-page-jumps-links">
-                    <a class="lp-page-jump" href="#lp-setting">設定推測・設定差</a>
-                    <a class="lp-page-jump" href="#lp-ceiling">天井期待値</a>
-                    <a class="lp-page-jump" href="#tool">ツールで計算</a>
-                </div>
-            </nav>`;
 
     const cautionSection = buildCautionSection(machine);
 
     const pillarSettingIntro = `
             <div class="card lp-section lp-pillar-head">
                 <h2 class="card-title" id="lp-setting"><span class="card-icon">&#127922;</span> 設定推測・設定差</h2>
-                <p class="lp-desc">${escapeHtml(machine.name)}の設定別スペック、設定差の見方、（該当機種のみ）解析メモ・設定推測要素への導線をまとめています。</p>
+                <p class="lp-desc">${escapeHtml(machine.name)}の設定別スペックと、該当機種のみ設定推測要素への導線をまとめています。</p>
             </div>`;
 
-    const pillarCeilingIntro = `
-            <div class="card lp-section lp-pillar-head">
-                <h2 class="card-title" id="lp-ceiling"><span class="card-icon">&#127919;</span> 天井期待値</h2>
-                <p class="lp-desc">${escapeHtml(machine.name)}の天井ゲーム数・狙い目・期待値一覧（該当機種のみ）です。</p>
-            </div>`;
+    const ceilingPillarInner = hasCeiling ? `${ceilingSection}
+${resetCeilingSection}` : "";
+    const ceilingPillarHtml = ceilingPillarInner.trim()
+        ? `            <div class="lp-pillar" aria-label="期待値の表">
+${ceilingPillarInner}
+            </div>`
+        : "";
+
+    const lpCeilingAnchorNoTable = !hasCeiling
+        ? `            <div id="lp-ceiling" class="lp-scroll-anchor" aria-hidden="true"></div>
+`
+        : "";
 
     const guideHowToHref = `${paths.basePrefix}guide/how-to-use.html`;
 
@@ -1010,9 +651,7 @@ ${breadcrumbJsonLd}
                     <li>${escapeHtml(machine.name)}</li>
                 </ol>
             </nav>
-${editorialSection}
 ${cautionSection}
-${pageJumpsNav}
             <nav class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="lp-toc">
@@ -1022,7 +661,6 @@ ${pageJumpsNav}
 
             <div class="lp-pillar" aria-label="設定推測・設定差">
 ${pillarSettingIntro}
-${settingHighlightHtml}
             <section class="card lp-section" id="spec">
                 <h3 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h3>
                 <p class="lp-desc">${escapeHtml(machine.name)}（${escapeHtml(meta.typeLabel)}）の設定別スペック表です。${escapeHtml(machine.bigLabel)}確率と出玉率に注目して設定判別に活用してください。</p>
@@ -1037,20 +675,13 @@ ${spec.tbody}
                     </table>
                 </div>
             </section>
-${parseNotesSection}
 ${guessElementLink}
             </div>
 
-            <div class="lp-pillar" aria-label="天井期待値">
-${pillarCeilingIntro}
-${ceilingStrategyHtml}
-${ceilingSection}
-${resetCeilingSection}
-            </div>
-
-            <section class="card lp-section" id="tool">
+${ceilingPillarHtml}
+${lpCeilingAnchorNoTable}            <section class="card lp-section" id="tool">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
-                <p class="lp-desc">${escapeHtml(machine.name)}のデータを入力して、設定推測と天井期待値を自動計算できます。</p>
+                <p class="lp-desc">${escapeHtml(machine.name)}のデータを入力して、設定推測と期待値を自動計算できます。</p>
                 <div class="lp-cta">
                     <a href="${paths.topHref}" class="btn-primary lp-btn">設定推測ツールを開く</a>
                 </div>
@@ -1089,15 +720,6 @@ const machinesDir = path.join(__dirname, "machines");
 if (!fs.existsSync(machinesDir)) fs.mkdirSync(machinesDir, { recursive: true });
 
 const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>\n    <priority>1.0</priority>\n  </url>`];
-
-const missingEditorial = MACHINES.filter((m) => {
-    const raw = m.editorial != null ? m.editorial : EDITORIAL_BY_ID[m.id];
-    return !raw || !String(raw).trim();
-});
-if (missingEditorial.length) {
-    console.error("EDITORIAL_BY_ID（または machine.editorial）が未設定の機種:", missingEditorial.map((m) => m.id).join(", "));
-    process.exit(1);
-}
 
 MACHINES.forEach(m => {
     const dir = path.join(machinesDir, m.id);
