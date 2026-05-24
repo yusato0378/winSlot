@@ -62,6 +62,10 @@ const GUESS_ELEMENT_PAGES = {
     gundam_unicorn_kakusei_drive: "setGuessElement/gundamUnicornKakuseiDrive/index.html",
     million_god_kiseki: "setGuessElement/millionGodKiseki/index.html",
     animal_slot_dotch: "setGuessElement/animalSlotDotch/index.html",
+    biohazard_re3: "setGuessElement/biohazardRe3/index.html",
+    big_dream_golden_pusher: "setGuessElement/bigDreamGoldenPusher/index.html",
+    super_rio_ace2: "setGuessElement/superRioAce2/index.html",
+    takt_op_destiny: "setGuessElement/taktOpDestiny/index.html",
 };
 
 function escapeAttr(str) {

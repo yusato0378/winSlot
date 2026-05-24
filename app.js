@@ -1291,7 +1291,7 @@ const MACHINES = [
         },
         ceiling: 1000, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 650, resetCeilingTarget: 400,
         avgBonusReward: 350, normalCostPerGame: 2.2,
-        addedDate: "2026-05-11"
+        guessElementPath: "setGuessElement/biohazardRe3/index.html", addedDate: "2026-05-11"
     },
     {
         id: "big_dream_golden_pusher",
@@ -1310,7 +1310,7 @@ const MACHINES = [
         },
         ceiling: 1499, ceilingTarget: 900, ceilingReward: 800, resetCeiling: 999, resetCeilingTarget: 600,
         avgBonusReward: 700, normalCostPerGame: 1.6,
-        addedDate: "2026-05-11"
+        guessElementPath: "setGuessElement/bigDreamGoldenPusher/index.html", addedDate: "2026-05-11"
     },
     {
         id: "super_rio_ace2",
@@ -1329,7 +1329,7 @@ const MACHINES = [
         },
         ceiling: 750, ceilingTarget: 450, ceilingReward: 350, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 350, normalCostPerGame: 1.6,
-        addedDate: "2026-05-11"
+        guessElementPath: "setGuessElement/superRioAce2/index.html", addedDate: "2026-05-11"
     },
     {
         id: "takt_op_destiny",
@@ -1348,7 +1348,7 @@ const MACHINES = [
         },
         ceiling: 999, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 500, resetCeilingTarget: 300,
         avgBonusReward: 350, normalCostPerGame: 1.4,
-        addedDate: "2026-05-11"
+        guessElementPath: "setGuessElement/taktOpDestiny/index.html", addedDate: "2026-05-11"
     }
 ];
 
