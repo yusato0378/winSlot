@@ -66,6 +66,7 @@ const GUESS_ELEMENT_PAGES = {
     big_dream_golden_pusher: "setGuessElement/bigDreamGoldenPusher/index.html",
     super_rio_ace2: "setGuessElement/superRioAce2/index.html",
     takt_op_destiny: "setGuessElement/taktOpDestiny/index.html",
+    lb_slot_galfy: "setGuessElement/lbSlotGalfy/index.html",
 };
 
 function escapeAttr(str) {

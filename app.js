@@ -1346,9 +1346,26 @@ const MACHINES = [
             5: { big: 297.8, reg: null, koyaku: null, payout: 108.7 },
             6: { big: 297.4, reg: null, koyaku: null, payout: 113.5 }
         },
-        ceiling: 999, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 500, resetCeilingTarget: 300,
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 699, resetCeilingTarget: 420,
         avgBonusReward: 350, normalCostPerGame: 1.4,
         guessElementPath: "setGuessElement/taktOpDestiny/index.html", addedDate: "2026-05-11"
+    },
+    {
+        id: "lb_slot_galfy",
+        name: "LBスロットGALFY",
+        type: "AT",
+        bigLabel: "BIG",
+        regLabel: "REG",
+        koyakuName: null,
+        settings: {
+            1: { big: 295.2, reg: 399.6, koyaku: null, payout: 98.2 },
+            2: { big: 292.6, reg: 360.1, koyaku: null, payout: 99.9 },
+            5: { big: 284.9, reg: 312.1, koyaku: null, payout: 103.5 },
+            6: { big: 277.7, reg: 277.7, koyaku: null, payout: 106.2 }
+        },
+        ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
+        avgBonusReward: 350, normalCostPerGame: 1.5,
+        guessElementPath: "setGuessElement/lbSlotGalfy/index.html", addedDate: "2026-05-25"
     }
 ];
 

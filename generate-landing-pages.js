@@ -306,7 +306,10 @@ const MACHINES = [
       ceiling:750, ceilingTarget:450, ceilingReward:350, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:350, normalCostPerGame:1.6, addedDate: "2026-05-11" },
     { id: "takt_op_destiny", name: "Lタクトオーパス デスティニー", type: "AT", bigLabel: "AT初当たり", regLabel: null, koyakuName: null,
       settings: { 1:{big:358.5,reg:null,koyaku:null,payout:97.6}, 2:{big:350.3,reg:null,koyaku:null,payout:98.2}, 3:{big:330.5,reg:null,koyaku:null,payout:100.3}, 4:{big:299.3,reg:null,koyaku:null,payout:104.7}, 5:{big:297.8,reg:null,koyaku:null,payout:108.7}, 6:{big:297.4,reg:null,koyaku:null,payout:113.5} },
-      ceiling:999, ceilingTarget:600, ceilingReward:400, resetCeiling:500, resetCeilingTarget:300, avgBonusReward:350, normalCostPerGame:1.4, addedDate: "2026-05-11" },
+      ceiling:999, ceilingTarget:600, ceilingReward:400, resetCeiling:699, resetCeilingTarget:420, avgBonusReward:350, normalCostPerGame:1.4, addedDate: "2026-05-11" },
+    { id: "lb_slot_galfy", name: "LBスロットGALFY", type: "AT", bigLabel: "BIG", regLabel: "REG", koyakuName: null,
+      settings: { 1:{big:295.2,reg:399.6,koyaku:null,payout:98.2}, 2:{big:292.6,reg:360.1,koyaku:null,payout:99.9}, 5:{big:284.9,reg:312.1,koyaku:null,payout:103.5}, 6:{big:277.7,reg:277.7,koyaku:null,payout:106.2} },
+      ceiling:null, ceilingTarget:null, ceilingReward:null, resetCeiling:null, resetCeilingTarget:null, avgBonusReward:350, normalCostPerGame:1.5, addedDate: "2026-05-25" },
 ];
 
 const GUESS_ELEMENT_PAGES = {
@@ -365,7 +368,8 @@ const GUESS_ELEMENT_PAGES = {
     biohazard_re3: "setGuessElement/biohazardRe3/index.html",
     big_dream_golden_pusher: "setGuessElement/bigDreamGoldenPusher/index.html",
     super_rio_ace2: "setGuessElement/superRioAce2/index.html",
-    takt_op_destiny: "setGuessElement/taktOpDestiny/index.html"
+    takt_op_destiny: "setGuessElement/taktOpDestiny/index.html",
+    lb_slot_galfy: "setGuessElement/lbSlotGalfy/index.html"
 };
 
 function calculateCeilingEV(machine, currentGames, overrideCeiling) {

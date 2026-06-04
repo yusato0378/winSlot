@@ -387,6 +387,11 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `gundam_unicorn_kakusei_drive` | Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE |
 | `million_god_kiseki` | スマスロ ミリオンゴッド-神々の軌跡- |
 | `animal_slot_dotch` | アニマルスロット ドッチ |
+| `biohazard_re3` | スマスロ バイオハザードRE:3 |
+| `big_dream_golden_pusher` | スマスロ ビッグドリーム THE GOLDEN PUSHER |
+| `super_rio_ace2` | スマスロスーパーリオエース2 |
+| `takt_op_destiny` | Lタクトオーパス デスティニー |
+| `lb_slot_galfy` | LBスロットGALFY |
 
 ### Aタイプ
 

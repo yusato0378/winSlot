@@ -34,6 +34,8 @@
                 <ul class="ge-toc">
                     <li><a href="#figure">フィギュアコレクション</a></li>
                     <li><a href="#trophy">エンタトロフィー</a></li>
+                    <li><a href="#medal">獲得枚数表示</a></li>
+                    <li><a href="#cz-rate">CZ突入率</a></li>
                     <li><a href="#cz-voice">CZ失敗時ボイス</a></li>
                     <li><a href="#at-hit">AT初当たり確率</a></li>
                     <li><a href="#spec">基本スペック</a></li>
@@ -92,6 +94,41 @@
                 </div>
             </section>
 
+            <section class="card ge-section" id="medal">
+                <h2 class="card-title"><span class="card-icon">&#128176;</span> 獲得枚数表示（AT中）</h2>
+                <p class="ge-desc">AT「ハザードラッシュ」中のボーナス獲得枚数表示。1回確認できれば対象外設定を絞り込める濃厚示唆です。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table">
+                        <thead>
+                            <tr><th>表示</th><th>示唆内容</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>222枚 OVER</td><td><span class="ge-badge-inline ge-badge-confirm2">設定2以上濃厚</span></td></tr>
+                            <tr><td>333枚 OVER</td><td><span class="ge-badge-inline ge-badge-confirm4">設定3以上濃厚</span></td></tr>
+                            <tr><td>444枚 OVER</td><td><span class="ge-badge-inline ge-badge-confirm4">設定4以上濃厚</span></td></tr>
+                            <tr><td>555枚 OVER</td><td><span class="ge-badge-inline ge-badge-high-strong">設定5以上濃厚</span></td></tr>
+                            <tr><td>666枚 OVER</td><td><span class="ge-badge-inline ge-badge-confirm6">設定6濃厚</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card ge-section" id="cz-rate">
+                <h2 class="card-title"><span class="card-icon">&#9889;</span> CZ「ネメシスバトル」突入率</h2>
+                <p class="ge-desc">通常時の主要判別要素のひとつ。設定1は公表値1/143.3。設定2〜6の個別値は未公表のため、回転数と併用してください。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>CZ突入率</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>1/143.3</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>公表値なし（高設定優遇）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <section class="card ge-section" id="cz-voice">
                 <h2 class="card-title"><span class="card-icon">&#128266;</span> CZ失敗時ボイス</h2>
                 <p class="ge-desc">CZ「ネメシスバトル」失敗時にPUSHで再生されるボイス。メニュー画面のスルー回数表示の文字色でも、前回失敗時のボイス内容を示唆します。</p>
@@ -137,11 +174,15 @@
                         </thead>
                         <tbody>
                             <tr><td class="ge-setting s1">設定1</td><td>1/399.0</td><td>97.5%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/391.4</td><td>98.6%</td></tr>
+                            <tr><td class="ge-setting s3">設定3</td><td>1/372.8</td><td>100.9%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/349.8</td><td>105.4%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/323.5</td><td>110.5%</td></tr>
                             <tr><td class="ge-setting s6">設定6</td><td>1/311.2</td><td>113.1%</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="ge-note">※ 天井は通常1000G・朝一リセット650G（代表値）。NE-ポイント・ボーナス直撃など別軸の設定差もあります。</p>
+                <p class="ge-note">※ 本天井1000G+α（設定変更時650G+α）・CZ6スルー後7回目成功濃厚のW天井。朝一リセットは150G〜から狙える場合あり。NE-ポイント加算は設定変更時のみ。</p>
             </section>
 
             <nav class="card ge-section ge-lp-nav" aria-label="機種別スペック・天井">

@@ -36,6 +36,8 @@
                     <li><a href="#trophy">ケロットトロフィー</a></li>
                     <li><a href="#medal">獲得枚数表示</a></li>
                     <li><a href="#ending">エンディング中PUSH</a></li>
+                    <li><a href="#ceiling">天井・スルー</a></li>
+                    <li><a href="#noir">ノワールルーム</a></li>
                     <li><a href="#at-hit">AT初当たり確率</a></li>
                     <li><a href="#spec">基本スペック</a></li>
                 </ul>
@@ -117,6 +119,38 @@
                 </div>
             </section>
 
+            <section class="card ge-section" id="ceiling">
+                <h2 class="card-title"><span class="card-icon">&#128200;</span> 天井・ボーナススルー</h2>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table">
+                        <thead>
+                            <tr><th>種類</th><th>内容</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>ボーナス間天井</td><td>750G+αで恩恵（AT非当選ボーナス7連後、8回目はAT化）</td></tr>
+                            <tr><td>設定変更時</td><td>4スルー後の5回目ボーナスでAT確定に短縮</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ 設定変更時は天井・内部状態がリセット。電源OFF→ON時は天井を引き継ぎます。</p>
+            </section>
+
+            <section class="card ge-section" id="noir">
+                <h2 class="card-title"><span class="card-icon">&#127922;</span> ノワールルーム突入率</h2>
+                <p class="ge-desc">BB高確率ゾーン。設定1と設定6で約1.13倍差（公表値）。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>突入率</th><th class="ge-col-diff">設定1との差</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>1/131.9</td><td class="ge-diff-base">―</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>1/116.2</td><td class="ge-diff-up2">×1.13</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <section class="card ge-section" id="at-hit">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> AT初当たり確率</h2>
                 <p class="ge-desc">初当たり（ボーナス＋AT）に大きな設定差があります。設定1と設定6でボーナス直撃率に約12倍の差があるとの解析もあります。</p>
@@ -142,11 +176,15 @@
                         </thead>
                         <tbody>
                             <tr><td class="ge-setting s1">設定1</td><td>1/289.8</td><td>97.7%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/281.9</td><td>98.7%</td></tr>
+                            <tr><td class="ge-setting s3">設定3</td><td>1/268.0</td><td>100.5%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/238.9</td><td>105.1%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/230.0</td><td>109.1%</td></tr>
                             <tr><td class="ge-setting s6">設定6</td><td>1/219.2</td><td>112.1%</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="ge-note">※ 天井750G・ボーナススルー天井（リセット時4スルー後5回目BBでAT確定など）あり。AT終了後は基本即やめ。</p>
+                <p class="ge-note">※ 純増はリオラッシュ約2.5枚/G・リオラッシュエクストラ約4.5枚/G。ボーナス直撃率は設定1↔6で約12倍差との解析あり。AT終了後は基本即やめ。</p>
             </section>
 
             <nav class="card ge-section ge-lp-nav" aria-label="機種別スペック・天井">

@@ -35,6 +35,7 @@
                     <li><a href="#medal">獲得枚数表示</a></li>
                     <li><a href="#end-screen">引き戻しゾーン終了画面</a></li>
                     <li><a href="#ending-voice">エンディング中ボイス</a></li>
+                    <li><a href="#ceiling">天井の振り分け</a></li>
                     <li><a href="#cz">CZ（ジャッジメント）</a></li>
                     <li><a href="#at">AT初当たり</a></li>
                     <li><a href="#spec">基本スペック</a></li>
@@ -105,6 +106,24 @@
                 </div>
             </section>
 
+            <section class="card ge-section" id="ceiling">
+                <h2 class="card-title"><span class="card-icon">&#128200;</span> 天井の振り分け</h2>
+                <p class="ge-desc">通常時の最大天井は1499G+α。設定変更後・上位AT終了後は最大999G+αに短縮。通常AT終了後は333／555／999／1499Gから振り分け（高設定ほど浅いGが選ばれやすい）。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>状況</th><th>天井G数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>通常時（初回）</td><td>最大1499G+α</td></tr>
+                            <tr><td>設定変更後・上位AT後</td><td>333／555／999G（最大999G+α）</td></tr>
+                            <tr><td>通常AT終了後</td><td>333／555／999／1499G（1499G以外は高設定示唆）</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ 本ツールの天井期待値は代表値1499G（リセット999G）基準。実際の振り分け天井では残りGが異なります。</p>
+            </section>
+
             <section class="card ge-section" id="cz">
                 <h2 class="card-title"><span class="card-icon">&#9889;</span> CZ（ジャッジメント）</h2>
                 <p class="ge-desc">ツール入力時は本列を「CZ」回数として集計してください。</p>
@@ -145,11 +164,15 @@
                         </thead>
                         <tbody>
                             <tr><td class="ge-setting s1">設定1</td><td>1/337.7</td><td>1/629.3</td><td>97.4%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/333.3</td><td>1/615.3</td><td>98.8%</td></tr>
+                            <tr><td class="ge-setting s3">設定3</td><td>1/326.6</td><td>1/599.1</td><td>100.1%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/316.4</td><td>1/562.6</td><td>104.4%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/311.4</td><td>1/551.1</td><td>106.5%</td></tr>
                             <tr><td class="ge-setting s6">設定6</td><td>1/303.4</td><td>1/536.2</td><td>111.3%</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="ge-note">※ 天井は通常1499G・リセット999G（代表値）。AT終了後は引き戻しゾーン77Gのため、即やめは要注意。</p>
+                <p class="ge-note">※ AT純増約8.2枚/G。AT終了後は引き戻しゾーン77Gのため即やめ注意。アイキャッチ（キリン柄・赤など）で浅い天井示唆あり。</p>
             </section>
 
             <nav class="card ge-section ge-lp-nav" aria-label="機種別スペック・天井">
