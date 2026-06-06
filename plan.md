@@ -137,3 +137,145 @@
 ---
 
 方針Aで実装する際は、コミットまたはIssueの冒頭に **「機種LP: 単一URL集約（方針A）」** と明記してから差分を作ると安全。
+
+---
+
+# SEO改善プラン（UIシンプル維持）
+
+## 現状整理
+
+| 区分 | 状態 |
+|------|------|
+| `index.html` | OG/Twitter Card・JSON-LD（WebSite+WebApplication）・canonical・GSC確認・sitemap登録 ✅ |
+| `machines/*/index.html` | canonical・meta description・OG・og:image・Twitter Card・FAQPage+BreadcrumbList JSON-LD・sitemap登録（lastmod+changefreq付き） ✅ |
+| `guide/*.html` | Article JSON-LD（image付き）・BreadcrumbList JSON-LD・meta description・canonical（.html付き）・sitemap登録（manifest.json日付） ✅ |
+| `guide/index.html` | canonical `guide/` ✅ / ItemList JSON-LD ✅ |
+| `setGuessElement/*/index.html` | canonical・OGタグ・Twitter Card・BreadcrumbList JSON-LD・title統一 ✅ |
+| `robots.txt` | `/articles/`（旧パス）を Disallow ✅ |
+| `sitemap.xml` | guide: manifest.json日付・changefreq:monthly・priority:0.7 ✅ / machines: changefreq:monthly ✅ |
+
+---
+
+## フェーズ1 — クイックウィン（メタ情報の穴埋め）
+
+### 1-1. `og:image` を machine ページ全体に追加
+
+- [x] `generate-landing-pages.js` の `<head>` テンプレートに `og:image`・`og:image:width`・`og:image:height`・`og:image:alt` を追加（`index.html` と同じデフォルト画像 `og-default.png` を使用）
+- [x] 合わせて `twitter:card`・`twitter:title`・`twitter:description`・`twitter:image` も追加
+
+### 1-2. `setGuessElement` ページのメタ情報を整備
+
+- [x] **`patch-setguess-seo.js`** を拡張し、各ページに以下を追加（または `setGuessElement` 生成スクリプトがあれば同様に）：
+  - `og:title`・`og:description`・`og:type`（`article`）・`og:url`・`og:locale`・`og:image`（デフォルト画像）
+  - `twitter:card`・`twitter:title`・`twitter:description`・`twitter:image`
+- [x] **title タグ** を `{機種名} 設定推測要素 | Setting Analyzer Pro` に統一（現状 `- パチスロ設定推測ツール` が混在）
+
+### 1-3. `setGuessElement` ページに BreadcrumbList JSON-LD を追加
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://www.pachislot-setting.com/" },
+    { "@type": "ListItem", "position": 2, "name": "機種名", "item": "https://www.pachislot-setting.com/machines/{id}/" },
+    { "@type": "ListItem", "position": 3, "name": "設定推測要素", "item": "https://www.pachislot-setting.com/setGuessElement/{camelId}/" }
+  ]
+}
+```
+
+- [x] `patch-setguess-seo.js` に上記テンプレートを追加（機種IDとURL補完が必要）
+
+### 1-4. `guide/index.html` の canonical 修正
+
+- [x] canonical を `https://www.pachislot-setting.com/guide/index.html` → `https://www.pachislot-setting.com/guide/` に変更
+- [x] sitemap.xml の `guide/index.html` エントリも `guide/` に変更（generate-landing-pages.js を修正）
+
+---
+
+## フェーズ2 — 構造化データの拡充
+
+### 2-1. ガイド記事に BreadcrumbList JSON-LD を追加
+
+- [x] `build-articles.js` の `<head>` 生成部分に BreadcrumbList を追加：
+  ```
+  トップ → 解説・使い方（guide/） → 記事タイトル
+  ```
+- [x] Article JSON-LD の `image` フィールドにデフォルトOG画像URLを追加（E-E-A-T補強）
+
+### 2-2. `guide/index.html` に CollectionPage / ItemList JSON-LD を追加
+
+- [x] `build-articles.js` がガイド一覧を生成するタイミングで `ItemList` 構造化データを出力：
+  ```json
+  {
+    "@type": "ItemList",
+    "name": "解説・使い方",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "url": "https://...guide/setting-basics.html", "name": "記事タイトル" },
+      ...
+    ]
+  }
+  ```
+
+### 2-3. `index.html` の WebSite JSON-LD に `potentialAction` 追加（任意）
+
+- [ ] 検索エンジンのサイトリンク検索ボックス対応として追加を検討（優先度低）
+
+---
+
+## フェーズ3 — sitemap.xml の品質改善
+
+- [x] **`generate-landing-pages.js`**：guide ページの sitemap エントリを manifest.json の `published`/`updated` 日付に変更し、`priority: 0.7`・`changefreq: monthly` を追加
+- [x] **`generate-landing-pages.js`**：machines ページの `changefreq: monthly` を追加
+- [x] **`generate-landing-pages.js`**：`guide/index.html` エントリを `guide/` に変更
+- [ ] **`index.html`**：sitemap の `<url>` に `lastmod`（最終コミット日または手動更新日）を追加
+
+---
+
+## フェーズ4 — 内部リンクとナビゲーション補強
+
+### 4-1. about.html へのリンクをフッターに追加
+
+- [x] 全ページ共通のフッター（`app-footer`）に「アプリについて」リンクが既に存在（templates/article-layout.html・machines・setGuessElement全ページ）
+- [ ] `about.html` ページ自体にも self-referential な canonical と BreadcrumbList を確認
+
+### 4-2. ガイド記事間の関連リンク
+
+- [ ] `articles/manifest.json` に `related` フィールド（記事スラッグ配列）を追加できる設計にし、`build-articles.js` で記事末尾に「関連記事」セクションを出力（UI影響最小：小さなリンクリストのみ）
+
+### 4-3. machine ページ → setGuessElement への導線確認
+
+- [ ] 既存の CTA リンクが正しい URL（`setGuessElement/{camelId}/`）を向いているか `patch-setguess-seo.js` 実行後に確認
+
+---
+
+## フェーズ5 — パフォーマンス（Core Web Vitals）
+
+- [ ] **Google Fonts の `font-display: swap` 確認**：`style.css` の `@font-face` または `<link>` 呼び出しに `&display=swap` が付いているか確認（現状付いている: ✅）
+- [ ] **画像最適化**：`og-default.png` が 1200×630 で適切に圧縮されているか確認
+- [ ] **`<link rel="preload">` の検討**：メインの CSS（`style.css`）を `preload` するかどうかを検討（効果はサイト規模に依存）
+
+---
+
+## 優先度サマリ
+
+| フェーズ | 優先度 | 効果 | 工数 |
+|----------|--------|------|------|
+| 1-1 og:image on machines | 高 | OGP シェア時の見栄え・CTR | 小（ビルドスクリプト1箇所） |
+| 1-2 setGuessElement OGタグ・title統一 | 高 | クロール品質・シェア | 小〜中 |
+| 1-3 setGuessElement BreadcrumbList | 高 | リッチリザルト・サイト構造理解 | 小 |
+| 1-4 guide/index.html canonical修正 | 高 | 重複コンテンツ回避 | 極小 |
+| 2-1 guide BreadcrumbList | 中 | リッチリザルト | 小 |
+| 2-2 guide/index ItemList | 中 | 構造理解 | 小 |
+| 3 sitemap 品質改善 | 中 | クロール効率・鮮度シグナル | 小 |
+| 4-1 about リンク | 中 | E-E-A-T | 極小 |
+| 4-2 関連記事リンク | 低 | 内部リンク強化 | 中 |
+| 5 Core Web Vitals | 低〜中 | ランキングシグナル | 確認のみなら小 |
+
+---
+
+## 実装時の注意点
+
+- **UIへの影響ゼロ原則**：`<head>` 内の変更（メタタグ・JSON-LD）のみで完結させる。本文レイアウトは変えない。
+- **生成スクリプト経由**：手書きHTMLを直接編集するのではなく、`generate-landing-pages.js`・`build-articles.js`・`patch-setguess-seo.js` を修正してビルドで全ページに反映する。
+- **GSC でのモニタリング**：各フェーズ後に Google Search Console の「URL検査」「拡張機能（パンくず・FAQPage）」でリッチリザルトを確認し、インデックス登録をリクエスト。

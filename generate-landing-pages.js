@@ -625,6 +625,14 @@ ${ceilingPillarInner}
     <meta property="og:type" content="article">
     <meta property="og:url" content="${paths.url}">
     <meta property="og:locale" content="ja_JP">
+    <meta property="og:image" content="${SITE_URL}/og-default.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="パチスロ設定推測・天井期待値ツール Setting Analyzer Pro">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
+    <meta name="twitter:description" content="${escapeHtml(descKeywords)}">
+    <meta name="twitter:image" content="${SITE_URL}/og-default.png">
     <link rel="canonical" href="${paths.url}">
     <title>${escapeHtml(pageTitle)}</title>
     <link rel="stylesheet" href="${paths.styleHref}">
@@ -737,7 +745,7 @@ MACHINES.forEach(m => {
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
     console.log(`Created: machines/${m.id}/index.html`);
 
-    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <priority>0.8</priority>\n  </url>`);
+    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`);
 });
 
 // setGuessElement/index.html（一覧ページ）生成
@@ -811,15 +819,24 @@ Object.values(GUESS_ELEMENT_PAGES).forEach(p => {
     sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
 });
 
-// guide/ 解説記事
+// guide/ 解説記事（manifest.json の published/updated を lastmod に使用）
+const guideManifestPath = path.join(__dirname, "articles", "manifest.json");
+const guideManifestData = fs.existsSync(guideManifestPath)
+    ? JSON.parse(fs.readFileSync(guideManifestPath, "utf8"))
+    : [];
+const guideManifestBySlug = Object.fromEntries(guideManifestData.map(a => [a.slug, a]));
+
 const guideDir = path.join(__dirname, "guide");
 if (fs.existsSync(guideDir)) {
-    const today = new Date().toISOString().slice(0, 10);
     fs.readdirSync(guideDir)
         .filter((f) => f.endsWith(".html"))
         .sort()
         .forEach((f) => {
-            sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/guide/${f}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.7</priority>\n  </url>`);
+            const slug = f.replace(/\.html$/, "");
+            const article = guideManifestBySlug[slug];
+            const lastmod = article ? (article.updated || article.published || today) : today;
+            const loc = f === "index.html" ? `${SITE_URL}/guide/` : `${SITE_URL}/guide/${f}`;
+            sitemapUrls.push(`  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`);
         });
 }
 

@@ -101,9 +101,45 @@ function buildDescription(machineName) {
 
 const SITE_URL = "https://www.pachislot-setting.com";
 
+function buildOgTags(machineName, desc, canonicalUrl) {
+    const title = `${escapeAttr(machineName)} 設定推測要素 | Setting Analyzer Pro`;
+    const ogImg = `${SITE_URL}/og-default.png`;
+    return [
+        `    <meta property="og:title" content="${title}">`,
+        `    <meta property="og:description" content="${escapeAttr(desc)}">`,
+        `    <meta property="og:type" content="article">`,
+        `    <meta property="og:url" content="${escapeAttr(canonicalUrl)}">`,
+        `    <meta property="og:locale" content="ja_JP">`,
+        `    <meta property="og:image" content="${ogImg}">`,
+        `    <meta property="og:image:width" content="1200">`,
+        `    <meta property="og:image:height" content="630">`,
+        `    <meta property="og:image:alt" content="パチスロ設定推測・天井期待値ツール Setting Analyzer Pro">`,
+        `    <meta name="twitter:card" content="summary_large_image">`,
+        `    <meta name="twitter:title" content="${title}">`,
+        `    <meta name="twitter:description" content="${escapeAttr(desc)}">`,
+        `    <meta name="twitter:image" content="${ogImg}">`,
+    ].join("\n");
+}
+
+function buildBreadcrumbJsonLd(machineId, machineName, dirName) {
+    const machineUrl = `${SITE_URL}/machines/${machineId}/`;
+    const guessUrl = `${SITE_URL}/setGuessElement/${dirName}/`;
+    const data = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "トップ", item: `${SITE_URL}/` },
+            { "@type": "ListItem", position: 2, name: machineName, item: machineUrl },
+            { "@type": "ListItem", position: 3, name: `${machineName} 設定推測要素`, item: guessUrl },
+        ],
+    };
+    return `    <script type="application/ld+json">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>`;
+}
+
 function patchHtml(html, machineId, machineName, dirName) {
     const desc = buildDescription(machineName);
     const canonicalUrl = `${SITE_URL}/setGuessElement/${dirName}/`;
+    const newTitle = `${escapeHtml(machineName)} 設定推測要素 | Setting Analyzer Pro`;
 
     let out = html;
 
@@ -126,6 +162,30 @@ function patchHtml(html, machineId, machineName, dirName) {
         out = out.replace(
             /(<meta\s+name="description"[^>]*>)\s*\n/i,
             `$1\n${canonicalLine}\n`
+        );
+    }
+
+    // title を統一フォーマットに更新
+    out = out.replace(
+        /<title>[^<]*<\/title>/i,
+        `<title>${newTitle}</title>`
+    );
+
+    // OG タグ追加（未挿入のみ）
+    if (!/<meta\s+property="og:title"/i.test(out)) {
+        const ogBlock = buildOgTags(machineName, desc, canonicalUrl);
+        out = out.replace(
+            /(<link\s+rel="canonical"[^>]*>)\s*\n/i,
+            `$1\n${ogBlock}\n`
+        );
+    }
+
+    // BreadcrumbList JSON-LD 追加（未挿入のみ）
+    if (!/BreadcrumbList/.test(out)) {
+        const breadcrumb = buildBreadcrumbJsonLd(machineId, machineName, dirName);
+        out = out.replace(
+            /(<\/head>)/i,
+            `${breadcrumb}\n$1`
         );
     }
 

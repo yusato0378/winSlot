@@ -68,6 +68,7 @@ function buildArticleJsonLd(article) {
     headline: article.title,
     description: article.description || "",
     url,
+    image: `${SITE_URL}/og-default.png`,
     author: { "@type": "Person", name: author },
     publisher: {
       "@type": "Organization",
@@ -79,6 +80,22 @@ function buildArticleJsonLd(article) {
     data.datePublished = article.published;
     data.dateModified = article.updated || article.published;
   }
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
+  return `    <script type="application/ld+json">${json}</script>`;
+}
+
+/** BreadcrumbList JSON-LD for article pages */
+function buildBreadcrumbJsonLd(article) {
+  const url = `${SITE_URL}/guide/${encodeURIComponent(article.slug)}.html`;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "トップ", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "解説・使い方", item: `${SITE_URL}/guide/` },
+      { "@type": "ListItem", position: 3, name: article.title, item: url },
+    ],
+  };
   const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return `    <script type="application/ld+json">${json}</script>`;
 }
@@ -210,7 +227,7 @@ function build() {
     content = injectRelatedMachineLinksIntoArticle(content, slug);
     const articleFooter = buildArticleFooter(article);
     const canonicalUrl = `${SITE_URL}/guide/${encodeURIComponent(slug)}.html`;
-    const headExtra = buildCanonicalTag(canonicalUrl) + "\n" + buildArticleJsonLd(article);
+    const headExtra = buildCanonicalTag(canonicalUrl) + "\n" + buildArticleJsonLd(article) + "\n" + buildBreadcrumbJsonLd(article);
     let html = layout
       .replace(/\{\{TITLE\}\}/g, title)
       .replace(/\{\{DESCRIPTION\}\}/g, description)
@@ -258,7 +275,23 @@ ${indexListItems}
     </div>
 </section>`;
 
-  const indexHeadExtra = buildCanonicalTag(`${SITE_URL}/guide/index.html`);
+  const indexItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "解説・使い方",
+    url: `${SITE_URL}/guide/`,
+    itemListElement: indexArticles.map((a, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/guide/${encodeURIComponent(a.slug)}.html`,
+      name: a.title,
+    })),
+  };
+  const indexItemListJson = JSON.stringify(indexItemList).replace(/</g, "\\u003c");
+  const indexHeadExtra =
+    buildCanonicalTag(`${SITE_URL}/guide/`) +
+    "\n" +
+    `    <script type="application/ld+json">${indexItemListJson}</script>`;
   const indexHtml = layout
     .replace(/\{\{TITLE\}\}/g, "解説・使い方")
     .replace(/\{\{DESCRIPTION\}\}/g, "設定推測や天井期待値の基礎を解説した記事一覧。ツールの使い方や用語の説明。")
