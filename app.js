@@ -1366,6 +1366,64 @@ const MACHINES = [
         ceiling: null, ceilingTarget: null, ceilingReward: null, resetCeiling: null, resetCeilingTarget: null,
         avgBonusReward: 350, normalCostPerGame: 1.5,
         guessElementPath: "setGuessElement/lbSlotGalfy/index.html", addedDate: "2026-05-25"
+    },
+    // ==================== 2026/06/08 新台 ====================
+    {
+        id: "birdie_wing",
+        name: "スマスロ BIRDIE WING -Golf Girls' Story-",
+        type: "AT",
+        bigLabel: "初当たり",
+        regLabel: "ST",
+        koyakuName: null,
+        settings: {
+            1: { big: 266.7, reg: 421.2, koyaku: null, payout: 97.5 },
+            2: { big: 264.1, reg: 410.5, koyaku: null, payout: 98.6 },
+            3: { big: 257.3, reg: 381.9, koyaku: null, payout: 102.1 },
+            4: { big: 256.0, reg: 378.0, koyaku: null, payout: 106.0 },
+            5: { big: 255.9, reg: 377.6, koyaku: null, payout: 110.0 },
+            6: { big: 255.9, reg: 377.3, koyaku: null, payout: 112.4 }
+        },
+        ceiling: 1200, ceilingTarget: 700, ceilingReward: 600, resetCeiling: 840, resetCeilingTarget: 500,
+        avgBonusReward: 500, normalCostPerGame: 1.6,
+        guessElementPath: "setGuessElement/birdieWing/index.html", addedDate: "2026-06-08"
+    },
+    {
+        id: "sengoku_otome5",
+        name: "L 戦国乙女5 業火を穿つ宿焔の双刃",
+        type: "AT",
+        bigLabel: "AT初当たり",
+        regLabel: null,
+        koyakuName: null,
+        settings: {
+            1: { big: 359.5, reg: null, koyaku: null, payout: 97.9 },
+            2: { big: 350.8, reg: null, koyaku: null, payout: 98.9 },
+            3: { big: 332.5, reg: null, koyaku: null, payout: 101.0 },
+            4: { big: 302.8, reg: null, koyaku: null, payout: 106.2 },
+            5: { big: 281.0, reg: null, koyaku: null, payout: 111.1 },
+            6: { big: 262.9, reg: null, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 999, ceilingTarget: 600, ceilingReward: 400, resetCeiling: 650, resetCeilingTarget: 400,
+        avgBonusReward: 400, normalCostPerGame: 1.5,
+        guessElementPath: "setGuessElement/sengokuOtome5/index.html", addedDate: "2026-06-08"
+    },
+    {
+        id: "sao2",
+        name: "スロット ソードアート・オンラインⅡ",
+        type: "AT",
+        bigLabel: "CZ初当たり",
+        regLabel: "AT初当たり",
+        koyakuName: null,
+        settings: {
+            1: { big: 238.4, reg: 386.2, koyaku: null, payout: 97.6 },
+            2: { big: 232.3, reg: 364.3, koyaku: null, payout: 98.8 },
+            3: { big: 232.7, reg: 368.1, koyaku: null, payout: 100.2 },
+            4: { big: 218.9, reg: 326.8, koyaku: null, payout: 105.3 },
+            5: { big: 225.2, reg: 340.6, koyaku: null, payout: 110.4 },
+            6: { big: 191.7, reg: 269.6, koyaku: null, payout: 114.9 }
+        },
+        ceiling: 499, ceilingTarget: 300, ceilingReward: 400, resetCeiling: 256, resetCeilingTarget: 150,
+        avgBonusReward: 400, normalCostPerGame: 1.6,
+        guessElementPath: "setGuessElement/sao2/index.html", addedDate: "2026-06-08"
     }
 ];
 
