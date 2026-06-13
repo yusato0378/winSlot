@@ -1,0 +1,53 @@
+{
+  "id": "okidoki_duo",
+  "name": "スマスロ 沖ドキ！DUO アンコール",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 240,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.2
+    },
+    "2": {
+      "big": 230.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 215.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 102.4
+    },
+    "5": {
+      "big": 192.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106.8
+    },
+    "6": {
+      "big": 181,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110
+    }
+  },
+  "ceiling": 800,
+  "ceilingTarget": 550,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/okidokiDuo/index.html",
+  "cautions": [
+    "短期の上下振れが大きい機種です。推測％はサンプルが溜まってから信頼度が上がります。",
+    "天井期待値は設定1基準の概算です。ホール状況（設定配分）とは別物として扱ってください。"
+  ]
+}

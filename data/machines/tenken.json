@@ -1,0 +1,56 @@
+{
+  "id": "tenken",
+  "name": "転生したら剣でした",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 403.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 396,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 373.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 340.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.7
+    },
+    "5": {
+      "big": 325.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 109.1
+    },
+    "6": {
+      "big": 312.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.1
+    }
+  },
+  "ceiling": 970,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/tenken/index.html",
+  "cautions": null
+}

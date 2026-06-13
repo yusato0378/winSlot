@@ -1,0 +1,56 @@
+{
+  "id": "biohazard5",
+  "name": "スマスロ バイオハザード5",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 325.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 314.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 298.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "4": {
+      "big": 271.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 104.6
+    },
+    "5": {
+      "big": 249.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 108.9
+    },
+    "6": {
+      "big": 236.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 666,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/biohazard5/index.html",
+  "cautions": null
+}

@@ -1,0 +1,56 @@
+{
+  "id": "biohazard_re3",
+  "name": "スマスロ バイオハザードRE:3",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 399,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 391.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 372.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.9
+    },
+    "4": {
+      "big": 349.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.4
+    },
+    "5": {
+      "big": 323.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.5
+    },
+    "6": {
+      "big": 311.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113.1
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 600,
+  "ceilingReward": 400,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-05-11",
+  "guessElementPath": "setGuessElement/biohazardRe3/index.html",
+  "cautions": null
+}

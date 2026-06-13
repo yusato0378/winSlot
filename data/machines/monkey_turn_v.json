@@ -1,0 +1,50 @@
+{
+  "id": "monkey_turn_v",
+  "name": "モンキーターンV",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 299.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 295.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "4": {
+      "big": 258.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 235.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.2
+    },
+    "6": {
+      "big": 222.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 795,
+  "ceilingTarget": 500,
+  "ceilingReward": 600,
+  "resetCeiling": 495,
+  "resetCeilingTarget": 300,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.4,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/monkeyTurnV/index.html",
+  "cautions": null
+}

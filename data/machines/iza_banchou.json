@@ -1,0 +1,56 @@
+{
+  "id": "iza_banchou",
+  "name": "いざ！番長",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 386.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 368.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 375.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 101.3
+    },
+    "4": {
+      "big": 332.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106
+    },
+    "5": {
+      "big": 351.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.1
+    },
+    "6": {
+      "big": 312.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/izaBanchou/index.html",
+  "cautions": null
+}

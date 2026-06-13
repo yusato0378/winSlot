@@ -1,0 +1,50 @@
+{
+  "id": "revuestarlight",
+  "name": "L少女☆歌劇 レヴュースタァライト -The SLOT-",
+  "type": "AT",
+  "bigLabel": "ボーナス合算",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 184.8,
+      "reg": 359.6,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 182.2,
+      "reg": 346.8,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "4": {
+      "big": 169.9,
+      "reg": 277.1,
+      "koyaku": null,
+      "payout": 104.6
+    },
+    "5": {
+      "big": 165.4,
+      "reg": 255.7,
+      "koyaku": null,
+      "payout": 106.9
+    },
+    "6": {
+      "big": 160.6,
+      "reg": 232.5,
+      "koyaku": null,
+      "payout": 110
+    }
+  },
+  "ceiling": 900,
+  "ceilingTarget": 550,
+  "ceilingReward": 600,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/revuestarlight/index.html",
+  "cautions": null
+}

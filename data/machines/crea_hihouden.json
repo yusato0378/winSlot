@@ -1,0 +1,56 @@
+{
+  "id": "crea_hihouden",
+  "name": "クレアの秘宝伝 BT",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 299.3,
+      "reg": 383.3,
+      "koyaku": null,
+      "payout": 98.1
+    },
+    "2": {
+      "big": 293.9,
+      "reg": 376.6,
+      "koyaku": null,
+      "payout": 99.2
+    },
+    "3": {
+      "big": 284.9,
+      "reg": 358.1,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 274.2,
+      "reg": 334.4,
+      "koyaku": null,
+      "payout": 103.7
+    },
+    "5": {
+      "big": 262.1,
+      "reg": 299.3,
+      "koyaku": null,
+      "payout": 106.6
+    },
+    "6": {
+      "big": 240.1,
+      "reg": 247.3,
+      "koyaku": null,
+      "payout": 112.3
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.7,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/creaHihouden/index.html",
+  "cautions": null
+}

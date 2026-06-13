@@ -1,0 +1,56 @@
+{
+  "id": "mushoku",
+  "name": "L 無職転生 ～異世界行ったら本気だす～",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 416,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 406,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 394,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.9
+    },
+    "4": {
+      "big": 361,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.4
+    },
+    "5": {
+      "big": 327,
+      "reg": null,
+      "koyaku": null,
+      "payout": 109.5
+    },
+    "6": {
+      "big": 292,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113.7
+    }
+  },
+  "ceiling": 1007,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 689,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/mushoku/index.html",
+  "cautions": null
+}

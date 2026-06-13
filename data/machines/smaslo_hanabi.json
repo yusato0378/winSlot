@@ -1,0 +1,56 @@
+{
+  "id": "smaslo_hanabi",
+  "name": "スマスロ ハナビ",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 297.9,
+      "reg": 394.8,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "2": {
+      "big": 292.6,
+      "reg": 358.1,
+      "koyaku": null,
+      "payout": 100.4
+    },
+    "3": {
+      "big": 290,
+      "reg": 343.3,
+      "koyaku": null,
+      "payout": 101.3
+    },
+    "4": {
+      "big": 287.4,
+      "reg": 328.5,
+      "koyaku": null,
+      "payout": 102.1
+    },
+    "5": {
+      "big": 284.9,
+      "reg": 313.6,
+      "koyaku": null,
+      "payout": 103
+    },
+    "6": {
+      "big": 273.1,
+      "reg": 282.5,
+      "koyaku": null,
+      "payout": 106.4
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": null
+}

@@ -1,0 +1,59 @@
+{
+  "id": "funky_juggler_2",
+  "name": "ファンキージャグラー2",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": "ブドウ",
+  "settings": {
+    "1": {
+      "big": 266.4,
+      "reg": 439.8,
+      "koyaku": 5.94,
+      "payout": 97
+    },
+    "2": {
+      "big": 259,
+      "reg": 407.1,
+      "koyaku": 5.92,
+      "payout": 98.5
+    },
+    "3": {
+      "big": 256,
+      "reg": 366.1,
+      "koyaku": 5.88,
+      "payout": 99.8
+    },
+    "4": {
+      "big": 249.2,
+      "reg": 322.8,
+      "koyaku": 5.83,
+      "payout": 102
+    },
+    "5": {
+      "big": 240.1,
+      "reg": 299.3,
+      "koyaku": 5.76,
+      "payout": 104.3
+    },
+    "6": {
+      "big": 219.9,
+      "reg": 262.1,
+      "koyaku": 5.67,
+      "payout": 109
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.8,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": [
+    "REGとブドウの取りこぼし/数え間違いがあると推測が崩れます。まずはBIG/REGだけでもOKです。",
+    "数百Gでは結論が出にくいので、回転数を稼いでから判断する方が安全です。"
+  ]
+}

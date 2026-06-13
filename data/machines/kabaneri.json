@@ -1,0 +1,60 @@
+{
+  "id": "kabaneri",
+  "name": "甲鉄城のカバネリ",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "ST",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 237,
+      "reg": 407.9,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 230.7,
+      "reg": 393.2,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 214,
+      "reg": 372.4,
+      "koyaku": null,
+      "payout": 100.7
+    },
+    "4": {
+      "big": 186.5,
+      "reg": 327.2,
+      "koyaku": null,
+      "payout": 105.9
+    },
+    "5": {
+      "big": 171.3,
+      "reg": 307.3,
+      "koyaku": null,
+      "payout": 108.4
+    },
+    "6": {
+      "big": 151.3,
+      "reg": 290.6,
+      "koyaku": null,
+      "payout": 110
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 550,
+  "ceilingReward": 600,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/kabaneri/index.html",
+  "cautions": [
+    "リセット短縮の有無は店舗運用差が出やすいので、前日データとセットで見るのがコツです。",
+    "ST/示唆など体感要素はブレます。数字（初当たり・総回転）を軸に、補助材料として扱うのが無難です。",
+    "期待値表は簡易モデルです。モード/前兆込みの“厳密な期待値”ではない点に注意してください。"
+  ]
+}

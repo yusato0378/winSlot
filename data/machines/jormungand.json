@@ -1,0 +1,56 @@
+{
+  "id": "jormungand",
+  "name": "スマスロ ヨルムンガンド",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 333.8,
+      "reg": 194.2,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 323.3,
+      "reg": 188.6,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 305.4,
+      "reg": 175.7,
+      "koyaku": null,
+      "payout": 100.9
+    },
+    "4": {
+      "big": 291.6,
+      "reg": 169.4,
+      "koyaku": null,
+      "payout": 104.7
+    },
+    "5": {
+      "big": 291.1,
+      "reg": 167.8,
+      "koyaku": null,
+      "payout": 109.6
+    },
+    "6": {
+      "big": 290.1,
+      "reg": 167.2,
+      "koyaku": null,
+      "payout": 113.9
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-04-06",
+  "guessElementPath": "setGuessElement/jormungand/index.html",
+  "cautions": null
+}

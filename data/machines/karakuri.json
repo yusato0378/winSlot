@@ -1,0 +1,53 @@
+{
+  "id": "karakuri",
+  "name": "からくりサーカス",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ合算",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 564,
+      "reg": 333,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 543,
+      "reg": 320,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "4": {
+      "big": 469,
+      "reg": 292,
+      "koyaku": null,
+      "payout": 103
+    },
+    "5": {
+      "big": 451,
+      "reg": 277,
+      "koyaku": null,
+      "payout": 108.1
+    },
+    "6": {
+      "big": 447,
+      "reg": 275,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1200,
+  "ceilingTarget": 800,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/karakuri/index.html",
+  "cautions": [
+    "「CZ合算」の定義（どれを数えるか）を揃えないと推測がブレやすい機種です。",
+    "深いハマりは期待値が見えやすい一方、内部状態で上下します。表は目安として使うのが安全です。"
+  ]
+}

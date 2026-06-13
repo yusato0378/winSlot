@@ -1,0 +1,54 @@
+{
+  "id": "hokuto",
+  "name": "スマスロ北斗の拳",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 383.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98
+    },
+    "2": {
+      "big": 370.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "4": {
+      "big": 297.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.7
+    },
+    "5": {
+      "big": 258.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110
+    },
+    "6": {
+      "big": 235.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113
+    }
+  },
+  "ceiling": 1268,
+  "ceilingTarget": 800,
+  "ceilingReward": 1500,
+  "resetCeiling": 800,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 800,
+  "normalCostPerGame": 2.5,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/hokuto/index.html",
+  "cautions": [
+    "朝一のリセット/据え置きで期待値の見え方が大きく変わります。前日最終G数と合わせて判断してください。",
+    "本ツールの天井期待値は設定1基準の概算です。内部状態（モード/前兆など）で実際の期待値は上下します。",
+    "データが浅いと推測％は大きく振れます。短時間の結果だけで断定しないのが安全です。"
+  ]
+}

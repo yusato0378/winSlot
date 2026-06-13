@@ -7,8 +7,6 @@
 const fs = require("fs");
 const path = require("path");
 
-const { MACHINES, GUESS_ELEMENT_PAGES } = require("./landing-pages");
-
 const SITE_URL = "https://www.pachislot-setting.com";
 
 function escapeAttr(str) {
@@ -148,8 +146,10 @@ function normalizeGuessHead(html) {
 /**
  * {out}/setGuessElement/ 配下のページに SEO パッチを適用する
  * @param {string} out 出力ルート（dist）
+ * @param {{ MACHINES: object[], GUESS_ELEMENT_PAGES: Record<string,string> }} data 機種データ
  */
-function patchSetGuessPages(out) {
+function patchSetGuessPages(out, data) {
+    const { MACHINES, GUESS_ELEMENT_PAGES } = data;
     const names = Object.fromEntries(MACHINES.map((m) => [m.id, m.name]));
     let n = 0;
     for (const [machineId, rel] of Object.entries(GUESS_ELEMENT_PAGES)) {

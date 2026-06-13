@@ -1,0 +1,56 @@
+{
+  "id": "kabaneri_unato",
+  "name": "スマスロ 甲鉄城のカバネリ 海門決戦",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "ST",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 254.2,
+      "reg": 422.5,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 242.3,
+      "reg": 405.9,
+      "koyaku": null,
+      "payout": 98.5
+    },
+    "3": {
+      "big": 239.6,
+      "reg": 398.7,
+      "koyaku": null,
+      "payout": 100.8
+    },
+    "4": {
+      "big": 214,
+      "reg": 357.2,
+      "koyaku": null,
+      "payout": 106
+    },
+    "5": {
+      "big": 203.2,
+      "reg": 332.6,
+      "koyaku": null,
+      "payout": 111
+    },
+    "6": {
+      "big": 195.1,
+      "reg": 318.5,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 996,
+  "ceilingTarget": 550,
+  "ceilingReward": 600,
+  "resetCeiling": 596,
+  "resetCeilingTarget": 320,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": null
+}

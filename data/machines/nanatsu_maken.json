@@ -1,0 +1,56 @@
+{
+  "id": "nanatsu_maken",
+  "name": "L七つの魔剣が支配する",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "ST初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 228,
+      "reg": 408.3,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 222,
+      "reg": 394.9,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 209.7,
+      "reg": 366.4,
+      "koyaku": null,
+      "payout": 101.1
+    },
+    "4": {
+      "big": 185.6,
+      "reg": 314,
+      "koyaku": null,
+      "payout": 105.5
+    },
+    "5": {
+      "big": 173.5,
+      "reg": 289.2,
+      "koyaku": null,
+      "payout": 108.5
+    },
+    "6": {
+      "big": 164.7,
+      "reg": 272.3,
+      "koyaku": null,
+      "payout": 111
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-04-01",
+  "guessElementPath": null,
+  "cautions": null
+}

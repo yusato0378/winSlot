@@ -1,0 +1,56 @@
+{
+  "id": "magireco",
+  "name": "スマスロ マギアレコード 魔法少女まどか☆マギカ外伝",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 240.6,
+      "reg": 654.6,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 236.1,
+      "reg": 633.4,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 222.8,
+      "reg": 571.8,
+      "koyaku": null,
+      "payout": 102
+    },
+    "4": {
+      "big": 208.5,
+      "reg": 516.6,
+      "koyaku": null,
+      "payout": 106
+    },
+    "5": {
+      "big": 195.1,
+      "reg": 456.5,
+      "koyaku": null,
+      "payout": 110.4
+    },
+    "6": {
+      "big": 184.3,
+      "reg": 416.7,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 950,
+  "ceilingTarget": 550,
+  "ceilingReward": 500,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/magireco/index.html",
+  "cautions": null
+}

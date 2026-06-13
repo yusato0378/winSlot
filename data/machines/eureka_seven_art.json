@@ -1,0 +1,56 @@
+{
+  "id": "eureka_seven_art",
+  "name": "交響詩篇エウレカセブン HI-EVOLUTION ZERO TYPE-ART",
+  "type": "AT",
+  "bigLabel": "ボーナス合算",
+  "regLabel": "ART初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 195.6,
+      "reg": 270.4,
+      "koyaku": null,
+      "payout": 98.1
+    },
+    "2": {
+      "big": 192.8,
+      "reg": 255.7,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 190.5,
+      "reg": 239.3,
+      "koyaku": null,
+      "payout": 100.3
+    },
+    "4": {
+      "big": 186.7,
+      "reg": 210.7,
+      "koyaku": null,
+      "payout": 103.6
+    },
+    "5": {
+      "big": 185.7,
+      "reg": 201.2,
+      "koyaku": null,
+      "payout": 104.8
+    },
+    "6": {
+      "big": 183.1,
+      "reg": 188.7,
+      "koyaku": null,
+      "payout": 106.4
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-04-01",
+  "guessElementPath": null,
+  "cautions": null
+}

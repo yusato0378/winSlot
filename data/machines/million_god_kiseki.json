@@ -1,0 +1,56 @@
+{
+  "id": "million_god_kiseki",
+  "name": "スマスロ ミリオンゴッド-神々の軌跡-",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 533,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.2
+    },
+    "2": {
+      "big": 420,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 496,
+      "reg": null,
+      "koyaku": null,
+      "payout": 102.1
+    },
+    "4": {
+      "big": 338,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106.9
+    },
+    "5": {
+      "big": 455,
+      "reg": null,
+      "koyaku": null,
+      "payout": 111.7
+    },
+    "6": {
+      "big": 295,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.6
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 550,
+  "normalCostPerGame": 1.5,
+  "addedDate": "2026-04-20",
+  "guessElementPath": "setGuessElement/millionGodKiseki/index.html",
+  "cautions": null
+}

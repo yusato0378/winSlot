@@ -1,0 +1,56 @@
+{
+  "id": "alex_bt",
+  "name": "スマスロ アレックスブライト",
+  "type": "AT",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 309.1,
+      "reg": 428.3,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "2": {
+      "big": 303.4,
+      "reg": 409.6,
+      "koyaku": null,
+      "payout": 100.2
+    },
+    "3": {
+      "big": 299.3,
+      "reg": 388,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 297.2,
+      "reg": 376,
+      "koyaku": null,
+      "payout": 102.6
+    },
+    "5": {
+      "big": 295.2,
+      "reg": 366.1,
+      "koyaku": null,
+      "payout": 104.1
+    },
+    "6": {
+      "big": 287.4,
+      "reg": 312.1,
+      "koyaku": null,
+      "payout": 108.3
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-04-01",
+  "guessElementPath": null,
+  "cautions": null
+}

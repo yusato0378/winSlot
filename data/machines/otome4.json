@@ -1,0 +1,56 @@
+{
+  "id": "otome4",
+  "name": "L戦国乙女4 戦乱に閃く炯眼の軍師",
+  "type": "AT",
+  "bigLabel": "ボーナス+AT合算",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 272.7,
+      "reg": 429.2,
+      "koyaku": null,
+      "payout": 98.2
+    },
+    "2": {
+      "big": 267.3,
+      "reg": 417.8,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 255.3,
+      "reg": 393.6,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 238.2,
+      "reg": 361.3,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 223.2,
+      "reg": 334.1,
+      "koyaku": null,
+      "payout": 110.2
+    },
+    "6": {
+      "big": 217.1,
+      "reg": 319.2,
+      "koyaku": null,
+      "payout": 113
+    }
+  },
+  "ceiling": 799,
+  "ceilingTarget": 500,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/otome4/index.html",
+  "cautions": null
+}

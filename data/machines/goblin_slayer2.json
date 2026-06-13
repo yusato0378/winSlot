@@ -1,0 +1,56 @@
+{
+  "id": "goblin_slayer2",
+  "name": "スマスロ ゴブリンスレイヤーⅡ",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 541.6,
+      "reg": 239.3,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 526.4,
+      "reg": 232.3,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 506.4,
+      "reg": 222.9,
+      "koyaku": null,
+      "payout": 100.4
+    },
+    "4": {
+      "big": 453.2,
+      "reg": 200.4,
+      "koyaku": null,
+      "payout": 104.9
+    },
+    "5": {
+      "big": 417.8,
+      "reg": 187.3,
+      "koyaku": null,
+      "payout": 109.7
+    },
+    "6": {
+      "big": 402.4,
+      "reg": 181.9,
+      "koyaku": null,
+      "payout": 113.2
+    }
+  },
+  "ceiling": 1500,
+  "ceilingTarget": 900,
+  "ceilingReward": 800,
+  "resetCeiling": 1000,
+  "resetCeilingTarget": 550,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/goblinSlayer2/index.html",
+  "cautions": null
+}

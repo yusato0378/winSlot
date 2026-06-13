@@ -1,0 +1,60 @@
+{
+  "id": "banchou4",
+  "name": "押忍！番長4",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 259.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 256.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 247.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 101.5
+    },
+    "4": {
+      "big": 236,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106
+    },
+    "5": {
+      "big": 225.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110
+    },
+    "6": {
+      "big": 221.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113.1
+    }
+  },
+  "ceiling": 699,
+  "ceilingTarget": 450,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/oshiBanchou4/index.html",
+  "cautions": [
+    "天井狙いの可否は当日のゲーム数履歴に依存します。宵越し前提での判断は店舗運用差に注意。",
+    "入力項目が少ない分、総ゲーム数の取り違えがそのまま推測に効きます（カウント定義を固定）。",
+    "推測％は“当たりの軽さ”に引っ張られます。短期の上振れ/下振れを前提に解釈してください。"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "tokyo_revengers",
+  "name": "スマスロ 東京リベンジャーズ",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 282.4,
+      "reg": 482.2,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 279.5,
+      "reg": 474.7,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 272.2,
+      "reg": 456.9,
+      "koyaku": null,
+      "payout": 101.4
+    },
+    "4": {
+      "big": 255.8,
+      "reg": 414,
+      "koyaku": null,
+      "payout": 106.3
+    },
+    "5": {
+      "big": 249.1,
+      "reg": 393.8,
+      "koyaku": null,
+      "payout": 111.2
+    },
+    "6": {
+      "big": 240.1,
+      "reg": 373.1,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1190,
+  "ceilingTarget": 700,
+  "ceilingReward": 800,
+  "resetCeiling": 900,
+  "resetCeilingTarget": 550,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/tokyoRevengers/index.html",
+  "cautions": null
+}

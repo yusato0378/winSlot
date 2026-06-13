@@ -1,0 +1,50 @@
+{
+  "id": "valvrave2",
+  "name": "L革命機ヴァルヴレイヴ2",
+  "type": "AT",
+  "bigLabel": "初当たり合算",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 476,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 473,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99.3
+    },
+    "4": {
+      "big": 464,
+      "reg": null,
+      "koyaku": null,
+      "payout": 104.7
+    },
+    "5": {
+      "big": 459,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.8
+    },
+    "6": {
+      "big": 456,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1500,
+  "ceilingTarget": 700,
+  "ceilingReward": 1200,
+  "resetCeiling": 1000,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 800,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/valvrave2/index.html",
+  "cautions": null
+}

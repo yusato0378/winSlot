@@ -1,0 +1,50 @@
+{
+  "id": "zenigata5",
+  "name": "L主役は銭形5",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "2": {
+      "big": 424.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "3": {
+      "big": 416.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99
+    },
+    "4": {
+      "big": 388.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 103.2
+    },
+    "5": {
+      "big": 375.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 107.1
+    },
+    "6": {
+      "big": 300.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.1
+    }
+  },
+  "ceiling": 1250,
+  "ceilingTarget": 800,
+  "ceilingReward": 800,
+  "resetCeiling": 850,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/zenigata5/index.html",
+  "cautions": null
+}

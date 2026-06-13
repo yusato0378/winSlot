@@ -1,0 +1,56 @@
+{
+  "id": "granbelm",
+  "name": "回胴式遊技機 グランベルム",
+  "type": "AT",
+  "bigLabel": "ボーナス",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 287.9,
+      "reg": 478.9,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 283.1,
+      "reg": 466.6,
+      "koyaku": null,
+      "payout": 98.5
+    },
+    "3": {
+      "big": 268.8,
+      "reg": 436,
+      "koyaku": null,
+      "payout": 100.7
+    },
+    "4": {
+      "big": 247.7,
+      "reg": 393.8,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 233.7,
+      "reg": 367.5,
+      "koyaku": null,
+      "payout": 107.6
+    },
+    "6": {
+      "big": 223.8,
+      "reg": 346.1,
+      "koyaku": null,
+      "payout": 110.9
+    }
+  },
+  "ceiling": 649,
+  "ceilingTarget": 400,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.5,
+  "addedDate": "2026-04-01",
+  "guessElementPath": null,
+  "cautions": null
+}

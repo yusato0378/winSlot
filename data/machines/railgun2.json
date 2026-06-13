@@ -1,0 +1,56 @@
+{
+  "id": "railgun2",
+  "name": "スマスロ とある科学の超電磁砲2",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 317.8,
+      "reg": 175.7,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 311.8,
+      "reg": 172.6,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 304.4,
+      "reg": 168.5,
+      "koyaku": null,
+      "payout": 100.3
+    },
+    "4": {
+      "big": 272.4,
+      "reg": 156.6,
+      "koyaku": null,
+      "payout": 105.4
+    },
+    "5": {
+      "big": 248.1,
+      "reg": 145.7,
+      "koyaku": null,
+      "payout": 110
+    },
+    "6": {
+      "big": 235.3,
+      "reg": 137.5,
+      "koyaku": null,
+      "payout": 112.9
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 550,
+  "ceilingReward": 600,
+  "resetCeiling": 699,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/railgun2/index.html",
+  "cautions": null
+}

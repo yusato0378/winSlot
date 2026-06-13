@@ -1,0 +1,56 @@
+{
+  "id": "takt_op_destiny",
+  "name": "Lタクトオーパス デスティニー",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 358.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 350.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.2
+    },
+    "3": {
+      "big": 330.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.3
+    },
+    "4": {
+      "big": 299.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 104.7
+    },
+    "5": {
+      "big": 297.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 108.7
+    },
+    "6": {
+      "big": 297.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113.5
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 400,
+  "resetCeiling": 699,
+  "resetCeilingTarget": 420,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 1.4,
+  "addedDate": "2026-05-11",
+  "guessElementPath": "setGuessElement/taktOpDestiny/index.html",
+  "cautions": null
+}

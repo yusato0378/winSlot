@@ -1,0 +1,59 @@
+{
+  "id": "tokyo_ghoul",
+  "name": "L 東京喰種",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 394.4,
+      "reg": 262.6,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 380.5,
+      "reg": 255.6,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 357,
+      "reg": 246.5,
+      "koyaku": null,
+      "payout": 101.6
+    },
+    "4": {
+      "big": 325.9,
+      "reg": 233.1,
+      "koyaku": null,
+      "payout": 105.6
+    },
+    "5": {
+      "big": 291.2,
+      "reg": 216.4,
+      "koyaku": null,
+      "payout": 110.3
+    },
+    "6": {
+      "big": 261.3,
+      "reg": 203.7,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 600,
+  "ceilingTarget": 350,
+  "ceilingReward": 500,
+  "resetCeiling": 200,
+  "resetCeilingTarget": 50,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/tokyoGhoul/index.html",
+  "cautions": [
+    "天井・リセット天井がある前提で表示しますが、店舗運用差（据え置きなど）は必ず確認してください。",
+    "CZ/ATのカウントを混ぜると推測精度が落ちます。データの取り方を統一してください。"
+  ]
+}

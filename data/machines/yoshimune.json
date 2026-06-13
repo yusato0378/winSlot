@@ -1,0 +1,56 @@
+{
+  "id": "yoshimune",
+  "name": "吉宗",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 378.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 369.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 358.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "4": {
+      "big": 335.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 104.1
+    },
+    "5": {
+      "big": 318.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 107.1
+    },
+    "6": {
+      "big": 292.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 800,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 600,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/yoshimune/index.html",
+  "cautions": null
+}

@@ -1,0 +1,56 @@
+{
+  "id": "kaguya_sama",
+  "name": "かぐや様は告らせたい",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 362,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 360,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 357,
+      "reg": null,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 349,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.8
+    },
+    "5": {
+      "big": 343,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.8
+    },
+    "6": {
+      "big": 335,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1100,
+  "ceilingTarget": 700,
+  "ceilingReward": 1000,
+  "resetCeiling": 800,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 600,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/kaguyaSama/index.html",
+  "cautions": null
+}

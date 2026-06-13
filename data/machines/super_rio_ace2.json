@@ -1,0 +1,56 @@
+{
+  "id": "super_rio_ace2",
+  "name": "スマスロスーパーリオエース2",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 289.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 281.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 268,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.5
+    },
+    "4": {
+      "big": 238.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.1
+    },
+    "5": {
+      "big": 230,
+      "reg": null,
+      "koyaku": null,
+      "payout": 109.1
+    },
+    "6": {
+      "big": 219.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.1
+    }
+  },
+  "ceiling": 750,
+  "ceilingTarget": 450,
+  "ceilingReward": 350,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-05-11",
+  "guessElementPath": "setGuessElement/superRioAce2/index.html",
+  "cautions": null
+}

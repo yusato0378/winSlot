@@ -1,0 +1,56 @@
+{
+  "id": "baki",
+  "name": "Ｌ範馬刃牙",
+  "type": "AT",
+  "bigLabel": "ボーナス",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 269.4,
+      "reg": 525.3,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 265.7,
+      "reg": 517.1,
+      "koyaku": null,
+      "payout": 98.5
+    },
+    "3": {
+      "big": 258.3,
+      "reg": 503.2,
+      "koyaku": null,
+      "payout": 100.5
+    },
+    "4": {
+      "big": 252.1,
+      "reg": 484.5,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 251,
+      "reg": 481.9,
+      "koyaku": null,
+      "payout": 107.9
+    },
+    "6": {
+      "big": 250.1,
+      "reg": 480.4,
+      "koyaku": null,
+      "payout": 110.6
+    }
+  },
+  "ceiling": 700,
+  "ceilingTarget": 400,
+  "ceilingReward": 500,
+  "resetCeiling": 200,
+  "resetCeilingTarget": 100,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/baki/index.html",
+  "cautions": null
+}

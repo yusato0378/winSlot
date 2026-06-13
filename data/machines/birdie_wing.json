@@ -1,0 +1,56 @@
+{
+  "id": "birdie_wing",
+  "name": "スマスロ BIRDIE WING -Golf Girls' Story-",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "ST",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 266.7,
+      "reg": 421.2,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 264.1,
+      "reg": 410.5,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 257.3,
+      "reg": 381.9,
+      "koyaku": null,
+      "payout": 102.1
+    },
+    "4": {
+      "big": 256,
+      "reg": 378,
+      "koyaku": null,
+      "payout": 106
+    },
+    "5": {
+      "big": 255.9,
+      "reg": 377.6,
+      "koyaku": null,
+      "payout": 110
+    },
+    "6": {
+      "big": 255.9,
+      "reg": 377.3,
+      "koyaku": null,
+      "payout": 112.4
+    }
+  },
+  "ceiling": 1200,
+  "ceilingTarget": 700,
+  "ceilingReward": 600,
+  "resetCeiling": 840,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-06-08",
+  "guessElementPath": "setGuessElement/birdieWing/index.html",
+  "cautions": null
+}

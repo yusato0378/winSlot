@@ -1,0 +1,56 @@
+{
+  "id": "prism_nana",
+  "name": "プリズムナナ",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 351.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 346.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.5
+    },
+    "3": {
+      "big": 337.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.1
+    },
+    "4": {
+      "big": 306.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.5
+    },
+    "5": {
+      "big": 290.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.1
+    },
+    "6": {
+      "big": 278.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 899,
+  "ceilingTarget": 550,
+  "ceilingReward": 700,
+  "resetCeiling": 555,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/prismNana/index.html",
+  "cautions": null
+}

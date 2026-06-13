@@ -1,0 +1,59 @@
+{
+  "id": "aim_juggler_ex",
+  "name": "アイムジャグラーEX",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": "ブドウ",
+  "settings": {
+    "1": {
+      "big": 273.1,
+      "reg": 439.8,
+      "koyaku": 6.1,
+      "payout": 97
+    },
+    "2": {
+      "big": 270.8,
+      "reg": 399.6,
+      "koyaku": 6.09,
+      "payout": 98
+    },
+    "3": {
+      "big": 269.7,
+      "reg": 331,
+      "koyaku": 6.08,
+      "payout": 99.9
+    },
+    "4": {
+      "big": 259,
+      "reg": 315.1,
+      "koyaku": 6.07,
+      "payout": 102
+    },
+    "5": {
+      "big": 259,
+      "reg": 255,
+      "koyaku": 6.05,
+      "payout": 104.2
+    },
+    "6": {
+      "big": 255,
+      "reg": 255,
+      "koyaku": 5.83,
+      "payout": 105.5
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.8,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": [
+    "REG確率の偏りは重要ですが、短期でも振れます。できれば数千G単位で見るのが安全です。",
+    "ブドウ（小役）を入れると精度が上がりますが、数え間違いは逆効果なので無理はしない方が良いです。"
+  ]
+}

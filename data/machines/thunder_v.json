@@ -1,0 +1,56 @@
+{
+  "id": "thunder_v",
+  "name": "スマスロ サンダーV",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 277.7,
+      "reg": 434,
+      "koyaku": null,
+      "payout": 98.5
+    },
+    "2": {
+      "big": 275.4,
+      "reg": 394.8,
+      "koyaku": null,
+      "payout": 100
+    },
+    "3": {
+      "big": 273.9,
+      "reg": 378.2,
+      "koyaku": null,
+      "payout": 101
+    },
+    "4": {
+      "big": 272.3,
+      "reg": 361.5,
+      "koyaku": null,
+      "payout": 101.9
+    },
+    "5": {
+      "big": 270.8,
+      "reg": 344.9,
+      "koyaku": null,
+      "payout": 102.9
+    },
+    "6": {
+      "big": 264.3,
+      "reg": 313.6,
+      "koyaku": null,
+      "payout": 106
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": null
+}

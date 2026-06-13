@@ -1,0 +1,56 @@
+{
+  "id": "koukaku",
+  "name": "スマスロ 攻殻機動隊",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 336.3,
+      "reg": 238,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 332,
+      "reg": 236.3,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 319.6,
+      "reg": 231.7,
+      "koyaku": null,
+      "payout": 100.8
+    },
+    "4": {
+      "big": 298.7,
+      "reg": 220.9,
+      "koyaku": null,
+      "payout": 104.9
+    },
+    "5": {
+      "big": 285.8,
+      "reg": 214,
+      "koyaku": null,
+      "payout": 109.3
+    },
+    "6": {
+      "big": 278,
+      "reg": 210.1,
+      "koyaku": null,
+      "payout": 112.2
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 600,
+  "resetCeiling": 699,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/koukaku/index.html",
+  "cautions": null
+}

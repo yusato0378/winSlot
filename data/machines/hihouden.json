@@ -1,0 +1,56 @@
+{
+  "id": "hihouden",
+  "name": "スマスロ 秘宝伝",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 292.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 271.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99
+    },
+    "3": {
+      "big": 283.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 101.5
+    },
+    "4": {
+      "big": 257.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.1
+    },
+    "5": {
+      "big": 264,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.1
+    },
+    "6": {
+      "big": 246,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.7
+    }
+  },
+  "ceiling": 799,
+  "ceilingTarget": 550,
+  "ceilingReward": 400,
+  "resetCeiling": 499,
+  "resetCeilingTarget": 300,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 2.1,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/hihouden/index.html",
+  "cautions": null
+}

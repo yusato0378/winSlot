@@ -1,0 +1,59 @@
+{
+  "id": "bakemonogatari",
+  "name": "スマスロ 化物語",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 265.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 260.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 252.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.9
+    },
+    "4": {
+      "big": 238.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105
+    },
+    "5": {
+      "big": 230.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 107.8
+    },
+    "6": {
+      "big": 219.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.1
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 600,
+  "ceilingReward": 500,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/bakemonogatari/index.html",
+  "cautions": [
+    "短縮天井の扱いは条件で変わります。朝一の状況を分けて判断してください。",
+    "示唆演出の強弱より、まずは総回転と初当たり回数を優先して見るとブレにくいです。"
+  ]
+}

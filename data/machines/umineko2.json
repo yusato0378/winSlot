@@ -1,0 +1,56 @@
+{
+  "id": "umineko2",
+  "name": "うみねこのなく頃に2",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 362.1,
+      "reg": 397.2,
+      "koyaku": null,
+      "payout": 98.4
+    },
+    "2": {
+      "big": 350.5,
+      "reg": 390.1,
+      "koyaku": null,
+      "payout": 99.6
+    },
+    "3": {
+      "big": 337.8,
+      "reg": 381,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 327.7,
+      "reg": 374.5,
+      "koyaku": null,
+      "payout": 103.4
+    },
+    "5": {
+      "big": 319.7,
+      "reg": 366.1,
+      "koyaku": null,
+      "payout": 104.7
+    },
+    "6": {
+      "big": 313.6,
+      "reg": 360.1,
+      "koyaku": null,
+      "payout": 105.5
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/umineko2/index.html",
+  "cautions": null
+}

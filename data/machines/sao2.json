@@ -1,0 +1,56 @@
+{
+  "id": "sao2",
+  "name": "スロット ソードアート・オンラインⅡ",
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 238.4,
+      "reg": 386.2,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 232.3,
+      "reg": 364.3,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 232.7,
+      "reg": 368.1,
+      "koyaku": null,
+      "payout": 100.2
+    },
+    "4": {
+      "big": 218.9,
+      "reg": 326.8,
+      "koyaku": null,
+      "payout": 105.3
+    },
+    "5": {
+      "big": 225.2,
+      "reg": 340.6,
+      "koyaku": null,
+      "payout": 110.4
+    },
+    "6": {
+      "big": 191.7,
+      "reg": 269.6,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 499,
+  "ceilingTarget": 300,
+  "ceilingReward": 400,
+  "resetCeiling": 256,
+  "resetCeilingTarget": 150,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-06-08",
+  "guessElementPath": "setGuessElement/sao2/index.html",
+  "cautions": null
+}

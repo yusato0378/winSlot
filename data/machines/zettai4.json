@@ -1,0 +1,56 @@
+{
+  "id": "zettai4",
+  "name": "L 絶対衝激IV",
+  "type": "AT",
+  "bigLabel": "ボーナス",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 270,
+      "reg": 543,
+      "koyaku": null,
+      "payout": 97.2
+    },
+    "2": {
+      "big": 261,
+      "reg": 501,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 254,
+      "reg": 450,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "4": {
+      "big": 241,
+      "reg": 357,
+      "koyaku": null,
+      "payout": 105.8
+    },
+    "5": {
+      "big": 231,
+      "reg": 304,
+      "koyaku": null,
+      "payout": 109
+    },
+    "6": {
+      "big": 225,
+      "reg": 266,
+      "koyaku": null,
+      "payout": 112.5
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/zettai4/index.html",
+  "cautions": null
+}

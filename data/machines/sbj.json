@@ -1,0 +1,56 @@
+{
+  "id": "sbj",
+  "name": "スマスロスーパーブラックジャック",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 241.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 238.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 235.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.1
+    },
+    "4": {
+      "big": 201.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.7
+    },
+    "5": {
+      "big": 194.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110
+    },
+    "6": {
+      "big": 181.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.7
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 580,
+  "ceilingReward": 700,
+  "resetCeiling": 666,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/sbj/index.html",
+  "cautions": null
+}

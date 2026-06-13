@@ -1,0 +1,56 @@
+{
+  "id": "dmc5",
+  "name": "デビル メイ クライ 5",
+  "type": "AT",
+  "bigLabel": "ボーナス",
+  "regLabel": "ST",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 257,
+      "reg": 445.4,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 254.1,
+      "reg": 436.5,
+      "koyaku": null,
+      "payout": 98.2
+    },
+    "3": {
+      "big": 251.5,
+      "reg": 411.2,
+      "koyaku": null,
+      "payout": 100.2
+    },
+    "4": {
+      "big": 222.6,
+      "reg": 359.6,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 217.3,
+      "reg": 329.5,
+      "koyaku": null,
+      "payout": 109.2
+    },
+    "6": {
+      "big": 204.1,
+      "reg": 303.9,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 600,
+  "ceilingReward": 800,
+  "resetCeiling": 800,
+  "resetCeilingTarget": 500,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/dmc5/index.html",
+  "cautions": null
+}

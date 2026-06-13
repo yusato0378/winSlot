@@ -1,0 +1,56 @@
+{
+  "id": "gundam_unicorn_kakusei_drive",
+  "name": "Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE",
+  "type": "AT",
+  "bigLabel": "CZ",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 298.5,
+      "reg": 471.9,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 287,
+      "reg": 456.6,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 265.1,
+      "reg": 427.8,
+      "koyaku": null,
+      "payout": 101
+    },
+    "4": {
+      "big": 247.7,
+      "reg": 403.9,
+      "koyaku": null,
+      "payout": 105.4
+    },
+    "5": {
+      "big": 243.9,
+      "reg": 398.3,
+      "koyaku": null,
+      "payout": 110.5
+    },
+    "6": {
+      "big": 239.8,
+      "reg": 392.3,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 800,
+  "ceilingTarget": 500,
+  "ceilingReward": 700,
+  "resetCeiling": 400,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-04-20",
+  "guessElementPath": "setGuessElement/gundamUnicornKakuseiDrive/index.html",
+  "cautions": null
+}

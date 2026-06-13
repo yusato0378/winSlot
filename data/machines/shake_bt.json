@@ -1,0 +1,44 @@
+{
+  "id": "shake_bt",
+  "name": "スマスロ シェイク ボーナストリガー",
+  "type": "AT",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 350.5,
+      "reg": 425.6,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "2": {
+      "big": 327.7,
+      "reg": 332.7,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "5": {
+      "big": 341.3,
+      "reg": 409.6,
+      "koyaku": null,
+      "payout": 103
+    },
+    "6": {
+      "big": 297.9,
+      "reg": 297.9,
+      "koyaku": null,
+      "payout": 106.1
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.4,
+  "addedDate": "2026-04-01",
+  "guessElementPath": null,
+  "cautions": null
+}

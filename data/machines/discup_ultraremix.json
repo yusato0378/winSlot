@@ -1,0 +1,44 @@
+{
+  "id": "discup_ultraremix",
+  "name": "A-SLOT+ ディスクアップ ULTRAREMIX",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 287.2,
+      "reg": 495.3,
+      "koyaku": null,
+      "payout": 99.3
+    },
+    "2": {
+      "big": 284.3,
+      "reg": 477.2,
+      "koyaku": null,
+      "payout": 100.2
+    },
+    "5": {
+      "big": 273.8,
+      "reg": 398.6,
+      "koyaku": null,
+      "payout": 103.6
+    },
+    "6": {
+      "big": 260.9,
+      "reg": 334.1,
+      "koyaku": null,
+      "payout": 107.7
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/discupUltraremix/index.html",
+  "cautions": null
+}

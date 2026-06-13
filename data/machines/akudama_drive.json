@@ -1,0 +1,56 @@
+{
+  "id": "akudama_drive",
+  "name": "L アクダマドライブ",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 555.5,
+      "reg": 166.1,
+      "koyaku": null,
+      "payout": 97.4
+    },
+    "2": {
+      "big": 550.7,
+      "reg": 165.3,
+      "koyaku": null,
+      "payout": 98
+    },
+    "3": {
+      "big": 543.6,
+      "reg": 163.8,
+      "koyaku": null,
+      "payout": 99.5
+    },
+    "4": {
+      "big": 517.8,
+      "reg": 159.3,
+      "koyaku": null,
+      "payout": 102.5
+    },
+    "5": {
+      "big": 487.7,
+      "reg": 154.8,
+      "koyaku": null,
+      "payout": 106.5
+    },
+    "6": {
+      "big": 472,
+      "reg": 152.1,
+      "koyaku": null,
+      "payout": 112
+    }
+  },
+  "ceiling": 967,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 589,
+  "resetCeilingTarget": 380,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-04-06",
+  "guessElementPath": "setGuessElement/akudamaDrive/index.html",
+  "cautions": null
+}

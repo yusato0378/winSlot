@@ -1,0 +1,56 @@
+{
+  "id": "big_dream_golden_pusher",
+  "name": "スマスロ ビッグドリーム THE GOLDEN PUSHER",
+  "type": "AT",
+  "bigLabel": "CZ",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 337.7,
+      "reg": 629.3,
+      "koyaku": null,
+      "payout": 97.4
+    },
+    "2": {
+      "big": 333.3,
+      "reg": 615.3,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 326.6,
+      "reg": 599.1,
+      "koyaku": null,
+      "payout": 100.1
+    },
+    "4": {
+      "big": 316.4,
+      "reg": 562.6,
+      "koyaku": null,
+      "payout": 104.4
+    },
+    "5": {
+      "big": 311.4,
+      "reg": 551.1,
+      "koyaku": null,
+      "payout": 106.5
+    },
+    "6": {
+      "big": 303.4,
+      "reg": 536.2,
+      "koyaku": null,
+      "payout": 111.3
+    }
+  },
+  "ceiling": 1499,
+  "ceilingTarget": 900,
+  "ceilingReward": 800,
+  "resetCeiling": 999,
+  "resetCeilingTarget": 600,
+  "avgBonusReward": 700,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-05-11",
+  "guessElementPath": "setGuessElement/bigDreamGoldenPusher/index.html",
+  "cautions": null
+}

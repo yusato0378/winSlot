@@ -1,0 +1,56 @@
+{
+  "id": "hokuto_tensei2",
+  "name": "北斗の拳 転生の章2",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 366,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 357,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.4
+    },
+    "3": {
+      "big": 336.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.7
+    },
+    "4": {
+      "big": 298.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106.2
+    },
+    "5": {
+      "big": 283.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 111.1
+    },
+    "6": {
+      "big": 273.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1536,
+  "ceilingTarget": 900,
+  "ceilingReward": 1000,
+  "resetCeiling": 1280,
+  "resetCeilingTarget": 750,
+  "avgBonusReward": 600,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/hokutoTensei2/index.html",
+  "cautions": null
+}

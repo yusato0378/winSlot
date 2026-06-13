@@ -1,0 +1,56 @@
+{
+  "id": "enen2",
+  "name": "Lパチスロ 炎炎ノ消防隊2",
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "炎炎ループ",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 272,
+      "reg": 684,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 269,
+      "reg": 662,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 257,
+      "reg": 617,
+      "koyaku": null,
+      "payout": 101.2
+    },
+    "4": {
+      "big": 242,
+      "reg": 546,
+      "koyaku": null,
+      "payout": 105.6
+    },
+    "5": {
+      "big": 236,
+      "reg": 518,
+      "koyaku": null,
+      "payout": 110.2
+    },
+    "6": {
+      "big": 227,
+      "reg": 486,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 850,
+  "ceilingTarget": 550,
+  "ceilingReward": 600,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/enen2/index.html",
+  "cautions": null
+}

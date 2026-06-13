@@ -1,0 +1,56 @@
+{
+  "id": "tekken6",
+  "name": "スマスロ 鉄拳6",
+  "type": "AT",
+  "bigLabel": "ボーナス",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 264.7,
+      "reg": 497,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 261.5,
+      "reg": 484.1,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 255.3,
+      "reg": 456.8,
+      "koyaku": null,
+      "payout": 100.5
+    },
+    "4": {
+      "big": 227.6,
+      "reg": 397.6,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 220.3,
+      "reg": 366.4,
+      "koyaku": null,
+      "payout": 110.3
+    },
+    "6": {
+      "big": 218.5,
+      "reg": 358.5,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 900,
+  "ceilingTarget": 600,
+  "ceilingReward": 700,
+  "resetCeiling": 500,
+  "resetCeilingTarget": 300,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/tekken6/index.html",
+  "cautions": null
+}

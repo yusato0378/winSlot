@@ -1,0 +1,56 @@
+{
+  "id": "onimusha3",
+  "name": "スマスロ 新鬼武者3",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 379.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 372.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.3
+    },
+    "3": {
+      "big": 352.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.2
+    },
+    "4": {
+      "big": 306.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 297.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 109.2
+    },
+    "6": {
+      "big": 293.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 113
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 500,
+  "ceilingReward": 700,
+  "resetCeiling": 700,
+  "resetCeilingTarget": 400,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/onimusha3/index.html",
+  "cautions": null
+}

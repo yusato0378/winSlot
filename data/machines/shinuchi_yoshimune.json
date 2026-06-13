@@ -1,0 +1,56 @@
+{
+  "id": "shinuchi_yoshimune",
+  "name": "真打 吉宗",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 488.9,
+      "reg": 313,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 471.5,
+      "reg": 303,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 438.5,
+      "reg": 283.5,
+      "koyaku": null,
+      "payout": 101
+    },
+    "4": {
+      "big": 398.1,
+      "reg": 267.1,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 377,
+      "reg": 256.9,
+      "koyaku": null,
+      "payout": 108
+    },
+    "6": {
+      "big": 354.9,
+      "reg": 250.6,
+      "koyaku": null,
+      "payout": 114
+    }
+  },
+  "ceiling": 1500,
+  "ceilingTarget": 900,
+  "ceilingReward": 850,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 550,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-04-06",
+  "guessElementPath": "setGuessElement/shinuchiYoshimune/index.html",
+  "cautions": null
+}

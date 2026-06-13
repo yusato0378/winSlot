@@ -1,0 +1,56 @@
+{
+  "id": "isekai_quartet_bt",
+  "name": "A-SLOT+ 異世界かるてっと BT",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "いせかる目",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 1337.5,
+      "reg": 107.6,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 1260.3,
+      "reg": 106.2,
+      "koyaku": null,
+      "payout": 99.9
+    },
+    "3": {
+      "big": 1187,
+      "reg": 103.2,
+      "koyaku": null,
+      "payout": 101.4
+    },
+    "4": {
+      "big": 1113.7,
+      "reg": 100.1,
+      "koyaku": null,
+      "payout": 102.9
+    },
+    "5": {
+      "big": 1040.3,
+      "reg": 97.1,
+      "koyaku": null,
+      "payout": 104.4
+    },
+    "6": {
+      "big": 923,
+      "reg": 89.2,
+      "koyaku": null,
+      "payout": 109
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 220,
+  "normalCostPerGame": 1.5,
+  "addedDate": "2026-04-06",
+  "guessElementPath": "setGuessElement/isekaiQuartetBt/index.html",
+  "cautions": null
+}

@@ -1,0 +1,59 @@
+{
+  "id": "my_juggler_v",
+  "name": "マイジャグラーV",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": "ブドウ",
+  "settings": {
+    "1": {
+      "big": 273.1,
+      "reg": 409.6,
+      "koyaku": 5.95,
+      "payout": 97
+    },
+    "2": {
+      "big": 270.8,
+      "reg": 385.5,
+      "koyaku": 5.92,
+      "payout": 98
+    },
+    "3": {
+      "big": 266.4,
+      "reg": 336.1,
+      "koyaku": 5.88,
+      "payout": 99.9
+    },
+    "4": {
+      "big": 254,
+      "reg": 290,
+      "koyaku": 5.8,
+      "payout": 102.8
+    },
+    "5": {
+      "big": 240.1,
+      "reg": 268.6,
+      "koyaku": 5.7,
+      "payout": 105.3
+    },
+    "6": {
+      "big": 229.1,
+      "reg": 229.1,
+      "koyaku": 5.56,
+      "payout": 109.4
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 250,
+  "normalCostPerGame": 1.8,
+  "addedDate": "2026-03-01",
+  "guessElementPath": null,
+  "cautions": [
+    "短時間・台移動が多いと推測は不安定になります。同じ台でデータを溜めるほど有利です。",
+    "BIG/REGどちらかに寄った短期結果は起きます。合算と回転数も合わせて解釈してください。"
+  ]
+}

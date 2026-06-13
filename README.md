@@ -53,12 +53,14 @@
 
 ## ディレクトリ構成
 
-**ビルド方式**: ソース（`index.html`・`app.js`・`articles/`・`templates/`・機種データ）を git 管理し、`node scripts/build.js` が **`dist/` に全ページを生成**します。Vercel はこの `dist/` を配信します。`guide/`・`machines/*/index.html`・`setGuessElement/index.html`・`sitemap.xml` は**生成物のため git 管理外**（`.gitignore` 済み）です。
+**ビルド方式**: ソース（`index.html`・`app.js`・`articles/`・`templates/`・`data/machines/`）を git 管理し、`node scripts/build.js` が **`dist/` に全ページを生成**します。Vercel はこの `dist/` を配信します。`guide/`・`machines/*/index.html`・`setGuessElement/index.html`・`sitemap.xml`・`machines-data.js` は**生成物のため git 管理外**（`.gitignore` 済み）です。
+
+**機種データの正本は `data/machines/*.json`（1機種1ファイル）**です。以前は `app.js` と LP生成側に同じ配列が二重に存在していましたが、JSON に一本化しました。ビルドが `dist/machines-data.js`（`window.MACHINES`）を生成し、`index.html` が `app.js` より前に読み込みます。
 
 ```
 winSlot/
-├── index.html              # メインアプリ（ソース。dist へコピー）
-├── app.js                  # 機種データ・推測・UI（ソース）
+├── index.html              # メインアプリ（machines-data.js → app.js の順で読み込む）
+├── app.js                  # 推測・UI ロジックのみ（MACHINES は window から取得）
 ├── style.css
 ├── 404.html                # Vercel が未存在URLに配信（noindex）
 ├── favicon.png             # サイトアイコン
@@ -66,6 +68,11 @@ winSlot/
 ├── ads.txt                 # AdSense 用（公開ルートに配置）
 ├── robots.txt
 ├── vercel.json             # buildCommand / outputDirectory / リダイレクト
+│
+├── data/
+│   └── machines/           # ★ 機種データの正本（1機種1 JSON）
+│       ├── index.json      #   表示順を保った id の配列
+│       └── {id}.json       #   スペック・天井・cautions・guessElementPath
 │
 ├── setGuessElement/        # 設定推測要素ページ（*/index.html は手動メンテのソース）
 │                           #   ※ ルートの index.html はビルド生成（git 管理外）
@@ -76,10 +83,11 @@ winSlot/
 │   └── *.html              # 記事本文断片
 │
 ├── scripts/
-│   ├── build.js            # ★ ビルド統括（dist/ に全ページ生成）
+│   ├── build.js            # ★ ビルド統括（dist/ に全ページ生成 + machines-data.js）
 │   └── build/
+│       ├── machines.js       # data/machines/ のローダ（唯一の正本読み込み）
 │       ├── articles.js       # guide/ を生成
-│       ├── landing-pages.js  # 機種データ＋machines/・setGuessElement/index・sitemap.xml を生成
+│       ├── landing-pages.js  # machines/・setGuessElement/index・sitemap.xml を生成
 │       └── setguess-seo.js   # setGuessElement の meta / 機種LP 導線を付与
 │
 ├── dist/                   # ビルド出力（git 管理外。Vercel が配信）
@@ -175,9 +183,12 @@ git config --unset core.hooksPath
 
 | モジュール | 内容 |
 |----------|------|
+| `scripts/build/machines.js` | `data/machines/index.json` + `{id}.json` を読み、`MACHINES`・`GUESS_ELEMENT_PAGES`・`CAUTIONS_BY_ID` を返すローダ（機種データの唯一の読み込み口） |
 | `scripts/build/articles.js` | `templates/article-layout.html` + `articles/*` から `dist/guide/*.html` と `dist/guide/index.html` を生成 |
-| `scripts/build/landing-pages.js` | 機種データ（`MACHINES`）から `dist/machines/*/index.html`・`dist/setGuessElement/index.html` を生成し、`dist/sitemap.xml` を出力 |
+| `scripts/build/landing-pages.js` | 機種データから `dist/machines/*/index.html`・`dist/setGuessElement/index.html` を生成し、`dist/sitemap.xml` を出力 |
 | `scripts/build/setguess-seo.js` | `dist/setGuessElement/*/index.html`（コピー済み）に meta / OG / パンくず / 機種LP導線を付与。**既存の手書き description は上書きしない** |
+
+`build.js` は機種データを1回だけロードして各モジュールに渡し、ブラウザ用の `dist/machines-data.js`（`window.MACHINES`）も生成します。
 
 > ソースを編集したら `node scripts/build.js` を一度実行して `dist/` を確認すれば、本番と同じ出力になります。`dist/` は git 管理外なのでコミット対象は**ソースのみ**です。
 
@@ -236,16 +247,22 @@ git config --unset core.hooksPath
 
 ---
 
-## 機種別ランディングページの再生成
+## 機種の追加・編集
 
-- 機種データや LP生成ロジックを `scripts/build/landing-pages.js` 側で変更したら:
+機種データの正本は **`data/machines/{id}.json`**（1機種1ファイル）です。`app.js` にも LP生成側にもデータを書く必要はありません。
 
-  ```bash
-  node scripts/build.js
-  ```
+### 追加手順
 
-- 出力は `dist/machines/{machine_id}/index.html` のみ（1機種1URL）。`dist/` は毎ビルドで作り直されます。  
-- 旧構成の `/machines/{id}/ceiling/` 等へブックマークや外部リンクがある場合は、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
+1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。  
+2. `data/machines/index.json` の配列に **`id` を1行追加**する（この配列の順序が一覧・サイトマップの表示順になる）。  
+3. `node scripts/build.js` を実行 → `dist/machines/{id}/index.html`・`dist/machines-data.js`・`dist/sitemap.xml` が更新される。  
+4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  
+5. 設定推測要素ページを置く場合は `setGuessElement/{dir}/index.html` を作成し、JSON の `guessElementPath` をそのパスに合わせる。
+
+### 仕組み
+
+- `scripts/build/machines.js` が `data/machines/` を読み、`MACHINES`（LP生成・サイトマップ用）と `window.MACHINES`（ブラウザ用 `dist/machines-data.js`）の両方を供給します。  
+- 旧構成の `/machines/{id}/ceiling/` 等へのリンクは、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
 
 ---
 
@@ -323,11 +340,11 @@ node scripts/gsc-analyze.js data/gsc.csv
 
 #### 新機種追加時のチェックリスト（SEO・整合性）
 
-`app.js` の `MACHINES` に機種を追加したあと、次を忘れずに行う。
+`data/machines/{id}.json` を追加し `index.json` に id を足したあと、次を忘れずに行う（詳細は「機種の追加・編集」を参照）。
 
-1. **`node scripts/build.js`** を実行する（`dist/machines/{id}/` の LP と **`dist/sitemap.xml`** の URL・`lastmod` が更新される）  
-2. トップの **`index.html`** に「対応機種一覧」のリンク行がある場合は、該当 `<details>` 内の `<ul>` に同機種の `<li><a href="machines/{id}/">…</a></li>` を追加する  
-3. 設定推測要素ページを持つ機種は、`MACHINES` に **`guessElementPath`**（例: `setGuessElement/fooBar/index.html`）を設定する  
+1. **`node scripts/build.js`** を実行する（`dist/machines/{id}/` の LP と **`dist/sitemap.xml`** の URL・`lastmod`、`dist/machines-data.js` が更新される）  
+2. トップの **`index.html`** の「対応機種一覧」の該当 `<details>` 内の `<ul>` に `<li><a href="machines/{id}/">…</a></li>` を追加する  
+3. 設定推測要素ページを持つ機種は、JSON に **`guessElementPath`**（例: `setGuessElement/fooBar/index.html`）を設定する  
 4. デプロイ後、Search Console の **サイトマップ** から `sitemap.xml` を再送信する（任意だが推奨）  
 5. 数週間後に GSC で新 URL の **表示・クリック** が付き始めているか確認する
 
@@ -336,8 +353,8 @@ node scripts/gsc-analyze.js data/gsc.csv
 ## 収録機種について
 
 - **Aタイプ**（ジャグラー系・ディスクアップ・うみねこ2・秘宝系・エヴァBT など）と **AT/ART（スマスロ）** を収録。  
-- 収録数・スペックの**正本は `app.js` 内の `MACHINES` 配列**（LP生成側は `scripts/build/landing-pages.js` の `MACHINES`）。下記リストはメンテ用の目次です。  
-- 機種追加時は両方の `MACHINES` を同期し、`node scripts/build.js` を実行。必要なら `setGuessElement/` と `index.html` のリンクも追加します。（※ この二重管理は手順2でJSONに一本化予定）
+- 収録数・スペックの**正本は `data/machines/*.json`**（`app.js` とLP生成側で同じ配列を二重管理していた構成から一本化済み）。下記リストはメンテ用の目次です。  
+- 機種追加は「機種の追加・編集」の手順どおり JSON を1ファイル足して `node scripts/build.js`。必要なら `setGuessElement/` と `index.html` のリンクも追加します。
 
 ### AT / ART機（スマスロ）
 

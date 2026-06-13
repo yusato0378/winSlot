@@ -1,0 +1,56 @@
+{
+  "id": "azurlane",
+  "name": "L アズールレーン THE ANIMATION",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 598.9,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 589.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 564.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.7
+    },
+    "4": {
+      "big": 527.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.3
+    },
+    "5": {
+      "big": 483,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.6
+    },
+    "6": {
+      "big": 467.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 2000,
+  "ceilingTarget": 1200,
+  "ceilingReward": 1200,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 600,
+  "normalCostPerGame": 2.3,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/azurlane/index.html",
+  "cautions": null
+}

@@ -1,0 +1,56 @@
+{
+  "id": "eva_bt",
+  "name": "エヴァンゲリオン 約束の扉",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 300.6,
+      "reg": 569.9,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 290,
+      "reg": 546.1,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 281.3,
+      "reg": 508,
+      "koyaku": null,
+      "payout": 100.7
+    },
+    "4": {
+      "big": 266.4,
+      "reg": 474.9,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 254,
+      "reg": 442.8,
+      "koyaku": null,
+      "payout": 107
+    },
+    "6": {
+      "big": 240.9,
+      "reg": 404.5,
+      "koyaku": null,
+      "payout": 110.9
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 1.7,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/evaBt/index.html",
+  "cautions": null
+}

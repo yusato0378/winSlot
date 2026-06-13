@@ -1,0 +1,56 @@
+{
+  "id": "valvrave",
+  "name": "革命機ヴァルヴレイヴ",
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "ボーナス",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 277,
+      "reg": 519,
+      "koyaku": null,
+      "payout": 97.3
+    },
+    "2": {
+      "big": 275,
+      "reg": 516,
+      "koyaku": null,
+      "payout": 98.3
+    },
+    "3": {
+      "big": 274,
+      "reg": 514,
+      "koyaku": null,
+      "payout": 100.8
+    },
+    "4": {
+      "big": 269,
+      "reg": 507,
+      "koyaku": null,
+      "payout": 103.2
+    },
+    "5": {
+      "big": 264,
+      "reg": 499,
+      "koyaku": null,
+      "payout": 107.9
+    },
+    "6": {
+      "big": 258,
+      "reg": 490,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 700,
+  "ceilingReward": 400,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-03-01",
+  "guessElementPath": "setGuessElement/valvrave/index.html",
+  "cautions": null
+}
