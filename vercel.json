@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node scripts/build.js",
+  "outputDirectory": "dist",
   "trailingSlash": true,
   "redirects": [
     { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true },

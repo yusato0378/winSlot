@@ -1,0 +1,8 @@
+{
+  "name": "winslot",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "preview": "npx -y serve dist"
+  }
+}

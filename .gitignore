@@ -2,3 +2,13 @@ data/gsc*.csv
 data/gsc*.tsv
 data/gsc*.txt
 reports/gsc-actions*.md
+
+# ビルド出力（node scripts/build.js が dist/ に生成。Vercel が配信）
+dist/
+
+# 生成物（ソースは articles/・templates/・scripts/build/landing-pages.js の機種データ）
+/guide/
+/sitemap.xml
+/machines/*/index.html
+/setGuessElement/index.html
+node_modules/

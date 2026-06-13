@@ -53,38 +53,39 @@
 
 ## ディレクトリ構成
 
+**ビルド方式**: ソース（`index.html`・`app.js`・`articles/`・`templates/`・機種データ）を git 管理し、`node scripts/build.js` が **`dist/` に全ページを生成**します。Vercel はこの `dist/` を配信します。`guide/`・`machines/*/index.html`・`setGuessElement/index.html`・`sitemap.xml` は**生成物のため git 管理外**（`.gitignore` 済み）です。
+
 ```
 winSlot/
-├── index.html              # メインアプリ
-├── app.js                  # 機種データ・推測・UI
+├── index.html              # メインアプリ（ソース。dist へコピー）
+├── app.js                  # 機種データ・推測・UI（ソース）
 ├── style.css
+├── 404.html                # Vercel が未存在URLに配信（noindex）
 ├── favicon.png             # サイトアイコン
 ├── og-default.png          # OGP / Twitter カード用（トップ）
 ├── ads.txt                 # AdSense 用（公開ルートに配置）
 ├── robots.txt
-├── sitemap.xml             # 生成スクリプト実行時に更新される場合あり
-├── vercel.json             # Vercel ルーティング例
+├── vercel.json             # buildCommand / outputDirectory / リダイレクト
 │
-├── guide/                  # 解説記事（build-articles.js の出力）
-├── machines/               # 機種別LP（generate-landing-pages.js の出力）
-├── setGuessElement/        # 設定推測要素ページ（手動メンテ）
-│
+├── setGuessElement/        # 設定推測要素ページ（*/index.html は手動メンテのソース）
+│                           #   ※ ルートの index.html はビルド生成（git 管理外）
 ├── templates/
 │   └── article-layout.html # 解説記事の共通レイアウト
 ├── articles/
 │   ├── manifest.json       # 記事メタデータ
 │   └── *.html              # 記事本文断片
 │
-├── build-articles.js       # guide/ を生成
-├── generate-landing-pages.js  # machines/ と sitemap 更新
-├── patch-setguess-seo.js # setGuessElement の meta / 機種LP 導線を一括更新
+├── scripts/
+│   ├── build.js            # ★ ビルド統括（dist/ に全ページ生成）
+│   └── build/
+│       ├── articles.js       # guide/ を生成
+│       ├── landing-pages.js  # 機種データ＋machines/・setGuessElement/index・sitemap.xml を生成
+│       └── setguess-seo.js   # setGuessElement の meta / 機種LP 導線を付与
+│
+├── dist/                   # ビルド出力（git 管理外。Vercel が配信）
 ├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
-├── .cursor/
-│   └── skills/             # Cursor Agent Skills（リポジトリ単位・任意）
-│       ├── japanese-concise/
-│       └── post-implementation-security/
-└── scripts/
-    └── add-favicon-setguess.js  # setGuessElement に favicon 挿入（任意）
+└── .cursor/
+    └── skills/             # Cursor Agent Skills（リポジトリ単位・任意）
 ```
 
 ---
@@ -105,9 +106,10 @@ winSlot/
 ## ローカルでの確認
 
 1. リポジトリをクローンまたは展開する  
-2. **`index.html` をブラウザで開く**（または Live Server / `npx serve .` などでルートを配信）
+2. `node scripts/build.js` を実行して `dist/` を生成する  
+3. **`npm run preview`**（= `npx serve dist`）で `dist/` を配信し、ブラウザで開く
 
-> `file://` でもメインアプリは動きます。相対パスで `guide/` 等へ遷移する場合は、ルートをドキュメントルートにしたローカルサーバの方が安全です。
+> メインアプリ単体は `index.html` を直接開いても動きますが、`guide/` や `machines/{id}/` への遷移を含めて本番同様に確認するには、ビルド後の `dist/` をローカルサーバで配信してください。
 
 ### 使い方（アプリ）
 
@@ -158,8 +160,9 @@ git config --unset core.hooksPath
 
 ## デプロイ（Vercel）
 
-- プロジェクト**ルート**をそのままデプロイしてください（`index.html` がトップに来る構成）。  
-- `vercel.json` では `/` → `/index.html` のリライトに加え、`/articles/:slug` → `/guide/:slug`、および旧機種LPパス（`/machines/:id/ceiling`・`setting`・`beginner` など）→ `/machines/:id/` の **301 リダイレクト**を定義しています（`trailingSlash: true` に合わせ、末尾スラッシュあり／なしの両方をカバー）。  
+- Vercel は `vercel.json` の **`buildCommand`（`node scripts/build.js`）を実行**し、**`outputDirectory`（`dist/`）を配信**します。GitHub への push がトリガーです。生成物は git に含めません。  
+- `vercel.json` では `/articles/:slug` → `/guide/:slug`、および旧機種LPパス（`/machines/:id/ceiling`・`setting`・`beginner` など）→ `/machines/:id/` の **301 リダイレクト**を定義しています（`trailingSlash: true` に合わせ、末尾スラッシュあり／なしの両方をカバー）。  
+- 未存在URLには `dist/404.html`（`noindex`）が **HTTP 404** で返ります（以前の「全URLに index.html を 200 で返す catch-all rewrite」はソフト404の原因になるため廃止）。  
 - **`vercel.json` のリダイレクト定義**は `node scripts/verify-vercel-machine-redirects.js` で確認できます（デプロイ前のチェックに利用）。  
 - **デプロイ直後（本番）**: Search Console の **URL 検査**で旧パス（例: `/machines/hokuto/ceiling/`）が正規の `machines/{id}/` へリダイレクトされることを確認し、必要なら **インデックス登録をリクエスト**。**サイトマップ**から `sitemap.xml` の再送信も推奨。数週間後に **ページ** レポートでインデックスの推移を確認する（即時には完了しない運用タスク）。  
 - 本番ドメイン（例: `pachislot-setting.com`）に合わせて、`index.html` の `canonical` / `og:url`、各ページの絶対URL、`contact.html` の Formspree `_next`、**Search Console の所有権確認**などを揃えてください。
@@ -168,16 +171,23 @@ git config --unset core.hooksPath
 
 ## ビルドスクリプト
 
+`node scripts/build.js`（= `npm run build`）が**唯一のビルド入口**です。`dist/` を空にして静的ファイルをコピーし、以下のモジュールを順に呼んで全ページを生成します。Vercel もこのコマンドを実行します。
+
+| モジュール | 内容 |
+|----------|------|
+| `scripts/build/articles.js` | `templates/article-layout.html` + `articles/*` から `dist/guide/*.html` と `dist/guide/index.html` を生成 |
+| `scripts/build/landing-pages.js` | 機種データ（`MACHINES`）から `dist/machines/*/index.html`・`dist/setGuessElement/index.html` を生成し、`dist/sitemap.xml` を出力 |
+| `scripts/build/setguess-seo.js` | `dist/setGuessElement/*/index.html`（コピー済み）に meta / OG / パンくず / 機種LP導線を付与。**既存の手書き description は上書きしない** |
+
+> ソースを編集したら `node scripts/build.js` を一度実行して `dist/` を確認すれば、本番と同じ出力になります。`dist/` は git 管理外なのでコミット対象は**ソースのみ**です。
+
+その他の運用スクリプト（ビルドとは独立。手元で実行）:
+
 | コマンド | 内容 |
 |----------|------|
-| `node build-articles.js` | `templates/article-layout.html` + `articles/*` から `guide/*.html` と `guide/index.html` を生成 |
-| `node generate-landing-pages.js` | `app.js` と同系の機種データから `machines/*/index.html` を再生成し、`sitemap.xml` を更新 |
-| `node patch-setguess-seo.js` | `setGuessElement/*/index.html` に meta description と機種LP（`machines/{id}/`）へのリンクを一括反映（`app.js` の `MACHINES[].guessElementPath` と機種名と同期すること） |
 | `node scripts/gsc-analyze.js data/gsc.csv` | Search Console のCSV/TSV（検索パフォーマンス）を解析し、CTR低/順位11〜20の改善候補を `reports/gsc-actions.md` に出力 |
-| `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` | GSC エクスポートから `machines/` 配下のクリック数上位5件を `data/access-ranking.json` に更新（トップのアクセスランキング表示用） |
-| `node scripts/verify-vercel-machine-redirects.js` | `vercel.json` の `/articles/:slug` → `/guide/:slug` と、機種LP旧パス（`ceiling` / `setting` / `beginner`・末尾スラッシュ有無）→ `/machines/:machineId/` の **301 定義**が揃っているか検証 |
-
-**記事や機種LPを編集したあと**、該当スクリプトを再実行すると HTML が上書きされます。`setGuessElement/` の SEO 用メタ・LP 導線は `patch-setguess-seo.js`、それ以外の本文は手編集です。
+| `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` | GSC エクスポートからクリック数上位5件を `data/access-ranking.json` に更新（トップのアクセスランキング表示用） |
+| `node scripts/verify-vercel-machine-redirects.js` | `vercel.json` の 301 定義が揃っているか検証 |
 
 ---
 
@@ -215,26 +225,26 @@ git config --unset core.hooksPath
 3. ルートで実行:
 
    ```bash
-   node build-articles.js
+   node scripts/build.js
    ```
 
-4. トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で `guide/{slug}.html` を追加。`guide/*.html` は `node generate-landing-pages.js` 実行時に `sitemap.xml` へ自動で列挙されます（`build-articles.js` のあとに実行すると新記事も反映されます）。
+   `dist/guide/{slug}.html` が生成され、`dist/sitemap.xml` にも自動で列挙されます。トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で追加してください。
 
 ### レイアウトだけ変更したいとき
 
-`templates/article-layout.html` を編集後、再度 `node build-articles.js` で全記事に反映されます。
+`templates/article-layout.html` を編集後、再度 `node scripts/build.js` で全記事に反映されます。
 
 ---
 
 ## 機種別ランディングページの再生成
 
-- 機種データや LP テンプレートを `generate-landing-pages.js` 側で変更したら:
+- 機種データや LP生成ロジックを `scripts/build/landing-pages.js` 側で変更したら:
 
   ```bash
-  node generate-landing-pages.js
+  node scripts/build.js
   ```
 
-- 出力は `machines/{machine_id}/index.html` のみ（1機種1URL）。**既存ファイルは上書き**されます。  
+- 出力は `dist/machines/{machine_id}/index.html` のみ（1機種1URL）。`dist/` は毎ビルドで作り直されます。  
 - 旧構成の `/machines/{id}/ceiling/` 等へブックマークや外部リンクがある場合は、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
 
 ---
@@ -261,7 +271,7 @@ git config --unset core.hooksPath
 ## ファビコン
 
 - ルートに `favicon.png` を配置。  
-- `index.html`・静的ページ・`templates/article-layout.html`・`generate-landing-pages.js` 生成の `machines/*` から参照。  
+- `index.html`・静的ページ・`templates/article-layout.html`・ビルド生成の `machines/*` から参照。  
 - `setGuessElement` を新規追加したとき、未反映なら必要に応じて:
 
   ```bash
@@ -272,7 +282,7 @@ git config --unset core.hooksPath
 
 ## SEO（sitemap / robots）
 
-- **`sitemap.xml`**: URL 一覧。`generate-landing-pages.js` 実行で更新される部分があります。新ドメインへ移行した場合は `loc` を本番ドメインに統一してください。  
+- **`sitemap.xml`**: `dist/sitemap.xml` としてビルド時に生成されます。新ドメインへ移行した場合は生成元（`scripts/build/landing-pages.js` の `SITE_URL`）を本番ドメインに統一してください。  
 - **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。  
 - **`og-default.png`**: トップの SNS シェア用（`og:image` / `twitter:image`）。差し替える場合は 1200×630 前後の PNG を推奨します。
 
@@ -280,7 +290,7 @@ git config --unset core.hooksPath
 
 初回描画まわりの改善として、トップでは **Google Fonts のウェイトを 900 除外**（見出しは 700 に統一）、**AdSense スクリプトを `</body>` 直前**へ移しています。さらに詰める場合は次で計測します。
 
-1. 別ターミナルで静的配信（例）: `npx serve . -p 8080`  
+1. ビルドして別ターミナルで静的配信（例）: `node scripts/build.js && npx serve dist -p 8080`  
 2. 計測: `npx lighthouse http://127.0.0.1:8080/ --only-categories=performance --view`  
 3. レポートの **LCP 要素** と **CLS** を確認し、フォント読み込み・広告枠のレイアウトシフトなどを順に潰す
 
@@ -315,7 +325,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 
 `app.js` の `MACHINES` に機種を追加したあと、次を忘れずに行う。
 
-1. **`node generate-landing-pages.js`** を実行する（`machines/{id}/` の LP と **`sitemap.xml`** の URL・`lastmod` が更新される）  
+1. **`node scripts/build.js`** を実行する（`dist/machines/{id}/` の LP と **`dist/sitemap.xml`** の URL・`lastmod` が更新される）  
 2. トップの **`index.html`** に「対応機種一覧」のリンク行がある場合は、該当 `<details>` 内の `<ul>` に同機種の `<li><a href="machines/{id}/">…</a></li>` を追加する  
 3. 設定推測要素ページを持つ機種は、`MACHINES` に **`guessElementPath`**（例: `setGuessElement/fooBar/index.html`）を設定する  
 4. デプロイ後、Search Console の **サイトマップ** から `sitemap.xml` を再送信する（任意だが推奨）  
@@ -326,8 +336,8 @@ node scripts/gsc-analyze.js data/gsc.csv
 ## 収録機種について
 
 - **Aタイプ**（ジャグラー系・ディスクアップ・うみねこ2・秘宝系・エヴァBT など）と **AT/ART（スマスロ）** を収録。  
-- 収録数・スペックの**正本は `app.js` 内の `MACHINES` 配列**。下記リストはメンテ用の目次です（機種追加時は **ここ・`index.html` の対応機種一覧・`generate-landing-pages.js`** を揃えて更新してください）。  
-- 機種追加時は `app.js` と `generate-landing-pages.js` のデータを同期し、`node generate-landing-pages.js` を実行。必要なら `setGuessElement/` と `index.html` のリンクも追加します。
+- 収録数・スペックの**正本は `app.js` 内の `MACHINES` 配列**（LP生成側は `scripts/build/landing-pages.js` の `MACHINES`）。下記リストはメンテ用の目次です。  
+- 機種追加時は両方の `MACHINES` を同期し、`node scripts/build.js` を実行。必要なら `setGuessElement/` と `index.html` のリンクも追加します。（※ この二重管理は手順2でJSONに一本化予定）
 
 ### AT / ART機（スマスロ）
 
