@@ -8,8 +8,5 @@
     { "source": "/machines/:machineId/setting/", "destination": "/machines/:machineId/", "permanent": true },
     { "source": "/machines/:machineId/beginner", "destination": "/machines/:machineId/", "permanent": true },
     { "source": "/machines/:machineId/beginner/", "destination": "/machines/:machineId/", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
