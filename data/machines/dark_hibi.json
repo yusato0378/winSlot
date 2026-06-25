@@ -1,0 +1,54 @@
+{
+  "id": "dark_hibi",
+  "name": "スマート沖スロ ダークハイビ",
+  "type": "AT",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 243.0,
+      "reg": 320.4,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 233.1,
+      "reg": 307.9,
+      "koyaku": null,
+      "payout": 99.4
+    },
+    "4": {
+      "big": 218.1,
+      "reg": 289.7,
+      "koyaku": null,
+      "payout": 102.5
+    },
+    "5": {
+      "big": 199.5,
+      "reg": 270.0,
+      "koyaku": null,
+      "payout": 106.8
+    },
+    "6": {
+      "big": 187.1,
+      "reg": 259.1,
+      "koyaku": null,
+      "payout": 110.0
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 700,
+  "ceilingReward": 300,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 220,
+  "normalCostPerGame": 2,
+  "addedDate": "2026-06-22",
+  "guessElementPath": null,
+  "cautions": [
+    "設定3を搭載しない5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
+    "ボーナス連チャン（天国・ダークハイビモード）で出玉が伸びる機種のため、短期の上下振れが大きめです。推測％はサンプルが溜まってから信頼度が上がります。",
+    "天井期待値は設定1基準の概算です。ホール状況（設定配分）とは別物として扱ってください。"
+  ]
+}

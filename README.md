@@ -419,6 +419,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `super_rio_ace2` | スマスロスーパーリオエース2 |
 | `takt_op_destiny` | Lタクトオーパス デスティニー |
 | `lb_slot_galfy` | LBスロットGALFY |
+| `dark_hibi` | スマート沖スロ ダークハイビ |
 
 ### Aタイプ
 
