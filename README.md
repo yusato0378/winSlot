@@ -420,6 +420,11 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `takt_op_destiny` | Lタクトオーパス デスティニー |
 | `lb_slot_galfy` | LBスロットGALFY |
 | `dark_hibi` | スマート沖スロ ダークハイビ |
+| `karakuri2` | Lパチスロ からくりサーカス2 |
+| `sengoku_collection6` | L戦国コレクション6 |
+| `ultraman_final` | L ULTRAMAN 最終決戦 |
+| `nangoku_sodachi_special` | L南国育ち SPECIAL |
+| `yabachiba` | L ヤバチバ |
 
 ### Aタイプ
 
@@ -438,6 +443,8 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `eva_bt` | エヴァンゲリオン 約束の扉 |
 | `isekai_quartet_bt` | A-SLOT+ 異世界かるてっと BT |
 | `lb_triple_crown_seven` | LB トリプルクラウンセブン |
+| `kerotto5_bt` | スマスロケロット5BT |
+| `rooteisu` | ローティス |
 
 LP のパスは `machines/{ID}/index.html` です。
 

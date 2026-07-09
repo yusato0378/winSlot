@@ -1,0 +1,60 @@
+{
+  "id": "ultraman_final",
+  "name": "L ULTRAMAN 最終決戦",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 445.4,
+      "reg": 272.8,
+      "koyaku": null,
+      "payout": 97.6
+    },
+    "2": {
+      "big": 438.4,
+      "reg": 267.7,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 431.3,
+      "reg": 262.7,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "4": {
+      "big": 423.8,
+      "reg": 257.0,
+      "koyaku": null,
+      "payout": 104.0
+    },
+    "5": {
+      "big": 423.1,
+      "reg": 256.6,
+      "koyaku": null,
+      "payout": 108.1
+    },
+    "6": {
+      "big": 422.4,
+      "reg": 256.2,
+      "koyaku": null,
+      "payout": 112.8
+    }
+  },
+  "ceiling": 1500,
+  "ceilingTarget": 840,
+  "ceilingReward": 500,
+  "resetCeiling": 1000,
+  "resetCeilingTarget": 600,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 2.2,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "AT間天井1500G＋α（設定変更後は1000G＋αに短縮）と、CZ間天井700G＋α（設定変更後500G＋α）の2段階があります。当ツールの現在ゲーム数はAT間を基準にしています。",
+    "AT初当たり・CZ初当たりの設定差は高設定域（4〜6）ではほとんど詰まります。初当たりで高設定域を切り分けるのは難しく、モード移行率などの他要素と併用してください。",
+    "天井が深めのため、狙い目は等価でAT間840G〜が目安です。"
+  ]
+}

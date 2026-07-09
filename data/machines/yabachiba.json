@@ -1,0 +1,54 @@
+{
+  "id": "yabachiba",
+  "name": "L ヤバチバ",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "ベル集中",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 398.0,
+      "reg": 7163.0,
+      "koyaku": null,
+      "payout": 97.1
+    },
+    "2": {
+      "big": 398.0,
+      "reg": 6509.0,
+      "koyaku": null,
+      "payout": 98.3
+    },
+    "4": {
+      "big": 398.0,
+      "reg": 3643.0,
+      "koyaku": null,
+      "payout": 102.9
+    },
+    "5": {
+      "big": 398.0,
+      "reg": 2906.0,
+      "koyaku": null,
+      "payout": 105.1
+    },
+    "6": {
+      "big": 398.0,
+      "reg": 1767.0,
+      "koyaku": null,
+      "payout": 110.1
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 400,
+  "ceilingReward": 300,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 130,
+  "normalCostPerGame": 2.0,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "設定3が未公表の5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
+    "ボーナス初当たりは全設定共通1/398で設定差がありません。設定推測の主軸は「ベル集中」突入率（設1=1/7163〜設6=1/1767）や虹7ボーナス初当たりです。ベル集中は出現頻度が低く、当ツールの推測はサンプルが溜まるまで精度が出にくい点に注意してください。",
+    "天井は999G＋α または チェリー40回（設定変更後は30回に短縮）のいずれか先着です。当ツールの現在ゲーム数はG数天井を基準にしています。"
+  ]
+}

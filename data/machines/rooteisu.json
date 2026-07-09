@@ -1,0 +1,54 @@
+{
+  "id": "rooteisu",
+  "name": "ローティス",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 677.7,
+      "reg": 514.1,
+      "koyaku": null,
+      "payout": 98.0
+    },
+    "2": {
+      "big": 666.4,
+      "reg": 501.3,
+      "koyaku": null,
+      "payout": 99.6
+    },
+    "4": {
+      "big": 648.7,
+      "reg": 481.7,
+      "koyaku": null,
+      "payout": 102.7
+    },
+    "5": {
+      "big": 634.9,
+      "reg": 467.3,
+      "koyaku": null,
+      "payout": 105.0
+    },
+    "6": {
+      "big": 627.1,
+      "reg": 457.4,
+      "koyaku": null,
+      "payout": 108.1
+    }
+  },
+  "ceiling": 900,
+  "ceilingTarget": 500,
+  "ceilingReward": 250,
+  "resetCeiling": 200,
+  "resetCeilingTarget": 100,
+  "avgBonusReward": 150,
+  "normalCostPerGame": 2.0,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "設定3を搭載しない5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
+    "通常A/B滞在時の天井は900G。設定変更時は約25%で朝一モード（天井200G）、約13%でチャンスモード（天井400G）へ移行します。",
+    "ボーナス初当たりの設定差は小さめです。天国・極楽・超極楽のループやSBBストックなどモード要素で出玉が伸びるため、初当たり確率だけでの設定推測は精度が出にくい点に注意してください。"
+  ]
+}

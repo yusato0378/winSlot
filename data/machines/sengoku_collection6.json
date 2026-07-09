@@ -1,0 +1,60 @@
+{
+  "id": "sengoku_collection6",
+  "name": "L戦国コレクション6",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 363.6,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 350.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 329.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 100.9
+    },
+    "4": {
+      "big": 289.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 106.0
+    },
+    "5": {
+      "big": 268.5,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.1
+    },
+    "6": {
+      "big": 252.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 114.9
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 550,
+  "ceilingReward": 550,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 2.0,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "ゲーム数天井999G+αのほか、規定コレポイントによる最大6周期の周期天井があります。設定変更後は周期天井が最大3周期に短縮されます。",
+    "周期天井はゲーム数と別管理のため、当ツールの現在ゲーム数（AT間999G基準）とは別物として扱ってください。",
+    "AT初当たりが設定推測の主軸です。設定4以上で明確に軽くなります。"
+  ]
+}

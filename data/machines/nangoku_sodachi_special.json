@@ -1,0 +1,54 @@
+{
+  "id": "nangoku_sodachi_special",
+  "name": "L南国育ち SPECIAL",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 299.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.5
+    },
+    "2": {
+      "big": 296.2,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "4": {
+      "big": 276.3,
+      "reg": null,
+      "koyaku": null,
+      "payout": 102.6
+    },
+    "5": {
+      "big": 269.1,
+      "reg": null,
+      "koyaku": null,
+      "payout": 105.0
+    },
+    "6": {
+      "big": 262.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 110.4
+    }
+  },
+  "ceiling": 799,
+  "ceilingTarget": 450,
+  "ceilingReward": 300,
+  "resetCeiling": 500,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 150,
+  "normalCostPerGame": 2.0,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "設定3を搭載しない5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
+    "通常A・B滞在時の天井は799G＋α。設定変更後・飛翔/超飛翔モード終了後は500G＋α（さらに準備状態では200G等）に短縮されます。",
+    "飛翔モード（継続約84%）・超飛翔モード（約93%）の連チャンで出玉が伸びる機種のため、短期の上下振れが大きめです。"
+  ]
+}

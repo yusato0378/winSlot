@@ -1,0 +1,60 @@
+{
+  "id": "kerotto5_bt",
+  "name": "スマスロケロット5BT",
+  "type": "A",
+  "bigLabel": "BIG合算",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 232.4,
+      "reg": 350.5,
+      "koyaku": null,
+      "payout": 98.2
+    },
+    "2": {
+      "big": 230.8,
+      "reg": 341.3,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 229.1,
+      "reg": 324.4,
+      "koyaku": null,
+      "payout": 101.1
+    },
+    "4": {
+      "big": 218.5,
+      "reg": 299.3,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 215.6,
+      "reg": 274.2,
+      "koyaku": null,
+      "payout": 107.0
+    },
+    "6": {
+      "big": 204.8,
+      "reg": 239.2,
+      "koyaku": null,
+      "payout": 111.0
+    }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 180,
+  "normalCostPerGame": 1.8,
+  "addedDate": "2026-07-06",
+  "guessElementPath": null,
+  "cautions": [
+    "天井非搭載のノーマルタイプ（BT）です。ゲーム数による狙い目はなく、設定推測がメインになります。",
+    "「BIG合算」はSUPER BIG＋BIGの合算です。REG確率に大きな設定差があるため、REGの偏りが設定推測の主軸になります。",
+    "REG確率は短期では大きく振れます。できるだけサンプルを溜めてから判断してください。"
+  ]
+}
