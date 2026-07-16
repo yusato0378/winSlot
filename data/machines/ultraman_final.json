@@ -51,7 +51,7 @@
   "avgBonusReward": 450,
   "normalCostPerGame": 2.2,
   "addedDate": "2026-07-06",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/ultramanFinal/index.html",
   "cautions": [
     "AT間天井1500G＋α（設定変更後は1000G＋αに短縮）と、CZ間天井700G＋α（設定変更後500G＋α）の2段階があります。当ツールの現在ゲーム数はAT間を基準にしています。",
     "AT初当たり・CZ初当たりの設定差は高設定域（4〜6）ではほとんど詰まります。初当たりで高設定域を切り分けるのは難しく、モード移行率などの他要素と併用してください。",

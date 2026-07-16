@@ -45,7 +45,7 @@
   "avgBonusReward": 130,
   "normalCostPerGame": 2.0,
   "addedDate": "2026-07-06",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/yabachiba/index.html",
   "cautions": [
     "設定3が未公表の5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
     "ボーナス初当たりは全設定共通1/398で設定差がありません。設定推測の主軸は「ベル集中」突入率（設1=1/7163〜設6=1/1767）や虹7ボーナス初当たりです。ベル集中は出現頻度が低く、当ツールの推測はサンプルが溜まるまで精度が出にくい点に注意してください。",

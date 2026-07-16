@@ -51,7 +51,7 @@
   "avgBonusReward": 180,
   "normalCostPerGame": 1.8,
   "addedDate": "2026-07-06",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/kerotto5Bt/index.html",
   "cautions": [
     "天井非搭載のノーマルタイプ（BT）です。ゲーム数による狙い目はなく、設定推測がメインになります。",
     "「BIG合算」はSUPER BIG＋BIGの合算です。REG確率に大きな設定差があるため、REGの偏りが設定推測の主軸になります。",

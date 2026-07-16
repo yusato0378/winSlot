@@ -51,7 +51,7 @@
   "avgBonusReward": 500,
   "normalCostPerGame": 2.0,
   "addedDate": "2026-07-06",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/sengokuCollection6/index.html",
   "cautions": [
     "ゲーム数天井999G+αのほか、規定コレポイントによる最大6周期の周期天井があります。設定変更後は周期天井が最大3周期に短縮されます。",
     "周期天井はゲーム数と別管理のため、当ツールの現在ゲーム数（AT間999G基準）とは別物として扱ってください。",

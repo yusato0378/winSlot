@@ -51,7 +51,7 @@
   "avgBonusReward": 450,
   "normalCostPerGame": 2.3,
   "addedDate": "2026-07-06",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/karakuri2/index.html",
   "cautions": [
     "CZ間天井（液晶最深1200G／実ゲーム数約890G）とAT間天井2500Gの2段階があります。当ツールの現在ゲーム数はCZ間の液晶ゲーム数を基準にしています。",
     "設定変更時はCZ間の液晶天井が500Gに短縮されます（据え置きは天井を引き継ぎ）。",

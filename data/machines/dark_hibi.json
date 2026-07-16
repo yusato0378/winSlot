@@ -45,7 +45,7 @@
   "avgBonusReward": 220,
   "normalCostPerGame": 2,
   "addedDate": "2026-06-22",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/darkHibi/index.html",
   "cautions": [
     "設定3を搭載しない5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
     "ボーナス連チャン（天国・ダークハイビモード）で出玉が伸びる機種のため、短期の上下振れが大きめです。推測％はサンプルが溜まってから信頼度が上がります。",
