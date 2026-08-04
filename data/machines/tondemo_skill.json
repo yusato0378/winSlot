@@ -1,0 +1,60 @@
+{
+  "id": "tondemo_skill",
+  "name": "スマスロ とんでもスキルで異世界放浪メシ",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 349.3,
+      "reg": 216.7,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 339.2,
+      "reg": 215.6,
+      "koyaku": null,
+      "payout": 99.1
+    },
+    "3": {
+      "big": 322.4,
+      "reg": 212.7,
+      "koyaku": null,
+      "payout": 101.0
+    },
+    "4": {
+      "big": 286.5,
+      "reg": 203.7,
+      "koyaku": null,
+      "payout": 105.3
+    },
+    "5": {
+      "big": 263.7,
+      "reg": 195.3,
+      "koyaku": null,
+      "payout": 109.1
+    },
+    "6": {
+      "big": 247.3,
+      "reg": 189.5,
+      "koyaku": null,
+      "payout": 112.1
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 580,
+  "ceilingReward": 500,
+  "resetCeiling": 650,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.5,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/tondemoSkill/index.html",
+  "cautions": [
+    "天井は最大1000G＋αでオープニングBONUS当選（ST濃厚）。設定変更時は650G＋αに短縮されます。",
+    "設定推測の主軸はボーナス初当たり（設定1と6で約1.41倍差）です。CZ初当たりは設定4以下でほぼ差がないため補助的に使ってください。",
+    "333G到達時の一部と777G到達時は「女神の舞ステージ」に移行し、滞在中のチャンス役で祝福ボーナス（上位ST濃厚）を抽選します。"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "street_fighter6",
+  "name": "スマスロ ストリートファイター6",
+  "type": "AT",
+  "bigLabel": "ファイターズバトル初当たり",
+  "regLabel": "ボーナス初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 278.6,
+      "reg": 487.6,
+      "koyaku": null,
+      "payout": 97.4
+    },
+    "2": {
+      "big": 272.1,
+      "reg": 473.3,
+      "koyaku": null,
+      "payout": 98.4
+    },
+    "3": {
+      "big": 264.6,
+      "reg": 447.2,
+      "koyaku": null,
+      "payout": 100.4
+    },
+    "4": {
+      "big": 258.9,
+      "reg": 425.6,
+      "koyaku": null,
+      "payout": 103.2
+    },
+    "5": {
+      "big": 255.3,
+      "reg": 405.9,
+      "koyaku": null,
+      "payout": 106.1
+    },
+    "6": {
+      "big": 252.6,
+      "reg": 389.9,
+      "koyaku": null,
+      "payout": 110.0
+    }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 580,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/streetFighter6/index.html",
+  "cautions": [
+    "天井は液晶表示1000G＋α（ゲーム数加算があるため実ゲーム数は約470G）。当ツールの現在ゲーム数は液晶ゲーム数を基準にしているため、期待値は目安として扱ってください。",
+    "設定変更しても天井ゲーム数は引き継ぎます（有利区間のみリセット）。そのため朝一リセット時の天井ブロックは表示していません。",
+    "設定推測の主軸はボーナス初当たり（設定1と6で約1.25倍差）です。ファイターズバトル初当たりは設定1と6で約1.10倍しか差がないため、補助的に使ってください。"
+  ]
+}

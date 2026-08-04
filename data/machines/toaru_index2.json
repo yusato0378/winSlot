@@ -1,0 +1,60 @@
+{
+  "id": "toaru_index2",
+  "name": "スマスロ とある魔術の禁書目録2",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 398.8,
+      "reg": 235.6,
+      "koyaku": null,
+      "payout": 97.9
+    },
+    "2": {
+      "big": 394.5,
+      "reg": 233.4,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 389.6,
+      "reg": 230.8,
+      "koyaku": null,
+      "payout": 100.0
+    },
+    "4": {
+      "big": 369.5,
+      "reg": 222.3,
+      "koyaku": null,
+      "payout": 104.5
+    },
+    "5": {
+      "big": 358.0,
+      "reg": 215.8,
+      "koyaku": null,
+      "payout": 108.2
+    },
+    "6": {
+      "big": 338.4,
+      "reg": 207.2,
+      "koyaku": null,
+      "payout": 113.3
+    }
+  },
+  "ceiling": 1200,
+  "ceilingTarget": 700,
+  "ceilingReward": 550,
+  "resetCeiling": 777,
+  "resetCeilingTarget": 300,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/toaruIndex2/index.html",
+  "cautions": [
+    "天井はAT間1200G（実ゲーム数）とCZ間800G＋α（液晶ゲーム数）の2段階です。当ツールの現在ゲーム数はAT間の実ゲーム数を基準にしています。",
+    "設定変更時はAT間777G・CZ間200G＋αに短縮されます（朝一リセット時ブロックはAT間777G基準）。",
+    "AT・CZ初当たりのほか、CZを経由しないAT直撃率に約2倍の設定差があるとされます。表の初当たりは目安として使ってください。"
+  ]
+}

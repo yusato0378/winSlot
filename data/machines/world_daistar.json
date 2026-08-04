@@ -1,0 +1,60 @@
+{
+  "id": "world_daistar",
+  "name": "スロット ワールドダイスター",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 306.5,
+      "reg": 180.6,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 297.1,
+      "reg": 173.8,
+      "koyaku": null,
+      "payout": 98.8
+    },
+    "3": {
+      "big": 284.1,
+      "reg": 168.3,
+      "koyaku": null,
+      "payout": 101.1
+    },
+    "4": {
+      "big": 262.1,
+      "reg": 164.9,
+      "koyaku": null,
+      "payout": 104.0
+    },
+    "5": {
+      "big": 257.1,
+      "reg": 163.0,
+      "koyaku": null,
+      "payout": 107.0
+    },
+    "6": {
+      "big": 246.6,
+      "reg": 156.0,
+      "koyaku": null,
+      "payout": 112.4
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 500,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 200,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.7,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/worldDaistar/index.html",
+  "cautions": [
+    "天井は通常時999G＋αでボーナス当選。設定変更後と上位AT終了後は600G＋αに短縮されます。",
+    "設定変更後は約60%でラッキーモードに滞在し、規定CZポイントの初期値も優遇されます。朝一リセット狙いは200G前後から期待値が出やすい構成です。",
+    "設定4と設定5はボーナス確率が近い（1/262.1と1/257.1）ため、初当たり回数だけでの判別は困難です。ボーナス中の獲得枚数やトロフィーと併用してください。"
+  ]
+}

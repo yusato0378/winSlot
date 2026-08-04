@@ -425,6 +425,13 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `ultraman_final` | L ULTRAMAN 最終決戦 |
 | `nangoku_sodachi_special` | L南国育ち SPECIAL |
 | `yabachiba` | L ヤバチバ |
+| `street_fighter6` | スマスロ ストリートファイター6 |
+| `toaru_index2` | スマスロ とある魔術の禁書目録2 |
+| `yajikita_mairu` | スマスロ やじきた道中記参る！ |
+| `tondemo_skill` | スマスロ とんでもスキルで異世界放浪メシ |
+| `jashin_chan` | L邪神ちゃんドロップキック |
+| `world_daistar` | スロット ワールドダイスター |
+| `super_bin_musume` | Lすーぱぁびん娘 |
 
 ### Aタイプ
 

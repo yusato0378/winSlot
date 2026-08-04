@@ -1,0 +1,60 @@
+{
+  "id": "jashin_chan",
+  "name": "L邪神ちゃんドロップキック",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 253.1,
+      "reg": 758.2,
+      "koyaku": null,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 248.1,
+      "reg": 746.3,
+      "koyaku": null,
+      "payout": 98.6
+    },
+    "3": {
+      "big": 241.6,
+      "reg": 722.8,
+      "koyaku": null,
+      "payout": 100.4
+    },
+    "4": {
+      "big": 222.5,
+      "reg": 655.9,
+      "koyaku": null,
+      "payout": 106.1
+    },
+    "5": {
+      "big": 211.8,
+      "reg": 615.9,
+      "koyaku": null,
+      "payout": 110.4
+    },
+    "6": {
+      "big": 210.0,
+      "reg": 606.2,
+      "koyaku": null,
+      "payout": 114.1
+    }
+  },
+  "ceiling": 799,
+  "ceilingTarget": 370,
+  "ceilingReward": 400,
+  "resetCeiling": 599,
+  "resetCeilingTarget": 150,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/jashinChan/index.html",
+  "cautions": [
+    "天井は通常時799G＋αでボーナス当選。設定変更時は599G＋αに短縮され、通常Cまたは天国モードからスタートします。",
+    "ゲーム数天井のほかに、ラインポイントによる周期天井（最大5周期でCZ当選）とボーナス10スルーでエピソードボーナス当選があります。周期はゲーム数と別管理のため、当ツールの現在ゲーム数（G数天井基準）とは別に確認してください。",
+    "設定5と設定6はボーナス確率がほぼ同じ（1/211.8と1/210.0）です。両者の判別は初当たり回数だけでは困難なため、示唆演出と併用してください。"
+  ]
+}

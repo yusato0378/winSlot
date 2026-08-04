@@ -1,0 +1,54 @@
+{
+  "id": "super_bin_musume",
+  "name": "Lすーぱぁびん娘",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 498.7,
+      "reg": null,
+      "koyaku": null,
+      "payout": 97.3
+    },
+    "2": {
+      "big": 477.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 98.9
+    },
+    "4": {
+      "big": 447.0,
+      "reg": null,
+      "koyaku": null,
+      "payout": 103.3
+    },
+    "5": {
+      "big": 423.4,
+      "reg": null,
+      "koyaku": null,
+      "payout": 107.2
+    },
+    "6": {
+      "big": 392.8,
+      "reg": null,
+      "koyaku": null,
+      "payout": 112.5
+    }
+  },
+  "ceiling": 1200,
+  "ceilingTarget": 450,
+  "ceilingReward": 600,
+  "resetCeiling": 900,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/superBinMusume/index.html",
+  "cautions": [
+    "設定3が非搭載の5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
+    "天井はゲーム数天井1200G（設定変更後は900G）でAT＋夢娘チャンス当選。ほかに娘ポイント最大10周期（設定変更後は7周期）の周期天井でCZ当選があります。",
+    "CZ合算確率は設定1で1/395.7、設定6で1/391.5とほぼ設定差がありません。設定推測はAT初当たりと示唆演出を主軸にしてください。"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "yajikita_mairu",
+  "name": "スマスロ やじきた道中記参る！",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "関所チャレンジ（CZ）",
+  "koyakuName": null,
+  "settings": {
+    "1": {
+      "big": 473.9,
+      "reg": 231.1,
+      "koyaku": null,
+      "payout": 97.7
+    },
+    "2": {
+      "big": 457.5,
+      "reg": 222.7,
+      "koyaku": null,
+      "payout": 98.7
+    },
+    "3": {
+      "big": 431.6,
+      "reg": 209.5,
+      "koyaku": null,
+      "payout": 100.6
+    },
+    "4": {
+      "big": 388.1,
+      "reg": 191.5,
+      "koyaku": null,
+      "payout": 105.2
+    },
+    "5": {
+      "big": 352.1,
+      "reg": 173.1,
+      "koyaku": null,
+      "payout": 109.5
+    },
+    "6": {
+      "big": 318.3,
+      "reg": 157.5,
+      "koyaku": null,
+      "payout": 114.5
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 300,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 1.4,
+  "addedDate": "2026-08-03",
+  "guessElementPath": "setGuessElement/yajikitaMairu/index.html",
+  "cautions": [
+    "天井は「999まいる」で関所チャレンジ当選。まいるは毎ゲーム1以上が加算されるため、実ゲーム数は999Gより少なくなります。当ツールの現在ゲーム数はまいる数として入力してください。",
+    "天井恩恵は関所チャレンジ（平均突破率約50%）当選のためAT確定ではありません。期待値は控えめに見積もっています。",
+    "設定変更後は特殊A（最大399まいる）が選ばれやすくなりますが、確定的な短縮天井ではないため朝一リセット時ブロックは表示していません。",
+    "6スルー後の7回目は関所チャレンジ勝率100%（AT濃厚）です。"
+  ]
+}
