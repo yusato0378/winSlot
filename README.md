@@ -432,6 +432,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `jashin_chan` | L邪神ちゃんドロップキック |
 | `world_daistar` | スロット ワールドダイスター |
 | `super_bin_musume` | Lすーぱぁびん娘 |
+| `garei_zero_re` | Lパチスロ 喰霊-零-Re |
 
 ### Aタイプ
 

@@ -1,0 +1,60 @@
+{
+  "id": "garei_zero_re",
+  "name": "Lパチスロ 喰霊-零-Re",
+  "type": "AT",
+  "bigLabel": "ボーナス合算",
+  "regLabel": null,
+  "koyakuName": "弱チェリー",
+  "settings": {
+    "1": {
+      "big": 199.8,
+      "reg": null,
+      "koyaku": 99.0,
+      "payout": 97.8
+    },
+    "2": {
+      "big": 198.6,
+      "reg": null,
+      "koyaku": 95.3,
+      "payout": 98.9
+    },
+    "3": {
+      "big": 195.0,
+      "reg": null,
+      "koyaku": 91.0,
+      "payout": 101.0
+    },
+    "4": {
+      "big": 189.4,
+      "reg": null,
+      "koyaku": 85.1,
+      "payout": 104.4
+    },
+    "5": {
+      "big": 186.2,
+      "reg": null,
+      "koyaku": 80.5,
+      "payout": 106.9
+    },
+    "6": {
+      "big": 182.0,
+      "reg": null,
+      "koyaku": 78.2,
+      "payout": 110.0
+    }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 600,
+  "ceilingReward": 500,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 260,
+  "normalCostPerGame": 1.4,
+  "addedDate": "2026-08-17",
+  "guessElementPath": "setGuessElement/gareiZeroRe/index.html",
+  "cautions": [
+    "A＋ART機です。入力する「ボーナス合算」はBIG＋REGの合算回数（設定1で1/199.8、設定6で1/182.0＝約1.10倍差）。設定差の主軸はART（喰霊チャンス）初当たりで設定1が1/468.6・設定6が1/279.8と約1.68倍差ですが、設定2〜5が未解析のため入力項目にしていません。ボーナス合算だけでの推測は精度が出にくいので、ART初当たりや終了画面と併用してください。",
+    "天井はボーナス及びART間999G＋α、恩恵は無限ART「喰霊チャンス・夢幻」。設定変更（リセット）時の天井短縮・恩恵は導入直後で未解析のため、朝一リセット時のブロックは表示していません。",
+    "天井恩恵とボーナス1回あたりの平均獲得枚数は未解析のため、純増・コイン持ち・出玉率からの見積もり値を使用しています。スペック表の弱チェリー確率も設定2〜5は暫定値です。期待値は目安として扱ってください。"
+  ]
+}
