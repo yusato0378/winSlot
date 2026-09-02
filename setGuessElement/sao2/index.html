@@ -47,7 +47,8 @@
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="ge-toc">
                     <li><a href="#trophy">コパンダトロフィー</a></li>
-                    <li><a href="#chance-me">強チャンス目B</a></li>
+                    <li><a href="#at-end">AT終了画面</a></li>
+                    <li><a href="#chance-me">小役・CZの設定差</a></li>
                     <li><a href="#at-hit">CZ・AT初当たり確率</a></li>
                     <li><a href="#spec">基本スペック</a></li>
                 </ul>
@@ -76,27 +77,73 @@
                 </div>
             </section>
 
-            <section class="card ge-section" id="chance-me">
-                <h2 class="card-title"><span class="card-icon">&#128270;</span> 小役差・設定示唆</h2>
-                <p class="ge-desc">強チャンス目BはCZ確定当選率に設定差があります。また強チェリーのCZ当選率にも設定差が確認されています。</p>
+            <section class="card ge-section" id="at-end">
+                <h2 class="card-title"><span class="card-icon">&#127916;</span> AT終了画面</h2>
+                <p class="ge-desc">導入後にAT終了画面のパターンが判明しました。デフォルトは「キリト＆シノン」です。<strong>Yシャツ以降の4種は1回の確認で設定域を確定</strong>できるため、AT終了時は必ず画面を確認してください。コパンダトロフィーは同じ終了画面上に出現します。</p>
                 <div class="table-wrapper">
                     <table class="spec-table ge-table">
                         <thead>
-                            <tr><th>要素</th><th>示唆・設定差</th></tr>
+                            <tr><th>AT終了画面</th><th>示唆内容</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>強チャンス目B出現</td><td><span class="ge-badge-inline ge-badge-high-weak">高設定ほど優遇</span></td></tr>
-                            <tr><td>強チェリー（通常）CZ当選率</td><td>設定1: 20.0% → 設定6: 33.0%</td></tr>
-                            <tr><td>強チェリー（高確）CZ当選率</td><td>設定1: 50.0% → 設定6: 60.0%</td></tr>
-                            <tr><td>スイカ シューティングチャージ当選率</td><td>設定1: 40.2% → 設定6: 55.1%</td></tr>
+                            <tr><td>キリト＆シノン</td><td><span class="ge-badge-inline ge-badge-default">デフォルト</span></td></tr>
+                            <tr><td>制服</td><td><span class="ge-badge-inline ge-badge-default">奇数設定示唆</span></td></tr>
+                            <tr><td>ソファー</td><td><span class="ge-badge-inline ge-badge-even">偶数設定示唆</span></td></tr>
+                            <tr><td>木漏れ日</td><td><span class="ge-badge-inline ge-badge-high-weak">高設定示唆（弱）</span></td></tr>
+                            <tr><td>夏祭り</td><td><span class="ge-badge-inline ge-badge-high-strong">高設定示唆（強）</span></td></tr>
+                            <tr><td>幼少期</td><td><span class="ge-badge-inline ge-badge-high-strong">設定5以上のチャンス（設定6より設定5で出やすい）</span></td></tr>
+                            <tr><td>Yシャツ</td><td><span class="ge-badge-inline ge-badge-confirm2">設定2以上濃厚</span></td></tr>
+                            <tr><td>お風呂</td><td><span class="ge-badge-inline ge-badge-confirm3">設定3以上濃厚</span></td></tr>
+                            <tr><td>水着</td><td><span class="ge-badge-inline ge-badge-confirm4">設定4以上濃厚</span></td></tr>
+                            <tr><td>パジャマ</td><td><span class="ge-badge-inline ge-badge-confirm6">設定6濃厚</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ 「幼少期」は設定6より<strong>設定5のほうが出現率が高い</strong>とされる特殊な示唆です。設定6濃厚のパジャマが出ていないのに幼少期が複数回出るようなら設定5寄りに見てください。</p>
+                <p class="ge-note">※ リール左側やメニュー画面の<strong>アイテム</strong>（光剣＝キリト／アミュスフィア＝詩乃／ヘカートⅡ＝シノン／黒星＝死銃）と、AT終了時・CZ失敗時の<strong>セリフ＋ランプ色</strong>は<strong>GGOモードの示唆であり設定示唆ではありません</strong>。設定推測には使わないでください。</p>
+            </section>
+
+            <section class="card ge-section" id="chance-me">
+                <h2 class="card-title"><span class="card-icon">&#128270;</span> 小役・CZの設定差</h2>
+                <p class="ge-desc">導入後に<strong>全設定の解析値</strong>が判明しました。とくに<strong>強チャンス目Bからの確定CZ当選率</strong>は設定1と設定6で約12.8倍と差が非常に大きく、<strong>CZ失敗時のアイテム獲得率</strong>とあわせて重要度が高い要素です。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>強チェリー<br>CZ当選（低確）</th><th>強チェリー<br>CZ当選（高確）</th><th>スイカ<br>SC当選（低確）</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>20.0%</td><td>50.0%</td><td>40.2%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>21.0%</td><td>51.0%</td><td>44.5%</td></tr>
+                            <tr><td class="ge-setting s3">設定3</td><td>20.0%</td><td>52.0%</td><td>41.0%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>25.0%</td><td>55.0%</td><td>48.4%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>20.0%</td><td>58.0%</td><td>42.2%</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>33.0%</td><td>60.0%</td><td>55.1%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ SC＝シューティングチャージ。低確中の強チェリー・スイカは<strong>偶数設定が優遇</strong>される形で、設定1・3・5はほぼ同値です。奇偶の切り分けに向きます。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>強チャンス目B<br>確定CZ当選率</th><th>CZ失敗時<br>アイテム獲得率</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>0.4%</td><td>20.3%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>0.8%</td><td>21.1%</td></tr>
+                            <tr><td class="ge-setting s3">設定3</td><td>0.8%</td><td>21.9%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1.6%</td><td>22.7%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>2.3%</td><td>25.0%</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>5.1%</td><td>30.1%</td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="ge-highlight-box">
                     <p class="ge-highlight-title">ポイント</p>
                     <ul class="ge-highlight-list">
-                        <li>THE END状態（確定CZ）移行率にも設定差あり — 出現したら高設定期待</li>
-                        <li>設定5はスナイパーチャンス2戦目までにデス・ガンが出現しやすい傾向あり</li>
+                        <li><strong>強チャンス目Bからの確定CZ（THE END状態）</strong>は設定1で0.4%・設定6で5.1%と<strong>約12.8倍</strong>差。分母は小さいが、<strong>1回でも確認できれば高設定に大きく期待</strong>できる</li>
+                        <li><strong>CZ失敗時のアイテム獲得率</strong>は設定1で20.3%・設定6で30.1%。CZは回数が貯まりやすいので、<strong>失敗した回数と獲得回数を必ずカウント</strong>しておく</li>
+                        <li>低確中の強チェリー・スイカは<strong>設定4と設定6だけが明確に優遇</strong>。設定1・3・5はほぼ同じなので、奇数設定の切り分けには使えない</li>
+                        <li>設定5はスナイパーチャンス2戦目までにデス・ガンが出現しやすい傾向あり（実戦報告ベース）</li>
                     </ul>
                 </div>
             </section>
