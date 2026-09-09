@@ -433,6 +433,11 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `world_daistar` | スロット ワールドダイスター |
 | `super_bin_musume` | Lすーぱぁびん娘 |
 | `garei_zero_re` | Lパチスロ 喰霊-零-Re |
+| `lycoris_recoil` | スマスロ リコリス・リコイル |
+| `aobuta` | L青春ブタ野郎はバニーガール先輩の夢を見ない |
+| `kanojo_okarishimasu` | Lパチスロ 彼女、お借りします |
+| `mierukochan` | パチスロ見える子ちゃん |
+| `mogumogu_furinkazan` | Lモグモグ風林火山 大海戦の巻 |
 
 ### Aタイプ
 
@@ -453,6 +458,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `lb_triple_crown_seven` | LB トリプルクラウンセブン |
 | `kerotto5_bt` | スマスロケロット5BT |
 | `rooteisu` | ローティス |
+| `taco_slot` | スマスロ タコスロ |
 
 LP のパスは `machines/{ID}/index.html` です。
 

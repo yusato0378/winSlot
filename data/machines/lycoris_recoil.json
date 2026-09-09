@@ -1,0 +1,30 @@
+{
+  "id": "lycoris_recoil",
+  "name": "スマスロ リコリス・リコイル",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 328.8, "reg": 198.7, "koyaku": null, "payout": 97.9 },
+    "2": { "big": 323.4, "reg": 196.9, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 312.1, "reg": 191.3, "koyaku": null, "payout": 101.3 },
+    "4": { "big": 288.3, "reg": 183.3, "koyaku": null, "payout": 106.1 },
+    "5": { "big": 271.6, "reg": 175.9, "koyaku": null, "payout": 110.4 },
+    "6": { "big": 256.7, "reg": 169.4, "koyaku": null, "payout": 114.6 }
+  },
+  "ceiling": 850,
+  "ceilingTarget": 500,
+  "ceilingReward": 550,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 500,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-09-07",
+  "guessElementPath": "setGuessElement/lycorisRecoil/index.html",
+  "cautions": [
+    "天井はAT間850G＋α（恩恵はAT当選＋Vストック抽選）と、CZ間600G＋αの2種類です。設定変更（リセット）時はAT間600G＋α・CZ間250G＋αに短縮されるため、朝一は通常時より浅いゲーム数から狙えます。",
+    "判別の主軸はAT「リコリスラッシュ」初当たり（設定1で1/328.8、設定6で1/256.7＝約1.28倍差）。CZ確率は約1.17倍差しかないので補助材料です。小役（チェリー・スイカとも1/89.2）は全設定共通で判別に使えません。",
+    "AT1回あたりの平均獲得枚数は導入直後で未解析のため、純増（約8.4枚/G）・コイン持ち（約31.8G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
+  ]
+}

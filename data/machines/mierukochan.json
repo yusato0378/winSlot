@@ -1,0 +1,30 @@
+{
+  "id": "mierukochan",
+  "name": "パチスロ見える子ちゃん",
+  "type": "AT",
+  "bigLabel": "ボーナス合算",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 135.4, "reg": null, "koyaku": null, "payout": 97.8 },
+    "2": { "big": 133.1, "reg": null, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 128.6, "reg": null, "koyaku": null, "payout": 101.3 },
+    "4": { "big": 123.3, "reg": null, "koyaku": null, "payout": 105.1 },
+    "5": { "big": 118.6, "reg": null, "koyaku": null, "payout": 110.2 },
+    "6": { "big": 115.1, "reg": null, "koyaku": null, "payout": 114.9 }
+  },
+  "ceiling": 900,
+  "ceilingTarget": 650,
+  "ceilingReward": 200,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 350,
+  "avgBonusReward": 200,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-09-07",
+  "guessElementPath": "setGuessElement/mierukochan/index.html",
+  "cautions": [
+    "入力する「ボーナス合算」はBIG合算＋REGの合算回数です（設定1で1/135.4、設定6で1/115.1＝約1.18倍差）。BIG合算（1/266.5→1/227.1）とREG（1/275.1→1/233.6）の設定差比率がほぼ同じため、合算1本での推測にしています。",
+    "ボーナスが1/135と軽い一方で天井は900G＋αと深いため、天井到達率が低く天井狙いの妙味は小さい機種です。設定変更時は600G＋αに短縮されます。狙い目ゲーム数は他機種より深めに設定しています。",
+    "ボーナス1回あたりの平均獲得枚数（超BIG約300枚・BIG約200枚・REG約100枚）は振り分けが未解析のため見積もり値です。小役確率（弱チェリー1/73.6・スイカ1/128.5など）の設定差も未解析。ボーナス終了画面13パターン・REG中キャラ紹介と併用してください。"
+  ]
+}

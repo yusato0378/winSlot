@@ -48,6 +48,7 @@
                 <ul class="ge-toc">
                     <li><a href="#signs">設定示唆・演出</a></li>
                     <li><a href="#at">AT初当たり確率（設定差）</a></li>
+                    <li><a href="#kitei">規定ゲーム数振り分け</a></li>
                     <li><a href="#spec">基本スペック</a></li>
                 </ul>
             </nav>
@@ -115,7 +116,8 @@
                         <li>AT初当たりは設定1（1/498.7）→設定6（1/392.8）で<strong>約1.27倍</strong>。判別の主軸はこちら</li>
                         <li><strong>CZ合算は1/395.7〜1/391.5とほぼ設定差なし</strong>。CZ回数は判別に使えないため、当ツールでも入力項目にしていません</li>
                         <li>設定2と設定4の出玉率差は約4.4%と大きい。示唆演出で「設定4以上」を確認できれば一気に評価が上がる</li>
-                        <li>導入後に<strong>規定ゲーム数の振り分けにも設定差</strong>があることが判明。設定1は1200G選択が57.3%なのに対し設定2は48.6%で、300G・600G・900Gの<strong>浅いゲーム数が選ばれやすい</strong>（設定4以上の振り分けは未解析）。ただしこれはAT初当たり確率の設定差そのものなので、<strong>初当たりとは別要素として二重にカウントしないこと</strong></li>
+                        <li>導入後に<strong>規定ゲーム数の振り分け</strong>が全設定分判明。1200G選択率は設定1で57.3%・設定6で17.6%と<strong>約3.3倍</strong>の差があり、逆に300G・600Gは高設定ほど選ばれやすい（<a href="#kitei">振り分け表</a>）。ただしこれはAT初当たり確率の設定差そのものなので、<strong>初当たりとは別要素として二重にカウントしないこと</strong></li>
+                        <li>実戦的には<strong>「1200G到達が何回あったか」</strong>を見るのが早い。設定1なら約1.7回に1回が1200Gまで引っ張るのに対し、設定6は約5.7回に1回。<strong>浅いゲーム数での当選が続くなら高設定寄り</strong>と考えてよい</li>
                     </ul>
                 </div>
                 <div class="ge-external-link">
@@ -140,6 +142,26 @@
                         </tbody>
                     </table>
                 </div>
+            </section>
+
+            <section class="card ge-section" id="kitei">
+                <h2 class="card-title"><span class="card-icon">&#9203;</span> 規定ゲーム数振り分け</h2>
+                <p class="ge-desc">導入後に<strong>設定4以上を含む全設定の振り分け</strong>が判明しました。高設定ほど300G・600Gの浅いゲーム数が選ばれやすく、設定1は1200Gまで引っ張られやすい構成です。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>100G</th><th>300G</th><th>600G</th><th>900G</th><th>1200G</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>10.2%</td><td>9.0%</td><td>13.3%</td><td>10.2%</td><td>57.3%</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>10.2%</td><td>13.7%</td><td>15.3%</td><td>12.2%</td><td>48.6%</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>10.2%</td><td>18.0%</td><td>23.9%</td><td>12.2%</td><td>35.7%</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>10.2%</td><td>22.7%</td><td>27.1%</td><td>13.3%</td><td>26.7%</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>10.2%</td><td>30.2%</td><td>29.8%</td><td>12.2%</td><td>17.6%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ <strong>100Gの選択率は全設定10.2%で共通</strong>です。差が出るのは300G・600G（高設定ほど優遇）と1200G（低設定ほど優遇）で、900Gはほぼ設定差がありません。この振り分けはAT初当たり確率の設定差の内訳にあたるため、<strong>ツールの「AT初当たり」入力と二重に評価しないでください</strong>。</p>
             </section>
 
             <section class="card ge-section" id="spec">

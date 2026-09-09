@@ -1,0 +1,28 @@
+{
+  "id": "taco_slot",
+  "name": "スマスロ タコスロ",
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 324.4, "reg": 352.3, "koyaku": null, "payout": 98.7 },
+    "2": { "big": 318.1, "reg": 336.1, "koyaku": null, "payout": 100.5 },
+    "5": { "big": 309.1, "reg": 312.1, "koyaku": null, "payout": 103.3 },
+    "6": { "big": 297.9, "reg": 300.6, "koyaku": null, "payout": 106.2 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 230,
+  "normalCostPerGame": 1.4,
+  "addedDate": "2026-09-07",
+  "guessElementPath": "setGuessElement/tacoSlot/index.html",
+  "cautions": [
+    "設定1・2・5・6の4段階設定です（設定3・4は非搭載）。当ツールの推測結果もこの4段階で表示されます。",
+    "天井非搭載のノーマルタイプ（ボーナストリガー機）です。ゲーム数による狙い目はなく、設定推測がメインになります。出玉率は技術介入度で変動し、設定1で98.7〜100.7％、設定6で106.2〜108.5％です（表示値はフル攻略時の下限）。",
+    "ボーナス合算は設定1で1/168.9、設定6で1/149.6と約1.13倍差しかありません。小役の設定差のほうが大きく、スイカ合算は1/60.0→1/50.0（約1.20倍）、チェリー合算は1/22.9→1/20.1（約1.14倍）、プラムは1/9.8→1/9.0。ユニメモでカウントできるので併用してください。"
+  ]
+}

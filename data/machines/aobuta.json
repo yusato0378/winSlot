@@ -1,0 +1,29 @@
+{
+  "id": "aobuta",
+  "name": "L青春ブタ野郎はバニーガール先輩の夢を見ない",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "2": { "big": 350.8, "reg": null, "koyaku": null, "payout": 98.1 },
+    "3": { "big": 336.5, "reg": null, "koyaku": null, "payout": 99.3 },
+    "4": { "big": 295.1, "reg": null, "koyaku": null, "payout": 105.3 },
+    "5": { "big": 274.6, "reg": null, "koyaku": null, "payout": 108.4 },
+    "6": { "big": 207.8, "reg": null, "koyaku": null, "payout": 110.3 }
+  },
+  "ceiling": 899,
+  "ceilingTarget": 520,
+  "ceilingReward": 540,
+  "resetCeiling": 699,
+  "resetCeilingTarget": 300,
+  "avgBonusReward": 540,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-09-07",
+  "guessElementPath": "setGuessElement/aobuta/index.html",
+  "cautions": [
+    "設定1は非搭載で、代わりに設定Lが搭載されています。設定Lのスペックは未公表のため、当ツールの推測は設定2〜6の5段階で行っています（設定L据え置きの台では実際より低い設定でも「設定2」と表示されます）。",
+    "天井はボーナス間899G＋αのほか、CZ間560G＋α（CZ当選）と思春期ポイント1000pt到達、CZ6スルーで次回ボーナス濃厚のスルー天井があります。設定変更時とST駆け抜け時はボーナス間天井が699G＋αに短縮されます。",
+    "CZ確率・小役確率は導入直後で未解析のため入力項目にしていません。ボーナス1回あたりの平均獲得枚数も純増（約8.0枚/G）・コイン持ち（約31.5G/50枚）・出玉率からの見積もり値です。期待値は目安として扱ってください。"
+  ]
+}

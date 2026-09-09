@@ -1,0 +1,30 @@
+{
+  "id": "kanojo_okarishimasu",
+  "name": "Lパチスロ 彼女、お借りします",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 269.0, "reg": 172.0, "koyaku": null, "payout": 97.7 },
+    "2": { "big": 263.0, "reg": 169.0, "koyaku": null, "payout": 98.7 },
+    "3": { "big": 254.0, "reg": 164.0, "koyaku": null, "payout": 101.0 },
+    "4": { "big": 235.0, "reg": 154.0, "koyaku": null, "payout": 105.5 },
+    "5": { "big": 231.0, "reg": 151.0, "koyaku": null, "payout": 110.4 },
+    "6": { "big": 226.0, "reg": 149.0, "koyaku": null, "payout": 114.9 }
+  },
+  "ceiling": 1000,
+  "ceilingTarget": 600,
+  "ceilingReward": 400,
+  "resetCeiling": 600,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-09-07",
+  "guessElementPath": "setGuessElement/kanojoOkarishimasu/index.html",
+  "cautions": [
+    "天井は1000G＋α（かのかりBONUS当選濃厚）ですが、REGULAR BONUS後は800G＋α、設定変更後は600G＋αに短縮されます。当ツールの「通常時」ブロックは1000G基準のため、REG後の台は800G天井として読み替えてください。",
+    "判別の主軸はボーナス初当たり（設定1で1/269、設定6で1/226）とCZ確率（1/172→1/149）。設定4以上と設定5・6の初当たり差は小さいので、終了画面の枠色（赤＝設定2以上、紫＝設定4以上、銀＝設定5以上、金＝設定6濃厚）と併用してください。",
+    "ボーナス1回あたりの平均獲得枚数（かのかりBONUS約150枚・REG約70枚・ななかりDREAM平均約550枚）は配分が未解析のため、純増（約5.0枚/G）・コイン持ち（約31.0G/50枚）・出玉率からの見積もり値を使用しています。"
+  ]
+}
