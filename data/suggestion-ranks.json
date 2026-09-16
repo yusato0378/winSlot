@@ -1,35 +1,219 @@
 {
-  "_comment": "設定示唆演出のランク → 設定別出現率。正本はこのファイル。setGuessElement/*/index.html の示唆テキスト（CSSクラスではなく文言）をここのランクへ正規化する。source が estimate の率はすべて推定値で、公表値ではない。実測値が判明した演出は機種JSONの items[].rates で個別に上書きできる。weight は示唆が総ゲーム数の証拠を圧倒する場合の調整フック（v1 はすべて 1.0）。",
+  "_comment": "設定示唆演出のランク → 設定別出現率。正本はこのファイル。setGuessElement/*/index.html の示唆テキスト（CSSクラスではなく文言）をここのランクへ正規化する。source が estimate の率はすべて推定値で、公表値ではない。実測値が判明した演出は機種JSONの items[].rates で個別に上書きできる。weight は示唆が総ゲーム数の証拠を圧倒する場合の調整フック（v1 はすべて 1.0）。 base / from / to の水準は「1グループの示唆が設定6で1割前後の頻度で出る」を目安に置いている（これより高くすると、示唆を1つも見ていないこと自体が強い低設定証拠になりすぎる）。",
   "ranks": {
-    "default":    { "kind": "residual", "label": "デフォルト", "source": "definition", "weight": 1.0 },
-    "ignore":     { "kind": "ignore",   "label": "設定示唆ではない（モード・テーブル示唆等）", "source": "definition", "weight": 1.0 },
-
-    "ge2":        { "kind": "floor", "min": 2, "base": 0.06, "step": 0.15, "label": "設定2以上濃厚", "source": "estimate", "weight": 1.0 },
-    "ge3":        { "kind": "floor", "min": 3, "base": 0.05, "step": 0.15, "label": "設定3以上濃厚", "source": "estimate", "weight": 1.0 },
-    "ge4":        { "kind": "floor", "min": 4, "base": 0.05, "step": 0.15, "label": "設定4以上濃厚", "source": "estimate", "weight": 1.0 },
-    "ge5":        { "kind": "floor", "min": 5, "base": 0.04, "step": 0.15, "label": "設定5以上濃厚", "source": "estimate", "weight": 1.0 },
-    "eq6":        { "kind": "set", "settings": [6], "base": 0.04, "label": "設定6濃厚", "source": "estimate", "weight": 1.0 },
-
-    "not1":       { "kind": "deny", "deny": 1, "base": 0.05, "label": "設定1否定", "source": "estimate", "weight": 1.0 },
-    "not2":       { "kind": "deny", "deny": 2, "base": 0.05, "label": "設定2否定", "source": "estimate", "weight": 1.0 },
-    "not3":       { "kind": "deny", "deny": 3, "base": 0.05, "label": "設定3否定", "source": "estimate", "weight": 1.0 },
-    "not4":       { "kind": "deny", "deny": 4, "base": 0.05, "label": "設定4否定", "source": "estimate", "weight": 1.0 },
-    "not5":       { "kind": "deny", "deny": 5, "base": 0.05, "label": "設定5否定", "source": "estimate", "weight": 1.0 },
-
-    "even":       { "kind": "parity", "parity": "even", "ratio": 2.5, "base": 0.06, "label": "偶数設定示唆", "source": "estimate", "weight": 1.0 },
-    "odd":        { "kind": "parity", "parity": "odd",  "ratio": 2.5, "base": 0.06, "label": "奇数設定示唆", "source": "estimate", "weight": 1.0 },
-    "evenWeak":   { "kind": "parity", "parity": "even", "ratio": 1.6, "base": 0.06, "label": "偶数設定期待度UP", "source": "estimate", "weight": 1.0 },
-    "oddWeak":    { "kind": "parity", "parity": "odd",  "ratio": 1.6, "base": 0.06, "label": "奇数設定期待度UP", "source": "estimate", "weight": 1.0 },
-    "evenHard":   { "kind": "set", "settings": [2, 4, 6], "base": 0.05, "label": "偶数設定濃厚", "source": "estimate", "weight": 1.0 },
-
-    "highWeak":   { "kind": "slope", "from": 0.050, "to": 0.090, "label": "高設定示唆（弱）", "source": "estimate", "weight": 1.0 },
-    "highMid":    { "kind": "slope", "from": 0.040, "to": 0.100, "label": "高設定示唆（中）", "source": "estimate", "weight": 1.0 },
-    "highStrong": { "kind": "slope", "from": 0.020, "to": 0.100, "label": "高設定示唆（強）", "source": "estimate", "weight": 1.0 },
-    "upWeak":     { "kind": "slope", "from": 0.055, "to": 0.070, "label": "高設定期待度UP（弱）", "source": "estimate", "weight": 1.0 },
-    "upMid":      { "kind": "slope", "from": 0.050, "to": 0.080, "label": "高設定期待度UP（中）", "source": "estimate", "weight": 1.0 },
-    "upStrong":   { "kind": "slope", "from": 0.045, "to": 0.090, "label": "高設定期待度UP（強）", "source": "estimate", "weight": 1.0 },
-
-    "set":        { "kind": "set", "base": 0.05, "label": "特定設定濃厚", "source": "estimate", "weight": 1.0 },
-    "favor5":     { "kind": "weights", "weights": { "3": 0.3, "4": 0.5, "5": 1.0, "6": 0.6 }, "base": 0.05, "label": "設定5優遇", "source": "estimate", "weight": 1.0 }
+    "default": {
+      "kind": "residual",
+      "label": "デフォルト",
+      "source": "definition",
+      "weight": 1
+    },
+    "ignore": {
+      "kind": "ignore",
+      "label": "設定示唆ではない（モード・テーブル示唆等）",
+      "source": "definition",
+      "weight": 1
+    },
+    "ge2": {
+      "kind": "floor",
+      "min": 2,
+      "base": 0.02,
+      "step": 0.15,
+      "label": "設定2以上濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "ge3": {
+      "kind": "floor",
+      "min": 3,
+      "base": 0.0167,
+      "step": 0.15,
+      "label": "設定3以上濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "ge4": {
+      "kind": "floor",
+      "min": 4,
+      "base": 0.0167,
+      "step": 0.15,
+      "label": "設定4以上濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "ge5": {
+      "kind": "floor",
+      "min": 5,
+      "base": 0.0133,
+      "step": 0.15,
+      "label": "設定5以上濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "eq6": {
+      "kind": "set",
+      "settings": [
+        6
+      ],
+      "base": 0.0133,
+      "label": "設定6濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "not1": {
+      "kind": "deny",
+      "deny": 1,
+      "base": 0.0167,
+      "label": "設定1否定",
+      "source": "estimate",
+      "weight": 1
+    },
+    "not2": {
+      "kind": "deny",
+      "deny": 2,
+      "base": 0.0167,
+      "label": "設定2否定",
+      "source": "estimate",
+      "weight": 1
+    },
+    "not3": {
+      "kind": "deny",
+      "deny": 3,
+      "base": 0.0167,
+      "label": "設定3否定",
+      "source": "estimate",
+      "weight": 1
+    },
+    "not4": {
+      "kind": "deny",
+      "deny": 4,
+      "base": 0.0167,
+      "label": "設定4否定",
+      "source": "estimate",
+      "weight": 1
+    },
+    "not5": {
+      "kind": "deny",
+      "deny": 5,
+      "base": 0.0167,
+      "label": "設定5否定",
+      "source": "estimate",
+      "weight": 1
+    },
+    "even": {
+      "kind": "parity",
+      "parity": "even",
+      "ratio": 2.5,
+      "base": 0.02,
+      "label": "偶数設定示唆",
+      "source": "estimate",
+      "weight": 1
+    },
+    "odd": {
+      "kind": "parity",
+      "parity": "odd",
+      "ratio": 2.5,
+      "base": 0.02,
+      "label": "奇数設定示唆",
+      "source": "estimate",
+      "weight": 1
+    },
+    "evenWeak": {
+      "kind": "parity",
+      "parity": "even",
+      "ratio": 1.6,
+      "base": 0.02,
+      "label": "偶数設定期待度UP",
+      "source": "estimate",
+      "weight": 1
+    },
+    "oddWeak": {
+      "kind": "parity",
+      "parity": "odd",
+      "ratio": 1.6,
+      "base": 0.02,
+      "label": "奇数設定期待度UP",
+      "source": "estimate",
+      "weight": 1
+    },
+    "evenHard": {
+      "kind": "set",
+      "settings": [
+        2,
+        4,
+        6
+      ],
+      "base": 0.0167,
+      "label": "偶数設定濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "highWeak": {
+      "kind": "slope",
+      "from": 0.0167,
+      "to": 0.03,
+      "label": "高設定示唆（弱）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "highMid": {
+      "kind": "slope",
+      "from": 0.0133,
+      "to": 0.0333,
+      "label": "高設定示唆（中）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "highStrong": {
+      "kind": "slope",
+      "from": 0.0067,
+      "to": 0.0333,
+      "label": "高設定示唆（強）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "upWeak": {
+      "kind": "slope",
+      "from": 0.0183,
+      "to": 0.0233,
+      "label": "高設定期待度UP（弱）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "upMid": {
+      "kind": "slope",
+      "from": 0.0167,
+      "to": 0.0267,
+      "label": "高設定期待度UP（中）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "upStrong": {
+      "kind": "slope",
+      "from": 0.015,
+      "to": 0.03,
+      "label": "高設定期待度UP（強）",
+      "source": "estimate",
+      "weight": 1
+    },
+    "set": {
+      "kind": "set",
+      "base": 0.0167,
+      "label": "特定設定濃厚",
+      "source": "estimate",
+      "weight": 1
+    },
+    "favor5": {
+      "kind": "weights",
+      "weights": {
+        "3": 0.3,
+        "4": 0.5,
+        "5": 1,
+        "6": 0.6
+      },
+      "base": 0.0167,
+      "label": "設定5優遇",
+      "source": "estimate",
+      "weight": 1
+    }
   }
 }

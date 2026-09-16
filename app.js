@@ -9,6 +9,11 @@
 // ============================================================
 const MACHINES = window.MACHINES || [];
 
+// 設定示唆演出のランク定義と率生成器。同じくビルドが供給する。
+// どちらか欠ければ示唆機能はまるごと無効になり、従来どおりの推測だけが動く。
+const SUGGESTION_RANKS = window.SUGGESTION_RANKS || null;
+const SUGGESTION_RATES = window.SUGGESTION_RATES || null;
+
 // ============================================================
 // DOM要素
 // ============================================================
@@ -401,9 +406,166 @@ function onReset() {
 }
 
 // ============================================================
+// 設定示唆演出の尤度
+// ランク定義と率生成器はビルドが供給する（window.SUGGESTION_RANKS /
+// window.SUGGESTION_RATES）。どちらか欠ければ示唆機能はまるごと無効になる。
+// ============================================================
+
+/** 示唆の試行回数（分母）の出所。機種によって初当たりが big / reg のどちらに入っているかが違う。 */
+function resolveTrials(machine, bigCount, regCount) {
+    const src = (machine.suggestions && machine.suggestions.trialSource) || "big";
+    if (src === "reg") return regCount;
+    if (src === "bigPlusReg") return bigCount + regCount;
+    return bigCount;
+}
+
+/** 分母として使っているカウントのラベル（UI の注記・警告文用） */
+function suggestionTrialLabel(machine) {
+    const src = (machine.suggestions && machine.suggestions.trialSource) || "big";
+    if (src === "reg") return machine.regLabel;
+    if (src === "bigPlusReg") return machine.bigLabel + "＋" + machine.regLabel;
+    return machine.bigLabel;
+}
+
+/** 項目の重み（ランクに weight があれば掛け合わせる。v1 はすべて 1.0） */
+function suggestionItemWeight(item, ranks) {
+    let w = 1;
+    for (const name of [].concat(item.rank)) {
+        const def = ranks[name];
+        if (def && typeof def.weight === "number") w *= def.weight;
+    }
+    return w;
+}
+
+/**
+ * 入力された示唆の観測回数から、設定ごとの対数尤度を組み立てる。
+ *
+ * @param {object} machine
+ * @param {number} trials resolveTrials() の値
+ * @param {object|null} counts { groupId: { itemId: 回数 } }
+ * @returns {null|object} 示唆データが無い / 入力が空 なら null（呼び出し側は従来どおりの計算になる）
+ */
+function buildSuggestionDetail(machine, trials, counts) {
+    if (!machine || !machine.suggestions || !counts) return null;
+    if (!SUGGESTION_RANKS || !SUGGESTION_RATES) return null;
+
+    const ranks = SUGGESTION_RANKS;
+    const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
+
+    const logL = {};
+    settingKeys.forEach(s => { logL[s] = 0; });
+    const eliminated = new Set();
+    const warnings = [];
+    const groupsOut = [];
+    const trialLabel = suggestionTrialLabel(machine);
+
+    for (const group of machine.suggestions.groups) {
+        const raw = counts[group.id];
+        if (!raw) continue;
+
+        const built = SUGGESTION_RATES.buildGroupRates(group, ranks, settingKeys);
+        const byId = {};
+        for (const item of group.items) byId[item.id] = item;
+
+        // ignore ランク（モード示唆など）は分子からも分母からも外す。UI には出す。
+        const ignoredEntries = [];
+        for (const id of built.ignoredIds) {
+            const n = raw[id] || 0;
+            if (n > 0) ignoredEntries.push({ id: id, label: byId[id].label, count: n });
+        }
+
+        const entries = [];
+        let nOthers = 0;
+        for (const id of Object.keys(built.itemRates)) {
+            const n = raw[id] || 0;
+            if (n <= 0) continue;
+            nOthers += n;
+            entries.push({ id: id, label: byId[id].label, count: n });
+        }
+        const nResidualEntered = built.residualId ? (raw[built.residualId] || 0) : 0;
+        if (nResidualEntered > 0) {
+            entries.push({ id: built.residualId, label: byId[built.residualId].label, count: nResidualEntered });
+        }
+
+        const entered = nOthers + nResidualEntered;
+        if (entered === 0 && ignoredEntries.length === 0) continue;
+
+        groupsOut.push({ id: group.id, label: group.label, entries: entries, ignoredEntries: ignoredEntries });
+        if (entered === 0) continue;   // ignore ランクだけの入力 → 尤度には寄与しない
+
+        // 入力合計が分母を超えても弾かない（誤入力で解析全体を拒否するのは体験が悪い）。
+        // 残余が 0 になるだけで数式は破綻しない。
+        const N = Math.max(trials, entered);
+        if (entered > trials) {
+            warnings.push(
+                "「" + group.label + "」の入力合計 " + entered + "回 が「" + trialLabel + "回数」" +
+                trials + "回 を超えています（合計を試行回数として計算しました）"
+            );
+        }
+
+        const exclusive = group.exclusive !== false;
+
+        for (const s of settingKeys) {
+            let add = 0;
+            let impossible = false;
+
+            for (const e of entries) {
+                if (e.id === built.residualId) continue;   // 残余はまとめて後段で扱う
+                const p = built.itemRates[e.id][s];
+                const w = suggestionItemWeight(byId[e.id], ranks);
+                if (p === 0) { impossible = true; break; }   // Math.log(0) は呼ばない
+                add += w * (exclusive
+                    ? e.count * Math.log(p)
+                    : e.count * Math.log(p) + (N - e.count) * Math.log(1 - p));
+            }
+
+            if (!impossible && exclusive) {
+                // 残余バケット（明示のデフォルト行、または暗黙の「その他」）。
+                // ここが「N回中1度も高設定示唆が出なかった」という否定的証拠を担う。
+                const nResidual = N - nOthers;
+                if (nResidual > 0) {
+                    const pr = built.residualRates[s];
+                    if (pr <= 0) impossible = true;
+                    else add += nResidual * Math.log(pr);
+                }
+            }
+
+            if (impossible) eliminated.add(s);
+            else logL[s] += add;
+        }
+    }
+
+    if (groupsOut.length === 0) return null;
+
+    for (const s of eliminated) logL[s] = -Infinity;
+
+    // 全設定が否定された = 入力の組み合わせが矛盾している（打ち間違い）。
+    // 無言で NaN を出すより、示唆の寄与を捨てて従来の結果＋警告を返す。
+    const anyFinite = settingKeys.some(s => Number.isFinite(logL[s]));
+    if (!anyFinite) {
+        warnings.push("入力された示唆の組み合わせが矛盾しているため、示唆は設定推測に反映していません");
+        settingKeys.forEach(s => { logL[s] = 0; });
+        return {
+            applied: false, logL: logL, eliminated: [], warnings: warnings,
+            trials: trials, trialLabel: trialLabel, groups: groupsOut
+        };
+    }
+
+    return {
+        applied: true,
+        logL: logL,
+        eliminated: Array.from(eliminated).sort((a, b) => a - b),
+        warnings: warnings,
+        trials: trials,
+        trialLabel: trialLabel,
+        groups: groupsOut
+    };
+}
+
+// ============================================================
 // ベイズ推定による設定推測
 // ============================================================
-function estimateSettings(machine, totalGames, bigCount, regCount) {
+function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail) {
     const settingKeys = Object.keys(machine.settings).map(Number);
     const logLikelihoods = {};
 
@@ -421,11 +583,24 @@ function estimateSettings(machine, totalGames, bigCount, regCount) {
             logL += regCount * Math.log(pReg) + (totalGames - regCount) * Math.log(1 - pReg);
         }
 
+        // 設定示唆演出の尤度（省略可。渡されなければ従来と完全に同じ計算）
+        if (suggestionDetail && suggestionDetail.applied) {
+            const add = suggestionDetail.logL[s];
+            if (add !== undefined) logL += add;
+        }
+
         logLikelihoods[s] = logL;
     });
 
-    // Log-Sum-Exp で数値安定性を確保
+    // Log-Sum-Exp で数値安定性を確保。
+    // 示唆で否定された設定は -Infinity になるが、maxLogL が有限なら
+    // Math.exp(-Infinity - 有限値) === 0 で安全に 0% になる。
+    // 全設定が -Infinity のときだけ NaN になるため、示唆を外して計算し直す。
     const maxLogL = Math.max(...Object.values(logLikelihoods));
+    if (!Number.isFinite(maxLogL) && suggestionDetail) {
+        return estimateSettings(machine, totalGames, bigCount, regCount, null);
+    }
+
     const expSum = settingKeys.reduce((sum, s) => sum + Math.exp(logLikelihoods[s] - maxLogL), 0);
     const logNorm = maxLogL + Math.log(expSum);
 
