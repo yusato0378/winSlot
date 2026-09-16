@@ -45,6 +45,7 @@ const $specTable     = document.getElementById("spec-table");
 const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
 const $suggestionInputs = document.getElementById("suggestion-inputs");
+const $suggestionSummary = document.getElementById("suggestion-summary");
 
 // ============================================================
 // コンボボックス（検索付きドロップダウン）
@@ -468,8 +469,13 @@ function onAnalyze(e) {
     if (hasTotalGames) {
         const suggestionDetail = buildSuggestionDetail(
             machine, resolveTrials(machine, bigCount, regCount), collectSuggestionCounts());
-        const results = estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail);
+        // 示唆なし版も出しておき、示唆がどれだけ効いたかを結果欄で見せる
+        const plain = estimateSettings(machine, totalGames, bigCount, regCount, null);
+        const results = suggestionDetail
+            ? estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail)
+            : plain;
         renderSettingResults(results, machine);
+        renderSuggestionSummary(suggestionDetail, plain, results);
         renderFactors(machine, totalGames, bigCount, regCount);
         renderSpecTable(machine);
         $settingSection.style.display = "";
@@ -477,6 +483,7 @@ function onAnalyze(e) {
         $specSection.style.display = "";
     } else {
         $settingSection.style.display = "none";
+        renderSuggestionSummary(null);
         $factorSection.style.display = "none";
         $specSection.style.display = "none";
     }
@@ -510,6 +517,7 @@ function onReset() {
     $regLabel.textContent = "REG回数";
     $suggestionInputs.innerHTML = "";
     $suggestionInputs.style.display = "none";
+    renderSuggestionSummary(null);
 }
 
 // ============================================================
@@ -781,6 +789,86 @@ function renderSettingResults(posteriors, machine) {
 
     const pct = (posteriors[bestSetting] * 100).toFixed(1);
     $mostLikely.innerHTML = `最も可能性の高い設定: <strong style="color:var(--setting-${bestSetting})">設定${bestSetting}</strong>（推定 ${pct}%）`;
+}
+
+// ============================================================
+// 描画: 設定示唆の反映結果
+// ============================================================
+
+/** 設定番号の配列を「設定1・2・3」の形にする */
+function formatSettingList(settings) {
+    return "設定" + settings.join("・");
+}
+
+/**
+ * 示唆が事後確率にどう効いたかを表示する。
+ *
+ * #factor-section（詳細な推測要素）ではなく #setting-section の中に出す。
+ * あちらは details で、onReset が open=false にするため既定で閉じており、
+ * 今回の主役をそこに埋めると気づかれない。
+ *
+ * @param {object|null} detail buildSuggestionDetail の戻り値
+ * @param {object} before 示唆を反映しない事後確率
+ * @param {object} after  示唆を反映した事後確率
+ */
+function renderSuggestionSummary(detail, before, after) {
+    $suggestionSummary.innerHTML = "";
+
+    if (!detail) {
+        $suggestionSummary.style.display = "none";
+        return;
+    }
+    $suggestionSummary.style.display = "";
+
+    const line = (className, text) => {
+        const el = document.createElement("p");
+        el.className = className;
+        el.textContent = text;
+        $suggestionSummary.appendChild(el);
+        return el;
+    };
+
+    // 見出し
+    const usedTrials = Math.max(detail.trials, 0);
+    line("suggestion-summary-title", detail.applied
+        ? `設定示唆演出を反映しました（${detail.trialLabel} ${usedTrials}回中）`
+        : "設定示唆演出の入力を確認してください");
+
+    // 入力内容の一覧
+    detail.groups.forEach(group => {
+        group.entries.forEach(e => {
+            line("suggestion-summary-item", `${group.label} / ${e.label} ×${e.count}`);
+        });
+        group.ignoredEntries.forEach(e => {
+            line("suggestion-summary-ignored",
+                `※「${e.label}」×${e.count} はモード・テーブル示唆のため設定判別には使用していません`);
+        });
+    });
+
+    if (detail.applied) {
+        // 否定された設定
+        if (detail.eliminated.length > 0) {
+            line("suggestion-summary-eliminated",
+                `${formatSettingList(detail.eliminated)}は否定されました`);
+        }
+
+        // 変化量（最有力設定について、示唆なし → 示唆ありを並べる）
+        const settingKeys = Object.keys(after).map(Number);
+        let best = settingKeys[0];
+        settingKeys.forEach(s => { if (after[s] > after[best]) best = s; });
+        const b = (before[best] * 100).toFixed(1);
+        const a = (after[best] * 100).toFixed(1);
+        if (b !== a) {
+            line("suggestion-summary-delta", `設定${best}: ${b}% → ${a}%`);
+        }
+    }
+
+    // 警告
+    detail.warnings.forEach(w => line("suggestion-summary-warning", "⚠ " + w));
+
+    // 免責（必須）
+    line("suggestion-summary-note",
+        "※ 示唆演出の設定別出現率は公表値ではなく、示唆の強さから推定した目安値です。参考程度にご利用ください。");
 }
 
 // ============================================================

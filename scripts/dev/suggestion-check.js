@@ -22,6 +22,7 @@ for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
 // --- ブラウザ環境のスタブ ---------------------------------------------------
 const { MiniEl } = require("./mini-dom");
 const suggestionInputsEl = new MiniEl("div");
+const summaryEl = new MiniEl("div");
 
 const stubEl = new Proxy({}, {
     get(t, k) {
@@ -39,7 +40,9 @@ const ctx = {
     console,
     Math, JSON, Object, Array, Number, String, Boolean, Set, Map, Infinity, NaN,
     document: {
-        getElementById: (id) => (id === "suggestion-inputs" ? suggestionInputsEl : stubEl),
+        getElementById: (id) => (id === "suggestion-inputs" ? suggestionInputsEl
+            : id === "suggestion-summary" ? summaryEl
+            : stubEl),
         addEventListener: () => {},
         querySelectorAll: () => [],
         createElement: (tag) => new MiniEl(tag),
@@ -228,6 +231,78 @@ ctx.onReset();
 check("入力欄が消える", suggestionInputsEl.querySelectorAll("input.suggestion-count").length === 0);
 check("コンテナが非表示になる", suggestionInputsEl.style.display === "none");
 check("収集結果が null に戻る", collectSuggestionCounts() === null);
+
+
+console.log("\n[18] 反映結果の表示");
+const sumText = () => summaryEl.children.map(c => c.textContent).join("\n");
+const renderFor = (counts, trials) => {
+    const d = buildSuggestionDetail(otome, trials, counts);
+    const plain = estimateSettings(otome, 5000, trials, 0, null);
+    const res = d ? estimateSettings(otome, 5000, trials, 0, d) : plain;
+    ctx.renderSuggestionSummary(d, plain, res);
+    return { d, plain, res };
+};
+
+renderFor({ stamp: { ryo: 2 } }, 15);
+check("コンテナが表示される", summaryEl.style.display === "");
+check("見出しに分母が入る", sumText().includes("AT初当たり 15回中"), sumText().split("\n")[0]);
+check("入力内容が出る", sumText().includes("良スタンプ ×2"));
+check("否定された設定が出る", sumText().includes("設定1・2・3は否定されました"), sumText());
+check("変化量が出る", /設定\d: \d+\.\d% → \d+\.\d%/.test(sumText()), sumText());
+check("免責が出る", sumText().includes("公表値ではなく"));
+
+console.log("\n[19] 示唆なしなら何も出さない");
+ctx.renderSuggestionSummary(null);
+check("非表示になる", summaryEl.style.display === "none");
+check("中身が空になる", summaryEl.children.length === 0);
+
+console.log("\n[20] 警告の表示");
+renderFor({ stamp: { ka: 9 } }, 5);
+check("入力超過の警告が出る", sumText().includes("⚠") && sumText().includes("超えています"), sumText());
+
+const dBad2 = buildSuggestionDetail(synthetic, 10, { g: { only1: 1, only6: 1 } });
+ctx.renderSuggestionSummary(dBad2,
+    estimateSettings(synthetic, 5000, 10, 0, null),
+    estimateSettings(synthetic, 5000, 10, 0, dBad2));
+check("矛盾入力の警告が出る", sumText().includes("矛盾"), sumText());
+check("矛盾時は否定された設定を出さない", !sumText().includes("否定されました"), sumText());
+check("矛盾時も免責は出す", sumText().includes("公表値ではなく"));
+
+console.log("\n[21] ignore ランクの注記");
+const monhanLike = {
+    id: "__ig__", name: "合成2", type: "AT", bigLabel: "AT初当たり", regLabel: null,
+    settings: otome.settings,
+    suggestions: {
+        trialSource: "big",
+        groups: [{
+            id: "chara", label: "終了画面キャラ", exclusive: true,
+            items: [
+                { id: "rainbow", label: "虹", rank: "eq6" },
+                { id: "inner", label: "インナー姿", rank: "ignore" },
+            ],
+        }],
+    },
+};
+const dIg = buildSuggestionDetail(monhanLike, 12, { chara: { inner: 5 } });
+const pIgPlain = estimateSettings(monhanLike, 5000, 12, 0, null);
+const pIg = estimateSettings(monhanLike, 5000, 12, 0, dIg);
+ctx.renderSuggestionSummary(dIg, pIgPlain, pIg);
+check("ignore の注記が出る", sumText().includes("設定判別には使用していません"), sumText());
+check("事後確率は変わらない", pct(pIg) === pct(pIgPlain), pct(pIg) + " vs " + pct(pIgPlain));
+
+
+console.log("\n[22] リセットで反映結果も消える");
+renderFor({ stamp: { ryo: 1 } }, 15);
+check("リセット前は表示されている", summaryEl.style.display === "" && summaryEl.children.length > 0);
+ctx.onReset();
+check("リセット後は非表示", summaryEl.style.display === "none");
+check("リセット後は中身も空", summaryEl.children.length === 0);
+
+console.log("\n[23] 機種を切り替えただけでは結果表示を消さない（解析するまで前回の結果が残る）");
+renderFor({ stamp: { ryo: 1 } }, 15);
+renderSuggestionInputs(hokuto);
+check("renderSuggestionInputs は結果表示に触らない", summaryEl.children.length > 0,
+    "renderSuggestionInputs 内で renderSuggestionSummary(null) を呼んでいないか確認");
 
 if (failed > 0) { console.error(`\n検証失敗: ${failed}件`); process.exit(1); }
 console.log("\n検証成功: 設定示唆の尤度計算はすべて期待どおり");
