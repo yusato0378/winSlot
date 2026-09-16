@@ -20,6 +20,9 @@ for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
 }
 
 // --- ブラウザ環境のスタブ ---------------------------------------------------
+const { MiniEl } = require("./mini-dom");
+const suggestionInputsEl = new MiniEl("div");
+
 const stubEl = new Proxy({}, {
     get(t, k) {
         if (k === "style" || k === "dataset" || k === "classList") return stubEl;
@@ -36,10 +39,10 @@ const ctx = {
     console,
     Math, JSON, Object, Array, Number, String, Boolean, Set, Map, Infinity, NaN,
     document: {
-        getElementById: () => stubEl,
+        getElementById: (id) => (id === "suggestion-inputs" ? suggestionInputsEl : stubEl),
         addEventListener: () => {},
         querySelectorAll: () => [],
-        createElement: () => stubEl,
+        createElement: (tag) => new MiniEl(tag),
     },
     requestAnimationFrame: () => {},
     fetch: () => Promise.resolve({ json: () => Promise.resolve({}) }),
@@ -51,7 +54,8 @@ for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
     vm.runInContext(fs.readFileSync(path.join(DIST, f), "utf8"), ctx, { filename: f });
 }
 
-const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials } = ctx;
+const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials,
+        renderSuggestionInputs, collectSuggestionCounts } = ctx;
 
 // --- テスト補助 -------------------------------------------------------------
 let failed = 0;
@@ -155,6 +159,75 @@ check("従来の結果に戻る", pct(pForced) === pct(base), pct(pForced));
 console.log("\n[11] resolveTrials");
 check("trialSource 既定は big", resolveTrials(otome, 15, 7) === 15);
 check("示唆データなしの機種も big", resolveTrials(hokuto, 18, 0) === 18);
+
+
+console.log("\n[12] 入力欄の動的生成");
+const otomeEl = suggestionInputsEl;
+
+renderSuggestionInputs(otome);
+check("コンテナが表示される", otomeEl.style.display === "");
+const inputs = otomeEl.querySelectorAll("input.suggestion-count");
+const expectedItems = otome.suggestions.groups.reduce((n, g) => n + g.items.length, 0);
+check(`入力欄が項目数ぶん（${expectedItems}個）できる`, inputs.length === expectedItems, `実際 ${inputs.length}個`);
+check("すべて data-group / data-item を持つ",
+    inputs.every(el => el.dataset.group && el.dataset.item));
+check("DOM id は付けない（機種由来文字列の衝突回避）",
+    inputs.every(el => el.id === undefined || el.id === ""));
+check("折り畳み（details.form-details）で包まれている",
+    otomeEl.children.length === 1 && otomeEl.children[0].tagName === "DETAILS"
+    && otomeEl.children[0].className === "form-details");
+check("グループ見出しが3つ", otomeEl.querySelectorAll("h4.suggestion-group-label").length === 3);
+check("分母のラベルが注記に入っている",
+    otomeEl.querySelectorAll("p.suggestion-note")[0].textContent.includes("AT初当たり回数"));
+
+console.log("\n[13] データ無し機種・機種未選択では出さない");
+renderSuggestionInputs(hokuto);
+check("示唆データ未投入の AT機 → 非表示", suggestionInputsEl.style.display === "none");
+check("入力欄が残らない", suggestionInputsEl.querySelectorAll("input.suggestion-count").length === 0);
+renderSuggestionInputs(MACHINES.find(m => m.type === "A"));
+check("Aタイプ → 非表示", suggestionInputsEl.style.display === "none");
+renderSuggestionInputs(null);
+check("機種未選択 → 非表示", suggestionInputsEl.style.display === "none");
+
+console.log("\n[14] 入力値の収集");
+check("何も入力しなければ null", collectSuggestionCounts() === null);
+renderSuggestionInputs(otome);
+check("生成直後（全欄空）も null", collectSuggestionCounts() === null);
+
+const byKey = {};
+for (const el of suggestionInputsEl.querySelectorAll("input.suggestion-count")) {
+    byKey[el.dataset.group + "." + el.dataset.item] = el;
+}
+byKey["stamp.ryo"].value = "2";
+byKey["medal.m222"].value = "1";
+byKey["stamp.ka"].value = "0";      // 0 は無視される
+byKey["nagiSerif.yokan"].value = "";  // 空欄も無視される
+const collected = collectSuggestionCounts();
+check("入力した項目だけ拾う",
+    JSON.stringify(collected) === JSON.stringify({ stamp: { ryo: 2 }, medal: { m222: 1 } }),
+    JSON.stringify(collected));
+
+console.log("\n[15] 生成 → 収集 → 尤度 が通しで動く");
+const uiDetail = buildSuggestionDetail(otome, resolveTrials(otome, 15, 0), collected);
+const uiResult = estimateSettings(otome, 5000, 15, 0, uiDetail);
+check("設定1〜3が 0%（設定4以上濃厚を2回）", [1, 2, 3].every(s => uiResult[s] === 0), pct(uiResult));
+check("NaN が出ない", noNaN(uiResult), pct(uiResult));
+console.log("      " + pct(uiResult));
+
+console.log("\n[16] 機種を切り替えても前の入力が残らない");
+renderSuggestionInputs(hokuto);
+renderSuggestionInputs(otome);
+check("切替後は全欄が空 → null", collectSuggestionCounts() === null);
+
+
+console.log("\n[17] リセット");
+renderSuggestionInputs(otome);
+suggestionInputsEl.querySelectorAll("input.suggestion-count")[0].value = "3";
+check("リセット前は入力が拾える", collectSuggestionCounts() !== null);
+ctx.onReset();
+check("入力欄が消える", suggestionInputsEl.querySelectorAll("input.suggestion-count").length === 0);
+check("コンテナが非表示になる", suggestionInputsEl.style.display === "none");
+check("収集結果が null に戻る", collectSuggestionCounts() === null);
 
 if (failed > 0) { console.error(`\n検証失敗: ${failed}件`); process.exit(1); }
 console.log("\n検証成功: 設定示唆の尤度計算はすべて期待どおり");

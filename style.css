@@ -1326,3 +1326,52 @@ details.result-card[open] > summary.card-summary::after {
 .form-details-content {
     margin-top: 8px;
 }
+
+/* ---- 設定示唆演出の入力欄（app.js が機種ごとに動的生成） ---- */
+.suggestion-inputs {
+    margin-bottom: 16px;
+}
+
+.suggestion-group-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 14px 0 6px;
+}
+
+.suggestion-group-label:first-child {
+    margin-top: 0;
+}
+
+.suggestion-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.suggestion-item-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.suggestion-item-hint {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* 幅を固定して、ラベルが折り返しても入力欄が潰れないようにする */
+.suggestion-row input.suggestion-count {
+    flex: 0 0 5.5rem;
+    margin: 0;
+}
+
+.suggestion-note {
+    margin-top: 10px;
+}
+

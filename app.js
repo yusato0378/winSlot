@@ -44,6 +44,7 @@ const $specSection   = document.getElementById("spec-section");
 const $specTable     = document.getElementById("spec-table");
 const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
+const $suggestionInputs = document.getElementById("suggestion-inputs");
 
 // ============================================================
 // コンボボックス（検索付きドロップダウン）
@@ -301,10 +302,112 @@ function initNewMachines() {
 }
 
 // ============================================================
+// 設定示唆演出の入力欄（機種ごとに動的生成）
+// ============================================================
+
+/** 項目のランクを人が読める文言にする（UI の補助表示用） */
+function suggestionRankLabel(item) {
+    return [].concat(item.rank)
+        .map(name => (SUGGESTION_RANKS && SUGGESTION_RANKS[name] && SUGGESTION_RANKS[name].label) || name)
+        .join(" / ");
+}
+
+/**
+ * 選択中の機種の示唆項目ぶんだけ入力欄を作る。
+ * データが無い機種（大半）ではコンテナごと非表示になり、従来どおりの画面になる。
+ */
+function renderSuggestionInputs(machine) {
+    $suggestionInputs.innerHTML = "";
+
+    const groups = machine && machine.suggestions && machine.suggestions.groups;
+    if (!groups || !groups.length || !SUGGESTION_RANKS || !SUGGESTION_RATES) {
+        $suggestionInputs.style.display = "none";
+        return;
+    }
+    $suggestionInputs.style.display = "";
+
+    // 既存の「詳細入力（合算確率）」と同じ折り畳みの流儀に合わせる
+    const details = document.createElement("details");
+    details.className = "form-details";
+
+    const summary = document.createElement("summary");
+    summary.textContent = "設定示唆演出の回数（任意）";
+    details.appendChild(summary);
+
+    const content = document.createElement("div");
+    content.className = "form-details-content";
+
+    groups.forEach(group => {
+        const heading = document.createElement("h4");
+        heading.className = "suggestion-group-label";
+        heading.textContent = group.label;
+        content.appendChild(heading);
+
+        group.items.forEach(item => {
+            const row = document.createElement("label");
+            row.className = "suggestion-row";
+
+            const name = document.createElement("span");
+            name.className = "suggestion-item-label";
+            name.textContent = item.label;
+
+            const hint = document.createElement("span");
+            hint.className = "suggestion-item-hint";
+            hint.textContent = suggestionRankLabel(item);
+            name.appendChild(hint);
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min = "0";
+            input.step = "1";
+            input.inputMode = "numeric";
+            input.placeholder = "0";
+            input.className = "suggestion-count";
+            // 機種由来の文字列を DOM id にすると衝突するので dataset で識別する
+            input.dataset.group = group.id;
+            input.dataset.item = item.id;
+
+            row.appendChild(name);
+            row.appendChild(input);
+            content.appendChild(row);
+        });
+    });
+
+    const note = document.createElement("p");
+    note.className = "form-hint suggestion-note";
+    note.textContent =
+        "分母は「" + suggestionTrialLabel(machine) + "回数」を使用します。"
+        + "1つでも入力すると、未入力の演出は0回として計算します。"
+        + "設定推測には総ゲーム数の入力も必要です。";
+    content.appendChild(note);
+
+    details.appendChild(content);
+    $suggestionInputs.appendChild(details);
+}
+
+/** 入力欄から観測回数を集める。1つも入力が無ければ null（＝示唆機能を使わない） */
+function collectSuggestionCounts() {
+    const counts = {};
+    let any = false;
+
+    $suggestionInputs.querySelectorAll("input.suggestion-count").forEach(el => {
+        const n = parseInt(el.value, 10);
+        if (!Number.isFinite(n) || n <= 0) return;
+        const groupId = el.dataset.group;
+        if (!counts[groupId]) counts[groupId] = {};
+        counts[groupId][el.dataset.item] = n;
+        any = true;
+    });
+
+    return any ? counts : null;
+}
+
+// ============================================================
 // イベント処理
 // ============================================================
 function onMachineChange() {
     const machine = getSelectedMachine();
+    renderSuggestionInputs(machine);
     if (!machine) {
         $machineInfoBar.style.display = "none";
         return;
@@ -363,7 +466,9 @@ function onAnalyze(e) {
     }
 
     if (hasTotalGames) {
-        const results = estimateSettings(machine, totalGames, bigCount, regCount);
+        const suggestionDetail = buildSuggestionDetail(
+            machine, resolveTrials(machine, bigCount, regCount), collectSuggestionCounts());
+        const results = estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail);
         renderSettingResults(results, machine);
         renderFactors(machine, totalGames, bigCount, regCount);
         renderSpecTable(machine);
@@ -403,6 +508,8 @@ function onReset() {
     $regCount.closest(".form-group").style.display = "";
     $bigLabel.textContent = "BIG回数";
     $regLabel.textContent = "REG回数";
+    $suggestionInputs.innerHTML = "";
+    $suggestionInputs.style.display = "none";
 }
 
 // ============================================================
