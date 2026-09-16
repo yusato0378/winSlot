@@ -52,5 +52,116 @@
   "normalCostPerGame": 1.5,
   "addedDate": "2026-06-08",
   "guessElementPath": "setGuessElement/sengokuOtome5/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "stamp",
+        "label": "出陣ボーナス終了画面（スタンプ）",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "none",
+            "label": "スタンプなし",
+            "rank": "default"
+          },
+          {
+            "id": "ka",
+            "label": "可スタンプ",
+            "rank": "ge2"
+          },
+          {
+            "id": "kichi",
+            "label": "吉スタンプ",
+            "rank": "ge3"
+          },
+          {
+            "id": "ryo",
+            "label": "良スタンプ",
+            "rank": "ge4"
+          },
+          {
+            "id": "yu",
+            "label": "優スタンプ",
+            "rank": "ge5"
+          },
+          {
+            "id": "goku",
+            "label": "極スタンプ",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "nagiSerif",
+        "label": "隠れ凪のセリフ",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "mata",
+            "label": "また遊んでくださいね",
+            "rank": "default"
+          },
+          {
+            "id": "hitoaji",
+            "label": "一味違いますね",
+            "rank": "ge2"
+          },
+          {
+            "id": "fushigi",
+            "label": "何やら不思議な気配です",
+            "rank": "ge3"
+          },
+          {
+            "id": "yokan",
+            "label": "良い予感がします",
+            "rank": "ge4"
+          },
+          {
+            "id": "asobi",
+            "label": "遊び尽くしちゃいましょう",
+            "rank": "ge5"
+          },
+          {
+            "id": "oniku",
+            "label": "お肉〜お肉〜",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT中の獲得枚数表示",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "m222",
+            "label": "222枚OVER",
+            "rank": "ge2"
+          },
+          {
+            "id": "m333",
+            "label": "333枚OVER",
+            "rank": "ge3"
+          },
+          {
+            "id": "m444",
+            "label": "444枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
