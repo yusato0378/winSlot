@@ -58,7 +58,8 @@ for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
 }
 
 const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials,
-        renderSuggestionInputs, collectSuggestionCounts } = ctx;
+        renderSuggestionInputs, collectSuggestionCounts,
+        SUGGESTION_RATES, SUGGESTION_RANKS } = ctx;
 
 // --- テスト補助 -------------------------------------------------------------
 let failed = 0;
@@ -303,6 +304,91 @@ renderFor({ stamp: { ryo: 1 } }, 15);
 renderSuggestionInputs(hokuto);
 check("renderSuggestionInputs は結果表示に触らない", summaryEl.children.length > 0,
     "renderSuggestionInputs 内で renderSuggestionSummary(null) を呼んでいないか確認");
+
+
+console.log("\n[24] valvrave2 — 設定キーが非連続（1,2,4,5,6）");
+const valv = MACHINES.find(m => m.id === "valvrave2");
+check("設定3を持たない", valv.settings[3] === undefined);
+const dValv = buildSuggestionDetail(valv, 12, { czBonusEnd: { red: 4 } });
+const pValv = estimateSettings(valv, 4000, 12, 0, dValv);
+check("設定3の行が出ない", pValv[3] === undefined, JSON.stringify(Object.keys(pValv)));
+check("5設定ぶんの値が出る", Object.keys(pValv).length === 5);
+check("NaN / undefined が出ない", noNaN(pValv), pct(pValv));
+check("高設定寄りに動く（赤枠＝高設定示唆×4）",
+    pValv[6] > estimateSettings(valv, 4000, 12, 0, null)[6], pct(pValv));
+console.log("      " + pct(pValv));
+
+console.log("\n[25] valvrave2 — items[].rates による実測値の上書き");
+const monitorItem = valv.suggestions.groups.find(g => g.id === "atEndMonitor").items[0];
+check("rates が入っている", monitorItem.rates && monitorItem.rates["6"] === 0.01);
+const rMon = SUGGESTION_RATES.buildGroupRates(
+    valv.suggestions.groups.find(g => g.id === "atEndMonitor"),
+    SUGGESTION_RANKS, Object.keys(valv.settings).map(Number).sort((a, b) => a - b));
+check("設定6だけ 0.01、他は 0",
+    rMon.itemRates.monitor[6] === 0.01 && [1, 2, 4, 5].every(s => rMon.itemRates.monitor[s] === 0),
+    JSON.stringify(rMon.itemRates.monitor));
+const pMon = estimateSettings(valv, 4000, 12, 0, buildSuggestionDetail(valv, 12, { atEndMonitor: { monitor: 1 } }));
+check("設定6が 100%", (pMon[6] * 100).toFixed(1) === "100.0", pct(pMon));
+
+console.log("\n[26] monhan_rise — ignore ランクと暗黙の残余バケット");
+const monhan = MACHINES.find(m => m.id === "monhan_rise");
+const pMonPlain = estimateSettings(monhan, 6000, 20, 0, null);
+const dIgnoreOnly = buildSuggestionDetail(monhan, 20, { endChara: { inner: 5 } });
+const pIgnoreOnly = estimateSettings(monhan, 6000, 20, 0, dIgnoreOnly);
+check("インナー姿だけの入力では事後確率が変わらない",
+    pct(pIgnoreOnly) === pct(pMonPlain), pct(pIgnoreOnly) + " vs " + pct(pMonPlain));
+check("UI には表示される", dIgnoreOnly.groups[0].ignoredEntries.length === 1);
+
+const pTrophy = estimateSettings(monhan, 6000, 20, 0,
+    buildSuggestionDetail(monhan, 20, { trophy: { gold: 1 } }));
+check("トロフィー金×1 で設定1〜3が 0%", [1, 2, 3].every(s => pTrophy[s] === 0), pct(pTrophy));
+check("NaN が出ない", noNaN(pTrophy), pct(pTrophy));
+
+const pChara = estimateSettings(monhan, 6000, 20, 0,
+    buildSuggestionDetail(monhan, 20, { endChara: { lara: 2 } }));
+check("デフォルト行の無いグループでも計算できる", noNaN(pChara), pct(pChara));
+console.log("      トロフィー金×1: " + pct(pTrophy));
+console.log("      Lara×2:        " + pct(pChara));
+
+console.log("\n[27] street_fighter6 — trialSource が reg");
+const sf6 = MACHINES.find(m => m.id === "street_fighter6");
+check("trialSource が reg", sf6.suggestions.trialSource === "reg");
+check("resolveTrials が REG 側を返す", resolveTrials(sf6, 30, 12) === 12);
+renderSuggestionInputs(sf6);
+check("入力欄の注記が「ボーナス初当たり回数」になる",
+    suggestionInputsEl.querySelectorAll("p.suggestion-note")[0].textContent.includes("ボーナス初当たり回数"),
+    suggestionInputsEl.querySelectorAll("p.suggestion-note")[0].textContent);
+const dSf = buildSuggestionDetail(sf6, resolveTrials(sf6, 30, 12), { bonusEnd: { lukeJamie: 1 } });
+check("見出しのラベルも REG 側", dSf.trialLabel === "ボーナス初当たり", dSf.trialLabel);
+const pSf = estimateSettings(sf6, 6000, 30, 12, dSf);
+check("設定1が 0%（設定2以上濃厚）", pSf[1] === 0, pct(pSf));
+check("NaN が出ない", noNaN(pSf), pct(pSf));
+
+console.log("\n[28] 投入4機種すべてで全項目を1回ずつ入力しても壊れない");
+for (const id of ["sengoku_otome5", "valvrave2", "monhan_rise", "street_fighter6"]) {
+    const mm = MACHINES.find(x => x.id === id);
+    const counts = {};
+    mm.suggestions.groups.forEach(g => {
+        counts[g.id] = {};
+        g.items.forEach(it => { counts[g.id][it.id] = 1; });
+    });
+    const dd = buildSuggestionDetail(mm, 30, counts);
+    const rr = estimateSettings(mm, 6000, 30, 10, dd);
+    check(id + " が NaN を出さない", noNaN(rr), pct(rr));
+    check(id + " の確率が合計1", Math.abs(Object.values(rr).reduce((a, b) => a + b, 0) - 1) < 1e-9);
+}
+
+console.log("\n[29] 示唆データ未投入の93機種は従来どおり");
+let untouched = 0;
+for (const mm of MACHINES) {
+    if (mm.suggestions) continue;
+    untouched++;
+    if (buildSuggestionDetail(mm, 10, { any: { x: 1 } }) !== null) {
+        check(mm.id + " が null を返さない", false);
+        break;
+    }
+}
+check(`${untouched}機種すべてで示唆機能が無効`, untouched === MACHINES.length - 4, "未投入 " + untouched + "機種");
 
 if (failed > 0) { console.error(`\n検証失敗: ${failed}件`); process.exit(1); }
 console.log("\n検証成功: 設定示唆の尤度計算はすべて期待どおり");

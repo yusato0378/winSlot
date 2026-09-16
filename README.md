@@ -16,6 +16,7 @@
 - [ビルドスクリプト](#ビルドスクリプト)
 - [解説記事の追加](#解説記事の追加パターンb)
 - [機種別ランディングページの再生成](#機種別ランディングページの再生成)
+- [設定示唆演出の判別への組み込み](#設定示唆演出の判別への組み込み)
 - [お問い合わせ（Formspree）](#お問い合わせformspree)
 - [Google AdSense / ads.txt](#google-adsense--adstxt)
 - [ファビコン](#ファビコン)
@@ -183,12 +184,21 @@ git config --unset core.hooksPath
 
 | モジュール | 内容 |
 |----------|------|
-| `scripts/build/machines.js` | `data/machines/index.json` + `{id}.json` を読み、`MACHINES`・`GUESS_ELEMENT_PAGES`・`CAUTIONS_BY_ID` を返すローダ（機種データの唯一の読み込み口） |
+| `scripts/build/machines.js` | `data/machines/index.json` + `{id}.json` を読み、`MACHINES`・`GUESS_ELEMENT_PAGES`・`CAUTIONS_BY_ID`・`SUGGESTION_RANKS` を返すローダ（機種データの唯一の読み込み口）。`suggestions` のスキーマ検証もここ |
+| `scripts/build/suggestion-rates.js` | 設定示唆ランク → 設定別出現率の生成器。Node（スキーマ検証）とブラウザ（尤度計算）の両対応で、ビルドが `dist/suggestion-rates.js` にコピーする |
 | `scripts/build/articles.js` | `templates/article-layout.html` + `articles/*` から `dist/guide/*.html` と `dist/guide/index.html` を生成 |
 | `scripts/build/landing-pages.js` | 機種データから `dist/machines/*/index.html`・`dist/setGuessElement/index.html` を生成し、`dist/sitemap.xml` を出力 |
 | `scripts/build/setguess-seo.js` | `dist/setGuessElement/*/index.html`（コピー済み）に meta / OG / パンくず / 機種LP導線を付与。**既存の手書き description は上書きしない** |
 
-`build.js` は機種データを1回だけロードして各モジュールに渡し、ブラウザ用の `dist/machines-data.js`（`window.MACHINES`）も生成します。
+`build.js` は機種データを1回だけロードして各モジュールに渡し、ブラウザ用の `dist/machines-data.js`（`window.MACHINES` / `window.SUGGESTION_RANKS`）と `dist/suggestion-rates.js` も生成します。
+
+検証用のスクリプトが `scripts/dev/` にあります。
+
+| スクリプト | 役割 |
+|----------|------|
+| `scripts/dev/baseline.js` | 設定判別の回帰テスト。実装前に測定した基準値と照合し、差異があれば exit 1 |
+| `scripts/dev/suggestion-check.js` | 設定示唆の尤度計算と入力UIの検証（要 `npm run build`） |
+| `scripts/dev/mini-dom.js` | 上記で使う検証用の極小DOM（依存パッケージを増やさないため jsdom は使わない） |
 
 > ソースを編集したら `node scripts/build.js` を一度実行して `dist/` を確認すれば、本番と同じ出力になります。`dist/` は git 管理外なのでコミット対象は**ソースのみ**です。
 
@@ -263,6 +273,90 @@ git config --unset core.hooksPath
 
 - `scripts/build/machines.js` が `data/machines/` を読み、`MACHINES`（LP生成・サイトマップ用）と `window.MACHINES`（ブラウザ用 `dist/machines-data.js`）の両方を供給します。  
 - 旧構成の `/machines/{id}/ceiling/` 等へのリンクは、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
+
+---
+
+## 設定示唆演出の判別への組み込み
+
+AT終了画面などの設定示唆演出の観測回数を入力として受け取り、既存のベイズ設定判別の尤度に乗算します。データを入れた機種だけで動き、**`suggestions` が無い機種は従来どおり**です（2026-09時点で `sengoku_otome5` / `valvrave2` / `monhan_rise` / `street_fighter6` の4機種）。
+
+### まずここに注意（データ転記の事故源）
+
+- **ファイル名の規則が2系統**です。`data/machines/` は snake_case（`street_fighter6.json`）、`setGuessElement/` は camelCase（`streetFighter6/`）。両者は `guessElementPath` でのみ繋がっています。
+- **`setGuessElement` の `ge-badge-*` クラスは示唆文言と一致していません。** 例えば `sengokuOtome5` では「設定3以上濃厚」に `confirm4`、「設定5以上濃厚」に `high-strong` が当たっています。**必ず文言を正本にし、クラス名は見ないでください。**
+- **`settings` のキーは1〜6で揃っていません。** 97機種中19機種が非連続（`valvrave2` は設定3なし）。率は固定の6列表ではなく `Object.keys(machine.settings)` から生成しています。
+
+### 書き方
+
+`data/machines/{id}.json` のトップレベルに `suggestions` を足します。
+
+```json
+"suggestions": {
+  "trialSource": "big",
+  "groups": [
+    {
+      "id": "stamp",
+      "label": "出陣ボーナス終了画面（スタンプ）",
+      "exclusive": true,
+      "items": [
+        { "id": "none", "label": "スタンプなし", "rank": "default" },
+        { "id": "ryo",  "label": "良スタンプ",   "rank": "ge4" },
+        { "id": "goku", "label": "極スタンプ",   "rank": "eq6" }
+      ]
+    }
+  ]
+}
+```
+
+| フィールド | 必須 | 説明 |
+|---|---|---|
+| `trialSource` | 任意（既定 `"big"`） | 試行回数（分母）の出所。`"big"` / `"reg"` / `"bigPlusReg"` |
+| `groups[].id` / `.label` | ✅ | id は機種内でユニーク。label は入力欄の見出し |
+| `groups[].exclusive` | 任意（既定 `true`） | 下記参照 |
+| `items[].id` / `.label` | ✅ | id はグループ内でユニーク |
+| `items[].rank` | ✅ | ランク名。配列も可（`["ge4","odd"]` のような複合表記用） |
+| `items[].settings` | `rank:"set"` のとき | 例 `[2,4,6]` |
+| `items[].rates` | 任意 | 出現率の実測値が公表されている演出用。設定別の率を直接書くとランクより優先（例: `valvrave2` のコクピットモニターは解析ページに「約1%」とあるので `{"6": 0.01}`） |
+
+### `trialSource` の選び方
+
+**`bigLabel` と `regLabel` のどちらがその示唆の契機かを必ず確認してください。** 機種によって初当たりが `reg` 側に入っています。
+
+| 機種 | bigLabel | regLabel | 示唆の契機 | trialSource |
+|---|---|---|---|---|
+| `sengoku_otome5` | AT初当たり | (なし) | AT終了 | `big` |
+| `street_fighter6` | ファイターズバトル初当たり | ボーナス初当たり | ボーナス終了 | **`reg`** |
+| `tokyo_revengers` / `jashin_chan` | 初当たり / ボーナス初当たり | **AT初当たり** | AT終了 | **`reg`** |
+
+`reg` を指定したのに `regLabel` が `null` だと入力欄自体が非表示になり分母が常に0になるため、ビルドが落ちます。
+
+### `exclusive` の選び方
+
+- **`true`（既定）** — その抽選が毎回必ず何らかの結果を出すもの。デフォルト行があるか、「終了画面のキャラ」のように必ず何かが表示される場合。多項分布で扱い、**入力しなかった項目は「出なかった」という否定的証拠**になります。
+- **`false`** — 獲得枚数・トロフィー・ボイスのように、出るかどうか自体が稀な単発事象。項目ごとの独立二項で扱い、「出なかった」証拠が過剰に効きません。
+
+### 採用してはいけないもの
+
+- **分母が別系統の演出。** `trialSource` はグループ単位ではなく機種単位なので、契機が違うものを同じ機種に混ぜられません（`valvrave2` のハラキリチャレンジ中演出、`street_fighter6` のエンディング中ボイス／LED は、この理由で採用していません）。
+- **同じ抽選を違う粒度で言い換えた表。** `monhan_rise` の「キャラ性別（女性＝偶数示唆／男性＝奇数示唆）」は終了画面キャラと同じ抽選なので、両方入れると同じ観測を二重に数えます。
+- **設定と無関係な示唆。** モード示唆・テーブル示唆は `rank: "ignore"` にします（尤度には寄与せず、結果欄に「設定判別には使用していません」と出ます）。
+
+### ランク
+
+正本は **`data/suggestion-ranks.json`**。`ge2`〜`ge5`（設定N以上濃厚）、`eq6`（設定6濃厚）、`not1`〜`not5`（設定N否定）、`even` / `odd` / `evenWeak` / `oddWeak` / `evenHard`、`highWeak` / `highMid` / `highStrong`、`upWeak` / `upMid` / `upStrong`、`set`、`favor5`、`default`、`ignore` の25種です。
+
+**率の数値はすべて推定値で公表値ではありません**（各ランクの `"source": "estimate"`）。「1グループの示唆が設定6で1割前後の頻度で出る」を目安に置いています。これより高くすると、示唆を1つも見ていないこと自体が強い低設定証拠になりすぎます。調整するときはこのファイルの `base` / `from` / `to` だけを触ってください（`app.js` の変更は不要）。
+
+### 確認
+
+```bash
+npm run build                          # スキーマ検証。ランク名の打ち間違い等はここで落ちる
+node scripts/dev/baseline.js           # 回帰。既存の推測結果が変わっていないか
+node scripts/dev/suggestion-check.js   # 示唆の尤度計算とUIの検証（要 npm run build）
+```
+
+`suggestions` を足したら必ず3つとも通してください。特に `baseline.js` は、示唆機能が既存の判別を壊していないことの唯一の担保です。
+
 
 ---
 

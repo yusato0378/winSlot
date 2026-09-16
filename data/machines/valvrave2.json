@@ -46,5 +46,106 @@
   "normalCostPerGame": 2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/valvrave2/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "czBonusEnd",
+        "label": "CZ・ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "white",
+            "label": "白枠コクピット",
+            "rank": "default"
+          },
+          {
+            "id": "blue",
+            "label": "青枠サキ",
+            "rank": "even"
+          },
+          {
+            "id": "red",
+            "label": "赤枠",
+            "rank": "highMid"
+          },
+          {
+            "id": "purple",
+            "label": "紫枠サキ＆ショーコ",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀枠ピノ＆プルー",
+            "rank": "ge4"
+          },
+          {
+            "id": "gold",
+            "label": "金枠全員集合",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "atEndMonitor",
+        "label": "AT終了画面",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "monitor",
+            "label": "コクピットモニターあり",
+            "rank": "eq6",
+            "rates": {
+              "6": 0.01
+            }
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT終了時の獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m456",
+            "label": "456枚以上",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚以上",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚以上",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "initialGames",
+        "label": "ゾロ目初期G数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "g22",
+            "label": "+22G",
+            "rank": "ge2"
+          },
+          {
+            "id": "g44",
+            "label": "+44G",
+            "rank": "ge4"
+          },
+          {
+            "id": "g66",
+            "label": "+66G",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

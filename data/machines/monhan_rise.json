@@ -55,5 +55,86 @@
   "cautions": [
     "リセット条件の解釈が店舗で変わりやすい機種です。前日データ確認は必須です。",
     "天井期待値は設定1基準の概算です。状態差でブレる点は織り込んでください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "endChara",
+        "label": "AT終了画面キャラ",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "hinoe",
+            "label": "ヒノエ＆ミノト＆エンタライオン",
+            "rank": "eq6"
+          },
+          {
+            "id": "lara",
+            "label": "Lara / ミランダ / 隊長",
+            "rank": "highStrong"
+          },
+          {
+            "id": "you",
+            "label": "YOU＆オトモ",
+            "rank": "highWeak"
+          },
+          {
+            "id": "inner",
+            "label": "インナー姿",
+            "rank": "ignore"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "エンタトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kirin",
+            "label": "キリン柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "voice",
+        "label": "ボイス",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "hinoeVoice",
+            "label": "ヒノエ",
+            "rank": "eq6"
+          },
+          {
+            "id": "lionVoice",
+            "label": "エンタライオン",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -40,7 +40,7 @@
       "big": 252.6,
       "reg": 389.9,
       "koyaku": null,
-      "payout": 110.0
+      "payout": 110
     }
   },
   "ceiling": 1000,
@@ -56,5 +56,111 @@
     "天井は液晶表示1000G＋α（ゲーム数加算があるため実ゲーム数は約470G）。当ツールの現在ゲーム数は液晶ゲーム数を基準にしているため、期待値は目安として扱ってください。",
     "設定変更しても天井ゲーム数は引き継ぎます（有利区間のみリセット）。そのため朝一リセット時の天井ブロックは表示していません。",
     "設定推測の主軸はボーナス初当たり（設定1と6で約1.25倍差）です。ファイターズバトル初当たりは設定1と6で約1.10倍しか差がないため、補助的に使ってください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "base",
+            "label": "基本画面（ルーク＆春麗＆キャミィ）",
+            "rank": "default"
+          },
+          {
+            "id": "male",
+            "label": "男性ファイター集合",
+            "rank": "odd"
+          },
+          {
+            "id": "female",
+            "label": "女性ファイター集合",
+            "rank": "even"
+          },
+          {
+            "id": "kenJp",
+            "label": "ケン＆JP",
+            "rank": "highWeak"
+          },
+          {
+            "id": "ryu",
+            "label": "リュウ",
+            "rank": "highStrong"
+          },
+          {
+            "id": "lukeJamie",
+            "label": "ルーク＆ジェイミー",
+            "rank": "ge2"
+          },
+          {
+            "id": "allChara",
+            "label": "全員集合",
+            "rank": "ge4"
+          },
+          {
+            "id": "lion",
+            "label": "エンタライオン",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "エンタトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "momiji",
+            "label": "紅葉柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "ボーナス中の獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
