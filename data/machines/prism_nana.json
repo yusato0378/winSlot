@@ -52,5 +52,103 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/prismNana/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "itaru",
+            "label": "イタル（基本パターン）",
+            "rank": "default"
+          },
+          {
+            "id": "asuka",
+            "label": "アスカ／コトネ",
+            "rank": "even"
+          },
+          {
+            "id": "mako",
+            "label": "マコ",
+            "rank": "ge4"
+          },
+          {
+            "id": "uniform",
+            "label": "全員制服",
+            "rank": "ge5"
+          },
+          {
+            "id": "swim",
+            "label": "全員水着",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "talk",
+        "label": "通常時の会話演出",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "kumo",
+            "label": "「雲ひとつない」",
+            "rank": "ge4"
+          },
+          {
+            "id": "unmei",
+            "label": "「運命の出会い」",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "「虹」",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "zoneVoice",
+        "label": "プリプリゾーン終了時のボイス",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "v456",
+            "label": "「456%」",
+            "rank": "ge4"
+          },
+          {
+            "id": "v666",
+            "label": "「666%」",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT終了時の獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m222",
+            "label": "OVER 222",
+            "rank": "ge2"
+          },
+          {
+            "id": "m456",
+            "label": "OVER 456",
+            "rank": "ge4"
+          },
+          {
+            "id": "m666",
+            "label": "OVER 666",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

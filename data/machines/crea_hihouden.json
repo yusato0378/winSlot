@@ -52,5 +52,86 @@
   "normalCostPerGame": 1.7,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/creaHihouden/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bigEnd",
+        "label": "BIG終了画面のスタンプ",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "normal",
+            "label": "通常パターン",
+            "rank": "default"
+          },
+          {
+            "id": "leon",
+            "label": "レオン",
+            "rank": "even"
+          },
+          {
+            "id": "child",
+            "label": "子供クレア",
+            "rank": "highWeak"
+          },
+          {
+            "id": "sharon",
+            "label": "シャロン",
+            "rank": "highStrong"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "コパンダトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "highMid"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "thunder",
+            "label": "イナズマ",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "regCard",
+        "label": "REG中のキャラカード",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "red1",
+            "label": "赤カード 1回出現",
+            "rank": "ge4"
+          },
+          {
+            "id": "silverGold",
+            "label": "銀と金だけ出現",
+            "rank": "ge4"
+          },
+          {
+            "id": "red2",
+            "label": "赤カード 2回出現",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

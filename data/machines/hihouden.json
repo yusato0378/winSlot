@@ -52,5 +52,91 @@
   "normalCostPerGame": 2.1,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/hihouden/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "trophy",
+        "label": "コパンダトロフィー（ボーナス終了時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "thunder",
+            "label": "稲妻",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "news",
+        "label": "秘宝伝ニュースの時刻表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "t140",
+            "label": "1時40分",
+            "rank": "favor5"
+          },
+          {
+            "id": "t246",
+            "label": "2時46分",
+            "rank": "evenHard"
+          },
+          {
+            "id": "t456",
+            "label": "4時56分",
+            "rank": "ge4"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "ボーナス終了時の獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m140",
+            "label": "140枚OVER",
+            "rank": "favor5"
+          },
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "evenHard"
+          },
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

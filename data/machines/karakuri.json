@@ -49,5 +49,76 @@
   "cautions": [
     "「CZ合算」の定義（どれを数えるか）を揃えないと推測がブレやすい機種です。",
     "深いハマりは期待値が見えやすい一方、内部状態で上下します。表は目安として使うのが安全です。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "kanbu",
+            "label": "敵幹部",
+            "rank": "highMid"
+          },
+          {
+            "id": "shirogane",
+            "label": "しろがね＆勝＆鳴海",
+            "rank": "ge4"
+          },
+          {
+            "id": "francine",
+            "label": "フランシーヌ",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "stage",
+        "label": "AT開始ステージ",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "narumi",
+            "label": "鳴海",
+            "rank": "odd"
+          },
+          {
+            "id": "masaru",
+            "label": "勝",
+            "rank": "even"
+          },
+          {
+            "id": "same",
+            "label": "同一ステージ連続",
+            "rank": "highMid"
+          }
+        ]
+      },
+      {
+        "id": "olympia",
+        "label": "踊れ！オリンピア中のボタン連打の加算値",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "p20",
+            "label": "＋20",
+            "rank": "ge2"
+          },
+          {
+            "id": "p4",
+            "label": "＋4",
+            "rank": "ge4"
+          },
+          {
+            "id": "p6",
+            "label": "＋6",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

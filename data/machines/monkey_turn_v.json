@@ -46,5 +46,83 @@
   "normalCostPerGame": 2.4,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/monkeyTurnV/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "trophy",
+        "label": "SGメダル／ケロットトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "ticket",
+        "label": "舟券の色",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "evenHard"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m803",
+            "label": "803枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "direct",
+        "label": "レア役からの直撃当選",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "rare",
+            "label": "弱チェリー／ボート／弱チャンス目からの直撃",
+            "rank": "ge4"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -46,5 +46,64 @@
   "normalCostPerGame": 2.3,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/zenigata5/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "stamp",
+        "label": "ボーナス終了画面のスタンプ",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "goku",
+            "label": "極スタンプ（初代パネル）",
+            "rank": "eq6"
+          },
+          {
+            "id": "yu",
+            "label": "優スタンプ（ゼニロボ）",
+            "rank": "ge5"
+          },
+          {
+            "id": "ryo",
+            "label": "良スタンプ（ルパン／五ェ門／次元／不二子）",
+            "rank": "ge4"
+          },
+          {
+            "id": "kichi",
+            "label": "吉スタンプ（ルパン／五ェ門／次元）",
+            "rank": "ge3"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数突破表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m333",
+            "label": "333枚OVER",
+            "rank": "ge3"
+          },
+          {
+            "id": "m444",
+            "label": "444枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
