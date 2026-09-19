@@ -52,5 +52,101 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-05-11",
   "guessElementPath": "setGuessElement/superRioAce2/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "sign",
+        "label": "ボーナス／AT終了画面のサイン",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "none",
+            "label": "サインなし",
+            "rank": "default"
+          },
+          {
+            "id": "rio",
+            "label": "リオサイン",
+            "rank": "odd"
+          },
+          {
+            "id": "mint",
+            "label": "ミントサイン",
+            "rank": "even"
+          },
+          {
+            "id": "rina",
+            "label": "リナサイン",
+            "rank": "highStrong"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "ケロットトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kerotto",
+            "label": "ケロット柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m803",
+            "label": "803枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

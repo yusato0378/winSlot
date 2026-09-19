@@ -52,5 +52,226 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-06-08",
   "guessElementPath": "setGuessElement/birdieWing/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "cardEve",
+        "label": "バーディーボーナス終了画面（イヴ周期のカード）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "nWhite",
+            "label": "N・白",
+            "rank": "odd"
+          },
+          {
+            "id": "nBlue",
+            "label": "N・青",
+            "rank": "even"
+          },
+          {
+            "id": "nPurple1",
+            "label": "N・紫（裂帛のブルーバレット）",
+            "rank": "not3"
+          },
+          {
+            "id": "nPurple2",
+            "label": "N・紫（曲撃のパープルバレット）",
+            "rank": "not2"
+          },
+          {
+            "id": "rOrange",
+            "label": "R・赤（確信のオレンジバレット）",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "rYellow",
+            "label": "R・赤（脱出のイエローバレット）",
+            "rank": "set",
+            "settings": [
+              3,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "rGreen",
+            "label": "R・赤（強欲のグリーンバレット）",
+            "rank": "set",
+            "settings": [
+              3,
+              5,
+              6
+            ]
+          },
+          {
+            "id": "srGold",
+            "label": "SR・金（レインボー・ショット）",
+            "rank": "set",
+            "settings": [
+              4,
+              6
+            ]
+          },
+          {
+            "id": "ssrGold",
+            "label": "SSR・金（オーバー・ザ・レインボー）",
+            "rank": "ge5"
+          },
+          {
+            "id": "sssrGold",
+            "label": "SSSR・金（シャイニングレインボーバースト）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "cardAoi",
+        "label": "バーディーボーナス終了画面（葵周期のカード）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "nPurple1",
+            "label": "N・紫（百合の花が咲きました）",
+            "rank": "highWeak"
+          },
+          {
+            "id": "nPurple2",
+            "label": "N・紫（ちょろい葵）",
+            "rank": "highMid"
+          },
+          {
+            "id": "rPurple",
+            "label": "R・紫（イヴ大好き！）",
+            "rank": "highStrong"
+          },
+          {
+            "id": "rRed1",
+            "label": "R・赤（お父様…）",
+            "rank": "ge2"
+          },
+          {
+            "id": "rRed2",
+            "label": "R・赤（あ、葵じゃないですよ…）",
+            "rank": "ge3"
+          },
+          {
+            "id": "srGold",
+            "label": "SR・金（ゴルフはやっぱり楽しい！）",
+            "rank": "ge4"
+          },
+          {
+            "id": "ssrGold",
+            "label": "SSR・金（葵（幼少期））",
+            "rank": "ge5"
+          },
+          {
+            "id": "sssrGold",
+            "label": "SSSR・金（無邪気な暴君）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "wingEve",
+        "label": "ウイングボーナス中キャラ紹介（イヴ周期滞在時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "leo",
+            "label": "レオ（緑背景）",
+            "rank": "highWeak"
+          },
+          {
+            "id": "amuro",
+            "label": "亜室（緑背景）",
+            "rank": "highStrong"
+          },
+          {
+            "id": "yuha",
+            "label": "ユーハ（赤背景）",
+            "rank": "ge2"
+          }
+        ]
+      },
+      {
+        "id": "wingAoi",
+        "label": "ウイングボーナス中キャラ紹介（葵周期滞在時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "leo",
+            "label": "レオ（緑背景）",
+            "rank": "highStrong"
+          },
+          {
+            "id": "amuro",
+            "label": "亜室（緑背景）",
+            "rank": "highWeak"
+          },
+          {
+            "id": "yuha",
+            "label": "ユーハ（赤背景）",
+            "rank": "ge2"
+          }
+        ]
+      },
+      {
+        "id": "wingPattern",
+        "label": "ウイングボーナス中の紹介パターン",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "yuhaFirst",
+            "label": "ユーハが先頭で登場",
+            "rank": "ge4"
+          },
+          {
+            "id": "reverse",
+            "label": "逆周期のデフォルト紹介（周期交差パターン）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "BQB中の獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

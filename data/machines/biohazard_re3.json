@@ -52,5 +52,156 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-05-11",
   "guessElementPath": "setGuessElement/biohazardRe3/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "figure",
+        "label": "フィギュアコレクション",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "zombieM",
+            "label": "No.1 ゾンビ（男）",
+            "rank": "oddWeak"
+          },
+          {
+            "id": "zombieF",
+            "label": "No.2 ゾンビ（女）",
+            "rank": "oddWeak"
+          },
+          {
+            "id": "hunterB",
+            "label": "No.3 ハンターβ",
+            "rank": "odd"
+          },
+          {
+            "id": "hunterG",
+            "label": "No.4 ハンターγ",
+            "rank": "odd"
+          },
+          {
+            "id": "jill",
+            "label": "No.5 ジル・バレンタイン",
+            "rank": "evenWeak"
+          },
+          {
+            "id": "carlos",
+            "label": "No.6 カルロス・オリヴェイラ",
+            "rank": "evenWeak"
+          },
+          {
+            "id": "mikhail",
+            "label": "No.7 ミハイル・ヴィクトール",
+            "rank": "even"
+          },
+          {
+            "id": "tyrell",
+            "label": "No.8 タイレル・パトリック",
+            "rank": "even"
+          },
+          {
+            "id": "nemesis1",
+            "label": "No.9 ネメシス第1形態",
+            "rank": "highWeak"
+          },
+          {
+            "id": "brad",
+            "label": "No.10 ブラッド・ヴィッカーズ",
+            "rank": "highWeak"
+          },
+          {
+            "id": "nemesis2",
+            "label": "No.11 ネメシス第2形態",
+            "rank": "highMid"
+          },
+          {
+            "id": "nikolai",
+            "label": "No.12 ニコライ・ジノビエフ",
+            "rank": "highMid"
+          },
+          {
+            "id": "nemesis3",
+            "label": "No.13 ネメシス第3形態",
+            "rank": "highStrong"
+          },
+          {
+            "id": "charlie",
+            "label": "No.14 チャーリーくん人形",
+            "rank": "not1"
+          },
+          {
+            "id": "infected",
+            "label": "No.15＋No.16（ジル＆カルロス 感染／両方そろって）",
+            "rank": "ge4"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "エンタトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "momiji",
+            "label": "紅葉",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT中の獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m222",
+            "label": "222枚OVER",
+            "rank": "ge2"
+          },
+          {
+            "id": "m333",
+            "label": "333枚OVER",
+            "rank": "ge3"
+          },
+          {
+            "id": "m444",
+            "label": "444枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

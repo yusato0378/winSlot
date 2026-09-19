@@ -52,5 +52,27 @@
   "normalCostPerGame": 1.5,
   "addedDate": "2026-04-20",
   "guessElementPath": "setGuessElement/animalSlotDotch/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "regChara",
+        "label": "REG中のキャラ紹介",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "animal",
+            "label": "実写のアニマル出現",
+            "rank": "highMid"
+          },
+          {
+            "id": "juggler",
+            "label": "ジャグラー出現",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

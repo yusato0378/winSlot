@@ -52,5 +52,69 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-04-20",
   "guessElementPath": "setGuessElement/gundamUnicornKakuseiDrive/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "frontal",
+            "label": "フル・フロンタル",
+            "rank": "ge2"
+          },
+          {
+            "id": "three",
+            "label": "女性キャラ3人",
+            "rank": "ge3"
+          },
+          {
+            "id": "marida",
+            "label": "マリーダ（4段アイス）",
+            "rank": "ge4"
+          },
+          {
+            "id": "mineva",
+            "label": "ミネバ（海老ドッグ）",
+            "rank": "ge5"
+          },
+          {
+            "id": "six",
+            "label": "女性キャラ6人",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "push",
+        "label": "CZ「彗星決戦」後半のPUSH連打回数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "p4",
+            "label": "4回",
+            "rank": "ge4"
+          },
+          {
+            "id": "p6",
+            "label": "6回",
+            "rank": "eq6"
+          },
+          {
+            "id": "p7",
+            "label": "7回（ミネバボーナス濃厚＋設定6期待度UP）",
+            "rank": "upStrong"
+          },
+          {
+            "id": "p12",
+            "label": "12回（上位AT濃厚）",
+            "rank": "ignore"
+          }
+        ]
+      }
+    ]
+  }
 }

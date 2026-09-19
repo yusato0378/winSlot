@@ -40,5 +40,47 @@
   "normalCostPerGame": 1.5,
   "addedDate": "2026-05-25",
   "guessElementPath": "setGuessElement/lbSlotGalfy/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "bigPlusReg",
+    "groups": [
+      {
+        "id": "sideLamp",
+        "label": "サイドランプ色（ボーナス終了時）",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "white",
+            "label": "白",
+            "rank": "default"
+          },
+          {
+            "id": "blue",
+            "label": "青",
+            "rank": "highWeak"
+          },
+          {
+            "id": "yellow",
+            "label": "黄",
+            "rank": "highWeak"
+          },
+          {
+            "id": "green",
+            "label": "緑",
+            "rank": "highMid"
+          },
+          {
+            "id": "red",
+            "label": "赤",
+            "rank": "highStrong"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹（高設定濃厚）",
+            "rank": "ge5"
+          }
+        ]
+      }
+    ]
+  }
 }

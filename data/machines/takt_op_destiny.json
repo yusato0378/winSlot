@@ -52,5 +52,91 @@
   "normalCostPerGame": 1.4,
   "addedDate": "2026-05-11",
   "guessElementPath": "setGuessElement/taktOpDestiny/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面（スタンプ）",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "none",
+            "label": "画面①②・運命・タクト",
+            "rank": "default"
+          },
+          {
+            "id": "ka",
+            "label": "可スタンプ",
+            "rank": "ge2"
+          },
+          {
+            "id": "kichi",
+            "label": "吉スタンプ",
+            "rank": "ge3"
+          },
+          {
+            "id": "ryo",
+            "label": "良スタンプ",
+            "rank": "ge4"
+          },
+          {
+            "id": "yu",
+            "label": "優スタンプ",
+            "rank": "ge5"
+          },
+          {
+            "id": "goku",
+            "label": "極スタンプ（笑顔のコゼット）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "bonusEnd",
+        "label": "デスティニーボーナス終了画面",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "lenny",
+            "label": "レニー＆巨人",
+            "rank": "highMid"
+          },
+          {
+            "id": "unmei",
+            "label": "運命＆巨人",
+            "rank": "ge2"
+          },
+          {
+            "id": "cosette",
+            "label": "タクト＆コゼット",
+            "rank": "ge4"
+          },
+          {
+            "id": "takt",
+            "label": "タクト＆運命",
+            "rank": "ge5"
+          },
+          {
+            "id": "piano",
+            "label": "タクト＆運命（ピアノ）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -52,5 +52,99 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-06-08",
   "guessElementPath": "setGuessElement/sao2/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "kirito",
+            "label": "キリト＆シノン",
+            "rank": "default"
+          },
+          {
+            "id": "uniform",
+            "label": "制服",
+            "rank": "odd"
+          },
+          {
+            "id": "sofa",
+            "label": "ソファー",
+            "rank": "even"
+          },
+          {
+            "id": "komorebi",
+            "label": "木漏れ日",
+            "rank": "highWeak"
+          },
+          {
+            "id": "festival",
+            "label": "夏祭り",
+            "rank": "highStrong"
+          },
+          {
+            "id": "child",
+            "label": "幼少期（設定6より設定5で出やすい）",
+            "rank": "favor5"
+          },
+          {
+            "id": "shirt",
+            "label": "Yシャツ",
+            "rank": "ge2"
+          },
+          {
+            "id": "bath",
+            "label": "お風呂",
+            "rank": "ge3"
+          },
+          {
+            "id": "swim",
+            "label": "水着",
+            "rank": "ge4"
+          },
+          {
+            "id": "pajama",
+            "label": "パジャマ",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "コパンダトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅トロフィー",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀トロフィー",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金トロフィー",
+            "rank": "ge4"
+          },
+          {
+            "id": "thunder",
+            "label": "イナズマトロフィー",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹トロフィー",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
