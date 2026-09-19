@@ -5,33 +5,36 @@
  * `exclusive: true` のグループは「入力しなかった項目＝出なかった」を否定的証拠として使う。
  * これがグループのぶんだけ積み上がるので、示唆データを足していくほど
  * 「示唆を何も見ていないこと」自体が強い低設定証拠になっていく。
- * 効くのはグループ数だけではなく、グループ内の非デフォルト項目の率の合計
+ * 効くのはグループ数ではなく、グループ内の非デフォルト項目の率の合計
  * （項目が多いほどデフォルトの取り分が小さくなる）。
- * data/suggestion-ranks.json の base は「1グループの示唆が設定6で1割前後」で校正してあり、
- * グループ数が増えれば当然崩れる前提の数値なので、投入済み全機種で毎回測る。
  *
- * 判定: 初当たり20回ぶん、デフォルト行のある排他グループすべてにデフォルトを20回入れた状態で
- *   - NaN が出る                   → エラー
- *   - 設定6が MIN_TOP 未満          → 警告（この機種のグループ構成を見直す）
- *   - 設定1が MAX_BOTTOM 超         → 警告
- * 警告が複数機種で出たら、個別機種をいじるのではなく
- * data/suggestion-ranks.json の base / from / to を一律で下げる（前回の校正と同じ方法）。
+ * 測るのは事後確率ではなく尤度比。事後確率は機種のスペックと測定点に依存するので、
+ * 「設定6の事後確率が何%まで落ちたか」では機種間で比べられない
+ * （初当たり確率の重い機種は示唆と無関係に設定6が低く出る）。
+ * 示唆そのものの強さは「初当たり20回ぶん、どのグループにも示唆が1つも出なかった」の
+ * 尤度比＝最高設定 : 最低設定 で見る。これはスペックに依存しない。
+ *
+ * 判定:
+ *   - NaN が出る                     → エラー
+ *   - 尤度比が HARD_LR 超            → エラー（示唆を見ていないだけで設定が決まってしまう）
+ *   - 1グループの示唆出現率が HARD_MASS 超 → エラー（項目を盛りすぎ）
+ *   - 尤度比が SOFT_LR 超            → 表示のみ（校正の見直し候補。フェーズ8で判断する）
+ *
+ * data/suggestion-ranks.json の base は「1グループの示唆が設定6で1割前後」を目安にした数値。
+ * 複数機種でエラーになるなら、個別機種をいじらず base / from / to を一律で下げる。
  */
 const { loadDist } = require("./dist-sandbox");
 
 const { ctx } = loadDist();
-const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials, SUGGESTION_RANKS } = ctx;
+const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials,
+        SUGGESTION_RATES, SUGGESTION_RANKS } = ctx;
 
-// 測定条件。実戦でよくある「そこそこ回して示唆は何も出ていない」状況。
-const GAMES = 6000;
-const TRIALS = 20;
+const TRIALS = 20;          // 「初当たり20回ぶん、示唆は何も出ていない」を基準の観測とする
+const GAMES = 6000;         // 事後確率を参考表示するためだけに使う
 
-const MIN_TOP = 0.005;      // 設定6の下限（0.5%）
-const MAX_BOTTOM = 0.60;    // 設定1の上限（60%）
-
-const pct = (p) => [1, 2, 3, 4, 5, 6]
-    .map(s => (p[s] === undefined ? "  -  " : (p[s] * 100).toFixed(1).padStart(5)))
-    .join(" ");
+const SOFT_LR = 100;        // ここを超えたら校正の見直し候補（表示のみ）
+const HARD_LR = 1000;       // ここを超えたら落とす
+const HARD_MASS = 0.30;     // 1グループの最高設定での示唆出現率の上限
 
 /** そのグループの「何も示唆が出なかった」を表す項目。無ければ null（暗黙の残余バケット） */
 function defaultItem(group) {
@@ -47,63 +50,77 @@ if (loaded.length === 0) {
     process.exit(0);
 }
 
-let warned = 0;
+const rows = [];
 let failed = 0;
 
-console.log(`測定条件: ${GAMES}G / 初当たり${TRIALS}回 / デフォルト行を${TRIALS}回入力\n`);
-console.log("  " + "機種".padEnd(30) + " 排他G  設定1→          設定6→");
-
 for (const m of loaded) {
-    const groups = m.suggestions.groups.filter(g => g.exclusive !== false);
+    const keys = Object.keys(m.settings).map(Number).sort((a, b) => a - b);
+    const top = keys[keys.length - 1];
+    const bot = keys[0];
+
+    let pNoneTop = 1, pNoneBot = 1;
+    const groups = [];
+    for (const g of m.suggestions.groups) {
+        const built = SUGGESTION_RATES.buildGroupRates(g, SUGGESTION_RANKS, keys);
+        const exclusive = g.exclusive !== false;
+        const mass = 1 - built.residualRates[top];
+        if (exclusive) {
+            pNoneTop *= built.residualRates[top];
+            pNoneBot *= built.residualRates[bot];
+        }
+        groups.push({ id: g.id, items: g.items.length, exclusive, mass });
+    }
+
+    // 「TRIALS 回すべて示唆なし」の尤度比（最低設定が最高設定の何倍もっともらしいか）
+    const lr = Math.pow(pNoneBot, TRIALS) / Math.pow(pNoneTop, TRIALS);
+
+    // 参考: 同じ観測での事後確率の動き（デフォルト行のあるグループにだけ入力できる）
     const counts = {};
-    let withDefault = 0;
-    for (const g of groups) {
+    for (const g of m.suggestions.groups) {
+        if (g.exclusive === false) continue;
         const def = defaultItem(g);
-        if (!def) continue;                       // 残余バケットが暗黙のグループは入力できない
-        counts[g.id] = { [def.id]: TRIALS };
-        withDefault++;
+        if (def) counts[g.id] = { [def.id]: TRIALS };
     }
-
-    const trials = resolveTrials(m, TRIALS, TRIALS);
     const before = estimateSettings(m, GAMES, TRIALS, TRIALS, null);
-    const detail = withDefault > 0 ? buildSuggestionDetail(m, trials, counts) : null;
+    const detail = Object.keys(counts).length > 0
+        ? buildSuggestionDetail(m, resolveTrials(m, TRIALS, TRIALS), counts) : null;
     const after = detail ? estimateSettings(m, GAMES, TRIALS, TRIALS, detail) : before;
-
     const nan = Object.values(after).some(v => !Number.isFinite(v));
-    const topLow = after[6] !== undefined && after[6] < MIN_TOP;
-    const bottomHigh = after[1] !== undefined && after[1] > MAX_BOTTOM;
 
-    const mark = nan ? "NG" : (topLow || bottomHigh) ? "!!" : "OK";
-    const fmt = (s) => (before[s] === undefined ? "    -" : `${(before[s] * 100).toFixed(1)}→${(after[s] * 100).toFixed(1)}%`);
-    console.log(`  ${mark}  ${m.id.padEnd(30)} ${String(withDefault).padStart(2)}/${groups.length}  ` +
-                `${fmt(1).padEnd(15)} ${fmt(6)}`);
+    const overMass = groups.filter(g => g.exclusive && g.mass > HARD_MASS);
+    const hard = nan || lr > HARD_LR || overMass.length > 0;
+    rows.push({ m, top, bot, lr, groups, before, after, nan, overMass, hard });
+    if (hard) failed++;
+}
 
-    if (nan) {
-        console.log(`      NaN が出ています: ${pct(after)}`);
-        failed++;
-        continue;
+rows.sort((a, b) => b.lr - a.lr);
+
+console.log(`基準の観測: 初当たり${TRIALS}回ぶん、どのグループにも示唆が1つも出ていない\n`);
+for (const r of rows) {
+    const mark = r.hard ? "NG" : (r.lr > SOFT_LR ? "!!" : "OK");
+    console.log(`  ${mark}  ${r.m.id.padEnd(24)} 尤度比 設定${r.top}:設定${r.bot} = 1:${r.lr.toFixed(1)}` +
+        `   （参考: 設定${r.top}の事後確率 ${(r.before[r.top] * 100).toFixed(1)}%→${(r.after[r.top] * 100).toFixed(1)}%）`);
+    for (const g of r.groups) {
+        const gm = g.exclusive && g.mass > HARD_MASS ? "  ← 上限超過" : "";
+        console.log(`        ${g.exclusive ? "排他 " : "独立 "} ${g.id.padEnd(16)} 項目${String(g.items).padStart(2)}` +
+            `  設定${r.top}で示唆が出る率 ${(g.mass * 100).toFixed(1)}%${gm}`);
     }
-    if (topLow) {
-        console.log(`      設定6が ${(after[6] * 100).toFixed(2)}% (下限 ${MIN_TOP * 100}%)。` +
-                    `否定的証拠が強すぎます`);
-        warned++;
-    }
-    if (bottomHigh) {
-        console.log(`      設定1が ${(after[1] * 100).toFixed(1)}% (上限 ${MAX_BOTTOM * 100}%)。` +
-                    `否定的証拠が強すぎます`);
-        warned++;
-    }
+    if (r.nan) console.log("        NaN が出ています");
 }
 
 console.log("");
 if (failed > 0) {
-    console.error(`NaN が ${failed}機種で発生しています。ランク定義かグループ構成を確認してください。`);
-    process.exit(1);
-}
-if (warned > 0) {
-    console.error(`閾値超過 ${warned}件。対処は次のどちらかです。`);
-    console.error("  1. 該当機種のグループを減らす / 情報量の小さいグループを exclusive:false にする");
+    console.error(`閾値超過 ${failed}機種（尤度比の上限 1:${HARD_LR} / 1グループの示唆出現率の上限 ${HARD_MASS * 100}%）。`);
+    console.error("  1. その機種の項目を減らす / 情報量の小さいグループを exclusive:false にする");
     console.error("  2. 複数機種で出ているなら data/suggestion-ranks.json の base / from / to を一律で下げる");
     process.exit(1);
 }
-console.log(`校正ガードレール通過: 投入済み ${loaded.length}機種すべてが閾値内`);
+const soft = rows.filter(r => r.lr > SOFT_LR);
+if (soft.length > 0) {
+    console.log(`校正ガードレール通過（投入済み ${loaded.length}機種）。` +
+        `ただし尤度比が 1:${SOFT_LR} を超えている機種が ${soft.length}件あります: ` +
+        soft.map(r => r.m.id).join(", "));
+    console.log("  示唆を1つも見ていないだけで設定が決まってしまう水準です。フェーズ8の再校正で見直してください。");
+} else {
+    console.log(`校正ガードレール通過: 投入済み ${loaded.length}機種すべてが閾値内`);
+}
