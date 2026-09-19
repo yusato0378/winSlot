@@ -56,5 +56,187 @@
     "ゲーム数天井999G+αのほか、規定コレポイントによる最大6周期の周期天井があります。設定変更後は周期天井が最大3周期に短縮されます。",
     "周期天井はゲーム数と別管理のため、当ツールの現在ゲーム数（AT間999G基準）とは別物として扱ってください。",
     "AT初当たりが設定推測の主軸です。設定4以上で明確に軽くなります。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "nobunaga",
+            "label": "織田信長",
+            "rank": "odd"
+          },
+          {
+            "id": "komachi",
+            "label": "小野小町",
+            "rank": "even"
+          },
+          {
+            "id": "swim1",
+            "label": "水着1",
+            "rank": "highWeak"
+          },
+          {
+            "id": "swim2",
+            "label": "水着2",
+            "rank": "highStrong"
+          },
+          {
+            "id": "enemy3",
+            "label": "敵武将3人",
+            "rank": "ge2"
+          },
+          {
+            "id": "four",
+            "label": "信長・光秀・利休・有楽",
+            "rank": "ge4"
+          },
+          {
+            "id": "shizumon",
+            "label": "しずもん絵",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "doorArt",
+        "label": "ATセット開始画面（扉絵）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "kenshin",
+            "label": "上杉謙信（シナリオ⑫＋設定2以上濃厚）",
+            "rank": "ge2"
+          },
+          {
+            "id": "swim",
+            "label": "信長＋光秀（水着）（シナリオ⑫＋設定4以上濃厚）",
+            "rank": "ge4"
+          },
+          {
+            "id": "six",
+            "label": "味方キャラ6人（シナリオ⑫＋設定5以上濃厚）",
+            "rank": "ge5"
+          },
+          {
+            "id": "deforme",
+            "label": "デフォルメキャラ集合（シナリオ⑫＋設定6濃厚）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT中の獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m222",
+            "label": "222枚OVER",
+            "rank": "ge2"
+          },
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m666",
+            "label": "573枚／666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "sevens",
+        "label": "7揃いの停止形",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "four",
+            "label": "「4の形」",
+            "rank": "ge4"
+          },
+          {
+            "id": "seven",
+            "label": "「7の形」",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "lamp",
+        "label": "夢幻斬りWONDER終了画面のランプ",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "blue",
+            "label": "青（設定2以上期待度UP）",
+            "rank": "upWeak"
+          },
+          {
+            "id": "green",
+            "label": "緑",
+            "rank": "ge2"
+          },
+          {
+            "id": "red",
+            "label": "赤",
+            "rank": "ge4"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "アリストロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "clover",
+            "label": "クローバー柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

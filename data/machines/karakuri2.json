@@ -56,5 +56,85 @@
     "CZ間天井（液晶最深1200G／実ゲーム数約890G）とAT間天井2500Gの2段階があります。当ツールの現在ゲーム数はCZ間の液晶ゲーム数を基準にしています。",
     "設定変更時はCZ間の液晶天井が500Gに短縮されます（据え置きは天井を引き継ぎ）。",
     "AT初当たり以外にモード・上位AT突入率にも設定差があるとされます。表の初当たりは目安として使ってください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "shirogane",
+            "label": "しろがね",
+            "rank": "default"
+          },
+          {
+            "id": "oldest4",
+            "label": "最古の四人",
+            "rank": [
+              "odd",
+              "highMid"
+            ]
+          },
+          {
+            "id": "lucille",
+            "label": "ルシール＆アンジェリーナ人形",
+            "rank": [
+              "even",
+              "highMid"
+            ]
+          },
+          {
+            "id": "gear",
+            "label": "歯車",
+            "rank": "ge2"
+          },
+          {
+            "id": "narumi",
+            "label": "鳴海＆勝",
+            "rank": "ge4"
+          },
+          {
+            "id": "smile",
+            "label": "しろがね（笑顔）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "touchVoice",
+        "label": "終了画面タッチボイス",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "name",
+            "label": "「私の名前はしろがね」",
+            "rank": "default"
+          },
+          {
+            "id": "life",
+            "label": "「人生は…そういうものだよ…」",
+            "rank": "not2"
+          },
+          {
+            "id": "fear",
+            "label": "「何を恐れることがある！」",
+            "rank": "not3"
+          },
+          {
+            "id": "call",
+            "label": "「俺を…しろがねと呼びな！」",
+            "rank": "not4"
+          },
+          {
+            "id": "boku",
+            "label": "「ぼくはぼくさ！」",
+            "rank": "not5"
+          }
+        ]
+      }
+    ]
+  }
 }

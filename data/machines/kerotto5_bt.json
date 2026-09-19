@@ -56,5 +56,123 @@
     "天井非搭載のノーマルタイプ（BT）です。ゲーム数による狙い目はなく、設定推測がメインになります。",
     "「BIG合算」はSUPER BIG＋BIGの合算です。REG確率に大きな設定差があるため、REGの偏りが設定推測の主軸になります。",
     "REG確率は短期では大きく振れます。できるだけサンプルを溜めてから判断してください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bbEnd",
+        "label": "BB／SBB終了画面（枠色）",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "none",
+            "label": "枠なし",
+            "rank": "default"
+          },
+          {
+            "id": "blue1",
+            "label": "青枠①",
+            "rank": "odd"
+          },
+          {
+            "id": "blue2",
+            "label": "青枠②",
+            "rank": "even"
+          },
+          {
+            "id": "red",
+            "label": "赤枠",
+            "rank": "highMid"
+          },
+          {
+            "id": "silver",
+            "label": "銀枠",
+            "rank": "ge2"
+          },
+          {
+            "id": "gold1",
+            "label": "金枠①",
+            "rank": "ge4"
+          },
+          {
+            "id": "gold2",
+            "label": "金枠②",
+            "rank": "ge5"
+          }
+        ]
+      },
+      {
+        "id": "rbCutin",
+        "label": "RB中カットイン（帯色）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "red",
+            "label": "赤帯",
+            "rank": "highMid"
+          },
+          {
+            "id": "silver",
+            "label": "銀帯",
+            "rank": "ge2"
+          },
+          {
+            "id": "gold1",
+            "label": "金帯①（ヘッドスピン）",
+            "rank": "ge4"
+          },
+          {
+            "id": "gold2",
+            "label": "金帯②（山佐キャラ付き）",
+            "rank": "ge5"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "ケロットトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kerotto",
+            "label": "ケロット",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "freeze",
+        "label": "ロングフリーズ",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "long",
+            "label": "ロングフリーズ発生",
+            "rank": "ge4"
+          }
+        ]
+      }
+    ]
+  }
 }

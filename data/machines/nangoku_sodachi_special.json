@@ -50,5 +50,52 @@
     "設定3を搭載しない5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
     "通常A・B滞在時の天井は799G＋α。設定変更後・飛翔/超飛翔モード終了後は500G＋α（さらに準備状態では200G等）に短縮されます。",
     "飛翔モード（継続約84%）・超飛翔モード（約93%）の連チャンで出玉が伸びる機種のため、短期の上下振れが大きめです。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "endVoice",
+        "label": "ボーナス終了時ボイス",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "none",
+            "label": "ボイスなし",
+            "rank": "default"
+          },
+          {
+            "id": "harikiri",
+            "label": "「張り切っていこー」",
+            "rank": "upWeak"
+          },
+          {
+            "id": "shinjite",
+            "label": "「自分を信じて」",
+            "rank": "upMid"
+          },
+          {
+            "id": "iikanji",
+            "label": "「良い感じよ♪うんうん」",
+            "rank": "upStrong"
+          },
+          {
+            "id": "ka",
+            "label": "「今日の運勢は…可!」",
+            "rank": "ge2"
+          },
+          {
+            "id": "ryo",
+            "label": "「今日の運勢は…良!」",
+            "rank": "ge4"
+          },
+          {
+            "id": "kiwami",
+            "label": "「今日の運勢は…極み!」",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

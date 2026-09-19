@@ -56,5 +56,119 @@
     "AT間天井1500G＋α（設定変更後は1000G＋αに短縮）と、CZ間天井700G＋α（設定変更後500G＋α）の2段階があります。当ツールの現在ゲーム数はAT間を基準にしています。",
     "AT初当たり・CZ初当たりの設定差は高設定域（4〜6）ではほとんど詰まります。初当たりで高設定域を切り分けるのは難しく、モード移行率などの他要素と併用してください。",
     "天井が深めのため、狙い目は等価でAT間840G〜が目安です。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面（9種）",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "ultraman",
+            "label": "ウルトラマン①／②（通常AT・上位ATのデフォルト）",
+            "rank": "default"
+          },
+          {
+            "id": "ally1",
+            "label": "味方3人①（ゾフィー＆マン＆セブン）",
+            "rank": "evenWeak"
+          },
+          {
+            "id": "ally2",
+            "label": "味方3人②（エース／タロウ／ジャック）",
+            "rank": "oddWeak"
+          },
+          {
+            "id": "shinjiro",
+            "label": "進次郎＆進",
+            "rank": "upWeak"
+          },
+          {
+            "id": "zetton",
+            "label": "エド＆ゼットン",
+            "rank": "upMid"
+          },
+          {
+            "id": "gather",
+            "label": "ウルトラマン集合",
+            "rank": "ge4"
+          },
+          {
+            "id": "ruins",
+            "label": "ウルトラマン（廃墟）",
+            "rank": "ge5"
+          },
+          {
+            "id": "bemular",
+            "label": "ベムラー",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "玉ちゃんトロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "ブロンズ",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "シルバー",
+            "rank": "ge4"
+          },
+          {
+            "id": "gold",
+            "label": "ゴールド（設定4以上濃厚＋設定5期待）",
+            "rank": [
+              "ge4",
+              "favor5"
+            ]
+          },
+          {
+            "id": "zebra",
+            "label": "ゼブラ",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "レインボー",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

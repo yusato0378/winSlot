@@ -57,5 +57,113 @@
     "天井恩恵は関所チャレンジ（平均突破率約50%）当選のためAT確定ではありません。期待値は控えめに見積もっています。",
     "設定変更後は特殊A（最大399まいる）が選ばれやすくなりますが、確定的な短縮天井ではないため朝一リセット時ブロックは表示していません。",
     "6スルー後の7回目は関所チャレンジ勝率100%（AT濃厚）です。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "kaido",
+            "label": "街道",
+            "rank": "oddWeak"
+          },
+          {
+            "id": "chaya",
+            "label": "茶屋",
+            "rank": "evenWeak"
+          },
+          {
+            "id": "akane",
+            "label": "茜ちゃん",
+            "rank": "upMid"
+          }
+        ]
+      },
+      {
+        "id": "plate",
+        "label": "ユニバプレート",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "hanabi",
+            "label": "花火柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m4444",
+            "label": "1111枚／2222枚／3333枚／4444枚",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚／5555枚",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚／6666枚",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "appare",
+        "label": "あっぱれチャンス（茜のコメント色＋上乗せG数）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "blue",
+            "label": "青色＋「＋2G」",
+            "rank": "ge2"
+          },
+          {
+            "id": "yellow",
+            "label": "黄色＋「＋7G」",
+            "rank": "ge4"
+          },
+          {
+            "id": "white",
+            "label": "白色＋「＋10G」",
+            "rank": "ge5"
+          },
+          {
+            "id": "red",
+            "label": "赤色＋「＋66G」",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
