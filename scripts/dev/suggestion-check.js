@@ -7,55 +7,9 @@
  * estimateSettings を直接叩く。init() は DOMContentLoaded でしか走らないので
  * DOM は最小限のスタブで足りる。
  */
-const fs = require("fs");
-const path = require("path");
-const vm = require("vm");
+const { loadDist } = require("./dist-sandbox");
 
-const DIST = path.join(__dirname, "..", "..", "dist");
-for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
-    if (!fs.existsSync(path.join(DIST, f))) {
-        console.error(`dist/${f} がありません。先に npm run build を実行してください。`);
-        process.exit(1);
-    }
-}
-
-// --- ブラウザ環境のスタブ ---------------------------------------------------
-const { MiniEl } = require("./mini-dom");
-const suggestionInputsEl = new MiniEl("div");
-const summaryEl = new MiniEl("div");
-
-const stubEl = new Proxy({}, {
-    get(t, k) {
-        if (k === "style" || k === "dataset" || k === "classList") return stubEl;
-        if (k === "value" || k === "textContent" || k === "innerHTML") return "";
-        if (k === "querySelectorAll") return () => [];
-        if (k === "closest" || k === "querySelector") return () => stubEl;
-        if (typeof k === "symbol") return undefined;
-        return () => stubEl;
-    },
-    set() { return true; },
-});
-
-const ctx = {
-    console,
-    Math, JSON, Object, Array, Number, String, Boolean, Set, Map, Infinity, NaN,
-    document: {
-        getElementById: (id) => (id === "suggestion-inputs" ? suggestionInputsEl
-            : id === "suggestion-summary" ? summaryEl
-            : stubEl),
-        addEventListener: () => {},
-        querySelectorAll: () => [],
-        createElement: (tag) => new MiniEl(tag),
-    },
-    requestAnimationFrame: () => {},
-    fetch: () => Promise.resolve({ json: () => Promise.resolve({}) }),
-};
-vm.createContext(ctx);
-ctx.window = ctx;            // ブラウザと同じく globalThis === window にする
-
-for (const f of ["machines-data.js", "suggestion-rates.js", "app.js"]) {
-    vm.runInContext(fs.readFileSync(path.join(DIST, f), "utf8"), ctx, { filename: f });
-}
+const { ctx, suggestionInputsEl, summaryEl } = loadDist();
 
 const { MACHINES, buildSuggestionDetail, estimateSettings, resolveTrials,
         renderSuggestionInputs, collectSuggestionCounts,
@@ -364,9 +318,14 @@ const pSf = estimateSettings(sf6, 6000, 30, 12, dSf);
 check("設定1が 0%（設定2以上濃厚）", pSf[1] === 0, pct(pSf));
 check("NaN が出ない", noNaN(pSf), pct(pSf));
 
-console.log("\n[28] 投入4機種すべてで全項目を1回ずつ入力しても壊れない");
-for (const id of ["sengoku_otome5", "valvrave2", "monhan_rise", "street_fighter6"]) {
-    const mm = MACHINES.find(x => x.id === id);
+// 投入済み機種はフェーズごとに増える。ここに機種名をべた書きすると、データを足したときに
+// 検証が追従せず「増やした機種だけ素通し」になるので、必ずデータから引く。
+const LOADED = MACHINES.filter(m => m.suggestions);
+
+console.log(`\n[28] 投入済み${LOADED.length}機種すべてで全項目を1回ずつ入力しても壊れない`);
+check("投入済み機種が1つ以上ある", LOADED.length > 0, LOADED.length + "機種");
+for (const mm of LOADED) {
+    const id = mm.id;
     const counts = {};
     mm.suggestions.groups.forEach(g => {
         counts[g.id] = {};
@@ -378,7 +337,7 @@ for (const id of ["sengoku_otome5", "valvrave2", "monhan_rise", "street_fighter6
     check(id + " の確率が合計1", Math.abs(Object.values(rr).reduce((a, b) => a + b, 0) - 1) < 1e-9);
 }
 
-console.log("\n[29] 示唆データ未投入の93機種は従来どおり");
+console.log(`\n[29] 示唆データ未投入の${MACHINES.length - LOADED.length}機種は従来どおり`);
 let untouched = 0;
 for (const mm of MACHINES) {
     if (mm.suggestions) continue;
@@ -388,7 +347,8 @@ for (const mm of MACHINES) {
         break;
     }
 }
-check(`${untouched}機種すべてで示唆機能が無効`, untouched === MACHINES.length - 4, "未投入 " + untouched + "機種");
+check(`${untouched}機種すべてで示唆機能が無効`, untouched === MACHINES.length - LOADED.length,
+    `未投入 ${untouched}機種 / 投入済み ${LOADED.length}機種 / 全${MACHINES.length}機種`);
 
 if (failed > 0) { console.error(`\n検証失敗: ${failed}件`); process.exit(1); }
 console.log("\n検証成功: 設定示唆の尤度計算はすべて期待どおり");

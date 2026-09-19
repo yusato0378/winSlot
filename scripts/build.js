@@ -80,11 +80,21 @@ function copySuggestionRates() {
     console.log("Copied: suggestion-rates.js");
 }
 
+/**
+ * 示唆データのカバレッジ。README に機種名を手書きすると必ず古くなるので、
+ * 「いま何機種に入っているか」はここを正本にする（一覧は suggestion-sanity.js）。
+ */
+function reportSuggestionCoverage(machines) {
+    const loaded = machines.filter(m => m.suggestions).length;
+    console.log(`Suggestions: ${loaded} / ${machines.length} machines（未投入 ${machines.length - loaded}）`);
+}
+
 function main() {
     fs.rmSync(OUT, { recursive: true, force: true });
     fs.mkdirSync(OUT, { recursive: true });
 
     const data = loadMachines(ROOT);
+    reportSuggestionCoverage(data.MACHINES);
 
     copyStatic();
     copySuggestionRates();
