@@ -50,5 +50,84 @@
     "設定3が非搭載の5段階設定（設定1・2・4・5・6）です。設定3相当の数値はありません。",
     "天井はゲーム数天井1200G（設定変更後は900G）でAT＋夢娘チャンス当選。ほかに娘ポイント最大10周期（設定変更後は7周期）の周期天井でCZ当選があります。",
     "CZ合算確率は設定1で1/395.7、設定6で1/391.5とほぼ設定差がありません。設定推測はAT初当たりと示唆演出を主軸にしてください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "binLive",
+            "label": "びん娘ライブ衣装",
+            "rank": "default"
+          },
+          {
+            "id": "supaLive",
+            "label": "すぱ娘ライブ衣装",
+            "rank": "odd"
+          },
+          {
+            "id": "shisuLive",
+            "label": "しす娘ライブ衣装",
+            "rank": "even"
+          },
+          {
+            "id": "binRich",
+            "label": "びん娘大富豪",
+            "rank": "highMid"
+          },
+          {
+            "id": "yumeSwim",
+            "label": "夢娘3人水着",
+            "rank": "ge2"
+          },
+          {
+            "id": "binNormal",
+            "label": "びん娘通常衣装",
+            "rank": "ge4"
+          },
+          {
+            "id": "yumeLive",
+            "label": "夢娘3人ライブ衣装",
+            "rank": "ge5"
+          },
+          {
+            "id": "chabudai",
+            "label": "ちゃぶ台返し",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "びん娘トロフィー（AT終了時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "fire",
+            "label": "ファイヤー柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "レインボー",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

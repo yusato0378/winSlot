@@ -56,5 +56,141 @@
     "天井はAT間1200G（実ゲーム数）とCZ間800G＋α（液晶ゲーム数）の2段階です。当ツールの現在ゲーム数はAT間の実ゲーム数を基準にしています。",
     "設定変更時はAT間777G・CZ間200G＋αに短縮されます（朝一リセット時ブロックはAT間777G基準）。",
     "AT・CZ初当たりのほか、CZを経由しないAT直撃率に約2倍の設定差があるとされます。表の初当たりは目安として使ってください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "touma",
+            "label": "当麻＆インデックス",
+            "rank": "oddWeak"
+          },
+          {
+            "id": "mikoto",
+            "label": "美琴＆黒子",
+            "rank": "evenWeak"
+          },
+          {
+            "id": "accel",
+            "label": "一方通行＆打ち止め",
+            "rank": "upWeak"
+          },
+          {
+            "id": "accel2",
+            "label": "一方通行＆番外個体",
+            "rank": "upMid"
+          },
+          {
+            "id": "arisa",
+            "label": "アリサ＆シャットアウラ",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "uiharu",
+            "label": "美琴＆初春",
+            "rank": "ge4"
+          },
+          {
+            "id": "heroines",
+            "label": "当麻＆ヒロイン5人",
+            "rank": "eq6"
+          },
+          {
+            "id": "item",
+            "label": "アイテム画面（天井まで残り500G以内）",
+            "rank": "ignore"
+          },
+          {
+            "id": "school",
+            "label": "スクール画面（残り300G以内）",
+            "rank": "ignore"
+          },
+          {
+            "id": "group",
+            "label": "グループ画面（残り150G以内）",
+            "rank": "ignore"
+          },
+          {
+            "id": "frog",
+            "label": "カエル顔の医者（復活濃厚）",
+            "rank": "ignore"
+          }
+        ]
+      },
+      {
+        "id": "coin",
+        "label": "藤丸コイン（AT終了時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "danger",
+            "label": "デンジャー柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT中の獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m174",
+            "label": "174枚OVER",
+            "rank": "ge2"
+          },
+          {
+            "id": "m246",
+            "label": "246枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "m456",
+            "label": "456枚／1456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m666",
+            "label": "220枚／666枚／777枚／1666枚／1777枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

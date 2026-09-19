@@ -56,5 +56,110 @@
     "天井は通常時799G＋αでボーナス当選。設定変更時は599G＋αに短縮され、通常Cまたは天国モードからスタートします。",
     "ゲーム数天井のほかに、ラインポイントによる周期天井（最大5周期でCZ当選）とボーナス10スルーでエピソードボーナス当選があります。周期はゲーム数と別管理のため、当ツールの現在ゲーム数（G数天井基準）とは別に確認してください。",
     "設定5と設定6はボーナス確率がほぼ同じ（1/211.8と1/210.0）です。両者の判別は初当たり回数だけでは困難なため、示唆演出と併用してください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bonusChara",
+        "label": "小悪魔ボーナス中のキャラ紹介",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "odd",
+            "label": "ミノス／ぺこら／キョンキョン／ランラン",
+            "rank": "odd"
+          },
+          {
+            "id": "even",
+            "label": "メデューサ／ペルセポネ2世／ぴの／ぽぽろん",
+            "rank": "even"
+          },
+          {
+            "id": "high",
+            "label": "芽依／リエール／ペルセポネ1世",
+            "rank": "highMid"
+          },
+          {
+            "id": "ecute",
+            "label": "エキュート／アトレ",
+            "rank": "ge2"
+          },
+          {
+            "id": "justice",
+            "label": "邪神ちゃん ジャスティス",
+            "rank": "not1"
+          },
+          {
+            "id": "fighter",
+            "label": "邪神ちゃん ファイター",
+            "rank": "not2"
+          },
+          {
+            "id": "commander",
+            "label": "邪神ちゃん コマンダー",
+            "rank": "not3"
+          },
+          {
+            "id": "esp",
+            "label": "邪神ちゃん エスプ",
+            "rank": [
+              "not1",
+              "not2"
+            ]
+          },
+          {
+            "id": "genius",
+            "label": "邪神ちゃん ジーニアス",
+            "rank": [
+              "not1",
+              "not3"
+            ]
+          },
+          {
+            "id": "perfect",
+            "label": "邪神ちゃん パーフェクト（金背景）",
+            "rank": "ge4"
+          },
+          {
+            "id": "yurine",
+            "label": "悪魔コス ゆりね（金背景）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "クジラッキートロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kumanomi",
+            "label": "クマノミ柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
