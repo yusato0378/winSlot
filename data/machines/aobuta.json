@@ -64,13 +64,8 @@
       {
         "id": "nagiSerif",
         "label": "隠れ凪のセリフ枠（QR連動）",
-        "exclusive": true,
+        "exclusive": false,
         "items": [
-          {
-            "id": "white",
-            "label": "白",
-            "rank": "default"
-          },
           {
             "id": "blue",
             "label": "青",
