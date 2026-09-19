@@ -52,5 +52,37 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/enen/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "silhouette",
+            "label": "シルエット赤",
+            "rank": "highWeak"
+          },
+          {
+            "id": "all",
+            "label": "全員集合",
+            "rank": "ge4"
+          },
+          {
+            "id": "red9",
+            "label": "赤枠9人",
+            "rank": "ge5"
+          },
+          {
+            "id": "gold",
+            "label": "金枠",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

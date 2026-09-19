@@ -49,5 +49,49 @@
   "cautions": [
     "短期の上下振れが大きい機種です。推測％はサンプルが溜まってから信頼度が上がります。",
     "天井期待値は設定1基準の概算です。ホール状況（設定配分）とは別物として扱ってください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "tempaiSound",
+        "label": "ボーナステンパイ音",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "kirarin",
+            "label": "きらりーん",
+            "rank": "ge2"
+          },
+          {
+            "id": "pikon",
+            "label": "ぴこーん",
+            "rank": "ge3"
+          },
+          {
+            "id": "zutto",
+            "label": "「私、あなたのことが…ずっと」",
+            "rank": "ge5"
+          },
+          {
+            "id": "three",
+            "label": "「今日は3人で楽しもー！」",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "music",
+        "label": "1G連の楽曲",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "versionup",
+            "label": "「私バージョンアップ！」",
+            "rank": "ge2"
+          }
+        ]
+      }
+    ]
+  }
 }

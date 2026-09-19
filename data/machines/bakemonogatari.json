@@ -55,5 +55,61 @@
   "cautions": [
     "短縮天井の扱いは条件で変わります。朝一の状況を分けて判断してください。",
     "示唆演出の強弱より、まずは総回転と初当たり回数を優先して見るとブレにくいです。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "iloveyou",
+            "label": "「I LOVE YOU」",
+            "rank": "eq6"
+          },
+          {
+            "id": "allPanel",
+            "label": "初代パネル集合",
+            "rank": "ge5"
+          },
+          {
+            "id": "panel",
+            "label": "初代パネル 暦／忍／忍野",
+            "rank": "ge4"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "サミートロフィー（AT終了時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "kirin",
+            "label": "キリン柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT終了時の獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m331",
+            "label": "331枚",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

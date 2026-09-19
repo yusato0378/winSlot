@@ -52,5 +52,32 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/sbj/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "dice",
+        "label": "ダイスチェック（150G／450G／750G）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "six",
+            "label": "6ゾロ",
+            "rank": "eq6"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹トロフィー",
+            "rank": "highStrong"
+          },
+          {
+            "id": "kerotto",
+            "label": "ケロット柄トロフィー",
+            "rank": "highStrong"
+          }
+        ]
+      }
+    ]
+  }
 }

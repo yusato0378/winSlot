@@ -46,5 +46,54 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/revuestarlight/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bbEnd",
+        "label": "BB終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "normal",
+            "label": "通常パターン",
+            "rank": "default"
+          },
+          {
+            "id": "special",
+            "label": "特殊エフェクト",
+            "rank": "highMid"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹色エフェクト",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT終了時の獲得枚数表記",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m456",
+            "label": "456枚OVER",
+            "rank": "ge4"
+          },
+          {
+            "id": "m99",
+            "label": "99枚OVER",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚OVER",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
