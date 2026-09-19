@@ -52,5 +52,79 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/umineko2/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bbEnd",
+        "label": "BB終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "normal",
+            "label": "通常パターン",
+            "rank": "default"
+          },
+          {
+            "id": "beato2",
+            "label": "ベアト・戦人②",
+            "rank": "ge4"
+          },
+          {
+            "id": "gm1",
+            "label": "ベアト・GM戦人①",
+            "rank": "ge5"
+          },
+          {
+            "id": "gm2",
+            "label": "ベアト・GM戦人②",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "rbCard",
+        "label": "RB中のキャラ紹介カード",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "silver",
+            "label": "銀背景",
+            "rank": "highMid"
+          },
+          {
+            "id": "allSilver",
+            "label": "すべて銀背景",
+            "rank": "ge2"
+          },
+          {
+            "id": "allGold",
+            "label": "すべて金背景",
+            "rank": "eq6"
+          },
+          {
+            "id": "willard",
+            "label": "金背景 ウィラード",
+            "rank": "ge2"
+          },
+          {
+            "id": "rion",
+            "label": "金背景 右代宮理御",
+            "rank": "ge2"
+          },
+          {
+            "id": "dressErika",
+            "label": "金背景 ドレスエリカ",
+            "rank": "ge4"
+          },
+          {
+            "id": "gmBattler",
+            "label": "金背景 GM戦人",
+            "rank": "ge5"
+          }
+        ]
+      }
+    ]
+  }
 }

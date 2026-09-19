@@ -52,5 +52,86 @@
   "normalCostPerGame": 1.7,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/evaBt/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "bigPlusReg",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "normal",
+            "label": "通常パターン",
+            "rank": "default"
+          },
+          {
+            "id": "gendou",
+            "label": "ゲンドウ・冬月",
+            "rank": "highMid"
+          },
+          {
+            "id": "kaworu",
+            "label": "カヲル",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "regChara",
+        "label": "REG中のキャラ紹介",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "redFirst",
+            "label": "1人目から赤背景",
+            "rank": "highWeak"
+          },
+          {
+            "id": "gendou4",
+            "label": "ゲンドウ・冬月が4人目まで登場",
+            "rank": "highWeak"
+          },
+          {
+            "id": "kaworu",
+            "label": "カヲル登場",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "btMovie",
+        "label": "BT中 赤7成立時ムービー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "misato",
+            "label": "ミサト＆リツコ",
+            "rank": "highWeak"
+          },
+          {
+            "id": "lilith",
+            "label": "リリス",
+            "rank": "highStrong"
+          },
+          {
+            "id": "gendou",
+            "label": "ゲンドウ",
+            "rank": "ge4"
+          },
+          {
+            "id": "kaji",
+            "label": "加持",
+            "rank": "ge5"
+          },
+          {
+            "id": "kaworu",
+            "label": "カヲル",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

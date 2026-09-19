@@ -52,5 +52,110 @@
   "normalCostPerGame": 2.3,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/tenken/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "all",
+            "label": "全員集合",
+            "rank": "eq6"
+          },
+          {
+            "id": "wafuku",
+            "label": "和服フラン",
+            "rank": "ge4"
+          },
+          {
+            "id": "swim",
+            "label": "水着フラン",
+            "rank": "ge2"
+          },
+          {
+            "id": "black",
+            "label": "黒背景フラン",
+            "rank": "highStrong"
+          },
+          {
+            "id": "white",
+            "label": "白背景フラン",
+            "rank": "highWeak"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "アリストロフィー（AT終了時）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "clover",
+            "label": "クローバー柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "bonusChara",
+        "label": "ボーナス中のキャラ紹介",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "megami",
+            "label": "混沌の女神 金",
+            "rank": "eq6"
+          },
+          {
+            "id": "fenrir",
+            "label": "フェンリル 紫",
+            "rank": "ge4"
+          }
+        ]
+      },
+      {
+        "id": "goblin",
+        "label": "ゴブリンスタンピードのランプ色",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          },
+          {
+            "id": "purple",
+            "label": "紫",
+            "rank": "ge4"
+          }
+        ]
+      },
+      {
+        "id": "story",
+        "label": "X転剣ボーナス中のストーリー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "ep12",
+            "label": "第12話",
+            "rank": "ge4"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -56,5 +56,110 @@
     "リセット短縮の有無は店舗運用差が出やすいので、前日データとセットで見るのがコツです。",
     "ST/示唆など体感要素はブレます。数字（初当たり・総回転）を軸に、補助材料として扱うのが無難です。",
     "期待値表は簡易モデルです。モード/前兆込みの“厳密な期待値”ではない点に注意してください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "stEnd",
+        "label": "ST終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "normal",
+            "label": "通常パターン",
+            "rank": "default"
+          },
+          {
+            "id": "ayame",
+            "label": "菖蒲",
+            "rank": "highMid"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "カバネリアタック 無名上乗せ枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "p44",
+            "label": "＋44枚",
+            "rank": "ge4"
+          },
+          {
+            "id": "p55",
+            "label": "＋55枚",
+            "rank": "ge5"
+          },
+          {
+            "id": "p66",
+            "label": "＋66枚",
+            "rank": "eq6"
+          },
+          {
+            "id": "p77",
+            "label": "＋77枚",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "omikuji",
+        "label": "おみくじ演出",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "shokichi",
+            "label": "小吉",
+            "rank": "ge2"
+          },
+          {
+            "id": "chukichi",
+            "label": "中吉",
+            "rank": "ge4"
+          },
+          {
+            "id": "daikichi",
+            "label": "大吉",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "サミートロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kirin",
+            "label": "キリン",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "episode",
+        "label": "エピソード話数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "ep7",
+            "label": "7話",
+            "rank": "ge4"
+          }
+        ]
+      }
+    ]
+  }
 }

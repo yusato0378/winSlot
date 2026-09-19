@@ -40,5 +40,96 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/discupUltraremix/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "remix",
+        "label": "REG中 REMIXモード（ハンバーガーの具材）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "nice",
+            "label": "Nice（具材がバラバラ）",
+            "rank": "odd"
+          },
+          {
+            "id": "good",
+            "label": "Good（具材が2種類）",
+            "rank": "even"
+          },
+          {
+            "id": "great",
+            "label": "Great（具材が2個のみ）",
+            "rank": "ge2"
+          },
+          {
+            "id": "cheesy",
+            "label": "Cheesy（オールチーズ）",
+            "rank": "ge5"
+          },
+          {
+            "id": "meaty",
+            "label": "Meaty（オールパティ）",
+            "rank": "ge5"
+          },
+          {
+            "id": "eggman",
+            "label": "I'm Eggman（オール目玉焼き）",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "discup",
+        "label": "REG中 DISCUPモード（5人目のキャラ）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "mia",
+            "label": "ミア",
+            "rank": "odd"
+          },
+          {
+            "id": "regent",
+            "label": "リーゼントマン",
+            "rank": "even"
+          },
+          {
+            "id": "afro",
+            "label": "アフロレディ",
+            "rank": "ge2"
+          },
+          {
+            "id": "cindy",
+            "label": "シンディ",
+            "rank": "ge5"
+          },
+          {
+            "id": "allCindy",
+            "label": "全員シンディ",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "classic",
+        "label": "REG中 CLASSICモード（アフロ小人）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "odd",
+            "label": "アフロ小人 ×1 or ×3",
+            "rank": "odd"
+          },
+          {
+            "id": "even",
+            "label": "アフロ小人 ×2",
+            "rank": "even"
+          }
+        ]
+      }
+    ]
+  }
 }

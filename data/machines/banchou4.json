@@ -56,5 +56,52 @@
     "天井狙いの可否は当日のゲーム数履歴に依存します。宵越し前提での判断は店舗運用差に注意。",
     "入力項目が少ない分、総ゲーム数の取り違えがそのまま推測に効きます（カウント定義を固定）。",
     "推測％は“当たりの軽さ”に引っ張られます。短期の上振れ/下振れを前提に解釈してください。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT・ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "todoroki",
+            "label": "轟",
+            "rank": "default"
+          },
+          {
+            "id": "hamburg",
+            "label": "ハンバーグ／宗次郎",
+            "rank": "even"
+          },
+          {
+            "id": "safari",
+            "label": "サファリ",
+            "rank": "highWeak"
+          },
+          {
+            "id": "shopping",
+            "label": "ショッピング／マチ子と薫",
+            "rank": "highStrong"
+          },
+          {
+            "id": "chatsumi",
+            "label": "茶摘み",
+            "rank": "ge4"
+          },
+          {
+            "id": "racequeen",
+            "label": "レースクイーン",
+            "rank": "ge5"
+          },
+          {
+            "id": "onsen",
+            "label": "温泉",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }
