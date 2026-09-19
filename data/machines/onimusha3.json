@@ -52,5 +52,54 @@
   "normalCostPerGame": 2.3,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/onimusha3/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "lion",
+            "label": "エンタライオン",
+            "rank": "eq6"
+          },
+          {
+            "id": "allies",
+            "label": "味方全員",
+            "rank": "ge5"
+          },
+          {
+            "id": "nobunaga",
+            "label": "織田信長＆幻魔王織田信長",
+            "rank": "ge4"
+          },
+          {
+            "id": "samanosuke",
+            "label": "左馬介＆ジャック＆平八",
+            "rank": "highMid"
+          }
+        ]
+      },
+      {
+        "id": "regChara",
+        "label": "REG中キャラ紹介（4番目のキャラ）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "lion",
+            "label": "エンタライオン",
+            "rank": "eq6"
+          },
+          {
+            "id": "nobunaga",
+            "label": "織田信長",
+            "rank": "highMid"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -52,5 +52,71 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/baki/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "stamp",
+        "label": "AT終了画面のスタンプ",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "ryo",
+            "label": "良",
+            "rank": "highWeak"
+          },
+          {
+            "id": "yu",
+            "label": "優",
+            "rank": "highStrong"
+          },
+          {
+            "id": "goku",
+            "label": "極",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "AT終了時の獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m333",
+            "label": "333枚以上",
+            "rank": "ge3"
+          },
+          {
+            "id": "m456",
+            "label": "456枚以上",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚以上",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚以上",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "nagi",
+        "label": "隠れ凪のセリフ（QR連動）",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "special",
+            "label": "特殊セリフ",
+            "rank": "highMid"
+          }
+        ]
+      }
+    ]
+  }
 }

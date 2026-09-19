@@ -52,5 +52,86 @@
   "normalCostPerGame": 2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/valvrave/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "reg",
+    "groups": [
+      {
+        "id": "bonusEnd",
+        "label": "ボーナス終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "white3",
+            "label": "白枠 3人",
+            "rank": "odd"
+          },
+          {
+            "id": "white4",
+            "label": "白枠 4人",
+            "rank": "even"
+          },
+          {
+            "id": "beach",
+            "label": "紫枠 ビーチ",
+            "rank": "highStrong"
+          },
+          {
+            "id": "dorsia5",
+            "label": "赤枠 ドルシア5人",
+            "rank": "ge2"
+          },
+          {
+            "id": "dorsia6",
+            "label": "赤枠 ドルシア6人",
+            "rank": "ge4"
+          },
+          {
+            "id": "gold",
+            "label": "金枠",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m456",
+            "label": "456枚以上",
+            "rank": "ge4"
+          },
+          {
+            "id": "m555",
+            "label": "555枚以上",
+            "rank": "ge5"
+          },
+          {
+            "id": "m666",
+            "label": "666枚以上",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "roundStart",
+        "label": "ラウンド開始画面",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "beast",
+            "label": "ビーストハイ",
+            "rank": "ge4"
+          },
+          {
+            "id": "lieselotte",
+            "label": "リーゼロッテ",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

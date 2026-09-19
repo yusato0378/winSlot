@@ -50,5 +50,66 @@
     "朝一のリセット/据え置きで期待値の見え方が大きく変わります。前日最終G数と合わせて判断してください。",
     "本ツールの天井期待値は設定1基準の概算です。内部状態（モード/前兆など）で実際の期待値は上下します。",
     "データが浅いと推測％は大きく振れます。短時間の結果だけで断定しないのが安全です。"
-  ]
+  ],
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "endVoice",
+        "label": "AT終了後のボイス",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "shin",
+            "label": "シン／サウザー",
+            "rank": "highWeak"
+          },
+          {
+            "id": "jagi",
+            "label": "ジャギ",
+            "rank": "highMid"
+          },
+          {
+            "id": "amiba",
+            "label": "アミバ",
+            "rank": "highStrong"
+          },
+          {
+            "id": "kenshiro",
+            "label": "ケンシロウ「戦うのが…」",
+            "rank": "ge4"
+          },
+          {
+            "id": "yuria",
+            "label": "ユリア「まちつづける…」",
+            "rank": "ge5"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "サミートロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "medal",
+        "label": "獲得枚数",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "m666",
+            "label": "666枚",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

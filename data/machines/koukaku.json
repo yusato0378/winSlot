@@ -52,5 +52,69 @@
   "normalCostPerGame": 2.2,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/koukaku/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "motoko",
+            "label": "素子後姿（モードB以上濃厚）",
+            "rank": "ignore"
+          },
+          {
+            "id": "koan9",
+            "label": "公安9課 赤枠（モードC以上）",
+            "rank": "ignore"
+          },
+          {
+            "id": "aoi",
+            "label": "アオイ 金枠（設定4以上濃厚＆モードD）",
+            "rank": "ge4"
+          },
+          {
+            "id": "all",
+            "label": "全員集合",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "サミートロフィー",
+        "exclusive": false,
+        "items": [
+          {
+            "id": "bronze",
+            "label": "銅",
+            "rank": "ge2"
+          },
+          {
+            "id": "silver",
+            "label": "銀",
+            "rank": "ge3"
+          },
+          {
+            "id": "gold",
+            "label": "金",
+            "rank": "ge4"
+          },
+          {
+            "id": "kirin",
+            "label": "キリン柄",
+            "rank": "ge5"
+          },
+          {
+            "id": "rainbow",
+            "label": "虹",
+            "rank": "eq6"
+          }
+        ]
+      }
+    ]
+  }
 }

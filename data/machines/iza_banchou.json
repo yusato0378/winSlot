@@ -52,5 +52,62 @@
   "normalCostPerGame": 2.3,
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/izaBanchou/index.html",
-  "cautions": null
+  "cautions": null,
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "atEnd",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          {
+            "id": "onsen",
+            "label": "温泉秘湯",
+            "rank": "eq6"
+          },
+          {
+            "id": "kotaro",
+            "label": "小太郎日記",
+            "rank": "ge4"
+          },
+          {
+            "id": "shikaku",
+            "label": "刺客襲来",
+            "rank": "ge2"
+          },
+          {
+            "id": "gomagyo",
+            "label": "護摩行",
+            "rank": "highMid"
+          },
+          {
+            "id": "kosodate",
+            "label": "子育て奮闘",
+            "rank": "even"
+          },
+          {
+            "id": "seiryu",
+            "label": "青龍",
+            "rank": "set",
+            "settings": [
+              3,
+              4,
+              6
+            ]
+          },
+          {
+            "id": "suzaku",
+            "label": "朱雀",
+            "rank": "set",
+            "settings": [
+              2,
+              5,
+              6
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

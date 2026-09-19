@@ -27,7 +27,14 @@ const pct = (p) => [1, 2, 3, 4, 5, 6]
 const noNaN = (p) => Object.values(p).every(v => Number.isFinite(v));
 
 const otome = MACHINES.find(m => m.id === "sengoku_otome5");
-const hokuto = MACHINES.find(m => m.id === "hokuto");
+
+// 「示唆データ未投入の機種」の代表。機種名で決め打ちすると、その機種にデータを入れた
+// フェーズで検証が落ちる（noSuggestions がフェーズ6で該当した）。データから引くこと。
+const noSuggestions = MACHINES.find(m => !m.suggestions);
+if (!noSuggestions) {
+    console.error("示唆データ未投入の機種が1つもありません。この検証の前提が崩れています。");
+    process.exit(1);
+}
 
 console.log("\n[1] 後方互換 — 示唆を渡さなければ従来と同じ");
 const base = estimateSettings(otome, 5000, 15, 0, null);
@@ -40,7 +47,7 @@ console.log("\n[2] 入力なし / データなし機種は null");
 check("counts が null なら null", buildSuggestionDetail(otome, 15, null) === null);
 check("counts が空オブジェクトなら null", buildSuggestionDetail(otome, 15, {}) === null);
 check("全項目0なら null", buildSuggestionDetail(otome, 15, { stamp: { ryo: 0 } }) === null);
-check("示唆データ未投入の機種は null", buildSuggestionDetail(hokuto, 18, { stamp: { ryo: 1 } }) === null);
+check("示唆データ未投入の機種は null", buildSuggestionDetail(noSuggestions, 18, { stamp: { ryo: 1 } }) === null);
 
 console.log("\n[3] 下限型（吉スタンプ = 設定3以上濃厚）");
 const d3 = buildSuggestionDetail(otome, 15, { stamp: { kichi: 1 } });
@@ -116,7 +123,7 @@ check("従来の結果に戻る", pct(pForced) === pct(base), pct(pForced));
 
 console.log("\n[11] resolveTrials");
 check("trialSource 既定は big", resolveTrials(otome, 15, 7) === 15);
-check("示唆データなしの機種も big", resolveTrials(hokuto, 18, 0) === 18);
+check("示唆データなしの機種も big", resolveTrials(noSuggestions, 18, 0) === 18);
 
 
 console.log("\n[12] 入力欄の動的生成");
@@ -139,11 +146,22 @@ check("分母のラベルが注記に入っている",
     otomeEl.querySelectorAll("p.suggestion-note")[0].textContent.includes("AT初当たり回数"));
 
 console.log("\n[13] データ無し機種・機種未選択では出さない");
-renderSuggestionInputs(hokuto);
+renderSuggestionInputs(noSuggestions);
 check("示唆データ未投入の AT機 → 非表示", suggestionInputsEl.style.display === "none");
 check("入力欄が残らない", suggestionInputsEl.querySelectorAll("input.suggestion-count").length === 0);
-renderSuggestionInputs(MACHINES.find(m => m.type === "A"));
-check("Aタイプ → 非表示", suggestionInputsEl.style.display === "none");
+renderSuggestionInputs(MACHINES.find(m => m.type === "A" && !m.suggestions));
+check("示唆データ未投入の Aタイプ → 非表示", suggestionInputsEl.style.display === "none");
+
+// 入力欄の出し分けは type ではなく suggestions の有無だけで決まる。
+// Aタイプにも示唆データを入れた機種があるので、出ることを明示的に確認する。
+const aWithData = MACHINES.find(m => m.type === "A" && m.suggestions);
+if (aWithData) {
+    renderSuggestionInputs(aWithData);
+    check(`示唆データ投入済みの Aタイプ（${aWithData.id}）→ 表示`, suggestionInputsEl.style.display === "");
+    check("入力欄が項目数ぶんできる",
+        suggestionInputsEl.querySelectorAll("input.suggestion-count").length
+        === aWithData.suggestions.groups.reduce((n, g) => n + g.items.length, 0));
+}
 renderSuggestionInputs(null);
 check("機種未選択 → 非表示", suggestionInputsEl.style.display === "none");
 
@@ -173,7 +191,7 @@ check("NaN が出ない", noNaN(uiResult), pct(uiResult));
 console.log("      " + pct(uiResult));
 
 console.log("\n[16] 機種を切り替えても前の入力が残らない");
-renderSuggestionInputs(hokuto);
+renderSuggestionInputs(noSuggestions);
 renderSuggestionInputs(otome);
 check("切替後は全欄が空 → null", collectSuggestionCounts() === null);
 
@@ -255,7 +273,7 @@ check("リセット後は中身も空", summaryEl.children.length === 0);
 
 console.log("\n[23] 機種を切り替えただけでは結果表示を消さない（解析するまで前回の結果が残る）");
 renderFor({ stamp: { ryo: 1 } }, 15);
-renderSuggestionInputs(hokuto);
+renderSuggestionInputs(noSuggestions);
 check("renderSuggestionInputs は結果表示に触らない", summaryEl.children.length > 0,
     "renderSuggestionInputs 内で renderSuggestionSummary(null) を呼んでいないか確認");
 
