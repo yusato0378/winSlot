@@ -80,6 +80,11 @@
             "id": "akane",
             "label": "茜ちゃん",
             "rank": "upMid"
+          },
+          {
+            "id": "yajiKita",
+            "label": "やじさんきたさん",
+            "rank": "ge4"
           }
         ]
       },

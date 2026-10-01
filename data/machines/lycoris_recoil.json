@@ -4,14 +4,14 @@
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",
-  "koyakuName": null,
+  "koyakuName": "共通ベル",
   "settings": {
-    "1": { "big": 328.8, "reg": 198.7, "koyaku": null, "payout": 97.9 },
-    "2": { "big": 323.4, "reg": 196.9, "koyaku": null, "payout": 98.9 },
-    "3": { "big": 312.1, "reg": 191.3, "koyaku": null, "payout": 101.3 },
-    "4": { "big": 288.3, "reg": 183.3, "koyaku": null, "payout": 106.1 },
-    "5": { "big": 271.6, "reg": 175.9, "koyaku": null, "payout": 110.4 },
-    "6": { "big": 256.7, "reg": 169.4, "koyaku": null, "payout": 114.6 }
+    "1": { "big": 328.8, "reg": 198.7, "koyaku": 95.8, "payout": 97.9 },
+    "2": { "big": 323.4, "reg": 196.9, "koyaku": 95.8, "payout": 98.9 },
+    "3": { "big": 312.1, "reg": 191.3, "koyaku": 95.8, "payout": 101.3 },
+    "4": { "big": 288.3, "reg": 183.3, "koyaku": 87.6, "payout": 106.1 },
+    "5": { "big": 271.6, "reg": 175.9, "koyaku": 83.2, "payout": 110.4 },
+    "6": { "big": 256.7, "reg": 169.4, "koyaku": 79.1, "payout": 114.6 }
   },
   "ceiling": 850,
   "ceilingTarget": 500,
@@ -24,22 +24,59 @@
   "guessElementPath": "setGuessElement/lycorisRecoil/index.html",
   "cautions": [
     "天井はAT間850G＋α（恩恵はAT当選＋Vストック抽選）と、CZ間600G＋αの2種類です。設定変更（リセット）時はAT間600G＋α・CZ間250G＋αに短縮されるため、朝一は通常時より浅いゲーム数から狙えます。",
-    "判別の主軸はAT「リコリスラッシュ」初当たり（設定1で1/328.8、設定6で1/256.7＝約1.28倍差）。CZ確率は約1.17倍差しかないので補助材料です。小役（チェリー・スイカとも1/89.2）は全設定共通で判別に使えません。",
+    "判別の主軸はAT「リコリスラッシュ」初当たり（設定1で1/328.8、設定6で1/256.7＝約1.28倍差）。CZ確率は約1.17倍差しかないので補助材料です。小役はチェリー・スイカとも全設定共通（1/89.2）ですが、右下がりに揃う共通15枚ベルには設定差があります（設定1〜3で1/95.8、設定6で1/79.1。スペック表の「共通ベル」列）。共通ベルは当ツールの入力項目ではないため、カウントした回数は別途参考にしてください。",
     "AT1回あたりの平均獲得枚数は導入直後で未解析のため、純増（約8.4枚/G）・コイン持ち（約31.8G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
   ],
   "suggestions": {
     "trialSource": "big",
     "groups": [
       {
-        "id": "trophy",
-        "label": "AT終了画面のサミートロフィー",
+        "id": "atEnd",
+        "label": "AT終了画面",
         "exclusive": true,
         "items": [
           {
-            "id": "none",
-            "label": "出現なし",
+            "id": "uniform",
+            "label": "たきな／千束 リコリス制服",
             "rank": "default"
           },
+          {
+            "id": "casualMatch",
+            "label": "私服（ラッシュと同じキャラ・上位ラッシュ終了時）",
+            "rank": "highWeak"
+          },
+          {
+            "id": "casualCross",
+            "label": "私服（ラッシュと違うキャラ）",
+            "rank": "ge4"
+          },
+          {
+            "id": "dress",
+            "label": "千束＆たきなドレスコード",
+            "rank": "highStrong"
+          },
+          {
+            "id": "oshiage",
+            "label": "押上の風景",
+            "rank": "ge2"
+          },
+          {
+            "id": "robota",
+            "label": "ロボ太",
+            "rank": "ge4"
+          },
+          {
+            "id": "hawaii",
+            "label": "ハワイ",
+            "rank": "eq6"
+          }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "AT終了画面のサミートロフィー",
+        "exclusive": false,
+        "items": [
           {
             "id": "bronze",
             "label": "銅",
