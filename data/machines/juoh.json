@@ -1,0 +1,29 @@
+{
+  "id": "juoh",
+  "name": "スマスロ 獣王",
+  "type": "AT",
+  "bigLabel": "サバンナチャンス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 326.5, "reg": null, "koyaku": null, "payout": 97.8 },
+    "2": { "big": 321.6, "reg": null, "koyaku": null, "payout": 98.7 },
+    "4": { "big": 295.8, "reg": null, "koyaku": null, "payout": 105.6 },
+    "5": { "big": 287.6, "reg": null, "koyaku": null, "payout": 108.6 },
+    "6": { "big": 279.7, "reg": null, "koyaku": null, "payout": 114.3 }
+  },
+  "ceiling": 999,
+  "ceilingTarget": 620,
+  "ceilingReward": 450,
+  "resetCeiling": 599,
+  "resetCeilingTarget": 220,
+  "avgBonusReward": 450,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-10-05",
+  "guessElementPath": "setGuessElement/juoh/index.html",
+  "cautions": [
+    "設定3は非搭載で、代わりに設定Lが搭載されています（下パネルが常時点滅する台が設定L。スペック非公表）。当ツールの推測は設定1・2・4・5・6の5段階です。",
+    "天井は999G＋α（AT当選）。設定変更時は599G＋αに短縮され、一度サバ連に移行するまで599G天井が続きます。電源OFF→ONでは天井は引き継がれます。",
+    "AT1回あたりの平均獲得枚数は導入前で未解析のため、純増（約8.0枚/G）・コイン持ち（約31.8G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
+  ]
+}

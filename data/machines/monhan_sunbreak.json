@@ -1,0 +1,30 @@
+{
+  "id": "monhan_sunbreak",
+  "name": "スマスロ モンスターハンターライズ：サンブレイク",
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 349.9, "reg": null, "koyaku": null, "payout": 97.5 },
+    "2": { "big": 337, "reg": null, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 319.8, "reg": null, "koyaku": null, "payout": 100.8 },
+    "4": { "big": 283.6, "reg": null, "koyaku": null, "payout": 105.2 },
+    "5": { "big": 264, "reg": null, "koyaku": null, "payout": 108.4 },
+    "6": { "big": 242.3, "reg": null, "koyaku": null, "payout": 112.4 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 400,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-10-05",
+  "guessElementPath": "setGuessElement/monhanSunbreak/index.html",
+  "cautions": [
+    "天井ゲーム数・恩恵・設定変更時の挙動は導入前で未確定のため、天井期待値ブロックは表示していません（前作モンハンライズの999G＋αとは異なる可能性があります）。",
+    "判別の主軸はAT初当たり（設定1で1/349.9、設定6で1/242.3＝約1.44倍差）。設定3→4で1/319.8→1/283.6と段差が大きく、1/290を切るペースが設定4以上の目安です。",
+    "AT「サンブレイクRUSH」は純増約2.7枚/G、上位AT「サンブレイクRUSH G」は約6.6枚/G。通常時はリプレイ20回ごとにCZを抽選するメーター機です。"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "paripi_koumei",
+  "name": "スマスロパリピ孔明",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "CZ初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 309.9, "reg": 213.6, "koyaku": null, "payout": 97.6 },
+    "2": { "big": 299.6, "reg": 207.3, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 280, "reg": 199.2, "koyaku": null, "payout": 101.4 },
+    "4": { "big": 262, "reg": 188.8, "koyaku": null, "payout": 104.5 },
+    "5": { "big": 243.9, "reg": 179.4, "koyaku": null, "payout": 109 },
+    "6": { "big": 228.8, "reg": 171.7, "koyaku": null, "payout": 113.6 }
+  },
+  "ceiling": 1009,
+  "ceilingTarget": 780,
+  "ceilingReward": 350,
+  "resetCeiling": 428,
+  "resetCeilingTarget": 200,
+  "avgBonusReward": 350,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-10-05",
+  "guessElementPath": "setGuessElement/paripiKoumei/index.html",
+  "cautions": [
+    "天井はボーナス間1009G＋αと、CZ間のステージチェンジ20周期（約32G周期）の2種類です。設定変更後とST駆け抜け後はボーナス間天井が428G＋αに短縮されます。",
+    "判別の主軸はボーナス初当たり（設定1で1/309.9、設定6で1/228.8＝約1.35倍差）。CZ確率（1/213.6→1/171.7＝約1.24倍差）も併せて入力してください。初当たりの約66%がCZ経由です。",
+    "ボーナス1回あたりの平均獲得枚数は導入前で未解析のため、純増（約4.2枚/G）・コイン持ち（約31G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
+  ]
+}

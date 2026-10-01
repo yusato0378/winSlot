@@ -551,6 +551,10 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `kanojo_okarishimasu` | Lパチスロ 彼女、お借りします |
 | `mierukochan` | パチスロ見える子ちゃん |
 | `mogumogu_furinkazan` | Lモグモグ風林火山 大海戦の巻 |
+| `juoh` | スマスロ 獣王 |
+| `tenten` | L転生王女と天才令嬢の魔法革命 |
+| `paripi_koumei` | スマスロパリピ孔明 |
+| `monhan_sunbreak` | スマスロ モンスターハンターライズ：サンブレイク |
 
 ### Aタイプ
 
@@ -572,6 +576,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `kerotto5_bt` | スマスロケロット5BT |
 | `rooteisu` | ローティス |
 | `taco_slot` | スマスロ タコスロ |
+| `my_juggler_vi` | マイジャグラーVI |
 
 LP のパスは `machines/{ID}/index.html` です。
 

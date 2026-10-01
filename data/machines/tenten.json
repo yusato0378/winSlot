@@ -1,0 +1,30 @@
+{
+  "id": "tenten",
+  "name": "L転生王女と天才令嬢の魔法革命",
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 320, "reg": null, "koyaku": null, "payout": 97.9 },
+    "2": { "big": 314.7, "reg": null, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 294.2, "reg": null, "koyaku": null, "payout": 101 },
+    "4": { "big": 276.9, "reg": null, "koyaku": null, "payout": 103.6 },
+    "5": { "big": 260, "reg": null, "koyaku": null, "payout": 107.6 },
+    "6": { "big": 246.4, "reg": null, "koyaku": null, "payout": 110.3 }
+  },
+  "ceiling": 510,
+  "ceilingTarget": 350,
+  "ceilingReward": 300,
+  "resetCeiling": 410,
+  "resetCeilingTarget": 250,
+  "avgBonusReward": 300,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-10-05",
+  "guessElementPath": "setGuessElement/tenten/index.html",
+  "cautions": [
+    "天井は2種類あります。ボーナス間510G＋α（ボーナス当選）と、CZ間410G＋α（CZ当選）です。設定変更時はそれぞれ410G＋α・310G＋αに短縮されます。当ツールの天井期待値はボーナス間天井を基準にしています。電源OFF→ONでは天井を引き継ぎます。",
+    "判別の主軸はボーナス初当たり（設定1で1/320.0、設定6で1/246.4＝約1.30倍差）。CZ確率は導入前で未公表のため入力項目にしていません。",
+    "ボーナス1回あたりの平均獲得枚数は導入前で未解析のため、純増（約4.5枚/G）・コイン持ち（約32G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
+  ]
+}
