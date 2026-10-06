@@ -74,7 +74,8 @@
         </header>
 
         <main class="main-content">
-            <p class="home-lead">総ゲーム数とボーナス回数（機種に応じてBIG・REG等）を入れると、公開スペックに基づき<strong>各設定の推定確率</strong>を表示します。天井がある機種は<strong>現在ゲーム数</strong>だけでも、天井までの<strong>期待値の目安</strong>と狙い目を確認できます（結果は参考値です）。</p>
+            <!-- スマホで開いてすぐ入力できるよう1行に留める（詳しい説明は使い方ガイドへ） -->
+            <p class="home-lead">台のデータで<strong>設定の推定確率</strong>、現在ゲーム数だけで<strong>天井期待値</strong>がわかります（参考値）。</p>
             <!-- 入力セクション -->
             <section class="card input-section">
                 <h2 class="card-title">
@@ -170,6 +171,11 @@
                         <span class="card-icon">&#127919;</span>
                         天井情報・期待値
                     </h2>
+                    <div class="exchange-rate">
+                        <label for="exchange-rate">換金率</label>
+                        <!-- 選択肢は app.js（EXCHANGE_RATES）が入れる。選んだ値はこの端末に保存 -->
+                        <select id="exchange-rate"></select>
+                    </div>
                     <div id="ceiling-results" class="ceiling-results"></div>
                 </section>
 

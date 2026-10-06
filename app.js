@@ -54,6 +54,7 @@ const $resetBtn      = document.getElementById("reset-btn");
 const $currentGamesGroup = document.getElementById("current-games-group");
 const $formRestored  = document.getElementById("form-restored");
 const $formError     = document.getElementById("form-error");
+const $exchangeRate  = document.getElementById("exchange-rate");
 const $suggestionInputs = document.getElementById("suggestion-inputs");
 const $suggestionSummary = document.getElementById("suggestion-summary");
 
@@ -555,6 +556,7 @@ function initCombo() {
 // ============================================================
 function init() {
     initCombo();
+    initExchangeRate();   // 復元時の再計算より前に、保存済みの換金率を反映しておく
     initAccessRanking();
     initNewMachines();
     $analyzeForm.addEventListener("submit", onAnalyze);
@@ -1293,7 +1295,11 @@ function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDet
 // ============================================================
 // 天井期待値計算
 // ============================================================
-function calculateCeilingEV(machine, currentGames, overrideCeiling) {
+/**
+ * exchangeYen は回収メダル1枚の換金額。投資は現金で借りる前提なので常に1枚 MEDAL_RENT_YEN 円。
+ * 非等価では回収側だけが目減りするため、回収と投資を分けて円にする（等価なら従来の ev*20 と一致）。
+ */
+function calculateCeilingEV(machine, currentGames, overrideCeiling, exchangeYen = MEDAL_RENT_YEN) {
     const ceiling = overrideCeiling || machine.ceiling;
     const ceilingReward = machine.ceilingReward;
     if (!ceiling || currentGames >= ceiling) return null;
@@ -1304,19 +1310,64 @@ function calculateCeilingEV(machine, currentGames, overrideCeiling) {
     const remaining = ceiling - currentGames;
     const costPerGame = machine.normalCostPerGame;
 
-    let ev = 0;
+    let reward = 0;
+    let cost = 0;
     for (let g = 1; g <= remaining; g++) {
         const pFirstAt = Math.pow(1 - pBonus, g - 1) * pBonus;
-        ev += pFirstAt * (machine.avgBonusReward - g * costPerGame);
+        reward += pFirstAt * machine.avgBonusReward;
+        cost += pFirstAt * g * costPerGame;
     }
     const pReachCeiling = Math.pow(1 - pBonus, remaining);
-    ev += pReachCeiling * (ceilingReward - remaining * costPerGame);
+    reward += pReachCeiling * ceilingReward;
+    cost += pReachCeiling * remaining * costPerGame;
 
     return {
-        evMedals: ev,
-        evYen: ev * 20,
+        evMedals: reward - cost,
+        evYen: reward * exchangeYen - cost * MEDAL_RENT_YEN,
         pReachCeiling: pReachCeiling * 100
     };
+}
+
+// ============================================================
+// 換金率（天井期待値の円換算に使う。この端末に保存して次回も使う）
+// ============================================================
+const MEDAL_RENT_YEN = 20;   // 貸しメダル 1000円/50枚
+const EXCHANGE_RATES = [
+    { id: "5.0", label: "等価（5.0枚）", yen: 100 / 5.0 },
+    { id: "5.5", label: "5.5枚交換",    yen: 100 / 5.5 },
+    { id: "5.6", label: "5.6枚交換",    yen: 100 / 5.6 },
+    { id: "6.0", label: "6.0枚交換",    yen: 100 / 6.0 },
+];
+const STORAGE_KEY_EXCHANGE = "winslot:exchange";
+
+function getExchangeRate() {
+    return EXCHANGE_RATES.find(r => r.id === $exchangeRate.value) || EXCHANGE_RATES[0];
+}
+
+function initExchangeRate() {
+    EXCHANGE_RATES.forEach(r => {
+        const opt = document.createElement("option");
+        opt.value = r.id;
+        opt.textContent = r.label;
+        $exchangeRate.appendChild(opt);
+    });
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY_EXCHANGE);
+        if (EXCHANGE_RATES.some(r => r.id === saved)) $exchangeRate.value = saved;
+    } catch (e) {
+        // 読めなければ等価のまま
+    }
+    $exchangeRate.addEventListener("change", () => {
+        try {
+            localStorage.setItem(STORAGE_KEY_EXCHANGE, $exchangeRate.value);
+        } catch (e) {
+            // 保存できなくても、このページを開いている間は選んだ換金率で計算する
+        }
+        const machine = getSelectedMachine();
+        if (machine && $resultsSection.style.display !== "none") {
+            renderCeiling(machine, parseInt($currentGames.value) || 0);
+        }
+    });
 }
 
 // ============================================================
@@ -1574,13 +1625,16 @@ function renderCeilingBlock(container, label, ceiling, ceilingTarget, machine, c
 
     const items = [];
     items.push({ label: "天井ゲーム数", value: `${ceiling}G`, cls: "neutral" });
-    items.push({ label: "狙い目", value: `${ceilingTarget}G〜`, cls: "neutral", highlight: false });
+    const rate = getExchangeRate();
+    const isEqual = rate.yen === MEDAL_RENT_YEN;
+    // 狙い目は機種データ側の値（等価前提）なので、非等価ではそう明記する
+    items.push({ label: isEqual ? "狙い目" : "狙い目（等価の目安）", value: `${ceilingTarget}G〜`, cls: "neutral", highlight: false });
 
     if (currentGames > 0) {
         const remaining = Math.max(0, ceiling - currentGames);
         items.push({ label: "天井までの残りゲーム数", value: `${remaining}G`, cls: "neutral" });
 
-        const evData = calculateCeilingEV(machine, currentGames, ceiling);
+        const evData = calculateCeilingEV(machine, currentGames, ceiling, rate.yen);
         if (evData) {
             const isPositive = evData.evYen >= 0;
             const sign = isPositive ? "+" : "";
@@ -1634,8 +1688,11 @@ function renderCeiling(machine, currentGames) {
 
     const note = document.createElement("div");
     note.className = "ceiling-note";
+    const rate = getExchangeRate();
     note.textContent = "※ 期待値は設定1を基準に、通常時の消費メダルと天井恩恵から算出した概算値です。" +
-        "実際の期待値はモード状態や前兆等により変動します。1メダル=20円換算。";
+        "実際の期待値はモード状態や前兆等により変動します。" +
+        `投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は${rate.label}（1枚${rate.yen.toFixed(2).replace(/.?0+$/, "")}円）で換算。` +
+        (rate.yen === MEDAL_RENT_YEN ? "" : "狙い目・判定は等価を前提にした目安です。");
     $ceilingResults.appendChild(note);
 }
 

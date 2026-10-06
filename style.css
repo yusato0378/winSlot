@@ -1786,3 +1786,22 @@ body.sheet-open {
     padding: 13px 0;
     font-size: 1rem;
 }
+
+/* ---- 換金率の選択（天井情報カード内） ---- */
+.exchange-rate {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.exchange-rate label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.exchange-rate select {
+    width: auto;
+    min-width: 9.5rem;
+    min-height: 44px;
+}
