@@ -91,6 +91,8 @@
                             <ul class="combo-list" id="combo-list"></ul>
                         </div>
                         <input type="hidden" id="machine-select" value="">
+                        <!-- よく使う機種（お気に入り → 最近使った順に最大3件）。app.js が描画する -->
+                        <div class="machine-quick" id="machine-quick" aria-label="よく使う機種" hidden></div>
                     </div>
 
                     <div class="machine-info-bar" id="machine-info-bar" style="display:none;">
@@ -373,6 +375,18 @@
             </div>
             <p>※ 本ツールの推測結果はあくまで参考値です。実際の設定を保証するものではありません。</p>
         </footer>
+    </div>
+
+    <!-- スマホ用の全画面の機種選択（app.js が開閉する）。フォームの外に置き、検索欄が入力内容の保存対象にならないようにする -->
+    <div class="machine-sheet" id="machine-sheet" role="dialog" aria-modal="true" aria-labelledby="machine-sheet-title" tabindex="-1" hidden>
+        <div class="machine-sheet-header">
+            <h2 class="machine-sheet-title" id="machine-sheet-title">機種を選ぶ</h2>
+            <button type="button" class="machine-sheet-close" id="machine-sheet-close" aria-label="閉じる">&times;</button>
+        </div>
+        <div class="machine-sheet-search">
+            <input type="search" id="machine-sheet-input" placeholder="機種名・略称で検索（例: ほくと）" autocomplete="off" enterkeyhint="search" aria-label="機種を検索">
+        </div>
+        <ul class="combo-list machine-sheet-list" id="machine-sheet-list"></ul>
     </div>
 
     <script src="machines-data.js"></script>

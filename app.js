@@ -22,6 +22,13 @@ const $machineInput  = document.getElementById("machine-input");
 const $comboList     = document.getElementById("combo-list");
 const $comboWrapper  = document.getElementById("combo-wrapper");
 const $comboToggle   = document.getElementById("combo-toggle");
+const $machineQuick  = document.getElementById("machine-quick");
+const $machineSheet  = document.getElementById("machine-sheet");
+const $sheetInput    = document.getElementById("machine-sheet-input");
+const $sheetList     = document.getElementById("machine-sheet-list");
+const $sheetClose    = document.getElementById("machine-sheet-close");
+// PC 表示に戻ったときに元の案内文へ戻すため、HTML に書かれた文言を覚えておく
+const MACHINE_INPUT_PLACEHOLDER = $machineInput.placeholder;
 const $totalGames    = document.getElementById("total-games");
 const $currentGames  = document.getElementById("current-games");
 const $bigCount      = document.getElementById("big-count");
@@ -59,6 +66,13 @@ function getMachineGroup(m) {
 }
 
 let comboActiveIdx = -1;
+
+// 一覧の描画先。スマホの全画面シートが開いている間はシート内の一覧、それ以外は入力欄の下のドロップダウン
+let $activeList = $comboList;
+
+function activeQuery() {
+    return $activeList === $comboList ? $machineInput.value : $sheetInput.value;
+}
 
 const MACHINE_BY_ID = new Map(MACHINES.map(m => [m.id, m]));
 
@@ -168,8 +182,8 @@ function toggleFilter(filter) {
         }
         activeFilters.add(filter.id);
     }
-    buildComboItems($machineInput.value);
-    $comboList.scrollTop = 0;
+    buildComboItems(activeQuery());
+    $activeList.scrollTop = 0;
 }
 
 function buildFilterBar() {
@@ -226,7 +240,7 @@ function rememberRecent(id) {
 }
 
 function lastComboItem(id) {
-    const items = $comboList.querySelectorAll(`.combo-item[data-id="${id}"]`);
+    const items = $activeList.querySelectorAll(`.combo-item[data-id="${id}"]`);
     return items[items.length - 1] || null;
 }
 
@@ -234,16 +248,17 @@ function toggleFavorite(id) {
     // 一覧の上部にお気に入り欄が増減しても、押した行が画面上で動かないよう位置を合わせ直す。
     // 機種別の欄（最後に出る行）は常に存在するので、それを基準にする。
     const before = lastComboItem(id);
-    const offset = before ? before.offsetTop - $comboList.scrollTop : 0;
+    const offset = before ? before.offsetTop - $activeList.scrollTop : 0;
 
     favoriteIds = favoriteIds.includes(id)
         ? favoriteIds.filter(x => x !== id)
         : favoriteIds.concat(id);
     saveIdList(STORAGE_KEY_FAVORITES, favoriteIds);
-    buildComboItems($machineInput.value);
+    buildComboItems(activeQuery());
+    renderQuickPicks();
 
     const after = lastComboItem(id);
-    if (before && after) $comboList.scrollTop = after.offsetTop - offset;
+    if (before && after) $activeList.scrollTop = after.offsetTop - offset;
 }
 
 // ---- 一覧の組み立て ----
@@ -293,13 +308,13 @@ function appendComboLabel(text) {
     const label = document.createElement("li");
     label.className = "combo-group-label";
     label.textContent = text;
-    $comboList.appendChild(label);
+    $activeList.appendChild(label);
 }
 
 function buildComboItems(filter) {
-    $comboList.innerHTML = "";
+    $activeList.innerHTML = "";
     comboActiveIdx = -1;
-    $comboList.appendChild(buildFilterBar());
+    $activeList.appendChild(buildFilterBar());
 
     const tokens = toSearchTokens(filter);
     const query = tokens.length > 0;
@@ -327,19 +342,19 @@ function buildComboItems(filter) {
         const tip = document.createElement("li");
         tip.className = "combo-tip";
         tip.textContent = "☆ を押すとお気に入りとして一番上に固定できます";
-        $comboList.appendChild(tip);
+        $activeList.appendChild(tip);
     }
 
     sections.forEach(([label, ids]) => {
         appendComboLabel(`【${label}】`);
-        ids.forEach(id => $comboList.appendChild(createComboItem(MACHINE_BY_ID.get(id), hits.get(id))));
+        ids.forEach(id => $activeList.appendChild(createComboItem(MACHINE_BY_ID.get(id), hits.get(id))));
     });
 
     if (!hits.size) {
         const li = document.createElement("li");
         li.className = "combo-no-match";
         li.textContent = activeFilters.size ? "条件に合う機種がありません（絞り込みを外してください）" : "該当する機種がありません";
-        $comboList.appendChild(li);
+        $activeList.appendChild(li);
     }
 }
 
@@ -358,8 +373,108 @@ function selectComboItem(machine) {
     $machineSelect.value = machine.id;
     rememberRecent(machine.id);
     closeCombo();
+    closeSheet();
     onMachineChange();
     saveFormState();
+    renderQuickPicks();
+}
+
+// ============================================================
+// スマホ用の全画面の機種選択シート
+// 入力欄のドロップダウンだとキーボードが画面の半分を覆って一覧がほとんど見えないため、
+// スマホでは画面全体を使う選択画面を開く。開いた時点ではキーボードを出さず、
+// 検索欄をタップしたときだけ出す。PC は従来のドロップダウンのまま。
+// ============================================================
+const SHEET_MEDIA = "(max-width: 600px), (pointer: coarse) and (max-height: 500px)";
+
+function isSheetMode() {
+    return !!(window.matchMedia && window.matchMedia(SHEET_MEDIA).matches);
+}
+
+function isSheetOpen() {
+    return !$machineSheet.hidden;
+}
+
+/** スマホでは機種名の欄をタップしてもキーボードを出さず、シートを開く入口にする */
+function applyComboMode() {
+    if (isSheetMode()) {
+        $machineInput.inputMode = "none";
+        $machineInput.placeholder = "タップして機種を選ぶ";
+    } else {
+        $machineInput.removeAttribute("inputmode");
+        $machineInput.placeholder = MACHINE_INPUT_PLACEHOLDER;
+    }
+}
+
+function openSheet() {
+    if (isSheetOpen()) return;
+    closeCombo();
+    $machineInput.blur();
+    $sheetInput.value = "";
+    $machineSheet.hidden = false;
+    document.body.classList.add("sheet-open");
+    $activeList = $sheetList;
+    buildComboItems("");
+    $sheetList.scrollTop = 0;
+    // 見出しにフォーカスを移す（検索欄に移すとキーボードが出てしまう）
+    $machineSheet.focus();
+    // Android の「戻る」でページから離れずシートだけ閉じられるよう、履歴を1つ積む
+    if (!(history.state && history.state.machineSheet)) {
+        try { history.pushState({ machineSheet: true }, ""); } catch (e) { /* 履歴が使えなくても閉じるボタンで閉じられる */ }
+    }
+}
+
+/** fromPopstate は「戻る」で閉じたとき（履歴はブラウザが既に戻している） */
+function closeSheet(fromPopstate) {
+    if (!isSheetOpen()) return;
+    $sheetInput.blur();
+    $machineSheet.hidden = true;
+    document.body.classList.remove("sheet-open");
+    $activeList = $comboList;
+    $sheetList.innerHTML = "";
+    if (!fromPopstate && history.state && history.state.machineSheet) history.back();
+}
+
+function initSheet() {
+    $sheetClose.addEventListener("click", () => closeSheet());
+    $sheetInput.addEventListener("input", () => {
+        buildComboItems($sheetInput.value);
+        $sheetList.scrollTop = 0;
+    });
+    // 一覧を指で動かし始めたらキーボードを閉じて、一覧を広く見せる
+    $sheetList.addEventListener("touchmove", () => {
+        if (document.activeElement === $sheetInput) $sheetInput.blur();
+    }, { passive: true });
+    $machineSheet.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeSheet();
+    });
+    window.addEventListener("popstate", () => closeSheet(true));
+}
+
+// ============================================================
+// 機種名の欄の下に並べる「よく使う機種」ボタン（お気に入り → 最近使った順）
+// 同じ機種を選び直すとき、一覧を開かずに1タップで済ませる
+// ============================================================
+const QUICK_PICK_MAX = 3;
+
+function renderQuickPicks() {
+    const current = $machineSelect.value;
+    const ids = favoriteIds.concat(recentIds.filter(id => !favoriteIds.includes(id)))
+        .filter(id => id !== current)
+        .slice(0, QUICK_PICK_MAX);
+
+    $machineQuick.innerHTML = "";
+    $machineQuick.hidden = ids.length === 0;
+    ids.forEach(id => {
+        const m = MACHINE_BY_ID.get(id);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "machine-quick-btn" + (favoriteIds.includes(id) ? " fav" : "");
+        btn.textContent = m.name;
+        btn.title = m.name;
+        btn.addEventListener("click", () => selectComboItem(m));
+        $machineQuick.appendChild(btn);
+    });
 }
 
 function comboKeyNav(e) {
@@ -395,16 +510,32 @@ function initCombo() {
     favoriteIds = loadIdList(STORAGE_KEY_FAVORITES);
     recentIds = loadIdList(STORAGE_KEY_RECENT);
 
-    $machineInput.addEventListener("focus", openCombo);
+    applyComboMode();
+    if (window.matchMedia) {
+        const mq = window.matchMedia(SHEET_MEDIA);
+        // 画面の回転などでスマホ表示と PC 表示が入れ替わったときに追従する
+        if (mq.addEventListener) mq.addEventListener("change", applyComboMode);
+    }
+
+    $machineInput.addEventListener("focus", () => {
+        if (isSheetMode()) openSheet(); else openCombo();
+    });
+    // フォーカスが残ったまま再タップされると focus が来ないので click でも開く
+    $machineInput.addEventListener("click", () => {
+        if (isSheetMode()) openSheet();
+    });
     $machineInput.addEventListener("input", () => {
         $machineSelect.value = "";
         onMachineChange();
+        renderQuickPicks();
         openCombo();
     });
     $machineInput.addEventListener("keydown", comboKeyNav);
     $machineInput.addEventListener("blur", () => setTimeout(closeCombo, 150));
     $comboToggle.addEventListener("click", () => {
-        if ($comboList.classList.contains("open")) {
+        if (isSheetMode()) {
+            openSheet();
+        } else if ($comboList.classList.contains("open")) {
             closeCombo();
         } else {
             $machineInput.focus();
@@ -414,6 +545,9 @@ function initCombo() {
     document.addEventListener("click", e => {
         if (!$comboWrapper.contains(e.target)) closeCombo();
     });
+
+    initSheet();
+    renderQuickPicks();
 }
 
 // ============================================================
@@ -883,6 +1017,7 @@ function restoreFormState() {
         $machineInput.value = machine.name;
         $machineSelect.value = machine.id;
         onMachineChange();   // 機種に合わせてラベル・示唆欄・現在ゲーム数欄の表示を整える
+        renderQuickPicks();
     }
 
     const setValue = (el, v) => { if (typeof v === "string" && el.closest(".form-group").style.display !== "none") el.value = v; };
@@ -945,6 +1080,7 @@ function onReset() {
     clearFormError();
     renderSuggestionSummary(null);
     clearFormState();
+    renderQuickPicks();
 }
 
 // ============================================================

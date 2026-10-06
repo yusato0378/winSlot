@@ -1636,3 +1636,153 @@ details.result-card[open] > summary.card-summary::after {
     margin-top: 10px;
 }
 
+
+/* ---- よく使う機種ボタン（機種名の欄の下） ---- */
+.machine-quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+/* display を指定すると hidden 属性が効かなくなるので明示する */
+.machine-quick[hidden] {
+    display: none;
+}
+
+.machine-quick-btn {
+    max-width: 100%;
+    min-height: 36px;
+    padding: 6px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-family: var(--font-main);
+    color: var(--text-secondary);
+    background: rgba(100, 120, 255, 0.1);
+    border: 1px solid rgba(100, 120, 255, 0.3);
+    border-radius: 999px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--transition), color var(--transition);
+}
+
+.machine-quick-btn:hover,
+.machine-quick-btn:active {
+    color: var(--text-primary);
+    background: rgba(100, 120, 255, 0.22);
+}
+
+.machine-quick-btn.fav::before {
+    content: "★ ";
+    color: var(--accent-gold);
+}
+
+/* ---- スマホ用の全画面の機種選択シート ---- */
+body.sheet-open {
+    overflow: hidden;
+}
+
+.machine-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;   /* アドレスバーの伸縮に合わせる（対応ブラウザのみ） */
+    background: #1c2040;
+}
+
+.machine-sheet[hidden] {
+    display: none;
+}
+
+.machine-sheet:focus {
+    outline: none;
+}
+
+.machine-sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 6px 6px 16px;
+    padding-top: max(6px, env(safe-area-inset-top));
+    border-bottom: 1px solid rgba(100, 120, 255, 0.15);
+}
+
+.machine-sheet-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.machine-sheet-close {
+    width: 44px;
+    height: 44px;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.machine-sheet-search {
+    padding: 10px 12px 6px;
+}
+
+.machine-sheet-search input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 1rem;   /* 16px 未満だと iPhone がタップ時に拡大する */
+    font-family: var(--font-main);
+    color: var(--text-primary);
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-sm);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.machine-sheet-search input::placeholder {
+    color: var(--text-placeholder);
+}
+
+.machine-sheet-search input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-gold-dim);
+}
+
+/* ドロップダウン用の .combo-list の見た目（絶対配置・高さ制限・影）を打ち消して画面いっぱいに使う */
+.machine-sheet .machine-sheet-list {
+    display: block;
+    position: static;
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 env(safe-area-inset-bottom);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+}
+
+.machine-sheet .combo-filters {
+    top: 0;
+    margin-top: 0;
+}
+
+/* 指で選びやすいよう行を高くする */
+.machine-sheet li.combo-item .combo-name {
+    padding: 13px 0;
+    font-size: 1rem;
+}
