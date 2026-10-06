@@ -9,6 +9,11 @@
     --bg-card-hover: rgba(30, 34, 68, 0.95);
     --border-card: rgba(100, 120, 255, 0.15);
     --border-focus: rgba(255, 200, 50, 0.6);
+    /* 入力欄はカードより明るくし、枠線はカードとの比 3:1 以上（WCAG 1.4.11）にして背景に埋もれないようにする */
+    --bg-input: #3f4783;
+    --border-input: #7a85cc;
+    --border-input-hover: #959fdd;
+    --text-placeholder: #a3abd3;   /* 入力欄上で 3:1 以上、入力済みの文字よりは明確に暗い */
 
     --text-primary: #e8eaf6;
     --text-secondary: #9da4c7;
@@ -237,8 +242,8 @@ select {
     padding: 10px 14px;
     font-size: 0.95rem;
     font-family: var(--font-main);
-    background: rgba(15, 17, 35, 0.7);
-    border: 1px solid rgba(100, 120, 255, 0.2);
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
     outline: none;
@@ -253,6 +258,14 @@ select {
     background-position: right 14px center;
     padding-right: 36px;
     cursor: pointer;
+}
+
+input[type="number"]:not([readonly]):hover,
+input[type="text"]:not([readonly]):hover,
+input[type="email"]:hover,
+select:hover,
+.contact-form textarea:hover {
+    border-color: var(--border-input-hover);
 }
 
 input:focus,
@@ -452,7 +465,7 @@ input[readonly] {
 }
 
 input::placeholder {
-    color: var(--text-muted);
+    color: var(--text-placeholder);
     font-size: 0.85rem;
 }
 
@@ -1050,8 +1063,8 @@ input::placeholder {
     padding: 10px 14px;
     font-size: 0.92rem;
     font-family: var(--font-main);
-    background: rgba(15, 17, 35, 0.7);
-    border: 1px solid rgba(100, 120, 255, 0.2);
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
     outline: none;
