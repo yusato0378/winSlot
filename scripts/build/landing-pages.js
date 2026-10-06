@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { loadMachines } = require("./machines");
+const { createLastmod } = require("./lastmod");
 const SITE_URL = "https://www.pachislot-setting.com";
 
 // data/machines/ から読み込んだデータを格納（buildLandingPages 開始時にセット）
@@ -415,7 +416,11 @@ function buildLandingPages(root, out, data) {
 const machinesDir = path.join(out, "machines");
 if (!fs.existsSync(machinesDir)) fs.mkdirSync(machinesDir, { recursive: true });
 
-const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>\n    <priority>1.0</priority>\n  </url>`];
+// lastmod はページの元になったファイルの最終コミット日。生成テンプレート（このファイル等）の変更も含めて新しい方を使う
+const lastmodOf = createLastmod(root, ["index.html", "data/machines", "setGuessElement", "scripts/build/landing-pages.js", "scripts/build/setguess-seo.js"]);
+const lastmodTag = date => (date ? `\n    <lastmod>${date}</lastmod>` : "");
+
+const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>${lastmodTag(lastmodOf("index.html"))}\n    <priority>1.0</priority>\n  </url>`];
 
 MACHINES.forEach(m => {
     const dir = path.join(machinesDir, m.id);
@@ -425,7 +430,8 @@ MACHINES.forEach(m => {
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
     console.log(`Created: machines/${m.id}/index.html`);
 
-    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>\n    <lastmod>${new Date().toISOString().slice(0,10)}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`);
+    const machineLastmod = lastmodOf(`data/machines/${m.id}.json`, "scripts/build/landing-pages.js");
+    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>${lastmodTag(machineLastmod)}\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`);
 });
 
 // setGuessElement/index.html（一覧ページ）生成
@@ -493,10 +499,13 @@ fs.writeFileSync(sgIndexPath, sgIndexHtml, "utf-8");
 console.log("Created: setGuessElement/index.html");
 
 // setGuessElement pages（サイトマップ：ルート一覧ページ + 各機種ページ）
-const today = new Date().toISOString().slice(0, 10);
-sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/setGuessElement/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.7</priority>\n  </url>`);
+// 一覧ページは、各機種ページと一覧を作るこのファイルのうち最も新しい日付
+const sgIndexLastmod = lastmodOf(...Object.values(GUESS_ELEMENT_PAGES), "scripts/build/landing-pages.js");
+sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/setGuessElement/</loc>${lastmodTag(sgIndexLastmod)}\n    <priority>0.7</priority>\n  </url>`);
 Object.values(GUESS_ELEMENT_PAGES).forEach(p => {
-    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
+    // 各ページはソースの HTML に、ビルド時の SEO パッチ（setguess-seo.js）をかけたもの
+    const pageLastmod = lastmodOf(p, "scripts/build/setguess-seo.js");
+    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>${lastmodTag(pageLastmod)}\n    <priority>0.6</priority>\n  </url>`);
 });
 
 // guide/ 解説記事（manifest.json の published/updated を lastmod に使用）
@@ -505,6 +514,7 @@ const guideManifestData = fs.existsSync(guideManifestPath)
     ? JSON.parse(fs.readFileSync(guideManifestPath, "utf8"))
     : [];
 const guideManifestBySlug = Object.fromEntries(guideManifestData.map(a => [a.slug, a]));
+const guideLatest = guideManifestData.map(a => a.updated || a.published).filter(Boolean).sort().pop() || null;
 
 const guideDir = path.join(out, "guide");
 if (fs.existsSync(guideDir)) {
@@ -514,9 +524,11 @@ if (fs.existsSync(guideDir)) {
         .forEach((f) => {
             const slug = f.replace(/\.html$/, "");
             const article = guideManifestBySlug[slug];
-            const lastmod = article ? (article.updated || article.published || today) : today;
+            // 記事は manifest の日付。一覧（index.html）は全記事の最新日。日付が分からないものは省く（ビルド日は書かない）
+            const lastmod = article ? (article.updated || article.published || null)
+                : f === "index.html" ? guideLatest : null;
             const loc = f === "index.html" ? `${SITE_URL}/guide/` : `${SITE_URL}/guide/${f}`;
-            sitemapUrls.push(`  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`);
+            sitemapUrls.push(`  <url>\n    <loc>${loc}</loc>${lastmodTag(lastmod)}\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`);
         });
 }
 

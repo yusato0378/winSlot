@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /articles/
 
 Sitemap: https://www.pachislot-setting.com/sitemap.xml

@@ -3,6 +3,11 @@
   "outputDirectory": "dist",
   "trailingSlash": true,
   "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/guide/:slug([^./]+)", "destination": "/guide/:slug.html", "permanent": true },
+    { "source": "/guide/:slug([^./]+)/", "destination": "/guide/:slug.html", "permanent": true },
+    { "source": "/articles/:slug([^./]+)", "destination": "/guide/:slug.html", "permanent": true },
+    { "source": "/articles/:slug([^./]+)/", "destination": "/guide/:slug.html", "permanent": true },
     { "source": "/articles/:slug", "destination": "/guide/:slug", "permanent": true },
     { "source": "/machines/:machineId/ceiling", "destination": "/machines/:machineId/", "permanent": true },
     { "source": "/machines/:machineId/ceiling/", "destination": "/machines/:machineId/", "permanent": true },

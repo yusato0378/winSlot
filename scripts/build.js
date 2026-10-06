@@ -7,6 +7,7 @@
  * 3. 解説記事を dist/guide/ に生成
  * 4. 機種LP・setGuessElement/index.html・sitemap.xml を dist/ に生成
  * 5. setGuessElement 各ページ（dist 上のコピー）に SEO パッチを適用
+ * 6. 「…/index.html」へのリンクをディレクトリ URL に書き換え（/index.html は / へ転送しているため）
  */
 const fs = require("fs");
 const path = require("path");
@@ -89,6 +90,54 @@ function reportSuggestionCoverage(machines) {
     console.log(`Suggestions: ${loaded} / ${machines.length} machines（未投入 ${machines.length - loaded}）`);
 }
 
+/**
+ * 「N機種対応」の N を実際の収録数に合わせる（ページ説明・OGP・構造化データ・アプリについて）。
+ * 手書きのままだと機種を追加するたびに古くなるため。ソースには数字のまま残し、
+ * 一覧の並べ替えスクリプト等がソースをそのまま読めるようにしている。
+ */
+function syncMachineCount(machines) {
+    for (const rel of ["index.html", "about.html"]) {
+        const file = path.join(OUT, rel);
+        let n = 0;
+        const html = fs.readFileSync(file, "utf8").replace(/\d+機種対応/g, () => {
+            n++;
+            return `${machines.length}機種対応`;
+        });
+        fs.writeFileSync(file, html, "utf8");
+        console.log(`Synced: ${rel} の機種数 ${n}か所 → ${machines.length}機種`);
+    }
+}
+
+/**
+ * サイト内リンクの「…/index.html」をディレクトリの URL（「…/」）に書き換える。
+ * /index.html は / へリダイレクトしているので、リンクのままだと毎回1回転送が挟まり、
+ * Google にも転送元の URL へのリンクとして数えられる。ソースは手で管理しているページが多いので出力側で直す。
+ */
+function rewriteIndexLinks(dir) {
+    let files = 0;
+    let links = 0;
+    const walk = d => {
+        for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
+            const p = path.join(d, entry.name);
+            if (entry.isDirectory()) { walk(p); continue; }
+            if (!entry.name.endsWith(".html")) continue;
+            const src = fs.readFileSync(p, "utf8");
+            let n = 0;
+            const out = src.replace(/href="((?:\.\.\/)*)index\.html(#[^"]*)?"/g, (_, up, hash) => {
+                n++;
+                return `href="${up || "./"}${hash || ""}"`;
+            });
+            if (n) {
+                fs.writeFileSync(p, out, "utf8");
+                files++;
+                links += n;
+            }
+        }
+    };
+    walk(dir);
+    console.log(`Rewrote: index.html へのリンク ${links}件（${files}ファイル）をディレクトリ URL に`);
+}
+
 function main() {
     fs.rmSync(OUT, { recursive: true, force: true });
     fs.mkdirSync(OUT, { recursive: true });
@@ -97,11 +146,13 @@ function main() {
     reportSuggestionCoverage(data.MACHINES);
 
     copyStatic();
+    syncMachineCount(data.MACHINES);
     copySuggestionRates();
     writeMachinesData(data.MACHINES, data.SUGGESTION_RANKS);
     buildArticles(ROOT, OUT);
     buildLandingPages(ROOT, OUT, data);
     patchSetGuessPages(OUT, data);
+    rewriteIndexLinks(OUT);
 
     console.log("\nBuild complete: dist/");
 }
