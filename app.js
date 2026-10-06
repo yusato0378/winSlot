@@ -44,6 +44,8 @@ const $specSection   = document.getElementById("spec-section");
 const $specTable     = document.getElementById("spec-table");
 const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
+const $currentGamesGroup = document.getElementById("current-games-group");
+const $formRestored  = document.getElementById("form-restored");
 const $suggestionInputs = document.getElementById("suggestion-inputs");
 const $suggestionSummary = document.getElementById("suggestion-summary");
 
@@ -356,6 +358,7 @@ function selectComboItem(machine) {
     rememberRecent(machine.id);
     closeCombo();
     onMachineChange();
+    saveFormState();
 }
 
 function comboKeyNav(e) {
@@ -425,6 +428,10 @@ function init() {
     [$totalGames, $bigCount, $regCount].forEach(el => {
         el.addEventListener("input", updateBonusProb);
     });
+
+    restoreFormState();
+    // 示唆欄は機種ごとに作り直されるので、個々の欄ではなくフォームで input をまとめて拾う
+    $analyzeForm.addEventListener("input", saveFormState);
 }
 
 // ============================================================
@@ -636,6 +643,7 @@ function onMachineChange() {
     renderSuggestionInputs(machine);
     if (!machine) {
         $machineInfoBar.style.display = "none";
+        $currentGamesGroup.style.display = "";
         return;
     }
 
@@ -645,8 +653,12 @@ function onMachineChange() {
     if (machine.ceiling) {
         $machineCeilingInfo.textContent = `天井: ${machine.ceiling}G`;
         $machineCeilingInfo.style.display = "";
+        $currentGamesGroup.style.display = "";
     } else {
         $machineCeilingInfo.style.display = "none";
+        // 天井の無い機種では現在ゲーム数を使わないので、欄ごと隠して値も捨てる
+        $currentGamesGroup.style.display = "none";
+        $currentGames.value = "";
     }
 
     $bigLabel.textContent = machine.bigLabel + "回数";
@@ -674,8 +686,16 @@ function updateBonusProb() {
 
 function onAnalyze(e) {
     e.preventDefault();
+    if (analyze({ scroll: true })) saveFormState();
+}
+
+/**
+ * 入力から結果を描画する。表示できたら true。
+ * scroll=false は復元時用（開き直した直後に画面が勝手に結果まで飛ばないように）。
+ */
+function analyze({ scroll }) {
     const machine = getSelectedMachine();
-    if (!machine) { alert("機種を選択してください"); return; }
+    if (!machine) { alert("機種を選択してください"); return false; }
 
     const totalGames  = parseInt($totalGames.value) || 0;
     const currentGames = parseInt($currentGames.value) || 0;
@@ -687,8 +707,9 @@ function onAnalyze(e) {
     const ceilingOnly = !hasTotalGames && hasCurrentGames;
 
     if (!hasTotalGames && !hasCurrentGames) {
-        alert("総ゲーム数または現在ゲーム数を入力してください");
-        return;
+        // 天井の無い機種は現在ゲーム数の欄自体を隠しているので、総ゲーム数だけを案内する
+        alert(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
+        return false;
     }
 
     if (hasTotalGames) {
@@ -717,12 +738,109 @@ function onAnalyze(e) {
 
     if (ceilingOnly && (!machine.ceiling || machine.ceiling <= 0)) {
         alert("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
-        return;
+        return false;
     }
 
     $resultsSection.style.display = "";
-    const scrollTarget = ceilingOnly ? $ceilingSection : $resultsSection;
-    scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (scroll) {
+        const scrollTarget = ceilingOnly ? $ceilingSection : $resultsSection;
+        scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return true;
+}
+
+// ============================================================
+// 入力内容の保存・復元
+// スマホのブラウザは裏に回したタブを読み込み直すことが多く、ホールで台を打ちながら
+// アプリを切り替えると入力が消えてしまう。この端末のブラウザにだけ保存して開き直したときに戻す。
+// ============================================================
+const STORAGE_KEY_FORM = "winslot:form";
+// 1日の稼働（開店〜閉店）に収まる長さ。翌日に前日の台のデータが出てこないようにする
+const FORM_STATE_TTL_MS = 12 * 60 * 60 * 1000;
+
+function saveFormState() {
+    const machine = getSelectedMachine();
+    if (!machine && !hasFormInput()) {
+        clearFormState();
+        return;
+    }
+    const suggestions = {};
+    $suggestionInputs.querySelectorAll("input.suggestion-count").forEach(el => {
+        if (el.value !== "") suggestions[el.dataset.group + "/" + el.dataset.item] = el.value;
+    });
+    const state = {
+        savedAt: Date.now(),
+        machineId: machine ? machine.id : null,
+        totalGames: $totalGames.value,
+        bigCount: $bigCount.value,
+        regCount: $regCount.value,
+        currentGames: $currentGames.value,
+        suggestions,
+        analyzed: $resultsSection.style.display !== "none",
+    };
+    try {
+        localStorage.setItem(STORAGE_KEY_FORM, JSON.stringify(state));
+    } catch (e) {
+        // 保存できない環境（プライベートモード等）では復元されないだけで、入力自体は動く
+    }
+}
+
+function clearFormState() {
+    try {
+        localStorage.removeItem(STORAGE_KEY_FORM);
+    } catch (e) {
+        // 同上
+    }
+}
+
+function restoreFormState() {
+    let state;
+    try {
+        state = JSON.parse(localStorage.getItem(STORAGE_KEY_FORM));
+    } catch (e) {
+        return;
+    }
+    if (!state || typeof state !== "object") return;
+    if (!(Date.now() - state.savedAt < FORM_STATE_TTL_MS)) {
+        clearFormState();
+        return;
+    }
+
+    const machine = state.machineId ? MACHINE_BY_ID.get(state.machineId) : null;
+    if (machine) {
+        $machineInput.value = machine.name;
+        $machineSelect.value = machine.id;
+        onMachineChange();   // 機種に合わせてラベル・示唆欄・現在ゲーム数欄の表示を整える
+    }
+
+    const setValue = (el, v) => { if (typeof v === "string" && el.closest(".form-group").style.display !== "none") el.value = v; };
+    setValue($totalGames, state.totalGames);
+    setValue($bigCount, state.bigCount);
+    setValue($regCount, state.regCount);
+    setValue($currentGames, state.currentGames);
+
+    const suggestions = state.suggestions || {};
+    let anySuggestion = false;
+    $suggestionInputs.querySelectorAll("input.suggestion-count").forEach(el => {
+        const v = suggestions[el.dataset.group + "/" + el.dataset.item];
+        if (typeof v === "string") {
+            el.value = v;
+            anySuggestion = true;
+        }
+    });
+    // 数えていた示唆回数が畳まれたままだと消えたように見えるので開いておく
+    if (anySuggestion) $suggestionInputs.querySelector("details").open = true;
+
+    updateBonusProb();
+    if (!machine && !hasFormInput()) return;
+
+    const saved = new Date(state.savedAt);
+    const hh = String(saved.getHours()).padStart(2, "0");
+    const mm = String(saved.getMinutes()).padStart(2, "0");
+    $formRestored.textContent = `前回の入力を復元しました（${saved.getMonth() + 1}/${saved.getDate()} ${hh}:${mm} 保存）`;
+    $formRestored.hidden = false;
+
+    if (state.analyzed && machine) analyze({ scroll: false });
 }
 
 /** 入力欄（機種名・数値・示唆回数）に何か入っているか */
@@ -750,7 +868,10 @@ function onReset() {
     $regLabel.textContent = "REG回数";
     $suggestionInputs.innerHTML = "";
     $suggestionInputs.style.display = "none";
+    $currentGamesGroup.style.display = "";
+    $formRestored.hidden = true;
     renderSuggestionSummary(null);
+    clearFormState();
 }
 
 // ============================================================

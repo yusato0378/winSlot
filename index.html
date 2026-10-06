@@ -82,6 +82,7 @@
                     データ入力
                 </h2>
                 <form id="analyze-form" autocomplete="off">
+                    <p class="form-restored" id="form-restored" hidden></p>
                     <div class="form-group combo-group">
                         <label for="machine-input">機種名</label>
                         <div class="combo-wrapper" id="combo-wrapper">
@@ -95,6 +96,14 @@
                     <div class="machine-info-bar" id="machine-info-bar" style="display:none;">
                         <span id="machine-type-badge" class="badge"></span>
                         <span id="machine-ceiling-info" class="badge badge-sub"></span>
+                    </div>
+
+                    <!-- 天井計算用。台を探しながら機種名＋現在ゲーム数だけ入れる使い方が多いので、機種名の直後に置く。
+                         天井の無い機種では app.js が非表示にする -->
+                    <div class="form-group" id="current-games-group">
+                        <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
+                        <input type="number" id="current-games" min="0" inputmode="numeric" placeholder="例: 350">
+                        <p class="form-hint">&#128161; 機種名＋現在ゲーム数だけで天井期待値を計算できます</p>
                     </div>
 
                     <!-- 設定判別の主要入力 -->
@@ -116,12 +125,6 @@
                     <!-- 設定示唆演出（機種にデータがある場合のみ app.js が動的生成） -->
                     <div id="suggestion-inputs" class="suggestion-inputs" style="display:none;"></div>
 
-                    <!-- 天井計算用 -->
-                    <div class="form-group">
-                        <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
-                        <input type="number" id="current-games" min="0" inputmode="numeric" placeholder="例: 350">
-                    </div>
-
                     <!-- 詳細入力（折り畳み） -->
                     <details class="form-details">
                         <summary>詳細入力（合算確率）</summary>
@@ -132,8 +135,6 @@
                             </div>
                         </div>
                     </details>
-
-                    <p class="form-hint">&#128161; 機種名＋現在ゲーム数だけで天井期待値を計算できます</p>
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary" id="analyze-btn">
