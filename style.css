@@ -1637,49 +1637,6 @@ details.result-card[open] > summary.card-summary::after {
 }
 
 
-/* ---- よく使う機種ボタン（機種名の欄の下） ---- */
-.machine-quick {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
-}
-
-/* display を指定すると hidden 属性が効かなくなるので明示する */
-.machine-quick[hidden] {
-    display: none;
-}
-
-.machine-quick-btn {
-    max-width: 100%;
-    min-height: 36px;
-    padding: 6px 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.85rem;
-    font-family: var(--font-main);
-    color: var(--text-secondary);
-    background: rgba(100, 120, 255, 0.1);
-    border: 1px solid rgba(100, 120, 255, 0.3);
-    border-radius: 999px;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    transition: background var(--transition), color var(--transition);
-}
-
-.machine-quick-btn:hover,
-.machine-quick-btn:active {
-    color: var(--text-primary);
-    background: rgba(100, 120, 255, 0.22);
-}
-
-.machine-quick-btn.fav::before {
-    content: "★ ";
-    color: var(--accent-gold);
-}
-
 /* ---- スマホ用の全画面の機種選択シート ---- */
 body.sheet-open {
     overflow: hidden;

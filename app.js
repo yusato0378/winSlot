@@ -22,7 +22,6 @@ const $machineInput  = document.getElementById("machine-input");
 const $comboList     = document.getElementById("combo-list");
 const $comboWrapper  = document.getElementById("combo-wrapper");
 const $comboToggle   = document.getElementById("combo-toggle");
-const $machineQuick  = document.getElementById("machine-quick");
 const $machineSheet  = document.getElementById("machine-sheet");
 const $sheetInput    = document.getElementById("machine-sheet-input");
 const $sheetList     = document.getElementById("machine-sheet-list");
@@ -260,7 +259,6 @@ function toggleFavorite(id) {
         : favoriteIds.concat(id);
     saveIdList(STORAGE_KEY_FAVORITES, favoriteIds);
     buildComboItems(activeQuery());
-    renderQuickPicks();
 
     const after = lastComboItem(id);
     if (before && after) $activeList.scrollTop = after.offsetTop - offset;
@@ -381,7 +379,6 @@ function selectComboItem(machine) {
     closeSheet();
     onMachineChange();
     saveFormState();
-    renderQuickPicks();
     scheduleLiveUpdate();
 }
 
@@ -457,32 +454,6 @@ function initSheet() {
     window.addEventListener("popstate", () => closeSheet(true));
 }
 
-// ============================================================
-// 機種名の欄の下に並べる「よく使う機種」ボタン（お気に入り → 最近使った順）
-// 同じ機種を選び直すとき、一覧を開かずに1タップで済ませる
-// ============================================================
-const QUICK_PICK_MAX = 3;
-
-function renderQuickPicks() {
-    const current = $machineSelect.value;
-    const ids = favoriteIds.concat(recentIds.filter(id => !favoriteIds.includes(id)))
-        .filter(id => id !== current)
-        .slice(0, QUICK_PICK_MAX);
-
-    $machineQuick.innerHTML = "";
-    $machineQuick.hidden = ids.length === 0;
-    ids.forEach(id => {
-        const m = MACHINE_BY_ID.get(id);
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "machine-quick-btn" + (favoriteIds.includes(id) ? " fav" : "");
-        btn.textContent = m.name;
-        btn.title = m.name;
-        btn.addEventListener("click", () => selectComboItem(m));
-        $machineQuick.appendChild(btn);
-    });
-}
-
 function comboKeyNav(e) {
     const items = $comboList.querySelectorAll(".combo-item");
     if (!items.length) return;
@@ -533,7 +504,6 @@ function initCombo() {
     $machineInput.addEventListener("input", () => {
         $machineSelect.value = "";
         onMachineChange();
-        renderQuickPicks();
         openCombo();
     });
     $machineInput.addEventListener("keydown", comboKeyNav);
@@ -553,7 +523,6 @@ function initCombo() {
     });
 
     initSheet();
-    renderQuickPicks();
 }
 
 // ============================================================
@@ -1068,7 +1037,6 @@ function restoreFormState() {
         $machineInput.value = machine.name;
         $machineSelect.value = machine.id;
         onMachineChange();   // 機種に合わせてラベル・示唆欄・現在ゲーム数欄の表示を整える
-        renderQuickPicks();
     }
 
     const setValue = (el, v) => { if (typeof v === "string" && el.closest(".form-group").style.display !== "none") el.value = v; };
@@ -1136,7 +1104,6 @@ function onReset() {
     clearFormError();
     renderSuggestionSummary(null);
     clearFormState();
-    renderQuickPicks();
     stopLiveUpdate();
 }
 
