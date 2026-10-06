@@ -52,6 +52,9 @@ function loadDist() {
             createElement: (tag) => new MiniEl(tag),
         },
         requestAnimationFrame: () => {},
+        // 結果の自動更新（scheduleLiveUpdate / stopLiveUpdate）が使う。検証では発火させない
+        setTimeout: () => 0,
+        clearTimeout: () => {},
         fetch: () => Promise.resolve({ json: () => Promise.resolve({}) }),
     };
     vm.createContext(ctx);

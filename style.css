@@ -1805,3 +1805,51 @@ body.sheet-open {
     min-width: 9.5rem;
     min-height: 44px;
 }
+
+/* ---- 結論カード（結果の先頭） ---- */
+.result-summary {
+    border-color: rgba(255, 213, 79, 0.35);
+}
+
+.summary-block + .summary-block:not([hidden]) {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(100, 120, 255, 0.15);
+}
+
+.summary-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ホールで腕を伸ばしたままでも読める大きさにする */
+.summary-value {
+    margin: 2px 0 4px;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--accent-gold);
+}
+
+.summary-value.positive { color: var(--accent-green); }
+.summary-value.negative { color: var(--accent-red); }
+
+.summary-sub {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.summary-warn {
+    margin-top: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    color: #ffcc80;
+    background: rgba(255, 167, 38, 0.12);
+    border-radius: var(--radius-sm);
+}
+
+.summary-live-note {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}

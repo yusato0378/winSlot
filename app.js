@@ -55,6 +55,8 @@ const $currentGamesGroup = document.getElementById("current-games-group");
 const $formRestored  = document.getElementById("form-restored");
 const $formError     = document.getElementById("form-error");
 const $exchangeRate  = document.getElementById("exchange-rate");
+const $summarySetting = document.getElementById("summary-setting");
+const $summaryCeiling = document.getElementById("summary-ceiling");
 const $suggestionInputs = document.getElementById("suggestion-inputs");
 const $suggestionSummary = document.getElementById("suggestion-summary");
 
@@ -378,6 +380,7 @@ function selectComboItem(machine) {
     onMachineChange();
     saveFormState();
     renderQuickPicks();
+    scheduleLiveUpdate();
 }
 
 // ============================================================
@@ -573,6 +576,7 @@ function init() {
     // 示唆欄は機種ごとに作り直されるので、個々の欄ではなくフォームで input をまとめて拾う
     $analyzeForm.addEventListener("input", saveFormState);
     $analyzeForm.addEventListener("input", clearFormError);
+    $analyzeForm.addEventListener("input", scheduleLiveUpdate);
 }
 
 // ============================================================
@@ -835,11 +839,16 @@ function onAnalyze(e) {
 
 /**
  * 入力から結果を描画する。表示できたら true。
- * scroll=false は復元時用（開き直した直後に画面が勝手に結果まで飛ばないように）。
+ * scroll=false は復元時・自動更新時用（画面が勝手に結果まで飛ばないように）。
+ * quiet=true は自動更新時用。入力途中で計算できないだけなので、エラーは出さない。
  */
-function analyze({ scroll }) {
+function analyze({ scroll, quiet = false }) {
+    const fail = message => {
+        if (!quiet) showFormError(message);
+        return false;
+    };
     const machine = getSelectedMachine();
-    if (!machine) { showFormError("機種を選択してください"); return false; }
+    if (!machine) return fail("機種を選択してください");
 
     const totalGames  = parseInt($totalGames.value) || 0;
     const currentGames = parseInt($currentGames.value) || 0;
@@ -852,10 +861,10 @@ function analyze({ scroll }) {
 
     if (!hasTotalGames && !hasCurrentGames) {
         // 天井の無い機種は現在ゲーム数の欄自体を隠しているので、総ゲーム数だけを案内する
-        showFormError(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
-        return false;
+        return fail(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
     }
 
+    let posteriors = null;
     if (hasTotalGames) {
         const suggestionDetail = buildSuggestionDetail(
             machine, resolveTrials(machine, bigCount, regCount), collectSuggestionCounts());
@@ -864,6 +873,7 @@ function analyze({ scroll }) {
         const results = suggestionDetail
             ? estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail)
             : plain;
+        posteriors = results;
         renderSettingResults(results, machine);
         renderSuggestionSummary(suggestionDetail, plain, results);
         renderFactors(machine, totalGames, bigCount, regCount);
@@ -881,17 +891,37 @@ function analyze({ scroll }) {
     renderCeiling(machine, currentGames);
 
     if (ceilingOnly && (!machine.ceiling || machine.ceiling <= 0)) {
-        showFormError("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
-        return false;
+        return fail("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
     }
 
+    renderSummary(machine, posteriors, totalGames, currentGames);
     clearFormError();
     $resultsSection.style.display = "";
-    if (scroll) {
-        const scrollTarget = ceilingOnly ? $ceilingSection : $resultsSection;
-        scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    liveResults = true;
+    // 結論カードが先頭にあるので、天井だけのときも結果の先頭へ
+    if (scroll) $resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
     return true;
+}
+
+// 一度結果を出したら、以降は入力を変えるたびに結果を出し直す。
+// ＋1 を押すたびに推測ボタンまで戻って押し直さなくて済むように。
+let liveResults = false;
+let liveTimer = null;
+
+function scheduleLiveUpdate() {
+    if (!liveResults) return;
+    clearTimeout(liveTimer);
+    // 数字を続けて打っている間は待ち、手が止まってから1回だけ計算する
+    liveTimer = setTimeout(() => {
+        // 打ち直し途中などで計算できないときは古い結果を残さない（別の機種や古い数字の結果が残ると誤解を招く）
+        if (!analyze({ scroll: false, quiet: true })) $resultsSection.style.display = "none";
+        saveFormState();
+    }, 150);
+}
+
+function stopLiveUpdate() {
+    liveResults = false;
+    clearTimeout(liveTimer);
 }
 
 // ============================================================
@@ -1083,6 +1113,7 @@ function onReset() {
     renderSuggestionSummary(null);
     clearFormState();
     renderQuickPicks();
+    stopLiveUpdate();
 }
 
 // ============================================================
@@ -1363,25 +1394,117 @@ function initExchangeRate() {
         } catch (e) {
             // 保存できなくても、このページを開いている間は選んだ換金率で計算する
         }
-        const machine = getSelectedMachine();
-        if (machine && $resultsSection.style.display !== "none") {
-            renderCeiling(machine, parseInt($currentGames.value) || 0);
-        }
+        // 結論カードの判定も換金率で変わるので、天井欄だけでなく全体を出し直す
+        if (liveResults) analyze({ scroll: false, quiet: true });
     });
 }
 
 // ============================================================
 // 描画: 設定推測結果
 // ============================================================
+// ============================================================
+// 結論カード（結果の先頭。ホールで画面を見て一目で判断できるよう要点だけ大きく出す）
+// ============================================================
+// 総ゲーム数がこれ未満だと、どの設定もほぼ横並びで「最有力」が当てにならない
+const FEW_GAMES = 1500;
+const SOME_GAMES = 3000;
+
+function ceilingVerdict(evYen) {
+    return evYen >= 0 ? "打つべき！" : "まだ早い";
+}
+
+/** [4, 5, 6] → "4〜6"、[5, 6] → "5・6"、[4, 6] → "4・6" */
+function formatSettingKeys(keys) {
+    const consecutive = keys.every((k, i) => i === 0 || k === keys[i - 1] + 1);
+    return consecutive && keys.length >= 3 ? `${keys[0]}〜${keys[keys.length - 1]}` : keys.join("・");
+}
+
+function fillSummaryBlock(el, { label, value, valueClass, sub, warn }) {
+    el.innerHTML = "";
+    const add = (cls, text) => {
+        const node = document.createElement("div");
+        node.className = cls;
+        node.textContent = text;
+        el.appendChild(node);
+    };
+    add("summary-label", label);
+    add("summary-value" + (valueClass ? " " + valueClass : ""), value);
+    if (sub) add("summary-sub", sub);
+    if (warn) add("summary-warn", warn);
+    el.hidden = false;
+}
+
+function renderSummary(machine, posteriors, totalGames, currentGames) {
+    if (posteriors) {
+        // 設定キーは機種によって 1〜6 が揃っていない（設定3が無い等）ので、実在するキーから数える
+        const keys = Object.keys(posteriors).map(Number).sort((a, b) => a - b);
+        const best = keys.reduce((a, b) => (posteriors[b] >= posteriors[a] ? b : a));
+        const high = keys.filter(k => k >= 4);
+        const pct = p => (p * 100).toFixed(1) + "%";
+        const games = totalGames.toLocaleString() + "G";
+        fillSummaryBlock($summarySetting, high.length ? {
+            label: `高設定（${formatSettingKeys(high)}）の可能性`,
+            value: pct(high.reduce((sum, k) => sum + posteriors[k], 0)),
+            sub: `最有力: 設定${best}（${pct(posteriors[best])}）`,
+            warn: totalGames < FEW_GAMES ? `まだ${games}なので、ほぼ判断できません（参考程度に）`
+                : totalGames < SOME_GAMES ? `${games}はまだ少なめです（参考程度に）` : "",
+        } : {
+            label: "最も可能性の高い設定",
+            value: `設定${best}`,
+            sub: pct(posteriors[best]),
+        });
+    } else {
+        $summarySetting.hidden = true;
+    }
+
+    if (machine.ceiling && currentGames > 0) {
+        const rate = getExchangeRate();
+        const ev = calculateCeilingEV(machine, currentGames, machine.ceiling, rate.yen);
+        // 朝一リセットで天井が変わる機種は、ここでは通常時の判定を出す（朝一側は下の天井情報に出る）
+        const label = `天井狙い（${currentGames.toLocaleString()}G${machine.resetCeiling ? "・通常時" : ""}）`;
+        if (ev) {
+            const yen = Math.round(ev.evYen);
+            fillSummaryBlock($summaryCeiling, {
+                label,
+                value: ceilingVerdict(ev.evYen),
+                valueClass: ev.evYen >= 0 ? "positive" : "negative",
+                sub: `期待値 ${yen >= 0 ? "+" : ""}${yen.toLocaleString()}円（${rate.label}）`,
+            });
+        } else {
+            fillSummaryBlock($summaryCeiling, {
+                label,
+                value: "天井到達済み",
+                sub: `現在ゲーム数が天井（${machine.ceiling}G）以上です`,
+            });
+        }
+    } else {
+        $summaryCeiling.hidden = true;
+    }
+}
+
 function renderSettingResults(posteriors, machine) {
-    $settingResults.innerHTML = "";
     const maxProb = Math.max(...Object.values(posteriors));
     let bestSetting = 1;
 
-    Object.entries(posteriors).forEach(([s, prob]) => {
+    // 同じ機種の結果を出し直すとき（入力変更での自動更新）は、棒を0から伸ばし直さずにその場で更新する。
+    // ＋1 を押すたびに全部の棒が縮んで伸びると、どこが変わったのか分からなくなるため。
+    const rows = $settingResults.querySelectorAll(".setting-row");
+    const reuse = $settingResults.dataset.machine === machine.id && rows.length === Object.keys(posteriors).length;
+    if (!reuse) {
+        $settingResults.innerHTML = "";
+        $settingResults.dataset.machine = machine.id;
+    }
+
+    Object.entries(posteriors).forEach(([s, prob], i) => {
         if (prob >= maxProb) bestSetting = s;
         const pct = (prob * 100).toFixed(1);
         const barWidth = maxProb > 0 ? (prob / maxProb) * 100 : 0;
+
+        if (reuse) {
+            rows[i].querySelector(".setting-bar").style.width = barWidth + "%";
+            rows[i].querySelector(".setting-percent").textContent = pct + "%";
+            return;
+        }
 
         const row = document.createElement("div");
         row.className = "setting-row";
@@ -1645,12 +1768,12 @@ function renderCeilingBlock(container, label, ceiling, ceilingTarget, machine, c
                 highlight: true
             });
             items.push({ label: "天井到達確率", value: `${evData.pReachCeiling.toFixed(1)}%`, cls: "neutral" });
-            const isTarget = currentGames >= ceilingTarget;
+            // 判定は選んだ換金率での期待値で決める（狙い目Gは等価前提の固定値なので、非等価だと期待値と食い違う）
             items.push({
                 label: "狙い目判定",
-                value: isTarget ? "打つべき！" : "まだ早い",
-                cls: isTarget ? "positive" : "negative",
-                highlight: isTarget
+                value: ceilingVerdict(evData.evYen),
+                cls: isPositive ? "positive" : "negative",
+                highlight: isPositive
             });
         }
     } else {
@@ -1692,7 +1815,8 @@ function renderCeiling(machine, currentGames) {
     note.textContent = "※ 期待値は設定1を基準に、通常時の消費メダルと天井恩恵から算出した概算値です。" +
         "実際の期待値はモード状態や前兆等により変動します。" +
         `投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は${rate.label}（1枚${rate.yen.toFixed(2).replace(/.?0+$/, "")}円）で換算。` +
-        (rate.yen === MEDAL_RENT_YEN ? "" : "狙い目・判定は等価を前提にした目安です。");
+        "判定は期待値がプラスなら「打つべき！」です。" +
+        (rate.yen === MEDAL_RENT_YEN ? "" : "狙い目Gは等価を前提にした目安です。");
     $ceilingResults.appendChild(note);
 }
 

@@ -154,6 +154,13 @@
             <!-- 結果セクション -->
             <div id="results-section" class="results-section" style="display:none;">
 
+                <!-- 結論（ホールで一目で分かるよう、各結果の要点を先頭にまとめる。app.js が描画） -->
+                <section class="card result-card result-summary" id="summary-section" aria-live="polite">
+                    <div class="summary-block" id="summary-setting" hidden></div>
+                    <div class="summary-block" id="summary-ceiling" hidden></div>
+                    <p class="summary-live-note">入力を変えると結果は自動で更新されます</p>
+                </section>
+
                 <!-- 設定推測結果（常時展開） -->
                 <section class="card result-card" id="setting-section">
                     <h2 class="card-title">
