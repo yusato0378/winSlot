@@ -21,6 +21,13 @@
   "resetCeilingTarget": 100,
   "avgBonusReward": 480,
   "normalCostPerGame": 1.6,
+  "ceilingEv": {
+    "hitRate": 324,
+    "avgReward": 418,
+    "ceilingReward": 402,
+    "costPerGame": 1.563,
+    "note": "天井はCZ間天井（699G）で、CZ1回あたりの平均獲得として計算しています。設定1の機械割97.5%・コイン持ち32.0G/50枚・純増3.1枚/Gから逆算し、解析サイト（なな徹）のゲーム数別期待値に合うよう調整しています。"
+  },
   "addedDate": "2026-09-07",
   "guessElementPath": "setGuessElement/mogumoguFurinkazan/index.html",
   "cautions": [

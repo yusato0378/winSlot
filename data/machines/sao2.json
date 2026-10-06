@@ -43,16 +43,25 @@
       "payout": 114.9
     }
   },
-  "ceiling": 499,
-  "ceilingTarget": 300,
+  "ceiling": 1200,
+  "ceilingTarget": 650,
   "ceilingReward": 400,
-  "resetCeiling": 256,
-  "resetCeilingTarget": 150,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
   "avgBonusReward": 400,
   "normalCostPerGame": 1.6,
+  "ceilingEv": {
+    "hitRate": 386.2,
+    "avgReward": 568,
+    "ceilingReward": 329,
+    "costPerGame": 1.613,
+    "note": "AT間天井（1200G）で計算しています。設定1の機械割97.6%・コイン持ち約31G/50枚・純増約3.6枚/Gから1回の当たりの平均獲得を逆算し、解析サイト（なな徹）の「等価450G〜でプラス」に合うよう調整しています。"
+  },
   "addedDate": "2026-06-08",
   "guessElementPath": "setGuessElement/sao2/index.html",
-  "cautions": null,
+  "cautions": [
+    "CZ間天井（実ゲーム数499G+α）もあります。天井期待値はAT間天井（1200G+α）で計算しています。"
+  ],
   "suggestions": {
     "trialSource": "reg",
     "groups": [

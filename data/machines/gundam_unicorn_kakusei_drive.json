@@ -51,6 +51,13 @@
   "resetCeilingTarget": 250,
   "avgBonusReward": 450,
   "normalCostPerGame": 1.6,
+  "ceilingEv": {
+    "hitRate": 298.5,
+    "avgReward": 384,
+    "ceilingReward": 453,
+    "costPerGame": 1.515,
+    "note": "天井はCZ間天井（800G）で、CZ1回あたりの平均獲得として計算しています。設定1の機械割97.7%・コイン持ち約33G/50枚・純増約2.0枚/Gから逆算し、解析サイト（なな徹）のCZ間天井の期待値に合うよう調整しています。"
+  },
   "addedDate": "2026-04-20",
   "guessElementPath": "setGuessElement/gundamUnicornKakuseiDrive/index.html",
   "cautions": null,

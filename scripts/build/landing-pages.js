@@ -8,7 +8,7 @@ const path = require("path");
 const { loadMachines } = require("./machines");
 const { createLastmod } = require("./lastmod");
 const {
-    settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent,
+    settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent, isCeilingEvSupported,
     discriminationGames, discriminationLevel, DISCRIMINATION_CAP,
 } = require("./machine-insights");
 const SITE_URL = "https://www.pachislot-setting.com";
@@ -111,7 +111,7 @@ ${rows}
                         </tbody>
                     </table>
                 </div>
-                <p class="lp-note">※ 設定${settingKeysOf(machine)[0]}基準。投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は各換金率で換算し、10G刻みで求めた概算値です。解析上の狙い目（${machine.ceilingTarget}G〜${hasReset ? `、朝一${machine.resetCeilingTarget}G〜` : ""}）はゾーンやモードも考慮した目安のため、ずれることがあります。</p>
+                <p class="lp-note">※ 設定${settingKeysOf(machine)[0]}基準。投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は各換金率で換算し、10G刻みで求めた概算値です。解析上の狙い目（${machine.ceilingTarget}G〜${hasReset ? `、朝一${machine.resetCeilingTarget}G〜` : ""}）はゾーンやモードも考慮した目安のため、ずれることがあります。${machine.ceilingEv && machine.ceilingEv.note ? escapeHtml(machine.ceilingEv.note) : ""}</p>
             </section>`;
 }
 
@@ -183,9 +183,11 @@ function getMachinePageMeta(machine) {
         : `${machine.name} 設定判別・設定差とスペック`;
     let descKeywords;
     if (isAT) {
-        descKeywords = hasCeiling
+        descKeywords = !hasCeiling
+            ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`
+            : isCeilingEvSupported(machine)
             ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井期待値をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の期待値一覧とトップの計算ツールへの導線。`
-            : `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`;
+            : `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜（天井の仕組みが特殊なため期待値表はありません）。`;
     } else {
         descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}・合算・出玉率）と設定推測ツールへの導線を掲載。`;
     }
@@ -272,15 +274,11 @@ function generatePage(machine) {
         ]
     }, null, 8);
 
-    const ceilingSection = hasCeiling ? `
-            <section class="card lp-section" id="lp-ceiling">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 期待値一覧（ゲーム数別）</h3>
-                <p class="lp-desc">設定${s1key}基準・等価（1メダル=20円）換算の一覧です。判定は期待値がプラスなら○、あと100G以内でプラスなら△です（設定推測ツールの判定と同じ基準）。解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。</p>
-                <div class="lp-ceiling-info">
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">${machine.ceiling}G</span></div>
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">${machine.ceilingTarget}G〜</span></div>
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">天井恩恵</span><span class="lp-ceil-val">約${machine.ceilingReward}枚</span></div>
-                </div>
+    // 天井の仕組みがゲーム数で決まる当たりの形で表せない機種は、天井情報だけ出して期待値表は出さない
+    const evSupported = isCeilingEvSupported(machine);
+    // 天井恩恵の枚数は、出典のある値として持っていない機種（調整値で計算している機種・計算対象外の機種）では出さない
+    const showCeilingReward = evSupported && !machine.ceilingEv;
+    const evTableHtml = `
                 <div class="table-wrapper">
                     <table class="spec-table lp-ev-table">
                         <thead>
@@ -291,10 +289,21 @@ ${evTableRows}
                         </tbody>
                     </table>
                 </div>
-                <p class="lp-note">※ 期待値は設定${s1key}を基準に、通常時の消費メダルと天井恩恵から算出した概算値です。実際の期待値はモード状態や前兆等により変動します。</p>
+                <p class="lp-note">※ 期待値は設定${s1key}を基準に、通常時の消費メダルと天井での当たりから算出した概算値です。実際の期待値はモード状態や前兆等により変動します。</p>`;
+    const ceilingSection = hasCeiling ? `
+            <section class="card lp-section" id="lp-ceiling">
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> ${evSupported ? "期待値一覧（ゲーム数別）" : "天井情報"}</h3>
+                <p class="lp-desc">${evSupported
+                    ? `設定${s1key}基準・等価（1メダル=20円）換算の一覧です。判定は期待値がプラスなら○、あと100G以内でプラスなら△です（設定推測ツールの判定と同じ基準）。解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。`
+                    : `解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。この機種は期待値を計算していません：${escapeHtml(machine.ceilingEvUnsupported)}`}</p>
+                <div class="lp-ceiling-info">
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">${machine.ceiling}G</span></div>
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">${machine.ceilingTarget}G〜</span></div>
+${showCeilingReward ? `                    <div class="lp-ceiling-item"><span class="lp-ceil-label">天井恩恵</span><span class="lp-ceil-val">約${machine.ceilingReward}枚</span></div>
+` : ""}                </div>${evSupported ? evTableHtml : ""}
             </section>` : "";
 
-    const resetCeilingSection = hasCeiling && machine.resetCeiling ? `
+    const resetCeilingSection = hasCeiling && machine.resetCeiling && evSupported ? `
             <section class="card lp-section" id="reset-ceiling-ev">
                 <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の期待値一覧</h3>
                 <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。判定の基準は通常時の表と同じです。解析上の狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>です。</p>
@@ -333,8 +342,8 @@ ${resetEvTableRows}
     tocItems.push(`<li><a href="#lp-discrimination">設定判別に必要なゲーム数の目安</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
     if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
-    if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">期待値一覧（表）</a></li>`);
-    if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
+    if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "期待値一覧（表）" : "天井情報"}</a></li>`);
+    if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
     tocItems.push(`<li><a href="#tool">設定推測ツールで計算</a></li>`);
 
     const cautionSection = buildCautionSection(machine);
@@ -500,7 +509,7 @@ const lastmodTag = date => (date ? `\n    <lastmod>${date}</lastmod>` : "");
 const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>${lastmodTag(lastmodOf("index.html"))}\n    <priority>1.0</priority>\n  </url>`];
 
 // 天井期待値の入力値が出玉率と矛盾する機種（回転数の節を出さない）。データの見直し用にビルドログへ出す
-const inconsistent = MACHINES.filter(m => m.ceiling && !isCeilingModelConsistent(m)).map(m => m.id);
+const inconsistent = MACHINES.filter(m => isCeilingEvSupported(m) && !isCeilingModelConsistent(m)).map(m => m.id);
 if (inconsistent.length) {
     console.warn(`警告: 天井期待値の入力値（avgBonusReward / normalCostPerGame / ceilingReward）が出玉率と矛盾する機種 ${inconsistent.length}件。`
         + `設定1を0Gから打つ期待値がプラスになるため、期待値がプラスになる回転数は載せません: ${inconsistent.join(", ")}`);

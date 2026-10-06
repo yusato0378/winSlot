@@ -107,6 +107,28 @@ function validateSuggestions(id, m, ranks) {
 }
 
 /**
+ * 天井期待値の調整値（ceilingEv）と計算対象外の理由（ceilingEvUnsupported）を検証する。
+ * 数値の打ち間違いはブラウザ側で期待値が NaN になるだけで原因が追えないので、ここで落とす。
+ */
+function validateCeilingEv(id, m) {
+    const fail = (msg) => { throw new Error(`${id}.json ${msg}`); };
+    if (m.ceilingEvUnsupported !== undefined) {
+        if (typeof m.ceilingEvUnsupported !== "string" || !m.ceilingEvUnsupported.trim()) fail("ceilingEvUnsupported: 理由を文字列で書いてください");
+        if (!m.ceiling) fail("ceilingEvUnsupported: 天井の無い機種には不要です");
+        if (m.ceilingEv !== undefined) fail("ceilingEv と ceilingEvUnsupported は同時に指定できません");
+    }
+    const ev = m.ceilingEv;
+    if (ev === undefined) return;
+    if (!m.ceiling) fail("ceilingEv: 天井の無い機種には不要です");
+    if (!ev || typeof ev !== "object") fail("ceilingEv: オブジェクトではありません");
+    for (const key of ["hitRate", "avgReward", "ceilingReward", "costPerGame"]) {
+        if (typeof ev[key] !== "number" || !(ev[key] > 0)) fail(`ceilingEv.${key}: 正の数を指定してください`);
+    }
+    if (ev.hitRate <= 1) fail("ceilingEv.hitRate: 確率の分母（1/x の x）を指定してください");
+    if (typeof ev.note !== "string" || !ev.note.trim()) fail("ceilingEv.note: 値の出典・調整方法を書いてください");
+}
+
+/**
  * @param {string} root リポジトリルート
  * @returns {{ MACHINES: object[], GUESS_ELEMENT_PAGES: Record<string,string>, CAUTIONS_BY_ID: Record<string,string[]>, SUGGESTION_RANKS: object }}
  */
@@ -137,6 +159,8 @@ function loadMachines(root) {
             (!Array.isArray(m.aliases) || m.aliases.some(a => typeof a !== "string" || !a.trim()))) {
             throw new Error(`${id}.json aliases: 空でない文字列の配列にしてください`);
         }
+
+        validateCeilingEv(id, m);
 
         if (m.guessElementPath) GUESS_ELEMENT_PAGES[id] = m.guessElementPath;
         if (m.cautions && m.cautions.length) CAUTIONS_BY_ID[id] = m.cautions;

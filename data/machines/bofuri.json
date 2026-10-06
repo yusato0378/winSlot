@@ -51,6 +51,13 @@
   "resetCeilingTarget": 400,
   "avgBonusReward": 450,
   "normalCostPerGame": 1.5,
+  "ceilingEv": {
+    "hitRate": 319,
+    "avgReward": 447,
+    "ceilingReward": 206,
+    "costPerGame": 1.515,
+    "note": "設定1の機械割97.9%・コイン持ち約33G/50枚・AT純増約5.5枚/Gから1回の当たりの平均獲得を逆算し、天井での当たりは解析サイト（なな徹）の「打ち出し350G〜で機械割100%超」に合うよう調整しています。"
+  },
   "addedDate": "2026-04-01",
   "guessElementPath": null,
   "cautions": null

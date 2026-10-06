@@ -21,6 +21,13 @@
   "resetCeilingTarget": 250,
   "avgBonusReward": 500,
   "normalCostPerGame": 1.6,
+  "ceilingEv": {
+    "hitRate": 328.8,
+    "avgReward": 479,
+    "ceilingReward": 168,
+    "costPerGame": 1.572,
+    "note": "設定1の機械割97.9%・コイン持ち約31.8G/50枚・純増約8.4枚/Gから1回の当たりの平均獲得を逆算し、解析サイト（なな徹）の「300G〜天井で機械割100.3%」に合うよう調整しています。"
+  },
   "addedDate": "2026-09-07",
   "guessElementPath": "setGuessElement/lycorisRecoil/index.html",
   "cautions": [

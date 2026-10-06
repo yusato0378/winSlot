@@ -22,23 +22,43 @@ function settingKeysOf(machine) {
     return Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
 }
 
+/**
+ * 天井期待値の計算に使う値。app.js の ceilingEvParams と同じ。
+ * `ceilingEv` がある機種は、公表の機械割や解析サイトの期待値に合わせて調整した値を使う
+ * （設定判別に使う settings[].big は CZ 確率などで、天井のカウントが戻る当たりと違う機種があるため）。
+ */
+function ceilingEvParams(machine) {
+    const s1 = machine.settings[settingKeysOf(machine)[0]];
+    const ev = machine.ceilingEv;
+    return ev ? {
+        hitRate: ev.hitRate, avgReward: ev.avgReward, ceilingReward: ev.ceilingReward, costPerGame: ev.costPerGame,
+    } : {
+        hitRate: s1.big, avgReward: machine.avgBonusReward, ceilingReward: machine.ceilingReward, costPerGame: machine.normalCostPerGame,
+    };
+}
+
+/** 天井の仕組みが「ゲーム数で決まった当たり」の形で表せず、期待値を計算しない機種か */
+function isCeilingEvSupported(machine) {
+    return !!machine.ceiling && !machine.ceilingEvUnsupported;
+}
+
 /** app.js の calculateCeilingEV と同じ。currentGames が天井以上なら null */
 function calculateCeilingEV(machine, currentGames, ceiling, exchangeYen = MEDAL_RENT_YEN) {
     if (!ceiling || currentGames >= ceiling) return null;
-    const s1 = machine.settings[settingKeysOf(machine)[0]];
-    const pBonus = 1 / s1.big;
+    const params = ceilingEvParams(machine);
+    const pBonus = 1 / params.hitRate;
     const remaining = ceiling - currentGames;
-    const costPerGame = machine.normalCostPerGame;
+    const costPerGame = params.costPerGame;
 
     let reward = 0;
     let cost = 0;
     for (let g = 1; g <= remaining; g++) {
         const pFirstAt = Math.pow(1 - pBonus, g - 1) * pBonus;
-        reward += pFirstAt * machine.avgBonusReward;
+        reward += pFirstAt * params.avgReward;
         cost += pFirstAt * g * costPerGame;
     }
     const pReachCeiling = Math.pow(1 - pBonus, remaining);
-    reward += pReachCeiling * machine.ceilingReward;
+    reward += pReachCeiling * params.ceilingReward;
     cost += pReachCeiling * remaining * costPerGame;
 
     return {
@@ -80,7 +100,7 @@ function isCeilingModelConsistent(machine) {
  * 入力値が出玉率と矛盾する機種は、誤った「いつでもプラス」を載せないよう null を返す。
  */
 function breakEvenTable(machine) {
-    if (!machine.ceiling || !isCeilingModelConsistent(machine)) return null;
+    if (!isCeilingEvSupported(machine) || !isCeilingModelConsistent(machine)) return null;
     return EXCHANGE_RATES.map(rate => ({
         rate,
         normal: breakEvenGames(machine, machine.ceiling, rate.yen),
@@ -144,6 +164,8 @@ function discriminationLevel(games) {
 
 module.exports = {
     settingKeysOf,
+    ceilingEvParams,
+    isCeilingEvSupported,
     MEDAL_RENT_YEN,
     EXCHANGE_RATES,
     calculateCeilingEV,

@@ -1321,22 +1321,37 @@ function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDet
  * exchangeYen は回収メダル1枚の換金額。投資は現金で借りる前提なので常に1枚 MEDAL_RENT_YEN 円。
  * 非等価では回収側だけが目減りするため、回収と投資を分けて円にする（等価なら従来の ev*20 と一致）。
  */
-function calculateCeilingEV(machine, currentGames, overrideCeiling, exchangeYen = MEDAL_RENT_YEN) {
-    const ceiling = overrideCeiling || machine.ceiling;
-    const ceilingReward = machine.ceilingReward;
-    if (!ceiling || currentGames >= ceiling) return null;
-
+/**
+ * 天井期待値の計算に使う値（scripts/build/machine-insights.js の ceilingEvParams と同じ）。
+ * `ceilingEv` がある機種は、公表の機械割や解析サイトの期待値に合わせて調整した値を使う
+ * （設定判別に使う settings[].big は CZ 確率などで、天井のカウントが戻る当たりと違う機種があるため）。
+ */
+function ceilingEvParams(machine) {
     const s1key = Object.keys(machine.settings).map(Number).sort((a, b) => a - b)[0];
     const s1 = machine.settings[s1key];
-    const pBonus = 1 / s1.big;
+    const ev = machine.ceilingEv;
+    return ev ? {
+        hitRate: ev.hitRate, avgReward: ev.avgReward, ceilingReward: ev.ceilingReward, costPerGame: ev.costPerGame,
+    } : {
+        hitRate: s1.big, avgReward: machine.avgBonusReward, ceilingReward: machine.ceilingReward, costPerGame: machine.normalCostPerGame,
+    };
+}
+
+function calculateCeilingEV(machine, currentGames, overrideCeiling, exchangeYen = MEDAL_RENT_YEN) {
+    const ceiling = overrideCeiling || machine.ceiling;
+    if (!ceiling || currentGames >= ceiling) return null;
+
+    const params = ceilingEvParams(machine);
+    const ceilingReward = params.ceilingReward;
+    const pBonus = 1 / params.hitRate;
     const remaining = ceiling - currentGames;
-    const costPerGame = machine.normalCostPerGame;
+    const costPerGame = params.costPerGame;
 
     let reward = 0;
     let cost = 0;
     for (let g = 1; g <= remaining; g++) {
         const pFirstAt = Math.pow(1 - pBonus, g - 1) * pBonus;
-        reward += pFirstAt * machine.avgBonusReward;
+        reward += pFirstAt * params.avgReward;
         cost += pFirstAt * g * costPerGame;
     }
     const pReachCeiling = Math.pow(1 - pBonus, remaining);
@@ -1451,11 +1466,18 @@ function renderSummary(machine, posteriors, totalGames, currentGames) {
     if (machine.ceiling && currentGames > 0) {
         const rate = getExchangeRate();
         const c = activeCeiling(machine);
-        const ev = calculateCeilingEV(machine, currentGames, c.ceiling, rate.yen);
+        const ev = machine.ceilingEvUnsupported ? null : calculateCeilingEV(machine, currentGames, c.ceiling, rate.yen);
         // 朝一リセットで天井が変わる機種は、どちらの天井で判定したかを明記する
         const mode = machine.resetCeiling ? (c.isReset ? "・朝一" : "・通常時") : "";
         const label = `天井狙い（${currentGames.toLocaleString()}G${mode}）`;
-        if (ev) {
+        if (machine.ceilingEvUnsupported) {
+            // 誤った「打つべき！」を出さない。天井までの残りだけ伝える
+            fillSummaryBlock($summaryCeiling, {
+                label,
+                value: "期待値は計算対象外",
+                sub: `天井まで残り${Math.max(0, c.ceiling - currentGames).toLocaleString()}G（${machine.ceilingEvUnsupported}）`,
+            });
+        } else if (ev) {
             const yen = Math.round(ev.evYen);
             fillSummaryBlock($summaryCeiling, {
                 label,
@@ -1750,7 +1772,11 @@ function renderCeilingBlock(container, label, ceiling, ceilingTarget, machine, c
         const remaining = Math.max(0, ceiling - currentGames);
         items.push({ label: "天井までの残りゲーム数", value: `${remaining}G`, cls: "neutral" });
 
-        const evData = calculateCeilingEV(machine, currentGames, ceiling, rate.yen);
+        // 天井の仕組みがゲーム数で決まる当たりの形で表せない機種は、誤った期待値を出さない
+        const evData = machine.ceilingEvUnsupported ? null : calculateCeilingEV(machine, currentGames, ceiling, rate.yen);
+        if (machine.ceilingEvUnsupported) {
+            items.push({ label: "期待値", value: "計算対象外", cls: "neutral" });
+        }
         if (evData) {
             const isPositive = evData.evYen >= 0;
             const sign = isPositive ? "+" : "";
@@ -1812,6 +1838,14 @@ function renderCeiling(machine, currentGames) {
             ? `参考: 通常時の天井は ${machine.ceiling}G（入力欄の「朝一・設定変更後」を外すと切り替わります）`
             : `参考: 朝一・設定変更後の天井は ${machine.resetCeiling}G（入力欄の「朝一・設定変更後」で切り替えられます）`;
         $ceilingResults.appendChild(other);
+    }
+
+    if (machine.ceilingEvUnsupported) {
+        const reason = document.createElement("p");
+        reason.className = "ceiling-other-mode";
+        reason.textContent = `期待値は計算していません：${machine.ceilingEvUnsupported}`;
+        $ceilingResults.appendChild(reason);
+        return;   // 期待値の前提を説明する注記も不要
     }
 
     const note = document.createElement("div");

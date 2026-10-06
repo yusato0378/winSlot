@@ -50,6 +50,7 @@
   "resetCeilingTarget": 600,
   "avgBonusReward": 700,
   "normalCostPerGame": 1.6,
+  "ceilingEvUnsupported": "天井が333G・555G・999G・1499Gのいずれかから選ばれる仕組みで、ゲーム数だけでは期待値を正しく計算できないため",
   "addedDate": "2026-05-11",
   "guessElementPath": "setGuessElement/bigDreamGoldenPusher/index.html",
   "cautions": null,

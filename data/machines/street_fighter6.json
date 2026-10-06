@@ -51,6 +51,7 @@
   "resetCeilingTarget": null,
   "avgBonusReward": 450,
   "normalCostPerGame": 1.6,
+  "ceilingEvUnsupported": "天井は液晶ゲーム数1000G（実ゲーム数で約470G）で、到達時はATではなくファイターズバトルに当選する仕組みのため",
   "addedDate": "2026-08-03",
   "guessElementPath": "setGuessElement/streetFighter6/index.html",
   "cautions": [

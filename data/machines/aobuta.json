@@ -20,6 +20,13 @@
   "resetCeilingTarget": 300,
   "avgBonusReward": 540,
   "normalCostPerGame": 1.6,
+  "ceilingEv": {
+    "hitRate": 350.8,
+    "avgReward": 520,
+    "ceilingReward": 156,
+    "costPerGame": 1.587,
+    "note": "設定2の機械割98.1%・コイン持ち約31.5G/50枚・純増約8.0枚/Gから1回の当たりの平均獲得を逆算し、解析サイト（なな徹）の「等価350G〜でプラス」に近づくよう調整しています。"
+  },
   "addedDate": "2026-09-07",
   "guessElementPath": "setGuessElement/aobuta/index.html",
   "cautions": [

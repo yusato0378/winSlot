@@ -50,6 +50,13 @@
   "resetCeilingTarget": null,
   "avgBonusReward": 400,
   "normalCostPerGame": 1.5,
+  "ceilingEv": {
+    "hitRate": 287.9,
+    "avgReward": 348,
+    "ceilingReward": 375,
+    "costPerGame": 1.462,
+    "note": "設定1の機械割97.6%・コイン持ち34.2G/50枚・純増3.2枚/Gから1回の当たりの平均獲得を逆算し、解析サイト（なな徹）のゲーム数別期待値に合うよう調整しています。天井はモードにより649G・349G・199G・99Gで、ここでは最大の649Gで計算しています。"
+  },
   "addedDate": "2026-04-01",
   "guessElementPath": null,
   "cautions": null

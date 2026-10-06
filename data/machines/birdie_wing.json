@@ -51,6 +51,7 @@
   "resetCeilingTarget": 500,
   "avgBonusReward": 500,
   "normalCostPerGame": 1.6,
+  "ceilingEvUnsupported": "天井がゲーム数ではなく周期（10周期、設定変更後は7周期）で決まるため",
   "addedDate": "2026-06-08",
   "guessElementPath": "setGuessElement/birdieWing/index.html",
   "cautions": null,
