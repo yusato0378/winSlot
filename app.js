@@ -52,6 +52,8 @@ const $specTable     = document.getElementById("spec-table");
 const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
 const $currentGamesGroup = document.getElementById("current-games-group");
+const $resetMode     = document.getElementById("reset-mode");
+const $resetModeRow  = document.getElementById("reset-mode-row");
 const $formRestored  = document.getElementById("form-restored");
 const $formError     = document.getElementById("form-error");
 const $exchangeRate  = document.getElementById("exchange-rate");
@@ -577,6 +579,11 @@ function init() {
     $analyzeForm.addEventListener("input", saveFormState);
     $analyzeForm.addEventListener("input", clearFormError);
     $analyzeForm.addEventListener("input", scheduleLiveUpdate);
+    // チェックボックスは環境によって input が飛ばないことがあるので change でも拾う
+    $resetMode.addEventListener("change", () => {
+        saveFormState();
+        scheduleLiveUpdate();
+    });
 }
 
 // ============================================================
@@ -786,9 +793,20 @@ function collectSuggestionCounts() {
 // ============================================================
 // イベント処理
 // ============================================================
+let lastMachineId = null;
+
 function onMachineChange() {
     const machine = getSelectedMachine();
     renderSuggestionInputs(machine);
+
+    // 朝一の切替はリセット天井のある機種だけに出す。
+    // 別の台に移ったら朝一かどうかも分からないので外す（同じ機種の選び直しでは残す）
+    const hasReset = !!(machine && machine.ceiling && machine.resetCeiling);
+    $resetModeRow.hidden = !hasReset;
+    const id = machine ? machine.id : null;
+    if (!hasReset || id !== lastMachineId) $resetMode.checked = false;
+    lastMachineId = id;
+
     if (!machine) {
         $machineInfoBar.style.display = "none";
         $currentGamesGroup.style.display = "";
@@ -799,7 +817,7 @@ function onMachineChange() {
     $machineTypeBadge.textContent = machine.type === "A" ? "Aタイプ" : "AT / ART機";
 
     if (machine.ceiling) {
-        $machineCeilingInfo.textContent = `天井: ${machine.ceiling}G`;
+        $machineCeilingInfo.textContent = `天井: ${machine.ceiling}G` + (machine.resetCeiling ? `（朝一 ${machine.resetCeiling}G）` : "");
         $machineCeilingInfo.style.display = "";
         $currentGamesGroup.style.display = "";
     } else {
@@ -1012,6 +1030,7 @@ function saveFormState() {
         totalGames: $totalGames.value,
         bigCount: $bigCount.value,
         regCount: $regCount.value,
+        resetMode: $resetMode.checked,
         currentGames: $currentGames.value,
         suggestions,
         analyzed: $resultsSection.style.display !== "none",
@@ -1057,6 +1076,8 @@ function restoreFormState() {
     setValue($bigCount, state.bigCount);
     setValue($regCount, state.regCount);
     setValue($currentGames, state.currentGames);
+    // 切替は表示中（＝リセット天井のある機種）のときだけ戻す
+    $resetMode.checked = state.resetMode === true && !$resetModeRow.hidden;
 
     const suggestions = state.suggestions || {};
     let anySuggestion = false;
@@ -1085,7 +1106,8 @@ function restoreFormState() {
 /** 入力欄（機種名・数値・示唆回数）に何か入っているか */
 function hasFormInput() {
     return Array.from($analyzeForm.querySelectorAll("input"))
-        .some(el => el.type !== "hidden" && !el.readOnly && el.value.trim() !== "");
+        // チェックボックスの value は常に "on" なので、チェックの有無で見る
+        .some(el => el.type === "checkbox" ? el.checked : el.type !== "hidden" && !el.readOnly && el.value.trim() !== "");
 }
 
 function onReset() {
@@ -1109,6 +1131,8 @@ function onReset() {
     $suggestionInputs.style.display = "none";
     $currentGamesGroup.style.display = "";
     $formRestored.hidden = true;
+    $resetModeRow.hidden = true;
+    lastMachineId = null;
     clearFormError();
     renderSuggestionSummary(null);
     clearFormState();
@@ -1459,9 +1483,11 @@ function renderSummary(machine, posteriors, totalGames, currentGames) {
 
     if (machine.ceiling && currentGames > 0) {
         const rate = getExchangeRate();
-        const ev = calculateCeilingEV(machine, currentGames, machine.ceiling, rate.yen);
-        // 朝一リセットで天井が変わる機種は、ここでは通常時の判定を出す（朝一側は下の天井情報に出る）
-        const label = `天井狙い（${currentGames.toLocaleString()}G${machine.resetCeiling ? "・通常時" : ""}）`;
+        const c = activeCeiling(machine);
+        const ev = calculateCeilingEV(machine, currentGames, c.ceiling, rate.yen);
+        // 朝一リセットで天井が変わる機種は、どちらの天井で判定したかを明記する
+        const mode = machine.resetCeiling ? (c.isReset ? "・朝一" : "・通常時") : "";
+        const label = `天井狙い（${currentGames.toLocaleString()}G${mode}）`;
         if (ev) {
             const yen = Math.round(ev.evYen);
             fillSummaryBlock($summaryCeiling, {
@@ -1474,7 +1500,7 @@ function renderSummary(machine, posteriors, totalGames, currentGames) {
             fillSummaryBlock($summaryCeiling, {
                 label,
                 value: "天井到達済み",
-                sub: `現在ゲーム数が天井（${machine.ceiling}G）以上です`,
+                sub: `現在ゲーム数が天井（${c.ceiling}G）以上です`,
             });
         }
     } else {
@@ -1791,6 +1817,14 @@ function renderCeilingBlock(container, label, ceiling, ceilingTarget, machine, c
     });
 }
 
+/** 結果に使う天井。朝一・設定変更後の切替がオンで、その機種にリセット天井があればそちらを使う */
+function activeCeiling(machine) {
+    if ($resetMode.checked && machine.resetCeiling) {
+        return { isReset: true, label: "朝一・設定変更後", ceiling: machine.resetCeiling, target: machine.resetCeilingTarget };
+    }
+    return { isReset: false, label: "通常時", ceiling: machine.ceiling, target: machine.ceilingTarget };
+}
+
 function renderCeiling(machine, currentGames) {
     if (!machine.ceiling) {
         $ceilingSection.style.display = "none";
@@ -1800,13 +1834,17 @@ function renderCeiling(machine, currentGames) {
     $ceilingSection.style.display = "";
     $ceilingResults.innerHTML = "";
 
-    renderCeilingBlock($ceilingResults, "通常時", machine.ceiling, machine.ceilingTarget, machine, currentGames);
+    // 通常時と朝一リセット時を両方並べると判定が2つ出て迷うので、フォームの切替に合う方だけ出す
+    const c = activeCeiling(machine);
+    renderCeilingBlock($ceilingResults, c.label, c.ceiling, c.target, machine, currentGames);
 
     if (machine.resetCeiling) {
-        const sep = document.createElement("hr");
-        sep.className = "ceiling-separator";
-        $ceilingResults.appendChild(sep);
-        renderCeilingBlock($ceilingResults, "朝一リセット時（設定変更後）", machine.resetCeiling, machine.resetCeilingTarget, machine, currentGames);
+        const other = document.createElement("p");
+        other.className = "ceiling-other-mode";
+        other.textContent = c.isReset
+            ? `参考: 通常時の天井は ${machine.ceiling}G（入力欄の「朝一・設定変更後」を外すと切り替わります）`
+            : `参考: 朝一・設定変更後の天井は ${machine.resetCeiling}G（入力欄の「朝一・設定変更後」で切り替えられます）`;
+        $ceilingResults.appendChild(other);
     }
 
     const note = document.createElement("div");
@@ -1814,7 +1852,7 @@ function renderCeiling(machine, currentGames) {
     const rate = getExchangeRate();
     note.textContent = "※ 期待値は設定1を基準に、通常時の消費メダルと天井恩恵から算出した概算値です。" +
         "実際の期待値はモード状態や前兆等により変動します。" +
-        `投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は${rate.label}（1枚${rate.yen.toFixed(2).replace(/.?0+$/, "")}円）で換算。` +
+        `投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は${rate.label}（1枚${rate.yen.toFixed(2).replace(/\.?0+$/, "")}円）で換算。` +
         "判定は期待値がプラスなら「打つべき！」です。" +
         (rate.yen === MEDAL_RENT_YEN ? "" : "狙い目Gは等価を前提にした目安です。");
     $ceilingResults.appendChild(note);

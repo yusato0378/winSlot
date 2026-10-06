@@ -1853,3 +1853,35 @@ body.sheet-open {
     font-size: 0.8rem;
     color: var(--text-muted);
 }
+
+/* ---- 朝一・設定変更後の切替（現在ゲーム数の下） ---- */
+/* .form-group label（ブロック表示）より優先させる */
+.form-group label.reset-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin: 8px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.form-group label.reset-mode[hidden] {
+    display: none;
+}
+
+.reset-mode input[type="checkbox"] {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    accent-color: var(--accent-gold);
+    cursor: pointer;
+}
+
+.ceiling-other-mode {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}

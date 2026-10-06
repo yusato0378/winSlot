@@ -106,6 +106,11 @@
                     <div class="form-group" id="current-games-group">
                         <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
                         <input type="number" id="current-games" min="0" inputmode="numeric" placeholder="例: 350">
+                        <!-- 朝一リセットで天井が変わる機種だけ表示（app.js が出し分け）。オンなら結果をリセット後の天井で計算する -->
+                        <label class="reset-mode" id="reset-mode-row" hidden>
+                            <input type="checkbox" id="reset-mode">
+                            <span>朝一・設定変更後の台として計算 <span class="label-hint">(リセット後の天井を使う)</span></span>
+                        </label>
                         <p class="form-hint">&#128161; 機種名＋現在ゲーム数だけで天井期待値を計算できます</p>
                     </div>
 
