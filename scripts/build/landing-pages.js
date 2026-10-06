@@ -7,6 +7,10 @@ const path = require("path");
 
 const { loadMachines } = require("./machines");
 const { createLastmod } = require("./lastmod");
+const {
+    settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent,
+    discriminationGames, discriminationLevel, DISCRIMINATION_CAP,
+} = require("./machine-insights");
 const SITE_URL = "https://www.pachislot-setting.com";
 
 // data/machines/ から読み込んだデータを格納（buildLandingPages 開始時にセット）
@@ -47,41 +51,91 @@ ${lis}
 
 
 
-function calculateCeilingEV(machine, currentGames, overrideCeiling) {
-    const ceiling = overrideCeiling || machine.ceiling;
-    if (!ceiling || currentGames >= ceiling) return null;
-    const s1key = Object.keys(machine.settings).map(Number).sort((a, b) => a - b)[0];
-    const s1 = machine.settings[s1key];
-    const pBonus = 1 / s1.big;
-    const remaining = ceiling - currentGames;
-    const costPerGame = machine.normalCostPerGame;
-    let ev = 0;
-    for (let g = 1; g <= remaining; g++) {
-        const pFirstAt = Math.pow(1 - pBonus, g - 1) * pBonus;
-        ev += pFirstAt * (machine.avgBonusReward - g * costPerGame);
-    }
-    const pReachCeiling = Math.pow(1 - pBonus, remaining);
-    ev += pReachCeiling * (machine.ceilingReward - remaining * costPerGame);
-    return { evMedals: ev, evYen: ev * 20, pReachCeiling: pReachCeiling * 100 };
-}
-
-function buildEvTable(machine, overrideCeiling, overrideTarget) {
-    const ceiling = overrideCeiling || machine.ceiling;
-    const target = overrideTarget || machine.ceilingTarget;
+/**
+ * ゲーム数別の期待値表（等価）。判定はツール（app.js）と同じく「期待値がプラスか」で付ける。
+ * 解析上の狙い目（ceilingTarget）で付けると、狙い目ちょうどでも期待値マイナスの機種で表の中が矛盾するため。
+ */
+function buildEvTable(machine, ceiling) {
     if (!ceiling) return "";
+    const breakEven = breakEvenGames(machine, ceiling, MEDAL_RENT_YEN);
     const step = 100;
     const rows = [];
     for (let g = 0; g <= ceiling; g += step) {
-        const evData = calculateCeilingEV(machine, g, overrideCeiling);
+        const evData = calculateCeilingEV(machine, g, ceiling);
         if (!evData) continue;
         const yen = Math.round(evData.evYen);
         const sign = yen >= 0 ? "+" : "";
-        const isTarget = g >= target;
         const cls = yen >= 0 ? "positive" : "negative";
-        const judgment = isTarget ? "&#9711;" : g >= target - 100 ? "&#9651;" : "&#10005;";
+        // ○ 期待値プラス / △ あと100G以内でプラスに届く / ✕ それ以外
+        const judgment = yen >= 0 ? "&#9711;"
+            : breakEven !== null && g + step >= breakEven ? "&#9651;" : "&#10005;";
         rows.push(`                            <tr class="${cls}"><td>${g}G</td><td class="${cls}">${sign}${yen.toLocaleString()}円</td><td>${evData.pReachCeiling.toFixed(1)}%</td><td>${judgment}</td></tr>`);
     }
     return rows.join("\n");
+}
+
+/** 期待値がプラスになる回転数の表示（「350G〜」「いつでもプラス」「天井までマイナス」） */
+function formatBreakEven(games) {
+    if (games === null) return "天井までマイナス";
+    if (games === 0) return "0G〜（いつでもプラス）";
+    return `${games}G〜`;
+}
+
+/** 換金率別・期待値がプラスになる回転数（このサイトの計算による独自データ） */
+function buildBreakEvenSection(machine) {
+    const table = breakEvenTable(machine);
+    if (!table) return "";
+    const hasReset = !!machine.resetCeiling;
+    const head = hasReset
+        ? `<tr><th>換金率</th><th>通常時（天井${machine.ceiling}G）</th><th>朝一リセット後（天井${machine.resetCeiling}G）</th></tr>`
+        : `<tr><th>換金率</th><th>期待値プラスの回転数（天井${machine.ceiling}G）</th></tr>`;
+    const rows = table.map(r =>
+        `                            <tr><td>${escapeHtml(r.rate.label)}</td><td>${formatBreakEven(r.normal)}</td>` +
+        (hasReset ? `<td>${formatBreakEven(r.reset)}</td>` : "") + `</tr>`
+    ).join("\n");
+    const equal = table[0];
+    const lead = hasReset
+        ? `等価なら通常時は<strong>${formatBreakEven(equal.normal)}</strong>、朝一リセット後は<strong>${formatBreakEven(equal.reset)}</strong>から期待値がプラスになります。`
+        : `等価なら<strong>${formatBreakEven(equal.normal)}</strong>から期待値がプラスになります。`;
+    return `
+            <section class="card lp-section" id="lp-break-even">
+                <h3 class="card-title"><span class="card-icon">&#128176;</span> 換金率別・期待値がプラスになる回転数</h3>
+                <p class="lp-desc">当サイトの天井期待値の計算で、期待値が0円以上になる現在ゲーム数を換金率ごとに求めました。${lead}非等価のホールほど、打ち始めてよい回転数は深くなります。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table lp-break-even-table">
+                        <thead>
+                            ${head}
+                        </thead>
+                        <tbody>
+${rows}
+                        </tbody>
+                    </table>
+                </div>
+                <p class="lp-note">※ 設定${settingKeysOf(machine)[0]}基準。投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は各換金率で換算し、10G刻みで求めた概算値です。解析上の狙い目（${machine.ceilingTarget}G〜${hasReset ? `、朝一${machine.resetCeilingTarget}G〜` : ""}）はゾーンやモードも考慮した目安のため、ずれることがあります。</p>
+            </section>`;
+}
+
+/** 設定判別に必要なゲーム数の目安（このサイトの計算による独自データ） */
+function buildDiscriminationSection(machine) {
+    const d = discriminationGames(machine);
+    const level = discriminationLevel(d.games);
+    const label = machine.regLabel && machine.settings[d.high].reg !== null && machine.settings[d.low].reg !== null
+        ? `${machine.bigLabel}・${machine.regLabel}`
+        : machine.bigLabel;
+    const value = d.games === null ? `${DISCRIMINATION_CAP.toLocaleString()}G以上` : `約${d.games.toLocaleString()}G`;
+    const advice = d.games === null
+        ? `${escapeHtml(label)}の確率差が小さく、ゲーム数を重ねても設定の差がデータに表れにくい機種です。${machine.suggestions ? "設定示唆演出" : "終了画面や示唆演出などの設定推測要素"}を合わせて判断するのが現実的です。`
+        : `設定${d.high}の台なら、約${d.games.toLocaleString()}G回すと9割の確率で、${escapeHtml(label)}のデータが設定${d.low}より設定${d.high}寄りになります。それより少ないゲーム数では偶然の偏りが大きいので、結果は参考程度に見てください。`;
+    return `
+            <section class="card lp-section" id="lp-discrimination">
+                <h3 class="card-title"><span class="card-icon">&#128202;</span> 設定判別に必要なゲーム数の目安</h3>
+                <div class="lp-ceiling-info">
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">設定${d.low}と設定${d.high}の判別</span><span class="lp-ceil-val">${value}</span></div>
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">見分けやすさ</span><span class="lp-ceil-val">${level}</span></div>
+                </div>
+                <p class="lp-desc">${advice}</p>
+                <p class="lp-note">※ ${escapeHtml(label)}の設定差だけから当サイトで計算した目安です（設定${d.high}の台を打ったとき、データが設定${d.low}より設定${d.high}を支持する確率が9割になるゲーム数）。設定推測要素は含みません。</p>
+            </section>`;
 }
 
 function buildSpecTable(machine) {
@@ -160,8 +214,10 @@ function generatePage(machine) {
     const descKeywords = meta.descKeywords;
 
     const spec = buildSpecTable(machine);
-    const evTableRows = buildEvTable(machine);
-    const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling, machine.resetCeilingTarget) : "";
+    const evTableRows = buildEvTable(machine, machine.ceiling);
+    const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling) : "";
+    const breakEvenSection = hasCeiling ? buildBreakEvenSection(machine) : "";
+    const discriminationSection = buildDiscriminationSection(machine);
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
     const hasCaution = CAUTIONS_BY_ID[machine.id] && CAUTIONS_BY_ID[machine.id].length > 0;
 
@@ -176,9 +232,25 @@ function generatePage(machine) {
             a: `${machine.name}の天井は${machine.ceiling}Gです。狙い目は${machine.ceilingTarget}G〜が目安です。`
         });
     }
+    const be = hasCeiling ? breakEvenTable(machine) : null;
+    if (be) {
+        const at = r => formatBreakEven(r.normal);
+        faqItems.push({
+            q: `${machine.name}は何ゲームから打つと期待値がプラス？`,
+            a: `当サイトの計算では、等価なら${at(be[0])}、5.6枚交換なら${at(be[2])}から期待値がプラスになります` +
+               (machine.resetCeiling ? `（朝一リセット後は等価で${formatBreakEven(be[0].reset)}）` : "") + "。"
+        });
+    }
     faqItems.push({
         q: `${machine.name}の設定${s6key}の${machine.bigLabel}確率は？`,
         a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。`
+    });
+    const disc = discriminationGames(machine);
+    faqItems.push({
+        q: `${machine.name}の設定判別には何ゲーム必要？`,
+        a: disc.games === null
+            ? `当サイトの計算では、${machine.bigLabel}確率の差だけで設定${disc.low}と設定${disc.high}を見分けるには${DISCRIMINATION_CAP.toLocaleString()}G以上かかります。設定推測要素と合わせて判断するのがおすすめです。`
+            : `当サイトの計算では、設定${disc.high}の台なら約${disc.games.toLocaleString()}G回すと、9割の確率でデータが設定${disc.low}より設定${disc.high}寄りになります。`
     });
 
     const faqJsonLd = JSON.stringify({
@@ -203,7 +275,7 @@ function generatePage(machine) {
     const ceilingSection = hasCeiling ? `
             <section class="card lp-section" id="lp-ceiling">
                 <h3 class="card-title"><span class="card-icon">&#127919;</span> 期待値一覧（ゲーム数別）</h3>
-                <p class="lp-desc">設定1基準・等価（1メダル=20円）換算の一覧です。狙い目は<strong>${machine.ceilingTarget}G〜</strong>が目安です。</p>
+                <p class="lp-desc">設定${s1key}基準・等価（1メダル=20円）換算の一覧です。判定は期待値がプラスなら○、あと100G以内でプラスなら△です（設定推測ツールの判定と同じ基準）。解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">天井</span><span class="lp-ceil-val">${machine.ceiling}G</span></div>
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">${machine.ceilingTarget}G〜</span></div>
@@ -225,7 +297,7 @@ ${evTableRows}
     const resetCeilingSection = hasCeiling && machine.resetCeiling ? `
             <section class="card lp-section" id="reset-ceiling-ev">
                 <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の期待値一覧</h3>
-                <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>が目安です。</p>
+                <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。判定の基準は通常時の表と同じです。解析上の狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">${machine.resetCeiling}G</span></div>
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">狙い目</span><span class="lp-ceil-val">${machine.resetCeilingTarget}G〜</span></div>
@@ -258,7 +330,9 @@ ${resetEvTableRows}
     if (hasCaution) tocItems.push(`<li><a href="#cautions">注意点（先に確認）</a></li>`);
     tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
+    tocItems.push(`<li><a href="#lp-discrimination">設定判別に必要なゲーム数の目安</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
+    if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
     if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">期待値一覧（表）</a></li>`);
     if (hasCeiling && machine.resetCeiling) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
     tocItems.push(`<li><a href="#tool">設定推測ツールで計算</a></li>`);
@@ -271,7 +345,9 @@ ${resetEvTableRows}
                 <p class="lp-desc">${escapeHtml(machine.name)}の設定別スペックと、該当機種のみ設定推測要素への導線をまとめています。</p>
             </div>`;
 
-    const ceilingPillarInner = hasCeiling ? `${ceilingSection}
+    // 換金率別の回転数（結論）を先に、ゲーム数別の表（詳細）を後に置く
+    const ceilingPillarInner = hasCeiling ? `${breakEvenSection}
+${ceilingSection}
 ${resetCeilingSection}` : "";
     const ceilingPillarHtml = ceilingPillarInner.trim()
         ? `            <div class="lp-pillar" aria-label="期待値の表">
@@ -366,6 +442,7 @@ ${spec.tbody}
                     </table>
                 </div>
             </section>
+${discriminationSection}
 ${guessElementLink}
             </div>
 
@@ -421,6 +498,13 @@ const lastmodOf = createLastmod(root, ["index.html", "data/machines", "setGuessE
 const lastmodTag = date => (date ? `\n    <lastmod>${date}</lastmod>` : "");
 
 const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>${lastmodTag(lastmodOf("index.html"))}\n    <priority>1.0</priority>\n  </url>`];
+
+// 天井期待値の入力値が出玉率と矛盾する機種（回転数の節を出さない）。データの見直し用にビルドログへ出す
+const inconsistent = MACHINES.filter(m => m.ceiling && !isCeilingModelConsistent(m)).map(m => m.id);
+if (inconsistent.length) {
+    console.warn(`警告: 天井期待値の入力値（avgBonusReward / normalCostPerGame / ceilingReward）が出玉率と矛盾する機種 ${inconsistent.length}件。`
+        + `設定1を0Gから打つ期待値がプラスになるため、期待値がプラスになる回転数は載せません: ${inconsistent.join(", ")}`);
+}
 
 MACHINES.forEach(m => {
     const dir = path.join(machinesDir, m.id);
