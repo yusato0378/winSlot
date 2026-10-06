@@ -101,16 +101,16 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="total-games">総ゲーム数</label>
-                            <input type="number" id="total-games" min="0" placeholder="例: 5000">
+                            <input type="number" id="total-games" min="0" inputmode="numeric" placeholder="例: 5000">
                         </div>
                         <div class="form-group">
                             <label for="big-count" id="big-label">BIG回数</label>
-                            <input type="number" id="big-count" min="0" placeholder="例: 18">
+                            <input type="number" id="big-count" min="0" inputmode="numeric" placeholder="例: 18">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="reg-count" id="reg-label">REG回数</label>
-                        <input type="number" id="reg-count" min="0" placeholder="例: 12">
+                        <input type="number" id="reg-count" min="0" inputmode="numeric" placeholder="例: 12">
                     </div>
 
                     <!-- 設定示唆演出（機種にデータがある場合のみ app.js が動的生成） -->
@@ -119,7 +119,7 @@
                     <!-- 天井計算用 -->
                     <div class="form-group">
                         <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
-                        <input type="number" id="current-games" min="0" placeholder="例: 350">
+                        <input type="number" id="current-games" min="0" inputmode="numeric" placeholder="例: 350">
                     </div>
 
                     <!-- 詳細入力（折り畳み） -->

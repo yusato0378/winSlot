@@ -725,7 +725,15 @@ function onAnalyze(e) {
     scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+/** 入力欄（機種名・数値・示唆回数）に何か入っているか */
+function hasFormInput() {
+    return Array.from($analyzeForm.querySelectorAll("input"))
+        .some(el => el.type !== "hidden" && !el.readOnly && el.value.trim() !== "");
+}
+
 function onReset() {
+    // 打ちながらの誤タップで数えた回数が消えると取り返せないので、入力があるときだけ確認する
+    if (hasFormInput() && !confirm("入力内容をすべて消去しますか？")) return;
     $analyzeForm.reset();
     $machineInput.value = "";
     $machineSelect.value = "";

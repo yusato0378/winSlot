@@ -240,7 +240,8 @@ input[type="email"],
 select {
     width: 100%;
     padding: 10px 14px;
-    font-size: 0.95rem;
+    /* 16px 未満だと iPhone の Safari がタップ時に画面を自動拡大して戻らないため、1rem を下回らないこと */
+    font-size: 1rem;
     font-family: var(--font-main);
     background: var(--bg-input);
     border: 1px solid var(--border-input);
@@ -1061,7 +1062,7 @@ input::placeholder {
 .contact-form textarea {
     width: 100%;
     padding: 10px 14px;
-    font-size: 0.92rem;
+    font-size: 1rem;   /* iPhone の自動拡大を防ぐ（上の input と同じ理由） */
     font-family: var(--font-main);
     background: var(--bg-input);
     border: 1px solid var(--border-input);
@@ -1134,6 +1135,16 @@ input::placeholder {
     .btn-secondary {
         text-align: center;
         justify-content: center;
+    }
+
+    /* 縦並びで「推測する」と同じ幅だと誤タップしやすいので、小さく離して置く */
+    .form-actions #reset-btn {
+        align-self: center;
+        margin-top: 12px;
+        padding: 8px 24px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        background: transparent;
     }
 
     .factor-item,
