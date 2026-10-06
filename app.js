@@ -46,6 +46,7 @@ const $analyzeForm   = document.getElementById("analyze-form");
 const $resetBtn      = document.getElementById("reset-btn");
 const $currentGamesGroup = document.getElementById("current-games-group");
 const $formRestored  = document.getElementById("form-restored");
+const $formError     = document.getElementById("form-error");
 const $suggestionInputs = document.getElementById("suggestion-inputs");
 const $suggestionSummary = document.getElementById("suggestion-summary");
 
@@ -429,9 +430,13 @@ function init() {
         el.addEventListener("input", updateBonusProb);
     });
 
+    attachStepper($bigCount);
+    attachStepper($regCount);
+
     restoreFormState();
     // 示唆欄は機種ごとに作り直されるので、個々の欄ではなくフォームで input をまとめて拾う
     $analyzeForm.addEventListener("input", saveFormState);
+    $analyzeForm.addEventListener("input", clearFormError);
 }
 
 // ============================================================
@@ -577,7 +582,8 @@ function renderSuggestionInputs(machine) {
         content.appendChild(heading);
 
         group.items.forEach(item => {
-            const row = document.createElement("label");
+            // <label> で包むと中の最初のボタン（−1）が label の対象になり、項目名のタップで回数が減ってしまう
+            const row = document.createElement("div");
             row.className = "suggestion-row";
 
             const name = document.createElement("span");
@@ -599,9 +605,11 @@ function renderSuggestionInputs(machine) {
             // 機種由来の文字列を DOM id にすると衝突するので dataset で識別する
             input.dataset.group = group.id;
             input.dataset.item = item.id;
+            input.setAttribute("aria-label", item.label);
 
             row.appendChild(name);
             row.appendChild(input);
+            attachStepper(input, item.label);
             content.appendChild(row);
         });
     });
@@ -695,7 +703,7 @@ function onAnalyze(e) {
  */
 function analyze({ scroll }) {
     const machine = getSelectedMachine();
-    if (!machine) { alert("機種を選択してください"); return false; }
+    if (!machine) { showFormError("機種を選択してください"); return false; }
 
     const totalGames  = parseInt($totalGames.value) || 0;
     const currentGames = parseInt($currentGames.value) || 0;
@@ -708,7 +716,7 @@ function analyze({ scroll }) {
 
     if (!hasTotalGames && !hasCurrentGames) {
         // 天井の無い機種は現在ゲーム数の欄自体を隠しているので、総ゲーム数だけを案内する
-        alert(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
+        showFormError(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
         return false;
     }
 
@@ -737,16 +745,80 @@ function analyze({ scroll }) {
     renderCeiling(machine, currentGames);
 
     if (ceilingOnly && (!machine.ceiling || machine.ceiling <= 0)) {
-        alert("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
+        showFormError("この機種には天井情報がありません。設定推測を行うには総ゲーム数を入力してください。");
         return false;
     }
 
+    clearFormError();
     $resultsSection.style.display = "";
     if (scroll) {
         const scrollTarget = ceilingOnly ? $ceilingSection : $resultsSection;
         scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     return true;
+}
+
+// ============================================================
+// 回数の ＋1 / −1 ボタン
+// 打ちながら数えるときにキーボードを出さずに片手で増減できるようにする。
+// 欄は直接入力もできるまま残す。
+// ============================================================
+let stepperSeq = 0;
+
+/**
+ * input の両脇に −1 / ＋1 ボタンを付ける。
+ * name は読み上げ用の項目名。文字列なら aria-label に、省略時は input の <label> を
+ * aria-labelledby で参照する（BIG/REG は機種によってラベル文言が変わるため）。
+ */
+function attachStepper(input, name) {
+    const wrap = document.createElement("div");
+    wrap.className = "stepper";
+    input.parentNode.insertBefore(wrap, input);
+
+    const makeButton = (delta, text) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "stepper-btn " + (delta > 0 ? "stepper-plus" : "stepper-minus");
+        btn.textContent = text;
+        btn.id = `stepper-${++stepperSeq}`;
+        if (typeof name === "string") {
+            btn.setAttribute("aria-label", `${name}を1${delta > 0 ? "増やす" : "減らす"}`);
+        } else {
+            const label = input.id && document.querySelector(`label[for="${input.id}"]`);
+            if (label && label.id) btn.setAttribute("aria-labelledby", `${label.id} ${btn.id}`);
+        }
+        btn.addEventListener("click", () => stepInput(input, delta));
+        return btn;
+    };
+
+    wrap.appendChild(makeButton(-1, "−1"));
+    wrap.appendChild(input);
+    wrap.appendChild(makeButton(1, "＋1"));
+}
+
+function stepInput(input, delta) {
+    const current = parseInt(input.value, 10) || 0;
+    if (delta < 0 && current <= 0) return;   // 0 未満にはしない（空欄のまま −1 を押しても何もしない）
+    input.value = String(current + delta);
+    // 合算確率の再計算・入力の保存は input イベントで動くので、手入力と同じ経路に乗せる
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    // 押したことが目で分かるよう一瞬光らせる（連打でも毎回光るよう付け直す）
+    input.classList.remove("stepped");
+    void input.offsetWidth;
+    input.classList.add("stepped");
+}
+
+// ============================================================
+// 入力エラーの表示（alert は操作が止まるので、推測ボタンの真上に出す）
+// ============================================================
+function showFormError(message) {
+    $formError.textContent = message;
+    $formError.hidden = false;
+}
+
+function clearFormError() {
+    $formError.hidden = true;
+    $formError.textContent = "";
 }
 
 // ============================================================
@@ -870,6 +942,7 @@ function onReset() {
     $suggestionInputs.style.display = "none";
     $currentGamesGroup.style.display = "";
     $formRestored.hidden = true;
+    clearFormError();
     renderSuggestionSummary(null);
     clearFormState();
 }

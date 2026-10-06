@@ -16,7 +16,31 @@ class MiniEl {
         this._text = "";
     }
 
-    appendChild(child) { this.children.push(child); return child; }
+    appendChild(child) {
+        if (child.parentNode) child.parentNode.removeChild(child);
+        this.children.push(child);
+        child.parentNode = this;
+        return child;
+    }
+
+    removeChild(child) {
+        this.children = this.children.filter(c => c !== child);
+        child.parentNode = null;
+        return child;
+    }
+
+    insertBefore(child, ref) {
+        if (child.parentNode) child.parentNode.removeChild(child);
+        const i = this.children.indexOf(ref);
+        this.children.splice(i < 0 ? this.children.length : i, 0, child);
+        child.parentNode = this;
+        return child;
+    }
+
+    // ＋1 / −1 ボタン（attachStepper）が使う。属性は保持するだけ、イベントは発火させない
+    setAttribute(name, value) { (this._attrs = this._attrs || {})[name] = String(value); }
+    getAttribute(name) { return this._attrs && name in this._attrs ? this._attrs[name] : null; }
+    addEventListener() {}
 
     set innerHTML(v) { if (v === "") this.children = []; this._html = v; }
     get innerHTML() { return this._html || ""; }
