@@ -8,12 +8,19 @@
  */
 const { execFileSync } = require("child_process");
 
-/** @returns {Map<string, string> | null} パス → 最終コミット日（YYYY-MM-DD） */
+/**
+ * @returns {{ dates: Map<string, string> } | { reason: string }}
+ *   取れたら パス → 最終コミット日（YYYY-MM-DD）、取れなければ理由（ビルドログに出して原因を追えるようにする）
+ */
 function loadGitDates(root, paths) {
+    const git = args => execFileSync("git", args, {
+        cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"],
+    });
     try {
-        const git = args => execFileSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-        if (git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") return null;
-
+        // Vercel は浅いクローンが既定。環境変数 VERCEL_DEEP_CLONE=true で全履歴を取得する
+        if (git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") {
+            return { reason: "浅いクローンで履歴が途中までしかない（VERCEL_DEEP_CLONE=true で全履歴になる）" };
+        }
         const dates = new Map();
         let current = null;
         // log は新しい順に出るので、各パスについて最初に出てきた日付が最終更新日
@@ -21,9 +28,12 @@ function loadGitDates(root, paths) {
             if (line.startsWith("@")) current = line.slice(1).trim();
             else if (line.trim() && current && !dates.has(line.trim())) dates.set(line.trim(), current);
         }
-        return dates;
+        if (dates.size === 0) return { reason: "git log が空（対象ファイルのコミットが見つからない）" };
+        return { dates };
     } catch (e) {
-        return null;
+        // git が無い・.git が無い・所有者違いで拒否される（safe.directory）等。git の出力の1行目を残す
+        const detail = String((e.stderr && e.stderr.toString()) || e.message).trim().split("\n")[0];
+        return { reason: `git を実行できない: ${detail}` };
     }
 }
 
@@ -33,8 +43,13 @@ function loadGitDates(root, paths) {
  * @returns {(...files: string[]) => string | null} 渡したファイルのうち最も新しいコミット日。取れなければ null
  */
 function createLastmod(root, paths) {
-    const dates = loadGitDates(root, paths);
-    if (!dates) console.log("Sitemap: git の履歴が取れない（浅いクローン等）ため、機種・設定推測要素ページの lastmod を省きます");
+    const result = loadGitDates(root, paths);
+    const dates = result.dates || null;
+    if (dates) {
+        console.log(`Sitemap: lastmod を git の履歴から取得（${dates.size}ファイル）`);
+    } else {
+        console.log(`Sitemap: 機種・設定推測要素ページの lastmod を省きます。理由: ${result.reason}`);
+    }
     return (...files) => {
         if (!dates) return null;
         const found = files.map(f => dates.get(f.replace(/\\/g, "/"))).filter(Boolean).sort();
