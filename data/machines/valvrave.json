@@ -1,6 +1,7 @@
 {
   "id": "valvrave",
   "name": "革命機ヴァルヴレイヴ",
+  "aliases": ["ばるぶれいぶ", "ヴヴヴ", "かくめいき"],
   "type": "AT",
   "bigLabel": "CZ初当たり",
   "regLabel": "ボーナス",

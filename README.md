@@ -265,7 +265,7 @@ git config --unset core.hooksPath
 
 ### 追加手順
 
-1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。  
+1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。機種名に漢字・英字が含まれる場合は、機種選択の検索用に `aliases`（読みや略称。例: `["ほくと", "ほくとのけん"]`）も入れる。カタカナ・ひらがな・全角半角の違いは検索側で吸収するので、機種名の表記と同じ語は不要。  
 2. `data/machines/index.json` の配列に **`id` を1行追加**する（この配列の順序が一覧・サイトマップの表示順になる）。  
 3. `node scripts/build.js` を実行 → `dist/machines/{id}/index.html`・`dist/machines-data.js`・`dist/sitemap.xml` が更新される。  
 4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  

@@ -1,6 +1,7 @@
 {
   "id": "okidoki_duo",
   "name": "スマスロ 沖ドキ！DUO アンコール",
+  "aliases": ["おきどき", "でゅお"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": null,

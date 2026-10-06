@@ -1,6 +1,7 @@
 {
   "id": "garei_zero_re",
   "name": "Lパチスロ 喰霊-零-Re",
+  "aliases": ["がれい"],
   "type": "AT",
   "bigLabel": "ボーナス合算",
   "regLabel": null,

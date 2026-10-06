@@ -1,6 +1,7 @@
 {
   "id": "juoh",
   "name": "スマスロ 獣王",
+  "aliases": ["じゅうおう"],
   "type": "AT",
   "bigLabel": "サバンナチャンス初当たり",
   "regLabel": null,

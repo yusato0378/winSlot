@@ -1,6 +1,7 @@
 {
   "id": "smaslo_hanabi",
   "name": "スマスロ ハナビ",
+  "aliases": ["花火"],
   "type": "A",
   "bigLabel": "BIG",
   "regLabel": "REG",

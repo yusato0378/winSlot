@@ -1,6 +1,7 @@
 {
   "id": "paripi_koumei",
   "name": "スマスロパリピ孔明",
+  "aliases": ["こうめい"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "CZ初当たり",

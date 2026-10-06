@@ -1,6 +1,7 @@
 {
   "id": "yajikita_mairu",
   "name": "スマスロ やじきた道中記参る！",
+  "aliases": ["やじきたどうちゅうき"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "関所チャレンジ（CZ）",

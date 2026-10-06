@@ -1,6 +1,7 @@
 {
   "id": "sengoku_otome5",
   "name": "L 戦国乙女5 業火を穿つ宿焔の双刃",
+  "aliases": ["せんごくおとめ5", "おとめ5"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

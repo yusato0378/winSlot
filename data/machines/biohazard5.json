@@ -1,6 +1,7 @@
 {
   "id": "biohazard5",
   "name": "スマスロ バイオハザード5",
+  "aliases": ["ばいお5"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

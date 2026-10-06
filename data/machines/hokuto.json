@@ -1,6 +1,7 @@
 {
   "id": "hokuto",
   "name": "スマスロ北斗の拳",
+  "aliases": ["ほくと", "ほくとのけん"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

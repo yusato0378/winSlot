@@ -1,6 +1,7 @@
 {
   "id": "ultraman_final",
   "name": "L ULTRAMAN 最終決戦",
+  "aliases": ["うるとらまん", "さいしゅうけっせん"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

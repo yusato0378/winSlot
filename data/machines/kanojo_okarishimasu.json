@@ -1,6 +1,7 @@
 {
   "id": "kanojo_okarishimasu",
   "name": "Lパチスロ 彼女、お借りします",
+  "aliases": ["かのかり", "かのじょおかりします"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "CZ初当たり",

@@ -1,6 +1,7 @@
 {
   "id": "nangoku_sodachi_special",
   "name": "L南国育ち SPECIAL",
+  "aliases": ["なんごく", "なんごくそだち"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": null,

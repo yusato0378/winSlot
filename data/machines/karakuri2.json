@@ -1,6 +1,7 @@
 {
   "id": "karakuri2",
   "name": "Lパチスロ からくりサーカス2",
+  "aliases": ["からさー2"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

@@ -1,6 +1,7 @@
 {
   "id": "shinuchi_yoshimune",
   "name": "真打 吉宗",
+  "aliases": ["しんうち", "よしむね"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ",

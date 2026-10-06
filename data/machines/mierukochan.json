@@ -1,6 +1,7 @@
 {
   "id": "mierukochan",
   "name": "パチスロ見える子ちゃん",
+  "aliases": ["みえるこちゃん"],
   "type": "AT",
   "bigLabel": "ボーナス合算",
   "regLabel": null,

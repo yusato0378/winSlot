@@ -1,6 +1,7 @@
 {
   "id": "yoshimune",
   "name": "吉宗",
+  "aliases": ["よしむね"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": null,

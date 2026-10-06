@@ -1,6 +1,7 @@
 {
   "id": "kabaneri_unato",
   "name": "スマスロ 甲鉄城のカバネリ 海門決戦",
+  "aliases": ["こうてつじょう", "うなと", "かいもんけっせん"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": "ST",

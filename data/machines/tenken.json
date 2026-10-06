@@ -1,6 +1,7 @@
 {
   "id": "tenken",
   "name": "転生したら剣でした",
+  "aliases": ["てんけん", "転剣", "てんせいしたらけんでした"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

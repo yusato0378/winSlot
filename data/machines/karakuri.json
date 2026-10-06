@@ -1,6 +1,7 @@
 {
   "id": "karakuri",
   "name": "からくりサーカス",
+  "aliases": ["からさー"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ合算",

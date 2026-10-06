@@ -1,6 +1,7 @@
 {
   "id": "eva_bt",
   "name": "エヴァンゲリオン 約束の扉",
+  "aliases": ["えば", "えばんげりおん", "やくそくのとびら"],
   "type": "A",
   "bigLabel": "BIG",
   "regLabel": "REG",

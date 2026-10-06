@@ -1,6 +1,7 @@
 {
   "id": "monkey_turn_v",
   "name": "モンキーターンV",
+  "aliases": ["もんきーたーん5"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

@@ -1,6 +1,7 @@
 {
   "id": "valvrave2",
   "name": "L革命機ヴァルヴレイヴ2",
+  "aliases": ["ばるぶれいぶ2", "ヴヴヴ2", "かくめいき"],
   "type": "AT",
   "bigLabel": "初当たり合算",
   "regLabel": null,

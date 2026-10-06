@@ -1,6 +1,7 @@
 {
   "id": "mogumogu_furinkazan",
   "name": "Lモグモグ風林火山 大海戦の巻",
+  "aliases": ["ふうりんかざん"],
   "type": "AT",
   "bigLabel": "CZ初当たり",
   "regLabel": "AT初当たり",

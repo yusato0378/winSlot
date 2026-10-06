@@ -1,6 +1,7 @@
 {
   "id": "crea_hihouden",
   "name": "クレアの秘宝伝 BT",
+  "aliases": ["ひほうでん"],
   "type": "A",
   "bigLabel": "BIG",
   "regLabel": "REG",

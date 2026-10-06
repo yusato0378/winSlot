@@ -1,6 +1,7 @@
 {
   "id": "tokyo_revengers",
   "name": "スマスロ 東京リベンジャーズ",
+  "aliases": ["東リベ", "とうりべ", "とうきょうりべんじゃーず"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": "AT初当たり",

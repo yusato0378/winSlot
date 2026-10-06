@@ -1,6 +1,7 @@
 {
   "id": "bofuri",
   "name": "スマスロ痛いのは嫌なので防御力に極振りしたいと思います。",
+  "aliases": ["防振り", "ぼうふり"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

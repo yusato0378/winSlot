@@ -1,6 +1,7 @@
 {
   "id": "gundam_unicorn_kakusei_drive",
   "name": "Lパチスロ 機動戦士ガンダムユニコーン 覚醒DRIVE",
+  "aliases": ["かくせいどらいぶ"],
   "type": "AT",
   "bigLabel": "CZ",
   "regLabel": "AT初当たり",

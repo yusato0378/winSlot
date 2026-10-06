@@ -1,6 +1,7 @@
 {
   "id": "koukaku",
   "name": "スマスロ 攻殻機動隊",
+  "aliases": ["こうかく", "こうかくきどうたい"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

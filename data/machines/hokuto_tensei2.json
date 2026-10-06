@@ -1,6 +1,7 @@
 {
   "id": "hokuto_tensei2",
   "name": "北斗の拳 転生の章2",
+  "aliases": ["ほくと", "てんせい2"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

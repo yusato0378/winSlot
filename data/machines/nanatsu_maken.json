@@ -1,6 +1,7 @@
 {
   "id": "nanatsu_maken",
   "name": "L七つの魔剣が支配する",
+  "aliases": ["ななつのまけん", "七魔剣"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "ST初当たり",

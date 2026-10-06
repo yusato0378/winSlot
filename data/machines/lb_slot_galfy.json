@@ -1,6 +1,7 @@
 {
   "id": "lb_slot_galfy",
   "name": "LBスロットGALFY",
+  "aliases": ["ぎゃるふぃー", "がるふぃー"],
   "type": "AT",
   "bigLabel": "BIG",
   "regLabel": "REG",

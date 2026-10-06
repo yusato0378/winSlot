@@ -1,6 +1,7 @@
 {
   "id": "onimusha3",
   "name": "スマスロ 新鬼武者3",
+  "aliases": ["おにむしゃ", "しんおにむしゃ"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

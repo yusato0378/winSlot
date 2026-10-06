@@ -1,6 +1,7 @@
 {
   "id": "tekken6",
   "name": "スマスロ 鉄拳6",
+  "aliases": ["てっけん"],
   "type": "AT",
   "bigLabel": "ボーナス",
   "regLabel": "AT初当たり",

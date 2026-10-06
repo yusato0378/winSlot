@@ -57,66 +57,287 @@ function getMachineGroup(m) {
 
 let comboActiveIdx = -1;
 
-function buildComboItems(filter) {
-    $comboList.innerHTML = "";
-    comboActiveIdx = -1;
-    const query = (filter || "").toLowerCase();
-    const groups = {};
+const MACHINE_BY_ID = new Map(MACHINES.map(m => [m.id, m]));
 
-    MACHINES.forEach(m => {
-        if (query && !m.name.toLowerCase().includes(query) && !m.id.includes(query)) return;
-        const g = getMachineGroup(m);
-        if (!groups[g]) groups[g] = [];
-        groups[g].push(m);
-    });
+// ---- 検索語の正規化 ----
+// 全角/半角・カタカナ/ひらがな・大文字/小文字・空白や記号の有無を同一視する。
+// 「すますろ ほくと」「スマスロ北斗」「ＳＢＪ」がどれも当たるようにするため。
+const SEARCH_STRIP_CHAR = /[\s・!！?？\-－‐ー～〜~:：☆★.．,，'’"“”()（）［］\[\]、。]/;
 
-    const groupOrder = ["Aタイプ", "AT / ART機"];
-    let hasItems = false;
+/**
+ * 1文字ずつ正規化し、正規化後の各文字が元の何文字目から来たかを map に残す。
+ * map は機種名の一致箇所を元の表記のままハイライトするために使う。
+ */
+function normalizeWithMap(str) {
+    let text = "";
+    const map = [];
+    for (let i = 0; i < str.length; i++) {
+        for (const ch of str[i].normalize("NFKC").toLowerCase()) {
+            if (SEARCH_STRIP_CHAR.test(ch)) continue;
+            const code = ch.charCodeAt(0);
+            text += (code >= 0x30a1 && code <= 0x30f6) ? String.fromCharCode(code - 0x60) : ch;
+            map.push(i);
+        }
+    }
+    return { text, map };
+}
 
-    groupOrder.forEach(gName => {
-        const items = groups[gName];
-        if (!items || items.length === 0) return;
-        hasItems = true;
+/** 検索語の正規化。半角カナの濁点（ｶﾞ）を1文字にまとめるため、先に文字列全体を NFKC にかける */
+function normalizeSearch(str) {
+    return normalizeWithMap(str.normalize("NFKC")).text;
+}
 
-        const label = document.createElement("li");
-        label.className = "combo-group-label";
-        label.textContent = `【${gName}】`;
-        $comboList.appendChild(label);
+let searchIndex = null;
 
-        items.forEach(m => {
-            const li = document.createElement("li");
-            li.className = "combo-item";
-            li.dataset.id = m.id;
-            if (query) {
-                const idx = m.name.toLowerCase().indexOf(query);
-                if (idx >= 0) {
-                    li.innerHTML =
-                        escapeHtml(m.name.substring(0, idx)) +
-                        '<span class="combo-match">' + escapeHtml(m.name.substring(idx, idx + query.length)) + '</span>' +
-                        escapeHtml(m.name.substring(idx + query.length));
-                } else {
-                    li.textContent = m.name;
-                }
-            } else {
-                li.textContent = m.name;
+/** 機種名・別名の正規化結果。入力のたびに作り直さないよう初回に一度だけ作る */
+function getSearchIndex() {
+    if (!searchIndex) {
+        searchIndex = new Map(MACHINES.map(m => [m.id, {
+            name: normalizeWithMap(m.name),
+            aliases: (m.aliases || []).map(a => ({ raw: a, text: normalizeSearch(a) })),
+        }]));
+    }
+    return searchIndex;
+}
+
+/** 入力を空白で区切り、語ごとに正規化する（空白自体は正規化で消えるため先に分ける） */
+function toSearchTokens(input) {
+    return (input || "").split(/\s+/).map(normalizeSearch).filter(Boolean);
+}
+
+/**
+ * 機種が全ての検索語に当たるか（語ごとに機種名・別名・id のどれかに当たればよい）。
+ * 「すますろ ほくと」のように機種名の一部と別名を組み合わせた入力でも当たるようにするため。
+ * 当たれば { start, end }（機種名内の最初の一致範囲）と { alias }（当たった別名）を持つ
+ * オブジェクトを、外れなら null を返す。
+ */
+function matchMachine(m, tokens) {
+    const entry = getSearchIndex().get(m.id);
+    const hit = {};
+    for (const token of tokens) {
+        const idx = entry.name.text.indexOf(token);
+        if (idx >= 0) {
+            if (hit.start === undefined) {
+                hit.start = entry.name.map[idx];
+                hit.end = entry.name.map[idx + token.length - 1] + 1;
             }
-            li.addEventListener("mousedown", e => { e.preventDefault(); selectComboItem(m); });
-            $comboList.appendChild(li);
-        });
-    });
+            continue;
+        }
+        const alias = entry.aliases.find(a => a.text.includes(token));
+        if (alias) {
+            if (!hit.alias) hit.alias = alias.raw;
+            continue;
+        }
+        if (!m.id.includes(token)) return null;
+    }
+    return hit;
+}
 
-    if (!hasItems) {
-        const li = document.createElement("li");
-        li.className = "combo-no-match";
-        li.textContent = "該当する機種がありません";
-        $comboList.appendChild(li);
+// ---- 絞り込みボタン ----
+const NEW_MACHINE_DAYS = 60;
+
+function isNewMachine(m) {
+    if (!m.addedDate) return false;
+    return Date.now() - new Date(m.addedDate).getTime() <= NEW_MACHINE_DAYS * 24 * 60 * 60 * 1000;
+}
+
+// group が同じボタン同士は排他（Aタイプ と AT・ART を同時に押すと必ず0件になるため）
+const COMBO_FILTERS = [
+    { id: "a",       label: "Aタイプ",  group: "type", test: m => m.type === "A" },
+    { id: "at",      label: "AT・ART",  group: "type", test: m => m.type !== "A" },
+    { id: "ceiling", label: "天井あり",               test: m => !!m.ceiling },
+    { id: "suggest", label: "示唆あり",               test: m => !!m.suggestions },
+    { id: "new",     label: "新台",                   test: isNewMachine },
+];
+
+const activeFilters = new Set();
+
+function passesFilters(m) {
+    return COMBO_FILTERS.every(f => !activeFilters.has(f.id) || f.test(m));
+}
+
+function toggleFilter(filter) {
+    if (activeFilters.has(filter.id)) {
+        activeFilters.delete(filter.id);
+    } else {
+        if (filter.group) {
+            COMBO_FILTERS.forEach(f => { if (f.group === filter.group) activeFilters.delete(f.id); });
+        }
+        activeFilters.add(filter.id);
+    }
+    buildComboItems($machineInput.value);
+    $comboList.scrollTop = 0;
+}
+
+function buildFilterBar() {
+    const li = document.createElement("li");
+    li.className = "combo-filters";
+    li.setAttribute("role", "group");
+    li.setAttribute("aria-label", "機種の絞り込み");
+    COMBO_FILTERS.forEach(f => {
+        // 該当0件のボタンは出さない（新台が一定期間追加されないと新台ボタンが空振りになる）
+        if (!MACHINES.some(f.test)) return;
+        const on = activeFilters.has(f.id);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "combo-filter" + (on ? " on" : "");
+        btn.textContent = f.label;
+        btn.tabIndex = -1;
+        btn.setAttribute("aria-pressed", String(on));
+        // mousedown で処理して入力欄のフォーカスを保つ（blur で一覧が閉じるのを防ぐ）
+        btn.addEventListener("mousedown", e => { e.preventDefault(); toggleFilter(f); });
+        li.appendChild(btn);
+    });
+    return li;
+}
+
+// ---- お気に入り・最近使った機種（この端末のブラウザにだけ保存） ----
+const STORAGE_KEY_FAVORITES = "winslot:favorites";
+const STORAGE_KEY_RECENT = "winslot:recent";
+const RECENT_MAX = 5;
+
+let favoriteIds = [];
+let recentIds = [];
+
+/** 保存済みの機種 id 一覧を読む。収録から外れた機種の id は捨てる */
+function loadIdList(key) {
+    try {
+        const ids = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(ids) ? ids.filter(id => MACHINE_BY_ID.has(id)) : [];
+    } catch (e) {
+        return [];
     }
 }
 
-function escapeHtml(str) {
-    const d = document.createElement("div");
-    d.textContent = str;
-    return d.innerHTML;
+function saveIdList(key, ids) {
+    try {
+        localStorage.setItem(key, JSON.stringify(ids));
+    } catch (e) {
+        // プライベートモード等で保存できなくても、このページを開いている間は動く
+    }
+}
+
+function rememberRecent(id) {
+    recentIds = [id].concat(recentIds.filter(x => x !== id)).slice(0, RECENT_MAX);
+    saveIdList(STORAGE_KEY_RECENT, recentIds);
+}
+
+function lastComboItem(id) {
+    const items = $comboList.querySelectorAll(`.combo-item[data-id="${id}"]`);
+    return items[items.length - 1] || null;
+}
+
+function toggleFavorite(id) {
+    // 一覧の上部にお気に入り欄が増減しても、押した行が画面上で動かないよう位置を合わせ直す。
+    // 機種別の欄（最後に出る行）は常に存在するので、それを基準にする。
+    const before = lastComboItem(id);
+    const offset = before ? before.offsetTop - $comboList.scrollTop : 0;
+
+    favoriteIds = favoriteIds.includes(id)
+        ? favoriteIds.filter(x => x !== id)
+        : favoriteIds.concat(id);
+    saveIdList(STORAGE_KEY_FAVORITES, favoriteIds);
+    buildComboItems($machineInput.value);
+
+    const after = lastComboItem(id);
+    if (before && after) $comboList.scrollTop = after.offsetTop - offset;
+}
+
+// ---- 一覧の組み立て ----
+function createComboItem(m, hit) {
+    const li = document.createElement("li");
+    li.className = "combo-item";
+    li.dataset.id = m.id;
+
+    const name = document.createElement("span");
+    name.className = "combo-name";
+    if (hit.start !== undefined) {
+        const mark = document.createElement("span");
+        mark.className = "combo-match";
+        mark.textContent = m.name.substring(hit.start, hit.end);
+        name.append(m.name.substring(0, hit.start), mark, m.name.substring(hit.end));
+    } else {
+        name.textContent = m.name;
+    }
+    if (hit.alias) {
+        const alias = document.createElement("span");
+        alias.className = "combo-alias";
+        alias.textContent = hit.alias;
+        name.append(alias);
+    }
+    li.appendChild(name);
+
+    const fav = favoriteIds.includes(m.id);
+    const star = document.createElement("button");
+    star.type = "button";
+    star.className = "combo-fav" + (fav ? " on" : "");
+    star.textContent = fav ? "★" : "☆";
+    star.tabIndex = -1;
+    star.setAttribute("aria-pressed", String(fav));
+    star.setAttribute("aria-label", fav ? `${m.name} をお気に入りから外す` : `${m.name} をお気に入りに追加`);
+    star.addEventListener("mousedown", e => {
+        e.preventDefault();
+        e.stopPropagation();   // 行の mousedown（＝機種選択）まで伝えない
+        toggleFavorite(m.id);
+    });
+    li.appendChild(star);
+
+    li.addEventListener("mousedown", e => { e.preventDefault(); selectComboItem(m); });
+    return li;
+}
+
+function appendComboLabel(text) {
+    const label = document.createElement("li");
+    label.className = "combo-group-label";
+    label.textContent = text;
+    $comboList.appendChild(label);
+}
+
+function buildComboItems(filter) {
+    $comboList.innerHTML = "";
+    comboActiveIdx = -1;
+    $comboList.appendChild(buildFilterBar());
+
+    const tokens = toSearchTokens(filter);
+    const query = tokens.length > 0;
+    const hits = new Map();
+    MACHINES.forEach(m => {
+        if (!passesFilters(m)) return;
+        const hit = query ? matchMachine(m, tokens) : {};
+        if (hit) hits.set(m.id, hit);
+    });
+
+    const sections = [];
+    // お気に入り・最近使った機種は文字入力前の一覧だけに出す（検索結果で同じ機種が二重に並ばないように）
+    if (!query) {
+        const favs = favoriteIds.filter(id => hits.has(id));
+        const recents = recentIds.filter(id => hits.has(id) && !favoriteIds.includes(id));
+        if (favs.length) sections.push(["★お気に入り", favs]);
+        if (recents.length) sections.push(["最近使った機種", recents]);
+    }
+    ["Aタイプ", "AT / ART機"].forEach(gName => {
+        const ids = MACHINES.filter(m => hits.has(m.id) && getMachineGroup(m) === gName).map(m => m.id);
+        if (ids.length) sections.push([gName, ids]);
+    });
+
+    if (!query && !favoriteIds.length && hits.size) {
+        const tip = document.createElement("li");
+        tip.className = "combo-tip";
+        tip.textContent = "☆ を押すとお気に入りとして一番上に固定できます";
+        $comboList.appendChild(tip);
+    }
+
+    sections.forEach(([label, ids]) => {
+        appendComboLabel(`【${label}】`);
+        ids.forEach(id => $comboList.appendChild(createComboItem(MACHINE_BY_ID.get(id), hits.get(id))));
+    });
+
+    if (!hits.size) {
+        const li = document.createElement("li");
+        li.className = "combo-no-match";
+        li.textContent = activeFilters.size ? "条件に合う機種がありません（絞り込みを外してください）" : "該当する機種がありません";
+        $comboList.appendChild(li);
+    }
 }
 
 function openCombo() {
@@ -132,6 +353,7 @@ function closeCombo() {
 function selectComboItem(machine) {
     $machineInput.value = machine.name;
     $machineSelect.value = machine.id;
+    rememberRecent(machine.id);
     closeCombo();
     onMachineChange();
 }
@@ -150,7 +372,7 @@ function comboKeyNav(e) {
         e.preventDefault();
         if (comboActiveIdx >= 0 && items[comboActiveIdx]) {
             const id = items[comboActiveIdx].dataset.id;
-            const m = MACHINES.find(x => x.id === id);
+            const m = MACHINE_BY_ID.get(id);
             if (m) selectComboItem(m);
         }
         return;
@@ -166,6 +388,9 @@ function comboKeyNav(e) {
 }
 
 function initCombo() {
+    favoriteIds = loadIdList(STORAGE_KEY_FAVORITES);
+    recentIds = loadIdList(STORAGE_KEY_RECENT);
+
     $machineInput.addEventListener("focus", openCombo);
     $machineInput.addEventListener("input", () => {
         $machineSelect.value = "";

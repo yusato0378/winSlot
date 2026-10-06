@@ -1,6 +1,7 @@
 {
   "id": "magireco",
   "name": "スマスロ マギアレコード 魔法少女まどか☆マギカ外伝",
+  "aliases": ["マギレコ", "まどマギ"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "AT初当たり",

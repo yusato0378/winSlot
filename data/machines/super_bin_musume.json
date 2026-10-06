@@ -1,6 +1,7 @@
 {
   "id": "super_bin_musume",
   "name": "Lすーぱぁびん娘",
+  "aliases": ["びんむすめ"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

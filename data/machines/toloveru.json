@@ -1,6 +1,7 @@
 {
   "id": "toloveru",
   "name": "L ToLOVEるダークネス",
+  "aliases": ["とらぶる"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

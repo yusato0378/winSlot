@@ -1,6 +1,7 @@
 {
   "id": "mushoku",
   "name": "L 無職転生 ～異世界行ったら本気だす～",
+  "aliases": ["むしょく", "むしょくてんせい"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

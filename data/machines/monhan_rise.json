@@ -1,6 +1,7 @@
 {
   "id": "monhan_rise",
   "name": "スマスロ モンスターハンターライズ",
+  "aliases": ["モンハン"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

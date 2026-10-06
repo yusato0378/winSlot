@@ -1,6 +1,7 @@
 {
   "id": "jashin_chan",
   "name": "L邪神ちゃんドロップキック",
+  "aliases": ["じゃしんちゃん"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "AT初当たり",

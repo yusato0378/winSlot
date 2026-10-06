@@ -1,6 +1,7 @@
 {
   "id": "iza_banchou",
   "name": "いざ！番長",
+  "aliases": ["ばんちょう"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": null,

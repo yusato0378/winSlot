@@ -1,6 +1,7 @@
 {
   "id": "hihouden",
   "name": "スマスロ 秘宝伝",
+  "aliases": ["ひほうでん"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": null,

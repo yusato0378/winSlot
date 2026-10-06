@@ -1,6 +1,7 @@
 {
   "id": "zettai4",
   "name": "L 絶対衝激IV",
+  "aliases": ["ぜったいしょうげき", "絶対衝撃"],
   "type": "AT",
   "bigLabel": "ボーナス",
   "regLabel": "AT初当たり",

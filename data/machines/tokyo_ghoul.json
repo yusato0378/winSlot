@@ -1,6 +1,7 @@
 {
   "id": "tokyo_ghoul",
   "name": "L 東京喰種",
+  "aliases": ["とうきょうぐーる"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

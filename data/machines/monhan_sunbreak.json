@@ -1,6 +1,7 @@
 {
   "id": "monhan_sunbreak",
   "name": "スマスロ モンスターハンターライズ：サンブレイク",
+  "aliases": ["モンハン"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

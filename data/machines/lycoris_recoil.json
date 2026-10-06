@@ -1,6 +1,7 @@
 {
   "id": "lycoris_recoil",
   "name": "スマスロ リコリス・リコイル",
+  "aliases": ["リコリコ"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

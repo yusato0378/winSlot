@@ -1,6 +1,7 @@
 {
   "id": "tondemo_skill",
   "name": "スマスロ とんでもスキルで異世界放浪メシ",
+  "aliases": ["とんすき", "いせかいほうろうめし"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": "CZ初当たり",

@@ -1,6 +1,7 @@
 {
   "id": "azurlane",
   "name": "L アズールレーン THE ANIMATION",
+  "aliases": ["あずれん"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

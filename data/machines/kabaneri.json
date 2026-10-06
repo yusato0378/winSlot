@@ -1,6 +1,7 @@
 {
   "id": "kabaneri",
   "name": "甲鉄城のカバネリ",
+  "aliases": ["こうてつじょう"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": "ST",

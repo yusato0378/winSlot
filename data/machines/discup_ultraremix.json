@@ -1,6 +1,7 @@
 {
   "id": "discup_ultraremix",
   "name": "A-SLOT+ ディスクアップ ULTRAREMIX",
+  "aliases": ["うるとらりみっくす"],
   "type": "A",
   "bigLabel": "BIG",
   "regLabel": "REG",

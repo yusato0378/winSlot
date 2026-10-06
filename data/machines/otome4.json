@@ -1,6 +1,7 @@
 {
   "id": "otome4",
   "name": "L戦国乙女4 戦乱に閃く炯眼の軍師",
+  "aliases": ["せんごくおとめ4", "おとめ4"],
   "type": "AT",
   "bigLabel": "ボーナス+AT合算",
   "regLabel": "AT初当たり",

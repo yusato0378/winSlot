@@ -1,6 +1,7 @@
 {
   "id": "kyokou_suiritr",
   "name": "L 虚構推理",
+  "aliases": ["きょこうすいり"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": "CZ",

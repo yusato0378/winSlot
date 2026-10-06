@@ -1,6 +1,7 @@
 {
   "id": "goblin_slayer2",
   "name": "スマスロ ゴブリンスレイヤーⅡ",
+  "aliases": ["ゴブスレ", "ごぶりんすれいやー2"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

@@ -1,6 +1,7 @@
 {
   "id": "sengoku_collection6",
   "name": "L戦国コレクション6",
+  "aliases": ["せんこれ", "戦コレ", "せんごくこれくしょん6"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

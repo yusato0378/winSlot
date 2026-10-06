@@ -1,6 +1,7 @@
 {
   "id": "baki",
   "name": "Ｌ範馬刃牙",
+  "aliases": ["ばき", "はんまばき"],
   "type": "AT",
   "bigLabel": "ボーナス",
   "regLabel": "AT初当たり",

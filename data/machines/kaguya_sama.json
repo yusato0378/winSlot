@@ -1,6 +1,7 @@
 {
   "id": "kaguya_sama",
   "name": "かぐや様は告らせたい",
+  "aliases": ["かぐやさま"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
   "regLabel": null,

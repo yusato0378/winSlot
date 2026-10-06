@@ -132,6 +132,12 @@ function loadMachines(root) {
 
         validateSuggestions(id, m, ranks);
 
+        // aliases は機種選択の検索語（略称・読み）。文字列以外が混ざると検索の正規化で落ちる。
+        if (m.aliases !== undefined &&
+            (!Array.isArray(m.aliases) || m.aliases.some(a => typeof a !== "string" || !a.trim()))) {
+            throw new Error(`${id}.json aliases: 空でない文字列の配列にしてください`);
+        }
+
         if (m.guessElementPath) GUESS_ELEMENT_PAGES[id] = m.guessElementPath;
         if (m.cautions && m.cautions.length) CAUTIONS_BY_ID[id] = m.cautions;
 

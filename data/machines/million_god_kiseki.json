@@ -1,6 +1,7 @@
 {
   "id": "million_god_kiseki",
   "name": "スマスロ ミリオンゴッド-神々の軌跡-",
+  "aliases": ["かみがみのきせき"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

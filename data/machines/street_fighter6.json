@@ -1,6 +1,7 @@
 {
   "id": "street_fighter6",
   "name": "スマスロ ストリートファイター6",
+  "aliases": ["スト6"],
   "type": "AT",
   "bigLabel": "ファイターズバトル初当たり",
   "regLabel": "ボーナス初当たり",

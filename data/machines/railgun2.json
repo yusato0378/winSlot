@@ -1,6 +1,7 @@
 {
   "id": "railgun2",
   "name": "スマスロ とある科学の超電磁砲2",
+  "aliases": ["れーるがん", "とあるかがく"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": "CZ初当たり",

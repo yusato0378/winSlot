@@ -1,6 +1,7 @@
 {
   "id": "bakemonogatari",
   "name": "スマスロ 化物語",
+  "aliases": ["ばけものがたり"],
   "type": "AT",
   "bigLabel": "AT初当たり",
   "regLabel": null,

@@ -1,6 +1,7 @@
 {
   "id": "banchou4",
   "name": "押忍！番長4",
+  "aliases": ["ばんちょう", "おす"],
   "type": "AT",
   "bigLabel": "初当たり",
   "regLabel": null,
