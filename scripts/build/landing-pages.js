@@ -81,17 +81,22 @@ function formatBreakEven(games) {
     return `${games}G〜`;
 }
 
+/** 表のセル用。375px 幅で朝一リセット後の列まで収まるよう、補足の括弧書きは改行する */
+function formatBreakEvenCell(games) {
+    return formatBreakEven(games).replace("（", "<br>（");
+}
+
 /** 換金率別・期待値がプラスになる回転数（このサイトの計算による独自データ） */
 function buildBreakEvenSection(machine) {
     const table = breakEvenTable(machine);
     if (!table) return "";
     const hasReset = !!machine.resetCeiling;
     const head = hasReset
-        ? `<tr><th>換金率</th><th>通常時（天井${machine.ceiling}G）</th><th>朝一リセット後（天井${machine.resetCeiling}G）</th></tr>`
-        : `<tr><th>換金率</th><th>期待値プラスの回転数（天井${machine.ceiling}G）</th></tr>`;
+        ? `<tr><th>換金率</th><th>通常時<br>天井${machine.ceiling}G</th><th>朝一リセット後<br>天井${machine.resetCeiling}G</th></tr>`
+        : `<tr><th>換金率</th><th>期待値プラスの回転数<br>天井${machine.ceiling}G</th></tr>`;
     const rows = table.map(r =>
-        `                            <tr><td>${escapeHtml(r.rate.label)}</td><td>${formatBreakEven(r.normal)}</td>` +
-        (hasReset ? `<td>${formatBreakEven(r.reset)}</td>` : "") + `</tr>`
+        `                            <tr><td>${escapeHtml(r.rate.label)}</td><td>${formatBreakEvenCell(r.normal)}</td>` +
+        (hasReset ? `<td>${formatBreakEvenCell(r.reset)}</td>` : "") + `</tr>`
     ).join("\n");
     const equal = table[0];
     const lead = hasReset
