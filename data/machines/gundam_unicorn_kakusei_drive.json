@@ -60,7 +60,9 @@
   },
   "addedDate": "2026-04-20",
   "guessElementPath": "setGuessElement/gundamUnicornKakuseiDrive/index.html",
-  "cautions": null,
+  "cautions": [
+    "CZ間800Gの天井のほかに、CZ 6回スルー後の7回目のCZでAT確定となるスルー天井があります。当ツールの期待値はCZ間天井のみで計算しています。解析サイト（1geki）の目安では、CZ 4スルー以上ならCZ間のゲーム数が浅くても狙い目です。"
+  ],
   "suggestions": {
     "trialSource": "reg",
     "groups": [
