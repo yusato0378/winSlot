@@ -51,9 +51,19 @@
   "resetCeilingTarget": null,
   "avgBonusReward": 300,
   "normalCostPerGame": 2,
+  "ceilingEv": {
+    "hitRate": 556,
+    "avgReward": 733,
+    "ceilingReward": 222,
+    "costPerGame": 1.613,
+    "note": "天井はCZ間天井（液晶ゲーム数1000G＋αでCZ当選）で、ゲーム数加算があるため実際に回したゲーム数とは一致しません。解析サイト（なな徹：設定1・コイン持ち31G/50枚）の液晶ゲーム数別の期待値に合うよう、当たり確率と1回の当たりの平均獲得を調整しています。"
+  },
   "addedDate": "2026-03-01",
   "guessElementPath": "setGuessElement/valvrave/index.html",
-  "cautions": null,
+  "cautions": [
+    "天井はCZ間天井（1000G＋αでCZ当選）です。ゲーム数加算があるため、データカウンターではなく液晶に表示されているゲーム数を入力してください。",
+    "CZ間天井とは別に、ボーナス・AT間天井（実ゲーム数1500G＋α）とCZ 7回連続失敗のスルー天井があります。当ツールの期待値はCZ間天井のみで計算しています。"
+  ],
   "suggestions": {
     "trialSource": "reg",
     "groups": [

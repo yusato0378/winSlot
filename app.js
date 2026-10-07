@@ -1325,13 +1325,14 @@ function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDet
  * 天井期待値の計算に使う値（scripts/build/machine-insights.js の ceilingEvParams と同じ）。
  * `ceilingEv` がある機種は、公表の機械割や解析サイトの期待値に合わせて調整した値を使う
  * （設定判別に使う settings[].big は CZ 確率などで、天井のカウントが戻る当たりと違う機種があるため）。
+ * isReset は朝一・設定変更後の天井で計算するとき。`ceilingEv.resetAvgReward` があればその平均獲得を使う。
  */
-function ceilingEvParams(machine) {
+function ceilingEvParams(machine, isReset = false) {
     const s1key = Object.keys(machine.settings).map(Number).sort((a, b) => a - b)[0];
     const s1 = machine.settings[s1key];
     const ev = machine.ceilingEv;
     return ev ? {
-        hitRate: ev.hitRate, avgReward: ev.avgReward, ceilingReward: ev.ceilingReward, costPerGame: ev.costPerGame,
+        hitRate: ev.hitRate, avgReward: (isReset && ev.resetAvgReward) || ev.avgReward, ceilingReward: ev.ceilingReward, costPerGame: ev.costPerGame,
     } : {
         hitRate: s1.big, avgReward: machine.avgBonusReward, ceilingReward: machine.ceilingReward, costPerGame: machine.normalCostPerGame,
     };
@@ -1341,7 +1342,7 @@ function calculateCeilingEV(machine, currentGames, overrideCeiling, exchangeYen 
     const ceiling = overrideCeiling || machine.ceiling;
     if (!ceiling || currentGames >= ceiling) return null;
 
-    const params = ceilingEvParams(machine);
+    const params = ceilingEvParams(machine, !!machine.resetCeiling && ceiling === machine.resetCeiling);
     const ceilingReward = params.ceilingReward;
     const pBonus = 1 / params.hitRate;
     const remaining = ceiling - currentGames;

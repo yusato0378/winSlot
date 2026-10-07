@@ -265,7 +265,7 @@ git config --unset core.hooksPath
 
 ### 追加手順
 
-1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。機種名に漢字・英字が含まれる場合は、機種選択の検索用に `aliases`（読みや略称。例: `["ほくと", "ほくとのけん"]`）も入れる。カタカナ・ひらがな・全角半角の違いは検索側で吸収するので、機種名の表記と同じ語は不要。天井期待値は `settings` の最低設定の `big` を「天井のカウントが戻る当たり」として計算する。CZ 確率を `big` にしている機種や天井が CZ 行きの機種など、この前提が合わない場合は `ceilingEv`（`hitRate`・`avgReward`・`ceilingReward`・`costPerGame`・出典を書く `note`）で計算用の値を別に持たせる。周期天井・ランダム天井など、ゲーム数で決まる当たりの形で表せない機種は `ceilingEvUnsupported` に理由を書くと、ツールと機種ページで期待値を出さなくなる。設定1を0Gから打つ期待値がプラスになる機種（出玉率と矛盾）はビルドが警告する。  
+1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。機種名に漢字・英字が含まれる場合は、機種選択の検索用に `aliases`（読みや略称。例: `["ほくと", "ほくとのけん"]`）も入れる。カタカナ・ひらがな・全角半角の違いは検索側で吸収するので、機種名の表記と同じ語は不要。天井期待値は `settings` の最低設定の `big` を「天井のカウントが戻る当たり」として計算する。CZ 確率を `big` にしている機種や天井が CZ 行きの機種など、この前提が合わない場合は `ceilingEv`（`hitRate`・`avgReward`・`ceilingReward`・`costPerGame`・出典を書く `note`）で計算用の値を別に持たせる。朝一リセット後だけ1回の平均獲得が違う機種は `ceilingEv.resetAvgReward` も入れる。周期天井・ランダム天井など、ゲーム数で決まる当たりの形で表せない機種は `ceilingEvUnsupported` に理由を書くと、ツールと機種ページで期待値を出さなくなる。設定1を0Gから打つ期待値がプラスになる機種（出玉率と矛盾）はビルドが警告する。  
 2. `data/machines/index.json` の配列に **`id` を1行追加**する（この配列の順序が一覧・サイトマップの表示順になる）。  
 3. `node scripts/build.js` を実行 → `dist/machines/{id}/index.html`・`dist/machines-data.js`・`dist/sitemap.xml` が更新される。  
 4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  

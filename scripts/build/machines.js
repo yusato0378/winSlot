@@ -124,6 +124,10 @@ function validateCeilingEv(id, m) {
     for (const key of ["hitRate", "avgReward", "ceilingReward", "costPerGame"]) {
         if (typeof ev[key] !== "number" || !(ev[key] > 0)) fail(`ceilingEv.${key}: 正の数を指定してください`);
     }
+    if (ev.resetAvgReward !== undefined) {
+        if (typeof ev.resetAvgReward !== "number" || !(ev.resetAvgReward > 0)) fail("ceilingEv.resetAvgReward: 正の数を指定してください");
+        if (!m.resetCeiling) fail("ceilingEv.resetAvgReward: 朝一リセット天井（resetCeiling）の無い機種には不要です");
+    }
     if (ev.hitRate <= 1) fail("ceilingEv.hitRate: 確率の分母（1/x の x）を指定してください");
     if (typeof ev.note !== "string" || !ev.note.trim()) fail("ceilingEv.note: 値の出典・調整方法を書いてください");
 }
