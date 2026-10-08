@@ -1,0 +1,30 @@
+{
+  "id": "kaijin",
+  "name": "L海人",
+  "aliases": ["うみんちゅ", "かいじん"],
+  "type": "AT",
+  "bigLabel": "BIG初当たり",
+  "regLabel": "REG初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 471.3, "reg": 531.7, "koyaku": null, "payout": 97.7 },
+    "2": { "big": 453.2, "reg": 534.6, "koyaku": null, "payout": 98.6 },
+    "4": { "big": 390, "reg": 512.2, "koyaku": null, "payout": 103.3 },
+    "5": { "big": 355.9, "reg": 527.3, "koyaku": null, "payout": 106.2 },
+    "6": { "big": 347.5, "reg": 524.2, "koyaku": null, "payout": 112 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": 130,
+  "normalCostPerGame": 1.6,
+  "addedDate": "2026-10-19",
+  "guessElementPath": "setGuessElement/kaijin/index.html",
+  "cautions": [
+    "2026年10月19日導入。設定3は非搭載のため、当ツールの推測は設定1・2・4・5・6の5段階です。入力は通常時からの初当たり（BIG・REG別）で、IREGUIなどでストックしたボーナスは含めません。",
+    "判別の主軸はBIG初当たり（設定1で1/471.3、設定6で1/347.5＝約1.36倍差）。REG初当たりは設定差がほとんどありません。",
+    "天井は前回のボーナスで変わり、BIG後999G・REG後777G・設定変更後555Gです。ストック込みの平均獲得枚数が導入前で未解析のため、天井期待値は表示していません。"
+  ]
+}

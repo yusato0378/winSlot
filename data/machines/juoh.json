@@ -14,7 +14,7 @@
     "6": { "big": 279.7, "reg": null, "koyaku": null, "payout": 114.3 }
   },
   "ceiling": 999,
-  "ceilingTarget": 620,
+  "ceilingTarget": 590,
   "ceilingReward": 450,
   "resetCeiling": 599,
   "resetCeilingTarget": 220,
@@ -30,6 +30,23 @@
   },
   "addedDate": "2026-10-05",
   "guessElementPath": "setGuessElement/juoh/index.html",
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "trophy",
+        "label": "サミートロフィー",
+        "exclusive": false,
+        "items": [
+          { "id": "bronze", "label": "銅", "rank": "ge2" },
+          { "id": "silver", "label": "銀（設定3非搭載のため実質設定4以上）", "rank": "ge4" },
+          { "id": "gold", "label": "金", "rank": "ge4" },
+          { "id": "kirin", "label": "キリン柄", "rank": "ge5" },
+          { "id": "rainbow", "label": "虹", "rank": "eq6" }
+        ]
+      }
+    ]
+  },
   "cautions": [
     "設定3は非搭載で、代わりに設定Lが搭載されています（下パネルが常時点滅する台が設定L。スペック非公表）。当ツールの推測は設定1・2・4・5・6の5段階です。",
     "天井は999G＋α（AT当選）。設定変更時は599G＋αに短縮され、一度サバ連に移行するまで599G天井が続きます。電源OFF→ONでは天井は引き継がれます。",

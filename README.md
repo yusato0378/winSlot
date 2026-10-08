@@ -555,6 +555,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `tenten` | L転生王女と天才令嬢の魔法革命 |
 | `paripi_koumei` | スマスロパリピ孔明 |
 | `monhan_sunbreak` | スマスロ モンスターハンターライズ：サンブレイク |
+| `kaijin` | L海人 |
 
 ### Aタイプ
 

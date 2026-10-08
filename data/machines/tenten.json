@@ -4,15 +4,15 @@
   "aliases": ["てんてん", "てんせいおうじょ"],
   "type": "AT",
   "bigLabel": "ボーナス初当たり",
-  "regLabel": null,
+  "regLabel": "CZ初当たり",
   "koyakuName": null,
   "settings": {
-    "1": { "big": 320, "reg": null, "koyaku": null, "payout": 97.9 },
-    "2": { "big": 314.7, "reg": null, "koyaku": null, "payout": 98.9 },
-    "3": { "big": 294.2, "reg": null, "koyaku": null, "payout": 101 },
-    "4": { "big": 276.9, "reg": null, "koyaku": null, "payout": 103.6 },
-    "5": { "big": 260, "reg": null, "koyaku": null, "payout": 107.6 },
-    "6": { "big": 246.4, "reg": null, "koyaku": null, "payout": 110.3 }
+    "1": { "big": 320, "reg": 171.5, "koyaku": null, "payout": 97.9 },
+    "2": { "big": 314.7, "reg": 168.3, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 294.2, "reg": 154.9, "koyaku": null, "payout": 101 },
+    "4": { "big": 276.9, "reg": 147, "koyaku": null, "payout": 103.6 },
+    "5": { "big": 260, "reg": 140.4, "koyaku": null, "payout": 107.6 },
+    "6": { "big": 246.4, "reg": 136, "koyaku": null, "payout": 110.3 }
   },
   "ceiling": 510,
   "ceilingTarget": 350,
@@ -23,9 +23,42 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-10-05",
   "guessElementPath": "setGuessElement/tenten/index.html",
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "bonusHighEnd",
+        "label": "ボーナス高確終了画面",
+        "exclusive": true,
+        "items": [
+          { "id": "none", "label": "木陰の2人（デフォルト）", "rank": "default" },
+          { "id": "tilty", "label": "ティルティ", "rank": "even" },
+          { "id": "backs", "label": "2人の後ろ姿", "rank": "highWeak" },
+          { "id": "lying", "label": "寝転ぶ2人", "rank": "highStrong" },
+          { "id": "ka", "label": "可スタンプ", "rank": "ge2" },
+          { "id": "kichi", "label": "吉スタンプ", "rank": "ge3" },
+          { "id": "ryo", "label": "良スタンプ", "rank": "ge4" },
+          { "id": "yu", "label": "優スタンプ", "rank": "ge5" },
+          { "id": "goku", "label": "極スタンプ", "rank": "eq6" }
+        ]
+      },
+      {
+        "id": "payoutDisplay",
+        "label": "獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          { "id": "222", "label": "222枚OVER", "rank": "ge2" },
+          { "id": "333", "label": "333枚OVER", "rank": "ge3" },
+          { "id": "456", "label": "456枚OVER", "rank": "ge4" },
+          { "id": "1010", "label": "1010枚OVER", "rank": "ge5" },
+          { "id": "666", "label": "666枚OVER", "rank": "eq6" }
+        ]
+      }
+    ]
+  },
   "cautions": [
     "天井は2種類あります。ボーナス間510G＋α（ボーナス当選）と、CZ間410G＋α（CZ当選）です。設定変更時はそれぞれ410G＋α・310G＋αに短縮されます。当ツールの天井期待値はボーナス間天井を基準にしています。電源OFF→ONでは天井を引き継ぎます。",
-    "判別の主軸はボーナス初当たり（設定1で1/320.0、設定6で1/246.4＝約1.30倍差）。CZ確率は導入前で未公表のため入力項目にしていません。",
+    "判別の主軸はボーナス初当たり（設定1で1/320.0、設定6で1/246.4＝約1.30倍差）。CZ確率（1/171.5→1/136.0＝約1.26倍差）も併せて入力してください。ボーナス高確終了画面のスタンプ（可＝設定2以上〜極＝設定6）と獲得枚数表示は設定濃厚の示唆です。",
     "ボーナス1回あたりの平均獲得枚数は導入前で未解析のため、純増（約4.5枚/G）・コイン持ち（約32G/50枚）・出玉率からの見積もり値を使用しています。期待値は目安として扱ってください。"
   ]
 }

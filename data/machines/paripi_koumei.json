@@ -23,6 +23,28 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-10-05",
   "guessElementPath": "setGuessElement/paripiKoumei/index.html",
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "stEnd",
+        "label": "ST終了画面",
+        "exclusive": true,
+        "items": [
+          { "id": "none", "label": "デフォルト①〜③", "rank": "default" },
+          { "id": "kabe", "label": "KABE太人", "rank": "evenWeak" },
+          { "id": "koumei", "label": "孔明", "rank": "even" },
+          { "id": "eikoEvening", "label": "英子（夕方）", "rank": "highWeak" },
+          { "id": "eikoNight", "label": "英子（夜）", "rank": "highStrong" },
+          { "id": "eikoSekitoba", "label": "英子＆赤兎馬カンフー", "rank": "ge2" },
+          { "id": "taitoKoumei", "label": "太人＆孔明", "rank": "ge3" },
+          { "id": "eikoNanami", "label": "英子＆七海", "rank": "ge4" },
+          { "id": "koumeiRed", "label": "孔明（赤背景）", "rank": "ge5" },
+          { "id": "kerobot", "label": "ケロボットの着ぐるみ（孔明＆英子）", "rank": "eq6" }
+        ]
+      }
+    ]
+  },
   "cautions": [
     "天井はボーナス間1009G＋αと、CZ間のステージチェンジ20周期（約32G周期）の2種類です。設定変更後とST駆け抜け後はボーナス間天井が428G＋αに短縮されます。",
     "判別の主軸はボーナス初当たり（設定1で1/309.9、設定6で1/228.8＝約1.35倍差）。CZ確率（1/213.6→1/171.7＝約1.24倍差）も併せて入力してください。初当たりの約66%がCZ経由です。",
