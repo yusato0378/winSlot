@@ -447,14 +447,14 @@ ${ceilingPillarInner}
     <meta property="og:type" content="article">
     <meta property="og:url" content="${paths.url}">
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:image" content="${SITE_URL}/og-default.png">
+    <meta property="og:image" content="${paths.url}og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="パチスロ設定推測・天井期待値ツール Setting Analyzer Pro">
+    <meta property="og:image:alt" content="${escapeHtml(machine.name)}の天井・設定差 | Setting Analyzer Pro">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
     <meta name="twitter:description" content="${escapeHtml(descKeywords)}">
-    <meta name="twitter:image" content="${SITE_URL}/og-default.png">
+    <meta name="twitter:image" content="${paths.url}og.png">
     <link rel="canonical" href="${paths.url}">
     <title>${escapeHtml(pageTitle)}</title>
     <link rel="stylesheet" href="${paths.styleHref}">

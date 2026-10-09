@@ -5,7 +5,7 @@
  * 1. dist/ をクリアして静的ファイルをコピー（許可リスト方式。plan.md や reports/ 等は配信しない）
  * 2. 機種データと示唆ランクから dist/machines-data.js・suggestion-rates.js を生成（ブラウザ app.js 用）
  * 3. 解説記事を dist/guide/ に生成
- * 4. 機種LP・setGuessElement/index.html・sitemap.xml を dist/ に生成
+ * 4. 機種LP・setGuessElement/index.html・sitemap.xml を dist/ に生成し、機種LPごとの OGP 画像（og.png）を描く
  * 5. setGuessElement 各ページ（dist 上のコピー）に SEO パッチを適用
  * 6. 「…/index.html」へのリンクをディレクトリ URL に書き換え（/index.html は / へ転送しているため）
  */
@@ -16,6 +16,7 @@ const { loadMachines } = require("./build/machines");
 const { buildArticles } = require("./build/articles");
 const { buildLandingPages } = require("./build/landing-pages");
 const { patchSetGuessPages } = require("./build/setguess-seo");
+const { buildOgImages } = require("./build/og-images");
 
 const ROOT = path.join(__dirname, "..");
 const OUT = path.join(ROOT, "dist");
@@ -153,6 +154,7 @@ function main() {
     writeMachinesData(data.MACHINES, data.SUGGESTION_RANKS);
     buildArticles(ROOT, OUT);
     buildLandingPages(ROOT, OUT, data);
+    buildOgImages(OUT, data);
     patchSetGuessPages(OUT, data);
     rewriteIndexLinks(OUT);
 

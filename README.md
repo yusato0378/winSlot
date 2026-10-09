@@ -425,6 +425,7 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 - **`sitemap.xml`**: `dist/sitemap.xml` としてビルド時に生成されます。新ドメインへ移行した場合は生成元（`scripts/build/landing-pages.js` の `SITE_URL`）を本番ドメインに統一してください。  
 - **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。  
 - **`og-default.png`**: トップの SNS シェア用（`og:image` / `twitter:image`）。差し替える場合は 1200×630 前後の PNG を推奨します。
+- **機種ページの OGP 画像**: `scripts/build/og-images.js` がビルド時に `dist/machines/{id}/og.png`（1200×630）を機種ごとに描きます。機種名・天井・等価で期待値がプラスになる回転数・機械割を、機種ページと同じ計算から入れます（解析待ちの機種は「解析待ち」バッジと導入日）。SVG を `@resvg/resvg-js` で PNG にしており（X は SVG の og:image を表示しないため）、フォントは `assets/fonts/` の Noto Sans JP Bold（SIL OFL、`OFL.txt`）だけを使います。Vercel のビルド環境に日本語フォントが無いので、このファイルは消さないでください。全機種の描画には約45秒かかりますが、描いた画像は `node_modules/.cache/og-images/` に残し、機種データ（画像に載る値）が変わった機種だけ描き直します。
 
 ### Lighthouse（パフォーマンスの目安）
 
