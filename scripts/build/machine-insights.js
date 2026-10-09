@@ -5,7 +5,7 @@
  *   ブラウザ側と数字が食い違わないよう、式を変えるときは両方を揃えること
  *   （dist を読む検証で全機種の一致を確かめている）。
  * - 期待値がプラスになる回転数: 上の期待値が 0 以上になる最小の現在ゲーム数（10G 刻み）。
- * - 設定判別に必要なゲーム数: app.js の estimateSettings と同じ尤度モデル
+ * - 1日回したときの設定の見分けやすさ: app.js の estimateSettings と同じ尤度モデル
  *   （BIG と REG をそれぞれ1ゲームごとの独立な当選として扱う）で、最低設定と最高設定を比べる。
  */
 
@@ -109,10 +109,9 @@ function breakEvenTable(machine) {
     }));
 }
 
-// 標準正規分布の 90% 点。「9割の確率で」の 9割
-const Z_90 = 1.2816;
-// これを超えるゲーム数は「ゲーム数だけではほぼ見分けられない」として数字を出さない
-const DISCRIMINATION_CAP = 20000;
+// 人が1日に回せるのは多くて1万G前後。「1日」は打ち始めから閉店までしっかり回した場合の目安
+const DAY_GAMES = 8000;
+const HALF_DAY_GAMES = 3000;
 
 /**
  * 1ゲームあたりの対数尤度比（高設定 / 低設定）の平均と分散。真の設定が高設定のときの値。
@@ -126,12 +125,22 @@ function bernoulliLlr(pH, pL) {
     return { mean, variance };
 }
 
+/** 標準正規分布の累積分布関数（Abramowitz & Stegun 7.1.26。誤差 1.5e-7 以下） */
+function normalCdf(x) {
+    const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2);
+    const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+    const erf = 1 - poly * Math.exp(-(x * x) / 2);
+    return x >= 0 ? (1 + erf) / 2 : (1 - erf) / 2;
+}
+
 /**
- * 最高設定の台を打ったとき、何ゲーム回せば「9割の確率で、データが最低設定より最高設定寄りになる」か。
- * 対数尤度比の和を正規近似して求める（N = (z・σ/μ)²）。
- * @returns {{ low: number, high: number, games: number | null }} games は100G単位に切り上げ。上限超えは null
+ * 最高設定の台を games ゲーム回したとき、データが最低設定より最高設定寄りになる確率。
+ * 対数尤度比の和を正規近似して求める（P = Φ(√N・μ/σ)）。
+ * 必要なゲーム数を出す形だと、多くの機種で人が1日に回せる量（約1万G）を超えて現実的でないため、
+ * ゲーム数を固定して確率で見せる。
+ * @returns {{ low: number, high: number, prob: number | null }} prob は 0〜1。設定差が無ければ null
  */
-function discriminationGames(machine) {
+function discriminationProbability(machine, games) {
     const keys = settingKeysOf(machine);
     const low = keys[0];
     const high = keys[keys.length - 1];
@@ -149,17 +158,16 @@ function discriminationGames(machine) {
     add(1 / H.big, 1 / L.big);
     if (H.reg !== null && L.reg !== null) add(1 / H.reg, 1 / L.reg);
 
-    if (mean <= 0) return { low, high, games: null };
-    const n = (Z_90 * Math.sqrt(variance) / mean) ** 2;
-    const games = Math.ceil(n / 100) * 100;
-    return { low, high, games: games > DISCRIMINATION_CAP ? null : games };
+    if (!(mean > 0)) return { low, high, prob: null };
+    return { low, high, prob: normalCdf(Math.sqrt(games) * mean / Math.sqrt(variance)) };
 }
 
-/** 1日しっかり回せるゲーム数の目安との比較で、見分けやすさを一言で */
-function discriminationLevel(games) {
-    if (games === null) return "ゲーム数だけではほぼ見分けられない";
-    if (games <= 3000) return "比較的見分けやすい";
-    if (games <= 8000) return "1日しっかり回すと傾向が見える";
+/** 1日（DAY_GAMES）回したときの確率から、見分けやすさを一言で */
+function discriminationLevel(prob) {
+    if (prob === null) return "ゲーム数では見分けられない";
+    if (prob >= 0.9) return "1日回せばかなり見分けられる";
+    if (prob >= 0.8) return "1日回すと傾向が見える";
+    if (prob >= 0.7) return "1日回してもまだ迷いやすい";
     return "ゲーム数だけでは見分けにくい";
 }
 
@@ -173,7 +181,8 @@ module.exports = {
     breakEvenGames,
     breakEvenTable,
     isCeilingModelConsistent,
-    discriminationGames,
+    discriminationProbability,
     discriminationLevel,
-    DISCRIMINATION_CAP,
+    DAY_GAMES,
+    HALF_DAY_GAMES,
 };

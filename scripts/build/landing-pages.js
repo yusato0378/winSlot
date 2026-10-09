@@ -9,7 +9,7 @@ const { loadMachines } = require("./machines");
 const { createLastmod } = require("./lastmod");
 const {
     settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent, isCeilingEvSupported,
-    discriminationGames, discriminationLevel, DISCRIMINATION_CAP,
+    discriminationProbability, discriminationLevel, DAY_GAMES, HALF_DAY_GAMES,
 } = require("./machine-insights");
 const SITE_URL = "https://www.pachislot-setting.com";
 
@@ -121,26 +121,45 @@ ${rows}
             </section>`;
 }
 
-/** 設定判別に必要なゲーム数の目安（このサイトの計算による独自データ） */
-function buildDiscriminationSection(machine) {
-    const d = discriminationGames(machine);
-    const level = discriminationLevel(d.games);
-    const label = machine.regLabel && machine.settings[d.high].reg !== null && machine.settings[d.low].reg !== null
+/** 確率の表示。四捨五入で100%にならないよう、99%を超えたら「99%以上」 */
+function formatPercent(prob) {
+    return prob >= 0.99 ? "99%以上" : `約${Math.round(prob * 100)}%`;
+}
+
+/** 判別に使う当たりの名前（REG 側に設定差が無い・値が無い機種は BIG 側だけ） */
+function discriminationLabel(machine, d) {
+    return machine.regLabel && machine.settings[d.high].reg !== null && machine.settings[d.low].reg !== null
         ? `${machine.bigLabel}・${machine.regLabel}`
         : machine.bigLabel;
-    const value = d.games === null ? `${DISCRIMINATION_CAP.toLocaleString()}G以上` : `約${d.games.toLocaleString()}G`;
-    const advice = d.games === null
-        ? `${escapeHtml(label)}の確率差が小さく、ゲーム数を重ねても設定の差がデータに表れにくい機種です。${machine.suggestions ? "設定示唆演出" : "終了画面や示唆演出などの設定推測要素"}を合わせて判断するのが現実的です。`
-        : `設定${d.high}の台なら、約${d.games.toLocaleString()}G回すと9割の確率で、${escapeHtml(label)}のデータが設定${d.low}より設定${d.high}寄りになります。それより少ないゲーム数では偶然の偏りが大きいので、結果は参考程度に見てください。`;
+}
+
+/**
+ * 1日回したときの設定の見分けやすさ（このサイトの計算による独自データ）。
+ * 「何G必要か」だと多くの機種で1日に回せる量（約1万G）を超えてしまうので、1日・半日回したときの確率で見せる。
+ */
+function buildDiscriminationSection(machine) {
+    const day = discriminationProbability(machine, DAY_GAMES);
+    const half = discriminationProbability(machine, HALF_DAY_GAMES);
+    const level = discriminationLevel(day.prob);
+    const label = discriminationLabel(machine, day);
+    const guessHint = machine.suggestions ? "設定示唆演出" : "終了画面や示唆演出などの設定推測要素";
+    const value = day.prob === null ? "設定差なし" : formatPercent(day.prob);
+    const advice = day.prob === null
+        ? `設定${day.low}と設定${day.high}で${escapeHtml(label)}の確率が同じため、ゲーム数を重ねても見分けられません。${guessHint}で判断してください。`
+        : `設定${day.high}の台を1日（${DAY_GAMES.toLocaleString()}G）回すと、${formatPercent(day.prob)}の確率で${escapeHtml(label)}のデータが設定${day.low}より設定${day.high}寄りになります。` +
+          `半日（${HALF_DAY_GAMES.toLocaleString()}G）なら${formatPercent(half.prob)}です。` +
+          (day.prob < 0.8
+              ? `1日回しても偶然の偏りに埋もれやすいので、${guessHint}を合わせて判断するのが現実的です。`
+              : "ゲーム数が少ないうちは偶然の偏りが大きいので、結果は参考程度に見てください。");
     return `
             <section class="card lp-section" id="lp-discrimination">
-                <h3 class="card-title"><span class="card-icon">&#128202;</span> 設定判別に必要なゲーム数の目安</h3>
+                <h3 class="card-title"><span class="card-icon">&#128202;</span> 1日回したときの設定の見分けやすさ</h3>
                 <div class="lp-ceiling-info">
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">設定${d.low}と設定${d.high}の判別</span><span class="lp-ceil-val">${value}</span></div>
+                    <div class="lp-ceiling-item"><span class="lp-ceil-label">1日（${DAY_GAMES.toLocaleString()}G）で設定${day.low}と${day.high}を見分けられる確率</span><span class="lp-ceil-val">${value}</span></div>
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">見分けやすさ</span><span class="lp-ceil-val">${level}</span></div>
                 </div>
                 <p class="lp-desc">${advice}</p>
-                <p class="lp-note">※ ${escapeHtml(label)}の設定差だけから当サイトで計算した目安です（設定${d.high}の台を打ったとき、データが設定${d.low}より設定${d.high}を支持する確率が9割になるゲーム数）。設定推測要素は含みません。</p>
+                <p class="lp-note">※ ${escapeHtml(label)}の設定差だけから当サイトで計算した目安です（設定${day.high}の台を打ったとき、データが設定${day.low}より設定${day.high}を支持する確率）。50%なら当てずっぽうと同じです。設定推測要素は含みません。</p>
             </section>`;
 }
 
@@ -262,7 +281,7 @@ function generatePage(machine) {
     const evTableRows = buildEvTable(machine, machine.ceiling);
     const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling) : "";
     const breakEvenSection = hasCeiling ? buildBreakEvenSection(machine) : "";
-    // 解析待ちの機種は確率が確定していないので、判別に必要なゲーム数は計算しない
+    // 解析待ちの機種は確率が確定していないので、設定の見分けやすさは計算しない
     const pending = !!machine.pending;
     const discriminationSection = pending ? "" : buildDiscriminationSection(machine);
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
@@ -293,12 +312,13 @@ function generatePage(machine) {
         a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。`
     });
     if (!pending) {
-        const disc = discriminationGames(machine);
+        const day = discriminationProbability(machine, DAY_GAMES);
+        const label = discriminationLabel(machine, day);
         faqItems.push({
-            q: `${machine.name}の設定判別には何ゲーム必要？`,
-            a: disc.games === null
-                ? `当サイトの計算では、${machine.bigLabel}確率の差だけで設定${disc.low}と設定${disc.high}を見分けるには${DISCRIMINATION_CAP.toLocaleString()}G以上かかります。設定推測要素と合わせて判断するのがおすすめです。`
-                : `当サイトの計算では、設定${disc.high}の台なら約${disc.games.toLocaleString()}G回すと、9割の確率でデータが設定${disc.low}より設定${disc.high}寄りになります。`
+            q: `${machine.name}は1日回せば設定判別できる？`,
+            a: day.prob === null
+                ? `設定${day.low}と設定${day.high}で${label}の確率が同じため、ゲーム数では見分けられません。設定推測要素で判断してください。`
+                : `当サイトの計算では、設定${day.high}の台を1日（${DAY_GAMES.toLocaleString()}G）回すと、${formatPercent(day.prob)}の確率で${label}のデータが設定${day.low}より設定${day.high}寄りになります（${discriminationLevel(day.prob)}）。`
         });
     }
 
@@ -387,7 +407,7 @@ ${resetEvTableRows}
     if (pending) tocItems.push(`<li><a href="#pending">判明していること・まだ分かっていないこと</a></li>`);
     tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-    if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">設定判別に必要なゲーム数の目安</a></li>`);
+    if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">1日回したときの設定の見分けやすさ</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
     if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
     if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "期待値一覧（表）" : "天井情報"}</a></li>`);
