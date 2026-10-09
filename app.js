@@ -536,6 +536,7 @@ function init() {
     initExchangeRate();   // 復元時の再計算より前に、保存済みの換金率を反映しておく
     initAccessRanking();
     initNewMachines();
+    initPwa();
     $analyzeForm.addEventListener("submit", onAnalyze);
     $resetBtn.addEventListener("click", onReset);
 
@@ -655,6 +656,53 @@ function initNewMachines() {
         li.appendChild(badge);
 
         $list.appendChild(li);
+    }
+}
+
+// ============================================================
+// ホーム画面に追加（PWA）
+// Service Worker（dist/sw.js）は全ページを受け持つが、登録はトップを開いたときだけ行う
+// ============================================================
+function initPwa() {
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(() => {
+            // 登録できなくても（プライベートモード等）ツールはそのまま動く
+        });
+    }
+
+    // すでにホーム画面から開いているなら案内は出さない
+    if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) return;
+
+    const $card = document.getElementById("install-card");
+    const $btn = document.getElementById("install-btn");
+    const $ios = document.getElementById("install-ios");
+    if (!$card) return;
+
+    // Android の Chrome など: ブラウザが「追加できる」と知らせてきたときだけボタンを出す
+    let deferredPrompt = null;
+    window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        $card.hidden = false;
+        $btn.hidden = false;
+    });
+    $btn.addEventListener("click", () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(() => {
+            deferredPrompt = null;
+            $card.hidden = true;
+        });
+    });
+    window.addEventListener("appinstalled", () => { $card.hidden = true; });
+
+    // iPhone・iPad の Safari には追加ボタンを出す仕組みが無いので、手順だけ案内する
+    const ua = navigator.userAgent;
+    const isIos = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|Line\//.test(ua);
+    if (isIos && isSafari) {
+        $card.hidden = false;
+        $ios.hidden = false;
     }
 }
 

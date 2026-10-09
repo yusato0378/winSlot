@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0f1123">
+    <meta name="apple-mobile-web-app-title" content="天井期待値">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="google-adsense-account" content="ca-pub-9806077794369384">
     <meta name="description" content="スマスロ・パチスロの天井期待値を無料・登録不要で計算。機種を選んで現在のゲーム数を入れるだけで、換金率別の期待値と「打つべきか」をすぐ判定。103機種対応、ホールでスマホから使えます。設定推測にも対応。">
@@ -384,6 +387,14 @@
                     </ul>
                 </details>
                 <p style="margin-top: 10px;"><a href="guide/">▶ 解説記事一覧を見る</a></p>
+            </section>
+
+            <!-- ホーム画面に追加（app.js の initPwa が、追加できる端末でだけ表示する） -->
+            <section class="card install-card" id="install-card" hidden>
+                <h2 class="card-title"><span class="card-icon">&#128241;</span> ホーム画面に追加</h2>
+                <p class="install-desc">ホーム画面のアイコンからアプリのようにすぐ開けます。電波の弱いホールでも、前に開いたページは表示できます。</p>
+                <button type="button" class="btn-primary install-btn" id="install-btn" hidden>ホーム画面に追加する</button>
+                <p class="install-desc" id="install-ios" hidden>Safari の共有ボタン（四角から上向きの矢印）をタップし、「ホーム画面に追加」を選んでください。</p>
             </section>
 
         </main>

@@ -152,37 +152,53 @@ function buildSvg(machine) {
 }
 
 /**
+ * SVG → PNG の描画（キャッシュ付き）。PWA のアイコン（pwa.js）でも使う。
+ * 描画は1枚0.4秒ほど（ほぼ日本語フォントの読み込み）かかるので、SVG とフォントが同じなら前回の PNG を使い回す。
+ * finish() で、今回使わなかったキャッシュを消す（キャッシュが増え続けないように）。
+ * @param {string} cacheName node_modules/.cache/og-images/ の下のフォルダ名（用途ごとに分ける）
+ */
+function createRenderer(cacheName) {
+    const dir = path.join(CACHE_DIR, cacheName);
+    const font = fs.readFileSync(FONT_FILE);
+    const fontHash = crypto.createHash("sha1").update(font).digest("hex");
+    fs.mkdirSync(dir, { recursive: true });
+    const used = new Set();
+    let rendered = 0;
+    return {
+        render(svg, dest, width) {
+            const name = crypto.createHash("sha1").update(fontHash + width + svg).digest("hex") + ".png";
+            used.add(name);
+            const cached = path.join(dir, name);
+            if (!fs.existsSync(cached)) {
+                const png = new Resvg(svg, {
+                    fitTo: { mode: "width", value: width },
+                    font: { fontBuffers: [font], loadSystemFonts: false, defaultFontFamily: "Noto Sans JP" },
+                }).render().asPng();
+                fs.writeFileSync(cached, png);
+                rendered++;
+            }
+            fs.copyFileSync(cached, dest);
+        },
+        finish() {
+            for (const f of fs.readdirSync(dir)) {
+                if (!used.has(f)) fs.unlinkSync(path.join(dir, f));
+            }
+            return rendered;
+        },
+    };
+}
+
+/**
  * @param {string} out 出力ルート（dist）
  * @param {{ MACHINES: object[] }} data 機種データ
  */
 function buildOgImages(out, data) {
-    // 描画は1枚0.4秒ほど（ほぼ日本語フォントの読み込み）かかるので、SVG とフォントが同じなら前回の PNG を使い回す
-    const font = fs.readFileSync(FONT_FILE);
-    const fontHash = crypto.createHash("sha1").update(font).digest("hex");
-    fs.mkdirSync(CACHE_DIR, { recursive: true });
-    const fontBuffers = [font];
-    let rendered = 0;
-    const used = new Set();
+    const renderer = createRenderer("machines");
     for (const m of data.MACHINES) {
-        const svg = buildSvg(m);
-        const name = crypto.createHash("sha1").update(fontHash + svg).digest("hex") + ".png";
-        used.add(name);
-        const cached = path.join(CACHE_DIR, name);
-        if (!fs.existsSync(cached)) {
-            const png = new Resvg(svg, {
-                fitTo: { mode: "width", value: W },
-                font: { fontBuffers, loadSystemFonts: false, defaultFontFamily: "Noto Sans JP" },
-            }).render().asPng();
-            fs.writeFileSync(cached, png);
-            rendered++;
-        }
-        fs.copyFileSync(cached, path.join(out, "machines", m.id, "og.png"));
+        renderer.render(buildSvg(m), path.join(out, "machines", m.id, "og.png"), W);
     }
-    // 機種データが変わって使われなくなった画像は消す（キャッシュが増え続けないように）
-    for (const f of fs.readdirSync(CACHE_DIR)) {
-        if (!used.has(f)) fs.unlinkSync(path.join(CACHE_DIR, f));
-    }
+    const rendered = renderer.finish();
     console.log(`Created: machines/*/og.png (${data.MACHINES.length} images, 新規描画 ${rendered})`);
 }
 
-module.exports = { buildOgImages, buildSvg };
+module.exports = { buildOgImages, buildSvg, createRenderer };

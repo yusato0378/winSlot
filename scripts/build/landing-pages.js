@@ -441,6 +441,9 @@ ${ceilingPillarInner}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="${paths.faviconHref}">
     <link rel="apple-touch-icon" href="${paths.faviconHref}">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0f1123">
+    <meta name="apple-mobile-web-app-title" content="天井期待値">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="description" content="${escapeHtml(descKeywords)}">
     <meta property="og:title" content="${escapeHtml(pageTitle)}">

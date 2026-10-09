@@ -429,6 +429,14 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 - **`og-default.png`**: トップの SNS シェア用（`og:image` / `twitter:image`）。差し替える場合は 1200×630 前後の PNG を推奨します。
 - **機種ページの OGP 画像**: `scripts/build/og-images.js` がビルド時に `dist/machines/{id}/og.png`（1200×630）を機種ごとに描きます。機種名・天井・等価で期待値がプラスになる回転数・機械割を、機種ページと同じ計算から入れます（解析待ちの機種は「解析待ち」バッジと導入日）。SVG を `@resvg/resvg-js` で PNG にしており（X は SVG の og:image を表示しないため）、フォントは `assets/fonts/` の Noto Sans JP Bold（SIL OFL、`OFL.txt`）だけを使います。Vercel のビルド環境に日本語フォントが無いので、このファイルは消さないでください。全機種の描画には約45秒かかりますが、描いた画像は `node_modules/.cache/og-images/` に残し、機種データ（画像に載る値）が変わった機種だけ描き直します。
 
+### PWA（ホーム画面に追加）
+
+- `scripts/build/pwa.js` がビルドの最後に `dist/manifest.webmanifest`・`dist/icons/`（favicon と同じ意匠を 192・512・maskable で描画）・`dist/sw.js` を出します。
+- Service Worker の正本はルートの `sw.js`。**ネットワーク優先**で、圏外のときと、4秒待っても返ってこないときだけ前に開いたときの保存分を出します（キャッシュ優先にすると機種データを直しても古い数字が出続けるため）。他サイト（広告・フォント）のリクエストには関わりません。
+- バージョンはトップの計算ツールに要るファイル（`index.html`・`app.js`・`machines-data.js` など）の中身から決まるので、デプロイで中身が変われば古い保存分は自動で消えます。
+- 登録はトップを開いたときに `app.js` の `initPwa` が行い、「ホーム画面に追加」カードも出します（Android は追加できるときだけボタン、iPhone の Safari は手順の案内）。
+- 確かめるときの注意: puppeteer の `setOfflineMode` は Service Worker のリクエストには効かないので、オフラインの確認はサーバーを止めて行います。Windows で `npx serve` を止めても子の node が残ることがあります。
+
 ### Lighthouse（パフォーマンスの目安）
 
 初回描画まわりの改善として、トップでは **Google Fonts のウェイトを 900 除外**（見出しは 700 に統一）、**AdSense スクリプトを `</body>` 直前**へ移しています。さらに詰める場合は次で計測します。

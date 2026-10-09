@@ -1670,6 +1670,27 @@ body.sheet-open {
     background: #1c2040;
 }
 
+/* ---- ホーム画面に追加（PWA） ---- */
+.install-card[hidden],
+.install-card [hidden] {
+    display: none;
+}
+
+.install-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.install-btn {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.install-btn + .install-desc {
+    margin-top: 12px;
+}
+
 .machine-sheet[hidden] {
     display: none;
 }
