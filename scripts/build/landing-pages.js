@@ -117,6 +117,7 @@ ${rows}
                     </table>
                 </div>
                 <p class="lp-note">※ 設定${settingKeysOf(machine)[0]}基準。投資は現金（1枚${MEDAL_RENT_YEN}円）、回収は各換金率で換算し、10G刻みで求めた概算値です。解析上の狙い目（${machine.ceilingTarget}G〜${hasReset ? `、朝一${machine.resetCeilingTarget}G〜` : ""}）はゾーンやモードも考慮した目安のため、ずれることがあります。${machine.ceilingEv && machine.ceilingEv.note ? escapeHtml(machine.ceilingEv.note) : ""}</p>
+                <p class="lp-desc lp-tool-extra"><a href="../../guide/ceiling-target-list.html">ほかの機種の狙い目と比べる（天井狙い目一覧）</a></p>
             </section>`;
 }
 

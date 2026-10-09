@@ -253,6 +253,8 @@ git config --unset core.hooksPath
 
    `dist/guide/{slug}.html` が生成され、`dist/sitemap.xml` にも自動で列挙されます。トップの **解説・使い方** セクション（`index.html`）にリンクを足す場合は手動で追加してください。
 
+本文に `<!-- generated:ceiling-list -->` と書くと、ビルド時に全機種の「期待値がプラスになる回転数」の表（`scripts/build/ceiling-list.js`）に置き換わります。いまは `ceiling-target-list`（天井狙い目一覧）だけが使っており、機種を追加・修正すると表も自動で更新されます。
+
 ### レイアウトだけ変更したいとき
 
 `templates/article-layout.html` を編集後、再度 `node scripts/build.js` で全記事に反映されます。

@@ -10,6 +10,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const { injectCeilingList } = require("./ceiling-list");
+
 // guide/ に出力するため、CSS等は相対パス .. になる
 const BASE = "..";
 /** 構造化データ・canonical 用（index.html の canonical と揃える） */
@@ -202,8 +204,9 @@ function injectRelatedMachineLinksIntoArticle(html, slug) {
  * 解説記事を {out}/guide/ に生成する
  * @param {string} root リポジトリルート（ソース読み込み元）
  * @param {string} out  出力ルート（dist）
+ * @param {{ MACHINES: object[] }} [data] 機種データ（機種データから表を作る記事に使う）
  */
-function buildArticles(root, out) {
+function buildArticles(root, out, data) {
   const layout = fs.readFileSync(path.join(root, "templates", "article-layout.html"), "utf8");
   const articlesDir = path.join(root, "articles");
   const manifest = JSON.parse(fs.readFileSync(path.join(articlesDir, "manifest.json"), "utf8"));
@@ -223,6 +226,7 @@ function buildArticles(root, out) {
     }
 
     let content = fs.readFileSync(bodyPath, "utf8");
+    if (data) content = injectCeilingList(content, data.MACHINES, BASE);
     content = injectMetaAfterFirstH1(content, buildArticleMetaLead(article));
     content = injectRelatedMachineLinksIntoArticle(content, slug);
     const articleFooter = buildArticleFooter(article);

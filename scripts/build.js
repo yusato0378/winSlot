@@ -152,7 +152,7 @@ function main() {
     syncMachineCount(data.MACHINES);
     copySuggestionRates();
     writeMachinesData(data.MACHINES, data.SUGGESTION_RANKS);
-    buildArticles(ROOT, OUT);
+    buildArticles(ROOT, OUT, data);
     buildLandingPages(ROOT, OUT, data);
     buildOgImages(OUT, data);
     patchSetGuessPages(OUT, data);

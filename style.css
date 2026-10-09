@@ -898,6 +898,23 @@ input::placeholder {
     white-space: nowrap;
 }
 
+/* 天井狙い目一覧（guide/ceiling-target-list.html）。機種名が長いので名前の列だけ折り返す */
+.ceiling-list-table th,
+.ceiling-list-table td {
+    padding: 8px 6px;
+}
+
+.ceiling-list-table .ceiling-list-name {
+    text-align: left;
+    white-space: normal;
+    min-width: 9em;
+}
+
+.ceiling-list-reset {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
 .spec-table thead th {
     background: rgba(92, 107, 192, 0.12);
     color: var(--text-secondary);
