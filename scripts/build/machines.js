@@ -133,6 +133,28 @@ function validateCeilingEv(id, m) {
 }
 
 /**
+ * 解析待ちの機種（pending）を検証する。
+ * 解析待ちの機種は機種ページだけ出し、計算ツールには出さない（app.js）。
+ * 設定別の確率が欠けたまま推測すると、残った設定だけで結果が出てしまうため。
+ */
+function validatePending(id, m) {
+    const p = m.pending;
+    if (p === undefined) return;
+    const fail = (msg) => { throw new Error(`${id}.json pending: ${msg}`); };
+    if (!p || typeof p !== "object" || Array.isArray(p)) fail("オブジェクトではありません");
+    for (const key of ["known", "unknown"]) {
+        if (!Array.isArray(p[key]) || p[key].length === 0 || p[key].some(t => typeof t !== "string" || !t.trim())) {
+            fail(`${key}: 空でない文字列の配列にしてください`);
+        }
+    }
+    if (m.suggestions) fail("解析待ちの機種には suggestions を入れられません（計算ツールに出ないため）");
+    if (m.ceiling) fail("解析待ちの機種の天井は known に文章で書いてください（期待値表は出しません）");
+    for (const [s, d] of Object.entries(m.settings)) {
+        if (typeof d.big !== "number") fail(`設定${s}の big が数値ではありません（機種ページの見出しの確率に使います）`);
+    }
+}
+
+/**
  * @param {string} root リポジトリルート
  * @returns {{ MACHINES: object[], GUESS_ELEMENT_PAGES: Record<string,string>, CAUTIONS_BY_ID: Record<string,string[]>, SUGGESTION_RANKS: object }}
  */
@@ -165,6 +187,7 @@ function loadMachines(root) {
         }
 
         validateCeilingEv(id, m);
+        validatePending(id, m);
 
         if (m.guessElementPath) GUESS_ELEMENT_PAGES[id] = m.guessElementPath;
         if (m.cautions && m.cautions.length) CAUTIONS_BY_ID[id] = m.cautions;

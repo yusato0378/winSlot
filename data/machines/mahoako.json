@@ -1,0 +1,40 @@
+{
+  "id": "mahoako",
+  "name": "L魔法少女にあこがれて",
+  "aliases": ["まほあこ", "まほうしょうじょにあこがれて"],
+  "type": "AT",
+  "bigLabel": "CZ",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 357.0, "reg": null, "koyaku": null, "payout": 97.6 },
+    "2": { "big": 333.8, "reg": null, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 310.7, "reg": null, "koyaku": null, "payout": 100.5 },
+    "4": { "big": 273.3, "reg": null, "koyaku": null, "payout": 105.0 },
+    "5": { "big": 243.0, "reg": null, "koyaku": null, "payout": 110.2 },
+    "6": { "big": 235.4, "reg": 305.7, "koyaku": null, "payout": 112.0 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-10-19",
+  "pending": {
+    "known": [
+      "天井はAT間999G＋αで、到達するとAT当選です。設定変更後は799G＋αに短縮されます（ボーナスではリセットされません）。",
+      "ボーナス合算は設定に関係なく1/249.6（状態不問）です。設定差はCZとATの初当たりにあります。",
+      "AT「まほあこラッシュ」の純増は約2.5枚/G、上位ATは約5.0枚/Gです。"
+    ],
+    "unknown": [
+      "AT初当たり確率（設定1〜5）：解析サイトによって値が違い（設定1が1/422.7と1/436.3）、設定2が設定1より重い表もあるため、確定するまで載せていません。",
+      "天井到達時のATの平均獲得枚数：未公表のため、天井期待値はまだ計算できません。"
+    ]
+  },
+  "cautions": [
+    "2026年10月19日導入予定の新台です。導入前のため、数値は解析サイトの掲載値で、変わることがあります。",
+    "機械割は設定1の97.6%から設定6の112.0%で、設定3（100.5%）から100%を超えます。"
+  ]
+}

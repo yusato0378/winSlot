@@ -78,6 +78,14 @@
     margin-bottom: 8px;
 }
 
+/* 解析待ちの機種（判明していること／まだ分かっていないこと） */
+.lp-pending-heading {
+    margin-top: 16px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
 /* セクション */
 .lp-section {
     margin-bottom: 24px;

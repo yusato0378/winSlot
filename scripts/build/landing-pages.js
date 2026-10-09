@@ -143,14 +143,40 @@ function buildDiscriminationSection(machine) {
             </section>`;
 }
 
+/**
+ * 解析待ちの機種（pending）の案内。判明している情報と、まだの情報を分けて出す。
+ * 新台は導入前から検索されるので、確率が揃う前でもページだけは先に出しておく。
+ */
+function buildPendingSection(machine) {
+    const list = items => items.map(t => `                    <li>${escapeHtml(t)}</li>`).join("\n");
+    return `
+            <section class="card lp-section" id="pending">
+                <h2 class="card-title"><span class="card-icon">&#9203;</span> 解析待ちの機種です</h2>
+                <p class="lp-desc">${escapeHtml(machine.name)}は設定別の確率がまだ揃っていないため、設定推測・天井期待値の計算ツールには未対応です。判明している情報だけを先に載せています。</p>
+                <h3 class="lp-pending-heading">判明していること</h3>
+                <ul class="lp-caution-list">
+${list(machine.pending.known)}
+                </ul>
+                <h3 class="lp-pending-heading">まだ分かっていないこと</h3>
+                <ul class="lp-caution-list">
+${list(machine.pending.unknown)}
+                </ul>
+                <p class="lp-note">※ 解析が揃い次第、計算ツールに対応します。</p>
+            </section>`;
+}
+
 function buildSpecTable(machine) {
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
+    // 解析待ちの機種では、空欄が「非搭載」ではなく「まだ分からない」ことを示す
+    const missing = machine.pending ? "調査中" : "-";
     const hasReg = machine.regLabel && settingKeys.some(s => machine.settings[s].reg !== null);
+    // 解析待ちの機種は CZ と AT のように足しても意味のない組み合わせがあるので、合算は出さない
+    const hasCombined = hasReg && !machine.pending;
     const hasKoyaku = machine.koyakuName && settingKeys.some(s => machine.settings[s].koyaku !== null);
 
     let thead = `<tr><th>設定</th><th>${machine.bigLabel}</th>`;
     if (hasReg) thead += `<th>${machine.regLabel}</th>`;
-    if (hasReg) thead += `<th>合算</th>`;
+    if (hasCombined) thead += `<th>合算</th>`;
     if (hasKoyaku) thead += `<th>${machine.koyakuName}</th>`;
     thead += `<th>出玉率</th></tr>`;
 
@@ -158,8 +184,10 @@ function buildSpecTable(machine) {
         const d = machine.settings[s];
         let row = `                            <tr><td class="ge-setting s${s}">設定${s}</td><td>1/${Number(d.big).toFixed(1)}</td>`;
         if (hasReg) {
-            const regVal = d.reg !== null ? `1/${Number(d.reg).toFixed(1)}` : "-";
+            const regVal = d.reg !== null ? `1/${Number(d.reg).toFixed(1)}` : missing;
             row += `<td>${regVal}</td>`;
+        }
+        if (hasCombined) {
             if (d.reg !== null) {
                 const combined = 1 / (1 / d.big + 1 / d.reg);
                 row += `<td>1/${combined.toFixed(1)}</td>`;
@@ -187,6 +215,15 @@ function getMachinePageMeta(machine) {
         ? `${machine.name} 設定推測・設定差と天井期待値`
         : `${machine.name} 設定判別・設定差とスペック`;
     let descKeywords;
+    if (machine.pending) {
+        const [, mo, d] = (machine.addedDate || "").split("-");
+        const when = mo ? `（${Number(mo)}/${Number(d)}導入）` : "";
+        return {
+            titleKeyword: `${machine.name} 天井・設定差・スペック（解析待ち）`,
+            descKeywords: `${machine.name}${when}の天井・設定差・機械割など、判明しているスペックを掲載。設定別の確率が揃い次第、設定推測・天井期待値の計算ツールに対応します。`,
+            typeLabel,
+        };
+    }
     if (isAT) {
         descKeywords = !hasCeiling
             ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`
@@ -224,7 +261,9 @@ function generatePage(machine) {
     const evTableRows = buildEvTable(machine, machine.ceiling);
     const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling) : "";
     const breakEvenSection = hasCeiling ? buildBreakEvenSection(machine) : "";
-    const discriminationSection = buildDiscriminationSection(machine);
+    // 解析待ちの機種は確率が確定していないので、判別に必要なゲーム数は計算しない
+    const pending = !!machine.pending;
+    const discriminationSection = pending ? "" : buildDiscriminationSection(machine);
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
     const hasCaution = CAUTIONS_BY_ID[machine.id] && CAUTIONS_BY_ID[machine.id].length > 0;
 
@@ -252,13 +291,15 @@ function generatePage(machine) {
         q: `${machine.name}の設定${s6key}の${machine.bigLabel}確率は？`,
         a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。`
     });
-    const disc = discriminationGames(machine);
-    faqItems.push({
-        q: `${machine.name}の設定判別には何ゲーム必要？`,
-        a: disc.games === null
-            ? `当サイトの計算では、${machine.bigLabel}確率の差だけで設定${disc.low}と設定${disc.high}を見分けるには${DISCRIMINATION_CAP.toLocaleString()}G以上かかります。設定推測要素と合わせて判断するのがおすすめです。`
-            : `当サイトの計算では、設定${disc.high}の台なら約${disc.games.toLocaleString()}G回すと、9割の確率でデータが設定${disc.low}より設定${disc.high}寄りになります。`
-    });
+    if (!pending) {
+        const disc = discriminationGames(machine);
+        faqItems.push({
+            q: `${machine.name}の設定判別には何ゲーム必要？`,
+            a: disc.games === null
+                ? `当サイトの計算では、${machine.bigLabel}確率の差だけで設定${disc.low}と設定${disc.high}を見分けるには${DISCRIMINATION_CAP.toLocaleString()}G以上かかります。設定推測要素と合わせて判断するのがおすすめです。`
+                : `当サイトの計算では、設定${disc.high}の台なら約${disc.games.toLocaleString()}G回すと、9割の確率でデータが設定${disc.low}より設定${disc.high}寄りになります。`
+        });
+    }
 
     const faqJsonLd = JSON.stringify({
         "@context": "https://schema.org",
@@ -342,16 +383,34 @@ ${resetEvTableRows}
 
     const tocItems = [];
     if (hasCaution) tocItems.push(`<li><a href="#cautions">注意点（先に確認）</a></li>`);
+    if (pending) tocItems.push(`<li><a href="#pending">判明していること・まだ分かっていないこと</a></li>`);
     tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-    tocItems.push(`<li><a href="#lp-discrimination">設定判別に必要なゲーム数の目安</a></li>`);
+    if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">設定判別に必要なゲーム数の目安</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
     if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
     if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "期待値一覧（表）" : "天井情報"}</a></li>`);
     if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
-    tocItems.push(`<li><a href="#tool">設定推測ツールで計算</a></li>`);
+    tocItems.push(`<li><a href="#tool">${pending ? "計算ツールへの対応" : "設定推測ツールで計算"}</a></li>`);
 
-    const cautionSection = buildCautionSection(machine);
+    const cautionSection = buildCautionSection(machine) + (pending ? buildPendingSection(machine) : "");
+    const guideHowToHref = `${paths.basePrefix}guide/how-to-use.html`;
+    const toolSection = pending ? `
+            <section class="card lp-section" id="tool">
+                <h2 class="card-title"><span class="card-icon">&#9889;</span> 計算ツールへの対応</h2>
+                <p class="lp-desc">${escapeHtml(machine.name)}は解析待ちのため、設定推測・天井期待値の計算ツールではまだ選べません。設定別の確率が揃い次第、対応します。ほかの機種の計算はトップページからどうぞ。</p>
+                <div class="lp-cta">
+                    <a href="${paths.topHref}" class="btn-primary lp-btn">計算ツールを開く</a>
+                </div>
+            </section>` : `
+            <section class="card lp-section" id="tool">
+                <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
+                <p class="lp-desc">${escapeHtml(machine.name)}のデータを入力して、設定推測と期待値を自動計算できます。</p>
+                <div class="lp-cta">
+                    <a href="${paths.topHref}" class="btn-primary lp-btn">設定推測ツールを開く</a>
+                </div>
+                <p class="lp-desc lp-tool-extra"><a href="${guideHowToHref}">使い方ガイド（初心者向け）</a></p>
+            </section>`;
 
     const pillarSettingIntro = `
             <div class="card lp-section lp-pillar-head">
@@ -373,8 +432,6 @@ ${ceilingPillarInner}
         ? `            <div id="lp-ceiling" class="lp-scroll-anchor" aria-hidden="true"></div>
 `
         : "";
-
-    const guideHowToHref = `${paths.basePrefix}guide/how-to-use.html`;
 
     const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -461,14 +518,7 @@ ${guessElementLink}
             </div>
 
 ${ceilingPillarHtml}
-${lpCeilingAnchorNoTable}            <section class="card lp-section" id="tool">
-                <h2 class="card-title"><span class="card-icon">&#9889;</span> 設定推測ツールで計算する</h2>
-                <p class="lp-desc">${escapeHtml(machine.name)}のデータを入力して、設定推測と期待値を自動計算できます。</p>
-                <div class="lp-cta">
-                    <a href="${paths.topHref}" class="btn-primary lp-btn">設定推測ツールを開く</a>
-                </div>
-                <p class="lp-desc lp-tool-extra"><a href="${guideHowToHref}">使い方ガイド（初心者向け）</a></p>
-            </section>
+${lpCeilingAnchorNoTable}${toolSection.replace(/^\n/, "")}
 
             <div class="lp-back-bottom">
                 <a href="${paths.topHref}" class="btn-primary lp-back-btn">

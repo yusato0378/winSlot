@@ -94,8 +94,10 @@ function reportSuggestionCoverage(machines) {
  * 「N機種対応」の N を実際の収録数に合わせる（ページ説明・OGP・構造化データ・アプリについて）。
  * 手書きのままだと機種を追加するたびに古くなるため。ソースには数字のまま残し、
  * 一覧の並べ替えスクリプト等がソースをそのまま読めるようにしている。
+ * 解析待ちの機種は計算ツールで選べないので数に含めない。
  */
-function syncMachineCount(machines) {
+function syncMachineCount(allMachines) {
+    const machines = allMachines.filter(m => !m.pending);
     for (const rel of ["index.html", "about.html"]) {
         const file = path.join(OUT, rel);
         let n = 0;

@@ -271,6 +271,16 @@ git config --unset core.hooksPath
 4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  
 5. 設定推測要素ページを置く場合は `setGuessElement/{dir}/index.html` を作成し、JSON の `guessElementPath` をそのパスに合わせる。
 
+### 解析待ちの新台（先行ページ）
+
+設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: `mahoako.json`）。
+
+- `pending.known` … 判明していること、`pending.unknown` … まだ分かっていないこと（どちらも文章の配列）。機種ページの冒頭に出る。
+- `settings` は分かっている設定・値だけ入れ、分からない `reg` は `null`（スペック表に「調査中」と出る）。`big` は全設定に数値が必要。天井は `ceiling` ではなく `known` に文章で書く。
+- 計算ツールの機種選択には出さない（残った設定だけで推測してしまうため）。新台ピックアップには「導入・解析待ち」として出す。「N機種対応」の数にも含めない。
+- 判別に必要なゲーム数・合算列・期待値表は出さない。トップの「対応機種一覧」（手順4）にも追加しない。
+- 解析が揃ったら `pending` を消し、ふつうの機種として値を埋めて手順4を行う。
+
 ### 仕組み
 
 - `scripts/build/machines.js` が `data/machines/` を読み、`MACHINES`（LP生成・サイトマップ用）と `window.MACHINES`（ブラウザ用 `dist/machines-data.js`）の両方を供給します。  
@@ -556,6 +566,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `paripi_koumei` | スマスロパリピ孔明 |
 | `monhan_sunbreak` | スマスロ モンスターハンターライズ：サンブレイク |
 | `kaijin` | L海人 |
+| `mahoako` | L魔法少女にあこがれて（解析待ち） |
 
 ### Aタイプ
 

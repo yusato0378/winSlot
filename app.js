@@ -7,7 +7,10 @@
 // 正本は data/machines/*.json。ビルドが dist/machines-data.js を生成し、
 // index.html が app.js より前に読み込むことで window.MACHINES を供給する。
 // ============================================================
-const MACHINES = window.MACHINES || [];
+// 解析待ちの機種（pending）は設定別の確率が揃っていないので、計算ツールには出さない。
+// 機種ページはあるので、新台ピックアップだけ ALL_MACHINES から「解析待ち」として出す。
+const ALL_MACHINES = window.MACHINES || [];
+const MACHINES = ALL_MACHINES.filter(m => !m.pending);
 
 // 設定示唆演出のランク定義と率生成器。同じくビルドが供給する。
 // どちらか欠ければ示唆機能はまるごと無効になり、従来どおりの推測だけが動く。
@@ -630,7 +633,7 @@ function initNewMachines() {
     const $list = document.getElementById("new-machines-list");
     if (!$list) return;
 
-    const withDate = MACHINES
+    const withDate = ALL_MACHINES
         .filter(m => m.addedDate)
         .sort((a, b) => (b.addedDate > a.addedDate ? 1 : b.addedDate < a.addedDate ? -1 : 0))
         .slice(0, 5);
@@ -648,7 +651,7 @@ function initNewMachines() {
         const badge = document.createElement("span");
         badge.className = "new-machine-date";
         const parts = m.addedDate.split("-");
-        badge.textContent = Number(parts[1]) + "/" + Number(parts[2]) + " 追加";
+        badge.textContent = Number(parts[1]) + "/" + Number(parts[2]) + (m.pending ? " 導入・解析待ち" : " 追加");
         li.appendChild(badge);
 
         $list.appendChild(li);
