@@ -228,12 +228,6 @@ body {
     font-weight: 400;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
 input[type="number"],
 input[type="text"],
 input[type="email"],
@@ -506,10 +500,6 @@ input::placeholder {
     border-left: 3px solid var(--accent-cyan);
     border-radius: var(--radius-sm);
     line-height: 1.6;
-}
-
-#current-games-group .form-hint {
-    margin-top: 8px;
 }
 
 /* 前回の入力を復元したことの通知（hidden 属性で出し分けるので display は指定しない） */
@@ -1227,11 +1217,6 @@ input::placeholder {
 
     .card {
         padding: 18px 14px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 0;
     }
 
     .setting-row {
