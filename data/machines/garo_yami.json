@@ -1,0 +1,30 @@
+{
+  "id": "garo_yami",
+  "name": "L牙狼 闇を照らす者",
+  "aliases": ["がろう", "がろ", "やみをてらすもの"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "ボーナス初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 156.6, "reg": 291.1, "koyaku": null, "payout": 97.5 },
+    "2": { "big": 154.6, "reg": 283.7, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 151.4, "reg": 276.1, "koyaku": null, "payout": 101.2 },
+    "4": { "big": 148.7, "reg": 265.8, "koyaku": null, "payout": 104.6 },
+    "5": { "big": 144.2, "reg": 259.4, "koyaku": null, "payout": 110.5 },
+    "6": { "big": 141.1, "reg": 256.5, "koyaku": null, "payout": 114.9 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": 1.5,
+  "addedDate": "2026-11-02",
+  "cautions": [
+    "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（必勝本・ちょんぼりすた、両サイトで一致）に掲載された値で、変わることがあります。入力はCZ（トータル）とボーナスの初当たり回数です。",
+    "CZ・ボーナスとも設定差は小さく（設定1と6でCZ約1.11倍、ボーナス約1.13倍）、ゲーム数を重ねないと見分けにくい機種です。",
+    "天井は通常モード（全7種類）ごとに違い、最大は通常Aの999G＋αです。モードごとのゲーム数と天井時の恩恵が未公表のため、天井期待値は表示していません。"
+  ]
+}

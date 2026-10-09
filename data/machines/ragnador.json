@@ -1,0 +1,30 @@
+{
+  "id": "ragnador",
+  "name": "スマスロ ラグナドール",
+  "aliases": ["らぐなどーる"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 172.8, "reg": 326.4, "koyaku": null, "payout": 97.6 },
+    "2": { "big": 167.2, "reg": 317.2, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 161.8, "reg": 307.7, "koyaku": null, "payout": 100.3 },
+    "4": { "big": 145.0, "reg": 271.2, "koyaku": null, "payout": 105.7 },
+    "5": { "big": 143.0, "reg": 260.8, "koyaku": null, "payout": 110.5 },
+    "6": { "big": 142.4, "reg": 258.3, "koyaku": null, "payout": 114.5 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-11-02",
+  "cautions": [
+    "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（必勝本・ちょんぼりすた、両サイトで一致）に掲載された値で、変わることがあります。",
+    "設定差は設定3と4の間で大きく開きます（CZ初当たり1/161.8→1/145.0、AT初当たり1/307.7→1/271.2）。設定4〜6どうしは差が小さく、見分けにくい機種です。",
+    "天井は導入前で未公表のため、天井期待値は表示していません。"
+  ]
+}

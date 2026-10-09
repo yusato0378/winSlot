@@ -567,6 +567,9 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `monhan_sunbreak` | スマスロ モンスターハンターライズ：サンブレイク |
 | `kaijin` | L海人 |
 | `mahoako` | L魔法少女にあこがれて（解析待ち） |
+| `garo_yami` | L牙狼 闇を照らす者 |
+| `ragnador` | スマスロ ラグナドール |
+| `seiya_ougon` | L聖闘士星矢 黄金十二宮（解析待ち） |
 
 ### Aタイプ
 

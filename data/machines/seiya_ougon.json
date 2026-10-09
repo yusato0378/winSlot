@@ -1,0 +1,39 @@
+{
+  "id": "seiya_ougon",
+  "name": "L聖闘士星矢 黄金十二宮",
+  "aliases": ["せいんとせいや", "せいや", "おうごんじゅうにきゅう"],
+  "type": "AT",
+  "bigLabel": "CZ",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 214.4, "reg": 364.2, "koyaku": null, "payout": 97.5 },
+    "2": { "big": 214.1, "reg": 356.1, "koyaku": null, "payout": 98.5 },
+    "3": { "big": 211.7, "reg": 345.6, "koyaku": null, "payout": 100.5 },
+    "4": { "big": 202.5, "reg": 322.3, "koyaku": null, "payout": 105.2 },
+    "5": { "big": 197.2, "reg": 313.7, "koyaku": null, "payout": 110.0 },
+    "6": { "big": 200.3, "reg": 310.5, "koyaku": null, "payout": 114.9 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-11-02",
+  "pending": {
+    "known": [
+      "天井はAT間1200Gで、到達するとAT当選です。設定変更後は900Gに短縮されます。CZ間天井（6周期でCZ当選）もあります。",
+      "AT純増は約4.0枚/G、上位ATは約6.6枚/Gです。50枚あたり約32G回ります。"
+    ],
+    "unknown": [
+      "設定別の確率と機械割：いまは1サイト（ジャグラーズネット）だけの掲載で、ほかの解析サイトは「調査中」「掲載準備中」です。別のサイトで確認できるまで、計算ツールには入れていません。",
+      "天井到達時のATの平均獲得枚数：未公表のため、天井期待値はまだ計算できません。"
+    ]
+  },
+  "cautions": [
+    "2026年11月2日導入予定の新台です。導入前のため、数値は解析サイトの掲載値で、変わることがあります。",
+    "掲載されている表では、CZ確率は設定5（1/197.2）より設定6（1/200.3）の方が重く、設定1〜3はほとんど差がありません。"
+  ]
+}
