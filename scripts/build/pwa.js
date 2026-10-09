@@ -1,7 +1,9 @@
 /**
  * PWA（ホーム画面に追加）用のファイルを dist/ に出す。
  * - manifest.webmanifest
- * - icons/icon-192.png・icon-512.png・icon-maskable-512.png（favicon と同じ白地に青の「ス」）
+ * - アイコン（天井ラインと右肩上がりの棒グラフ。紺地に金で OGP 画像と同じ配色）
+ *   - favicon.png … 全ページのタブ用。小さく表示されるので棒を3本に減らし、線を太くした版
+ *   - icons/apple-touch-icon.png（iPhone のホーム画面）・icon-192/512.png・icon-maskable-512.png（Android・PWA）
  * - sw.js（ルートの sw.js に、バージョンと最初に保存するファイルの一覧を埋める）
  *
  * ほかの生成物（machines-data.js 等）が揃ってから呼ぶこと。バージョンはそれらの中身から決めるので、
@@ -26,14 +28,35 @@ const PRECACHE = [
 ];
 
 const THEME = "#0f1123";   // style.css の --bg-primary
-const ICON_BLUE = "#3d8bf2";
+const GOLD = "#e8c15a";
 
-/** favicon と同じ意匠。maskable は Android が丸や角丸に切り抜くので、文字を中央80%の安全域に収める */
-function iconSvg(size, maskable) {
-    const font = Math.round(size * (maskable ? 0.5 : 0.66));
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" font-family="Noto Sans JP" font-weight="700">
-  <rect width="${size}" height="${size}" fill="#ffffff"/>
-  <text x="${size / 2}" y="${size / 2}" font-size="${font}" fill="${ICON_BLUE}" text-anchor="middle" dominant-baseline="central">ス</text>
+const ICON_DEFS = `<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#141a46"/><stop offset="1" stop-color="#2a1d63"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dc8c"/><stop offset="1" stop-color="#c99a2e"/></linearGradient>
+  <radialGradient id="glow" cx="0.5" cy="0.35" r="0.7"><stop offset="0" stop-color="#4b3fb0" stop-opacity="0.6"/><stop offset="1" stop-color="#4b3fb0" stop-opacity="0"/></radialGradient>
+</defs>`;
+
+// 中身は 512 四方の座標。Android の maskable は中央80%（51〜461）しか見えない前提なので、その中に収める
+const MARK = `<line x1="96" y1="150" x2="416" y2="150" stroke="${GOLD}" stroke-width="14" stroke-dasharray="26 18" stroke-linecap="round"/>
+  <rect x="110" y="330" width="62" height="80" rx="14" fill="#6f7bd6"/>
+  <rect x="190" y="275" width="62" height="135" rx="14" fill="#8a95e6"/>
+  <rect x="270" y="215" width="62" height="195" rx="14" fill="#a9b2f2"/>
+  <rect x="350" y="165" width="62" height="245" rx="14" fill="url(#gold)"/>`;
+// タブ（16〜32px）用。点線や4本目の棒はつぶれるので、実線と3本の太い棒にする
+const MARK_SMALL = `<line x1="70" y1="120" x2="442" y2="120" stroke="${GOLD}" stroke-width="34" stroke-linecap="round"/>
+  <rect x="80" y="330" width="80" height="110" rx="16" fill="#8a95e6"/>
+  <rect x="216" y="245" width="80" height="195" rx="16" fill="#a9b2f2"/>
+  <rect x="352" y="170" width="80" height="270" rx="16" fill="url(#gold)"/>`;
+
+/**
+ * @param {string} mark 中身
+ * @param {number} radius 背景の角丸（512 四方での値）。iPhone と maskable は OS が角を丸めるので 0（四角）にする
+ */
+function iconSvg(mark, radius) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">${ICON_DEFS}
+  <rect width="512" height="512" rx="${radius}" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="${radius}" fill="url(#glow)"/>
+  ${mark}
 </svg>`;
 }
 
@@ -45,9 +68,12 @@ function buildPwa(root, out) {
     const iconDir = path.join(out, "icons");
     fs.mkdirSync(iconDir, { recursive: true });
     const renderer = createRenderer("pwa-icons");
-    renderer.render(iconSvg(192, false), path.join(iconDir, "icon-192.png"), 192);
-    renderer.render(iconSvg(512, false), path.join(iconDir, "icon-512.png"), 512);
-    renderer.render(iconSvg(512, true), path.join(iconDir, "icon-maskable-512.png"), 512);
+    // favicon.png は全ページ（手書きのページも含む）が apple-touch-icon にも使っているので、角丸なしの四角にする
+    renderer.render(iconSvg(MARK_SMALL, 0), path.join(out, "favicon.png"), 180);
+    renderer.render(iconSvg(MARK, 0), path.join(iconDir, "apple-touch-icon.png"), 180);
+    renderer.render(iconSvg(MARK, 112), path.join(iconDir, "icon-192.png"), 192);
+    renderer.render(iconSvg(MARK, 112), path.join(iconDir, "icon-512.png"), 512);
+    renderer.render(iconSvg(MARK, 0), path.join(iconDir, "icon-maskable-512.png"), 512);
     renderer.finish();
 
     const manifest = {

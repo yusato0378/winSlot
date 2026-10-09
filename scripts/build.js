@@ -36,7 +36,6 @@ const STATIC_FILES = [
     "terms.html",
     "ads.txt",
     "robots.txt",
-    "favicon.png",
     "og-default.png",
     "data/access-ranking.json",
     "machines/landing-page.css",

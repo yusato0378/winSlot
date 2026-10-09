@@ -64,7 +64,6 @@ winSlot/
 ├── app.js                  # 推測・UI ロジックのみ（MACHINES は window から取得）
 ├── style.css
 ├── 404.html                # Vercel が未存在URLに配信（noindex）
-├── favicon.png             # サイトアイコン
 ├── og-default.png          # OGP / Twitter カード用（トップ）
 ├── ads.txt                 # AdSense 用（公開ルートに配置）
 ├── robots.txt
@@ -412,8 +411,9 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 
 ## ファビコン
 
-- ルートに `favicon.png` を配置。  
-- `index.html`・静的ページ・`templates/article-layout.html`・ビルド生成の `machines/*` から参照。  
+- `favicon.png` はビルド（`scripts/build/pwa.js`）が `dist/` に描きます（リポジトリには置かない）。天井ラインと右肩上がりの棒グラフを紺地に金で描いた意匠で、タブの小ささでもつぶれないよう棒を3本に減らした版です。  
+- 全ページ（手書きのページを含む）が `favicon.png` をタブと iPhone のホーム画面の両方に使っています。トップ・機種ページ・解説記事だけは、iPhone のホーム画面用に細部まで描いた `/icons/apple-touch-icon.png` を指しています。  
+- 意匠を変えるときは `pwa.js` の `MARK`（ホーム画面用）と `MARK_SMALL`（タブ用）を直します。  
 - `setGuessElement` を新規追加したとき、未反映なら必要に応じて:
 
   ```bash
@@ -431,7 +431,7 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 
 ### PWA（ホーム画面に追加）
 
-- `scripts/build/pwa.js` がビルドの最後に `dist/manifest.webmanifest`・`dist/icons/`（favicon と同じ意匠を 192・512・maskable で描画）・`dist/sw.js` を出します。
+- `scripts/build/pwa.js` がビルドの最後に `dist/manifest.webmanifest`・`favicon.png`・`dist/icons/`（iPhone 用 180・PWA 用 192・512・maskable）・`dist/sw.js` を出します。
 - Service Worker の正本はルートの `sw.js`。**ネットワーク優先**で、圏外のときと、4秒待っても返ってこないときだけ前に開いたときの保存分を出します（キャッシュ優先にすると機種データを直しても古い数字が出続けるため）。他サイト（広告・フォント）のリクエストには関わりません。
 - バージョンはトップの計算ツールに要るファイル（`index.html`・`app.js`・`machines-data.js` など）の中身から決まるので、デプロイで中身が変われば古い保存分は自動で消えます。
 - 登録はトップを開いたときに `app.js` の `initPwa` が行い、「ホーム画面に追加」カードも出します（Android は追加できるときだけボタン、iPhone の Safari は手順の案内）。

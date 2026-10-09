@@ -460,7 +460,7 @@ ${ceilingPillarInner}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="${paths.faviconHref}">
-    <link rel="apple-touch-icon" href="${paths.faviconHref}">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="theme-color" content="#0f1123">
     <meta name="apple-mobile-web-app-title" content="天井期待値">
@@ -622,7 +622,7 @@ const sgIndexHtml = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
-    <link rel="apple-touch-icon" href="../favicon.png">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
     <meta name="description" content="パチスロ各機種の設定推測要素（終了画面・示唆演出・子役傾向など）一覧。${Object.keys(GUESS_ELEMENT_PAGES).length}機種対応。Setting Analyzer Pro。">
     <link rel="canonical" href="${SITE_URL}/setGuessElement/">

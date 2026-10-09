@@ -18,6 +18,8 @@ const H = 630;
 const PAD = 80;
 const FONT_FILE = path.join(__dirname, "..", "..", "assets", "fonts", "NotoSansJP_700Bold.ttf");
 const CACHE_DIR = path.join(__dirname, "..", "..", "node_modules", ".cache", "og-images");
+// 描き方（下の render の処理）を変えたら上げる。キャッシュの鍵に入れて、古い描き方の PNG を使い回さないようにする
+const RENDER_VERSION = 2;
 const GOLD = "#e8c15a";
 
 function escapeXml(str) {
@@ -166,12 +168,19 @@ function createRenderer(cacheName) {
     let rendered = 0;
     return {
         render(svg, dest, width) {
-            const name = crypto.createHash("sha1").update(fontHash + width + svg).digest("hex") + ".png";
+            const name = crypto.createHash("sha1").update(RENDER_VERSION + fontHash + width + svg).digest("hex") + ".png";
             used.add(name);
             const cached = path.join(dir, name);
             if (!fs.existsSync(cached)) {
-                const png = new Resvg(svg, {
-                    fitTo: { mode: "width", value: width },
+                // resvg-js 2.6.2 は fontBuffers を渡すと fitTo を無視して SVG の width/height のまま描くので、
+                // ルートの width/height を出力サイズに書き換えて大きさを決める（viewBox で中身は縮む）
+                const sized = svg.replace(/<svg\b[^>]*>/, tag => {
+                    const vb = tag.match(/viewBox="[\d.]+ [\d.]+ ([\d.]+) ([\d.]+)"/);
+                    if (!vb) throw new Error("createRenderer: SVG のルートに viewBox が必要です");
+                    const height = Math.round(width * Number(vb[2]) / Number(vb[1]));
+                    return tag.replace(/\swidth="[^"]*"/, ` width="${width}"`).replace(/\sheight="[^"]*"/, ` height="${height}"`);
+                });
+                const png = new Resvg(sized, {
                     font: { fontBuffers: [font], loadSystemFonts: false, defaultFontFamily: "Noto Sans JP" },
                 }).render().asPng();
                 fs.writeFileSync(cached, png);
