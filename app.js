@@ -856,6 +856,8 @@ function onMachineChange() {
         $regCount.closest(".form-group").style.display = "none";
         $regCount.value = "";
     }
+    // 合算に意味のない機種（CZ と AT など）では「詳細入力（合算確率）」ごと隠す
+    $bonusProb.closest(".form-details").style.display = hasCombinedRate(machine) ? "" : "none";
 }
 
 function updateBonusProb() {
@@ -1703,7 +1705,7 @@ function renderFactors(machine, totalGames, bigCount, regCount) {
         });
     }
 
-    if (combinedProb !== null && machine.regLabel) {
+    if (combinedProb !== null && hasCombinedRate(machine)) {
         items.push({
             label: "合算確率",
             value: `1/${combinedProb.toFixed(1)}`,
@@ -1777,6 +1779,15 @@ function findSettingRange(machine, key, actualDenom) {
         }
     }
     return "";
+}
+
+/**
+ * 「合算」（big と reg を足した確率）に意味がある機種か。scripts/build/machine-insights.js の hasCombinedRate と同じ。
+ * BIG と REG のように別々の当たりなら足せるが、CZ と AT（AT の一部は CZ 経由）や
+ * ボーナスと AT のように片方がもう片方を含む組み合わせは、足すと二重に数えてしまう。
+ */
+function hasCombinedRate(machine) {
+    return !machine.pending && /BIG/.test(machine.bigLabel || "") && /REG/.test(machine.regLabel || "");
 }
 
 function findClosestCombined(machine, actualDenom) {
@@ -1922,7 +1933,8 @@ function renderSpecTable(machine) {
 
     const cols = ["設定", machine.bigLabel || "BIG"];
     if (machine.regLabel) cols.push(machine.regLabel);
-    cols.push("合算");
+    const showCombined = hasCombinedRate(machine);
+    if (showCombined) cols.push("合算");
     if (machine.koyakuName) cols.push(machine.koyakuName);
     cols.push("機械割");
 
@@ -1952,12 +1964,14 @@ function renderSpecTable(machine) {
             tr.appendChild(tdReg);
         }
 
-        const tdCombined = document.createElement("td");
-        const pBig = 1 / spec.big;
-        const pReg = spec.reg !== null ? 1 / spec.reg : 0;
-        const combined = 1 / (pBig + pReg);
-        tdCombined.textContent = `1/${combined.toFixed(1)}`;
-        tr.appendChild(tdCombined);
+        if (showCombined) {
+            const tdCombined = document.createElement("td");
+            const pBig = 1 / spec.big;
+            const pReg = spec.reg !== null ? 1 / spec.reg : 0;
+            const combined = 1 / (pBig + pReg);
+            tdCombined.textContent = `1/${combined.toFixed(1)}`;
+            tr.appendChild(tdCombined);
+        }
 
         if (machine.koyakuName) {
             const tdKoyaku = document.createElement("td");

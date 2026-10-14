@@ -18,6 +18,15 @@ const EXCHANGE_RATES = [
     { id: "6.0", label: "6.0枚交換",    yen: 100 / 6.0 },
 ];
 
+/**
+ * 「合算」（big と reg を足した確率）に意味がある機種か。app.js の hasCombinedRate と同じ。
+ * BIG と REG のように別々の当たりなら足せるが、CZ と AT（AT の一部は CZ 経由）や
+ * ボーナスと AT のように片方がもう片方を含む組み合わせは、足すと二重に数えてしまう。
+ */
+function hasCombinedRate(machine) {
+    return !machine.pending && /BIG/.test(machine.bigLabel || "") && /REG/.test(machine.regLabel || "");
+}
+
 function settingKeysOf(machine) {
     return Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
 }
@@ -172,6 +181,7 @@ function discriminationLevel(prob) {
 }
 
 module.exports = {
+    hasCombinedRate,
     settingKeysOf,
     ceilingEvParams,
     isCeilingEvSupported,

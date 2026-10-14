@@ -8,7 +8,7 @@ const path = require("path");
 const { loadMachines } = require("./machines");
 const { createLastmod } = require("./lastmod");
 const {
-    settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent, isCeilingEvSupported,
+    hasCombinedRate, settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent, isCeilingEvSupported,
     discriminationProbability, discriminationLevel, DAY_GAMES, HALF_DAY_GAMES,
 } = require("./machine-insights");
 const SITE_URL = "https://www.pachislot-setting.com";
@@ -190,8 +190,7 @@ function buildSpecTable(machine) {
     // 解析待ちの機種では、空欄が「非搭載」ではなく「まだ分からない」ことを示す
     const missing = machine.pending ? "調査中" : "-";
     const hasReg = machine.regLabel && settingKeys.some(s => machine.settings[s].reg !== null);
-    // 解析待ちの機種は CZ と AT のように足しても意味のない組み合わせがあるので、合算は出さない
-    const hasCombined = hasReg && !machine.pending;
+    const hasCombined = hasReg && hasCombinedRate(machine);
     const hasKoyaku = machine.koyakuName && settingKeys.some(s => machine.settings[s].koyaku !== null);
 
     let thead = `<tr><th>設定</th><th>${machine.bigLabel}</th>`;
@@ -251,7 +250,7 @@ function getMachinePageMeta(machine) {
             ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井期待値をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の期待値一覧とトップの計算ツールへの導線。`
             : `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜（天井の仕組みが特殊なため期待値表はありません）。`;
     } else {
-        descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}・合算・出玉率）と設定推測ツールへの導線を掲載。`;
+        descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}${hasCombinedRate(machine) ? "・合算" : ""}・出玉率）と設定推測ツールへの導線を掲載。`;
     }
     return { titleKeyword, descKeywords, typeLabel };
 }
