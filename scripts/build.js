@@ -8,7 +8,8 @@
  * 4. 機種LP・setGuessElement/index.html・sitemap.xml を dist/ に生成し、機種LPごとの OGP 画像（og.png）を描く
  * 5. setGuessElement 各ページ（dist 上のコピー）に SEO パッチを適用
  * 6. 「…/index.html」へのリンクをディレクトリ URL に書き換え（/index.html は / へ転送しているため）
- * 7. PWA（manifest・アイコン・Service Worker）を生成
+ * 7. 本番デプロイだけ GA4 の計測タグを全ページに入れる
+ * 8. PWA（manifest・アイコン・Service Worker）を生成
  */
 const fs = require("fs");
 const path = require("path");
@@ -19,6 +20,7 @@ const { buildLandingPages } = require("./build/landing-pages");
 const { patchSetGuessPages } = require("./build/setguess-seo");
 const { buildOgImages } = require("./build/og-images");
 const { buildPwa } = require("./build/pwa");
+const { injectAnalytics } = require("./build/analytics");
 
 const ROOT = path.join(__dirname, "..");
 const OUT = path.join(ROOT, "dist");
@@ -158,6 +160,7 @@ function main() {
     buildOgImages(OUT, data);
     patchSetGuessPages(OUT, data);
     rewriteIndexLinks(OUT);
+    injectAnalytics(OUT);
     // バージョンを他の生成物の中身から決めるので最後に呼ぶ
     buildPwa(ROOT, OUT);
 

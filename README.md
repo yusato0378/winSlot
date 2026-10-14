@@ -437,6 +437,12 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 - 登録はトップを開いたときに `app.js` の `initPwa` が行い、「ホーム画面に追加」カードも出します（Android は追加できるときだけボタン、iPhone の Safari は手順の案内）。
 - 確かめるときの注意: puppeteer の `setOfflineMode` は Service Worker のリクエストには効かないので、オフラインの確認はサーバーを止めて行います。Windows で `npx serve` を止めても子の node が残ることがあります。
 
+### アクセス解析（GA4）
+
+- `scripts/build/analytics.js` がビルドの最後に、`dist/` の全 HTML の `</head>` 直前へ GA4 の計測タグを入れます（ソースの HTML には書かない。手で管理しているページが多く入れ忘れが出るため）。
+- 測定 ID はこのファイルの `GA_MEASUREMENT_ID`。空のあいだと、本番以外（`VERCEL_ENV` が `production` でない＝ローカル・プレビュー）のビルドでは入れません。
+- 送るのはページの閲覧だけです。計算ツールに入力した回数などを送るイベントを足す場合は、先に `privacy.html` を直してください（「入力内容は送信しない」と書いてあります）。
+
 ### Lighthouse（パフォーマンスの目安）
 
 初回描画まわりの改善として、トップでは **Google Fonts のウェイトを 900 除外**（見出しは 700 に統一）、**AdSense スクリプトを `</body>` 直前**へ移しています。さらに詰める場合は次で計測します。
