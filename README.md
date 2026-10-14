@@ -266,7 +266,7 @@ git config --unset core.hooksPath
 
 ### 追加手順
 
-1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。機種名に漢字・英字が含まれる場合は、機種選択の検索用に `aliases`（読みや略称。例: `["ほくと", "ほくとのけん"]`）も入れる。カタカナ・ひらがな・全角半角の違いは検索側で吸収するので、機種名の表記と同じ語は不要。天井期待値は `settings` の最低設定の `big` を「天井のカウントが戻る当たり」として計算する。CZ 確率を `big` にしている機種や天井が CZ 行きの機種など、この前提が合わない場合は `ceilingEv`（`hitRate`・`avgReward`・`ceilingReward`・`costPerGame`・出典を書く `note`）で計算用の値を別に持たせる。朝一リセット後だけ1回の平均獲得が違う機種は `ceilingEv.resetAvgReward` も入れる。周期天井・ランダム天井など、ゲーム数で決まる当たりの形で表せない機種は `ceilingEvUnsupported` に理由を書くと、ツールと機種ページで期待値を出さなくなる。設定1を0Gから打つ期待値がプラスになる機種（出玉率と矛盾）はビルドが警告する。  
+1. `data/machines/{id}.json` を作成する（既存ファイルをコピーして値を変更するのが楽）。設定スペック・天井・`avgBonusReward`・`normalCostPerGame`・`addedDate` のほか、設定推測要素ページがあれば `guessElementPath`、注意点があれば `cautions`（最大3件表示）を入れる。機種名に漢字・英字が含まれる場合は、機種選択の検索用に `aliases`（読みや略称。例: `["ほくと", "ほくとのけん"]`）も入れる。カタカナ・ひらがな・全角半角の違いは検索側で吸収するので、機種名の表記と同じ語は不要。天井期待値は `settings` の最低設定の `big` を「天井のカウントが戻る当たり」として計算する。CZ 確率を `big` にしている機種や天井が CZ 行きの機種など、この前提が合わない場合は `ceilingEv`（`hitRate`・`avgReward`・`ceilingReward`・`costPerGame`・出典を書く `note`）で計算用の値を別に持たせる。朝一リセット後だけ1回の平均獲得や天井恩恵が違う機種は `ceilingEv.resetAvgReward`・`resetCeilingReward` も入れる。周期天井・ランダム天井など、ゲーム数で決まる当たりの形で表せない機種は `ceilingEvUnsupported` に理由を書くと、ツールと機種ページで期待値を出さなくなる。設定1を0Gから打つ期待値がプラスになる機種（出玉率と矛盾）はビルドが警告する。  
 2. `data/machines/index.json` の配列に **`id` を1行追加**する（この配列の順序が一覧・サイトマップの表示順になる）。  
 3. `node scripts/build.js` を実行 → `dist/machines/{id}/index.html`・`dist/machines-data.js`・`dist/sitemap.xml` が更新される。  
 4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  
@@ -274,7 +274,7 @@ git config --unset core.hooksPath
 
 ### 解析待ちの新台（先行ページ）
 
-設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: `mahoako.json`）。
+設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: `seiya_ougon.json`）。
 
 - `pending.known` … 判明していること、`pending.unknown` … まだ分かっていないこと（どちらも文章の配列）。機種ページの冒頭に出る。
 - `settings` は分かっている設定・値だけ入れ、分からない `reg` は `null`（スペック表に「調査中」と出る）。`big` は全設定に数値が必要。天井は `ceiling` ではなく `known` に文章で書く。
@@ -577,10 +577,11 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `paripi_koumei` | スマスロパリピ孔明 |
 | `monhan_sunbreak` | スマスロ モンスターハンターライズ：サンブレイク |
 | `kaijin` | L海人 |
-| `mahoako` | L魔法少女にあこがれて（解析待ち） |
+| `mahoako` | L魔法少女にあこがれて |
 | `garo_yami` | L牙狼 闇を照らす者 |
 | `ragnador` | スマスロ ラグナドール |
 | `seiya_ougon` | L聖闘士星矢 黄金十二宮（解析待ち） |
+| `sao_ggo` | L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン（解析待ち） |
 
 ### Aタイプ
 

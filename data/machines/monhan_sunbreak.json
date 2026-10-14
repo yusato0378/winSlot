@@ -23,9 +23,54 @@
   "normalCostPerGame": 1.6,
   "addedDate": "2026-10-05",
   "guessElementPath": "setGuessElement/monhanSunbreak/index.html",
+  "suggestions": {
+    "trialSource": "big",
+    "groups": [
+      {
+        "id": "endScreen",
+        "label": "AT終了画面",
+        "exclusive": true,
+        "items": [
+          { "id": "odd", "label": "ジェイ／アルロー／ガレアス（いずれか1人）", "rank": "oddWeak" },
+          { "id": "even", "label": "ロンディーネ／ルーチカ", "rank": "evenWeak" },
+          { "id": "fiorayne", "label": "フィオレーネ＆アイルー", "rank": "highWeak" },
+          { "id": "chichae", "label": "チッチェ＆アイルー＆ガルク", "rank": "highStrong" },
+          { "id": "fioRon", "label": "フィオレーネ＆ロンディーネ", "rank": "not2" },
+          { "id": "trio", "label": "ジェイ＆アルロー＆ガレアス（3人）", "rank": "not3" },
+          { "id": "hinoe", "label": "ヒノエ＆ミノト", "rank": "ge2" },
+          { "id": "all", "label": "全員集合", "rank": "ge5" },
+          { "id": "lion", "label": "エンタライオン", "rank": "eq6" }
+        ]
+      },
+      {
+        "id": "trophy",
+        "label": "エンタトロフィー",
+        "exclusive": false,
+        "items": [
+          { "id": "bronze", "label": "銅", "rank": "ge2" },
+          { "id": "silver", "label": "銀", "rank": "ge3" },
+          { "id": "gold", "label": "金", "rank": "ge4" },
+          { "id": "momiji", "label": "紅葉柄", "rank": "ge5" },
+          { "id": "rainbow", "label": "虹", "rank": "eq6" }
+        ]
+      },
+      {
+        "id": "payoutDisplay",
+        "label": "獲得枚数表示",
+        "exclusive": false,
+        "items": [
+          { "id": "222", "label": "222枚OVER", "rank": "ge2" },
+          { "id": "246", "label": "246枚OVER", "rank": "set", "settings": [2, 4, 6] },
+          { "id": "456", "label": "456枚OVER", "rank": "ge4" },
+          { "id": "555", "label": "555枚OVER", "rank": "ge5" },
+          { "id": "666", "label": "666枚OVER", "rank": "eq6" }
+        ]
+      }
+    ]
+  },
   "cautions": [
     "天井はAT間999G＋α（AT当選）。ほかにCZ間333G＋α、CZ6連続失敗後の7回目成功、オトモ潜水艇5周期目のCZ当選があります。設定変更時は天井ゲーム数が0からになり（短縮はなし）、電源OFF→ONでは引き継ぎます。",
-    "判別の主軸はAT初当たり（設定1で1/349.9、設定6で1/242.3＝約1.44倍差）。設定3→4で1/319.8→1/283.6と段差が大きく、1/290を切るペースが設定4以上の目安です。",
+    "判別の主軸はAT初当たり（設定1で1/349.9、設定6で1/242.3＝約1.44倍差）。設定3→4で1/319.8→1/283.6と段差が大きく、1/290を切るペースが設定4以上の目安です。AT終了画面（ヒノエ＆ミノト＝設定2以上〜エンタライオン＝設定6）とエンタトロフィー、獲得枚数表示は設定濃厚の示唆です。",
     "AT「サンブレイクRUSH」は純増約2.7枚/G（上位ATは約6.6枚/G）。AT1回あたりの平均獲得枚数は解析サイトの試算（設定1で約500〜520枚）をもとに500枚とし、狙い目は他機種と同じく期待値が約+90枚になる位置（540G）で算出しています。"
   ]
 }
