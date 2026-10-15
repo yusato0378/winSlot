@@ -38,6 +38,9 @@ const $regCount      = document.getElementById("reg-count");
 const $bonusProb     = document.getElementById("bonus-prob");
 const $bigLabel      = document.getElementById("big-label");
 const $regLabel      = document.getElementById("reg-label");
+const $koyakuCount   = document.getElementById("koyaku-count");
+const $koyakuLabel   = document.getElementById("koyaku-label");
+const $koyakuGroup   = document.getElementById("koyaku-group");
 const $machineInfoBar   = document.getElementById("machine-info-bar");
 const $machineTypeBadge = document.getElementById("machine-type-badge");
 const $machineCeilingInfo = document.getElementById("machine-ceiling-info");
@@ -856,6 +859,13 @@ function onMachineChange() {
         $regCount.closest(".form-group").style.display = "none";
         $regCount.value = "";
     }
+    if (hasKoyakuData(machine)) {
+        $koyakuLabel.textContent = machine.koyakuName + "回数";
+        $koyakuGroup.style.display = "";
+    } else {
+        $koyakuGroup.style.display = "none";
+        $koyakuCount.value = "";
+    }
     // 合算に意味のない機種（CZ と AT など）では「詳細入力（合算確率）」ごと隠す
     $bonusProb.closest(".form-details").style.display = hasCombinedRate(machine) ? "" : "none";
 }
@@ -894,6 +904,7 @@ function analyze({ scroll, quiet = false }) {
     const currentGames = parseInt($currentGames.value) || 0;
     const bigCount    = parseInt($bigCount.value) || 0;
     const regCount    = parseInt($regCount.value) || 0;
+    const koyakuCount = hasKoyakuData(machine) ? parseInt($koyakuCount.value) || 0 : 0;
 
     const hasTotalGames = totalGames > 0;
     const hasCurrentGames = currentGames > 0;
@@ -904,19 +915,23 @@ function analyze({ scroll, quiet = false }) {
         return fail(machine.ceiling ? "総ゲーム数または現在ゲーム数を入力してください" : "総ゲーム数を入力してください");
     }
 
+    if (hasTotalGames && koyakuCount > totalGames) {
+        return fail(`${machine.koyakuName}回数が総ゲーム数を超えています`);
+    }
+
     let posteriors = null;
     if (hasTotalGames) {
         const suggestionDetail = buildSuggestionDetail(
             machine, resolveTrials(machine, bigCount, regCount), collectSuggestionCounts());
         // 示唆なし版も出しておき、示唆がどれだけ効いたかを結果欄で見せる
-        const plain = estimateSettings(machine, totalGames, bigCount, regCount, null);
+        const plain = estimateSettings(machine, totalGames, bigCount, regCount, null, koyakuCount);
         const results = suggestionDetail
-            ? estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail)
+            ? estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail, koyakuCount)
             : plain;
         posteriors = results;
         renderSettingResults(results, machine);
         renderSuggestionSummary(suggestionDetail, plain, results);
-        renderFactors(machine, totalGames, bigCount, regCount);
+        renderFactors(machine, totalGames, bigCount, regCount, koyakuCount);
         renderSpecTable(machine);
         $settingSection.style.display = "";
         $factorSection.style.display = "";
@@ -1052,6 +1067,7 @@ function saveFormState() {
         totalGames: $totalGames.value,
         bigCount: $bigCount.value,
         regCount: $regCount.value,
+        koyakuCount: $koyakuCount.value,
         resetMode: $resetMode.checked,
         currentGames: $currentGames.value,
         suggestions,
@@ -1096,6 +1112,7 @@ function restoreFormState() {
     setValue($totalGames, state.totalGames);
     setValue($bigCount, state.bigCount);
     setValue($regCount, state.regCount);
+    setValue($koyakuCount, state.koyakuCount);
     setValue($currentGames, state.currentGames);
     // 切替は表示中（＝リセット天井のある機種）のときだけ戻す
     $resetMode.checked = state.resetMode === true && !$resetModeRow.hidden;
@@ -1148,6 +1165,8 @@ function onReset() {
     $regCount.closest(".form-group").style.display = "";
     $bigLabel.textContent = "BIG回数";
     $regLabel.textContent = "REG回数";
+    $koyakuGroup.style.display = "none";
+    $koyakuCount.value = "";
     $suggestionInputs.innerHTML = "";
     $suggestionInputs.style.display = "none";
     $currentGamesGroup.style.display = "";
@@ -1320,7 +1339,16 @@ function buildSuggestionDetail(machine, trials, counts) {
 // ============================================================
 // ベイズ推定による設定推測
 // ============================================================
-function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail) {
+/** 小役の設定差を判別に使える機種か（全設定に小役確率がある機種だけ。一部の設定だけ欠けると比べられない） */
+function hasKoyakuData(machine) {
+    return !!machine.koyakuName && Object.values(machine.settings).every(v => v.koyaku != null);
+}
+
+/**
+ * koyakuCount は小役回数（省略可）。0 または小役データの無い機種では従来と完全に同じ計算になる。
+ * 小役は総ゲーム数あたりの出現として BIG・REG と同じ二項分布で扱う。
+ */
+function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDetail, koyakuCount = 0) {
     const settingKeys = Object.keys(machine.settings).map(Number);
     const logLikelihoods = {};
 
@@ -1338,6 +1366,12 @@ function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDet
             logL += regCount * Math.log(pReg) + (totalGames - regCount) * Math.log(1 - pReg);
         }
 
+        // 小役の尤度（数えた場合のみ）
+        if (koyakuCount > 0 && hasKoyakuData(machine)) {
+            const pKoyaku = 1 / spec.koyaku;
+            logL += koyakuCount * Math.log(pKoyaku) + (totalGames - koyakuCount) * Math.log(1 - pKoyaku);
+        }
+
         // 設定示唆演出の尤度（省略可。渡されなければ従来と完全に同じ計算）
         if (suggestionDetail && suggestionDetail.applied) {
             const add = suggestionDetail.logL[s];
@@ -1353,7 +1387,7 @@ function estimateSettings(machine, totalGames, bigCount, regCount, suggestionDet
     // 全設定が -Infinity のときだけ NaN になるため、示唆を外して計算し直す。
     const maxLogL = Math.max(...Object.values(logLikelihoods));
     if (!Number.isFinite(maxLogL) && suggestionDetail) {
-        return estimateSettings(machine, totalGames, bigCount, regCount, null);
+        return estimateSettings(machine, totalGames, bigCount, regCount, null, koyakuCount);
     }
 
     const expSum = settingKeys.reduce((sum, s) => sum + Math.exp(logLikelihoods[s] - maxLogL), 0);
@@ -1680,7 +1714,7 @@ function renderSuggestionSummary(detail, before, after) {
 // ============================================================
 // 描画: 推測要素
 // ============================================================
-function renderFactors(machine, totalGames, bigCount, regCount) {
+function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount = 0) {
     $factorResults.innerHTML = "";
     const items = [];
 
@@ -1702,6 +1736,15 @@ function renderFactors(machine, totalGames, bigCount, regCount) {
             label: `${machine.regLabel}確率`,
             value: `1/${regProb.toFixed(1)}`,
             hint: findClosestSetting(machine, "reg", regProb)
+        });
+    }
+
+    if (koyakuCount > 0 && totalGames > 0) {
+        const koyakuProb = totalGames / koyakuCount;
+        items.push({
+            label: `${machine.koyakuName}確率`,
+            value: `1/${koyakuProb.toFixed(2)}`,
+            hint: findClosestSetting(machine, "koyaku", koyakuProb)
         });
     }
 
