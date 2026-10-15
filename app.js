@@ -1734,7 +1734,7 @@ function renderFactors(machine, totalGames, bigCount, regCount) {
         $factorResults.appendChild(el);
     });
 
-    const geUrl = machine.guessElementPath || null;
+    const geUrl = machine.guessElementPath ? machine.guessElementPath.replace(/index\.html$/, "") : null;
     if (geUrl) {
         const linkBox = document.createElement("div");
         linkBox.className = "ge-link-box";

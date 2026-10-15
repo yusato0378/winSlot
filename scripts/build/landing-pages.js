@@ -390,7 +390,7 @@ ${resetEvTableRows}
                 <p class="lp-note">※ 朝一リセット時の天井${machine.resetCeiling}Gを基準に算出した概算値です。</p>
             </section>` : "";
 
-    const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath}` : "";
+    const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath.replace(/index\.html$/, "")}` : "";
     const guessElementLink = guessElementPath
         ? `
             <section class="card lp-section" id="guess-element">
