@@ -884,7 +884,32 @@ function updateBonusProb() {
 
 function onAnalyze(e) {
     e.preventDefault();
-    if (analyze({ scroll: true })) saveFormState();
+    if (analyze({ scroll: true })) {
+        saveFormState();
+        trackAnalyze();
+    }
+}
+
+/**
+ * 「推測する」で表示できたときに、どの使い方だったかを GA4 に送る（タブ分けなど画面構成の判断材料）。
+ * 送るのは使い方の種類・機種・示唆と小役を使ったかだけで、入力した数値は送らない（プライバシーポリシー参照）。
+ * GA4 のタグは本番だけで入るので、ローカルやプレビューでは何もしない。
+ */
+function trackAnalyze() {
+    if (typeof window.gtag !== "function") return;
+    const machine = getSelectedMachine();
+    const hasTotal = (parseInt($totalGames.value) || 0) > 0;
+    const hasCurrent = !!(machine && machine.ceiling) && (parseInt($currentGames.value) || 0) > 0;
+    const mode = hasTotal && hasCurrent ? "both" : hasTotal ? "setting_only" : "ceiling_only";
+    const usedSuggestions = [...$suggestionInputs.querySelectorAll("input.suggestion-count")]
+        .some(el => (parseInt(el.value) || 0) > 0);
+    window.gtag("event", "analyze", {
+        mode,
+        machine_id: machine ? machine.id : "",
+        used_suggestions: hasTotal && usedSuggestions,
+        used_koyaku: hasTotal && (parseInt($koyakuCount.value) || 0) > 0,
+        reset_mode: hasCurrent && $resetMode.checked,
+    });
 }
 
 /**

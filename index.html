@@ -107,7 +107,8 @@
                     <!-- 天井計算用。台を探しながら機種名＋現在ゲーム数だけ入れる使い方が多いので、機種名の直後に置く。
                          天井の無い機種では app.js が非表示にする -->
                     <div class="form-group" id="current-games-group">
-                        <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから / 天井計算に使用)</span></label>
+                        <p class="form-section-title">天井期待値 <span class="form-section-hint">現在ゲーム数だけでも計算できます</span></p>
+                        <label for="current-games">現在ゲーム数 <span class="label-hint">(前回ボーナスから)</span></label>
                         <input type="number" id="current-games" min="0" inputmode="numeric" placeholder="例: 350">
                         <!-- 朝一リセットで天井が変わる機種だけ表示（app.js が出し分け）。オンなら結果をリセット後の天井で計算する -->
                         <label class="reset-mode" id="reset-mode-row" hidden>
@@ -117,6 +118,7 @@
                     </div>
 
                     <!-- 設定判別の主要入力 -->
+                    <p class="form-section-title">設定判別 <span class="form-section-hint">打った台のデータを入力</span></p>
                     <div class="form-group">
                         <label for="total-games">総ゲーム数</label>
                         <input type="number" id="total-games" min="0" inputmode="numeric" placeholder="例: 5000">

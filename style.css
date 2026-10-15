@@ -222,6 +222,26 @@ body {
     margin-bottom: 6px;
 }
 
+/* 入力欄を「天井期待値」と「設定判別」に分ける見出し */
+.form-section-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-card);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-accent);
+}
+
+.form-section-hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
 .label-hint {
     font-size: 0.8rem;
     color: var(--text-muted);
