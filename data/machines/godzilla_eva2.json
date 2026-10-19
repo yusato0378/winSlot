@@ -1,0 +1,30 @@
+{
+  "id": "godzilla_eva2",
+  "name": "Lパチスロ ゴジラ対エヴァンゲリオン2",
+  "aliases": ["ごじえば2", "ゴジエヴァ2", "ごじらたいえゔぁんげりおん2"],
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 234.2, "reg": 460.5, "koyaku": null, "payout": 97.7 },
+    "2": { "big": 229.0, "reg": 446.5, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 221.8, "reg": 425.5, "koyaku": null, "payout": 101.2 },
+    "4": { "big": 207.0, "reg": 390.4, "koyaku": null, "payout": 105.8 },
+    "5": { "big": 201.5, "reg": 374.2, "koyaku": null, "payout": 110.6 },
+    "6": { "big": 195.0, "reg": 355.5, "koyaku": null, "payout": 114.9 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-11-02",
+  "cautions": [
+    "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（ちょんぼりすた・スロベース、2サイトで一致）に掲載された値で、変わることがあります。入力は初当たり（ボーナス）とAT初当たりの回数です。",
+    "設定差は初当たりで約1.20倍（設定1で1/234.2、設定6で1/195.0）、AT初当たりで約1.30倍（1/460.5→1/355.5）です。設定1〜3は差が小さく、設定3と4の間で開きます。",
+    "天井はAT間1500Gです。到達時の恩恵と平均獲得枚数、設定変更後の天井が未公表のため、天井期待値は表示していません。"
+  ]
+}

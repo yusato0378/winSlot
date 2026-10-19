@@ -590,6 +590,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `sao_ggo` | L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン |
 | `vivy` | スロット Vivy -Fluorite Eye's Song-（解析待ち） |
 | `haihai_shiosai_re` | スマート沖スロ ハイハイシオサイRe |
+| `godzilla_eva2` | Lパチスロ ゴジラ対エヴァンゲリオン2 |
 
 ### Aタイプ
 
