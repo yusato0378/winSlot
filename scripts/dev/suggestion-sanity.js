@@ -68,7 +68,9 @@ for (const m of loaded) {
             pNoneTop *= built.residualRates[top];
             pNoneBot *= built.residualRates[bot];
         }
-        groups.push({ id: g.id, items: g.items.length, exclusive, mass });
+        // 全項目が実測値（rates）のグループは盛りすぎようがないので、出現率の上限は推定値のグループにだけかける
+        const measured = g.items.every(it => it.rates || defaultItem({ items: [it] }));
+        groups.push({ id: g.id, items: g.items.length, exclusive, mass, measured });
     }
 
     // 「TRIALS 回すべて示唆なし」の尤度比（最低設定が最高設定の何倍もっともらしいか）
@@ -87,7 +89,7 @@ for (const m of loaded) {
     const after = detail ? estimateSettings(m, GAMES, TRIALS, TRIALS, detail) : before;
     const nan = Object.values(after).some(v => !Number.isFinite(v));
 
-    const overMass = groups.filter(g => g.exclusive && g.mass > HARD_MASS);
+    const overMass = groups.filter(g => g.exclusive && !g.measured && g.mass > HARD_MASS);
     const hard = nan || lr > HARD_LR || overMass.length > 0;
     rows.push({ m, top, bot, lr, groups, before, after, nan, overMass, hard });
     if (hard) failed++;
@@ -101,7 +103,7 @@ for (const r of rows) {
     console.log(`  ${mark}  ${r.m.id.padEnd(24)} 尤度比 設定${r.top}:設定${r.bot} = 1:${r.lr.toFixed(1)}` +
         `   （参考: 設定${r.top}の事後確率 ${(r.before[r.top] * 100).toFixed(1)}%→${(r.after[r.top] * 100).toFixed(1)}%）`);
     for (const g of r.groups) {
-        const gm = g.exclusive && g.mass > HARD_MASS ? "  ← 上限超過" : "";
+        const gm = g.exclusive && !g.measured && g.mass > HARD_MASS ? "  ← 上限超過" : (g.measured ? "  （実測値）" : "");
         console.log(`        ${g.exclusive ? "排他 " : "独立 "} ${g.id.padEnd(16)} 項目${String(g.items).padStart(2)}` +
             `  設定${r.top}で示唆が出る率 ${(g.mass * 100).toFixed(1)}%${gm}`);
     }
