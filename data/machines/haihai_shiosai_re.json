@@ -1,0 +1,29 @@
+{
+  "id": "haihai_shiosai_re",
+  "name": "スマート沖スロ ハイハイシオサイRe",
+  "aliases": ["はいしお", "はいはいしおさい", "しおさい"],
+  "type": "AT",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 268.8, "reg": 688.6, "koyaku": null, "payout": 97.4 },
+    "2": { "big": 262.0, "reg": 671.0, "koyaku": null, "payout": 98.7 },
+    "4": { "big": 228.8, "reg": 632.6, "koyaku": null, "payout": 104.5 },
+    "5": { "big": 218.7, "reg": 623.2, "koyaku": null, "payout": 106.9 },
+    "6": { "big": 199.6, "reg": 608.4, "koyaku": null, "payout": 111.4 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-11-16",
+  "cautions": [
+    "2026年11月16日導入予定の新台です。数値は導入前に解析サイト（ちょんぼりすた・なな徹・パチマガ・パチ7で一致）に掲載された値で、変わることがあります。設定3を搭載しない5段階設定（設定1・2・4・5・6）です。",
+    "BIGは約360枚・REGは約120枚。BIGの約50%で天国（ボーナスのストック）に入るため、連チャンを含めたボーナス回数は短時間では大きく振れます。設定差はBIGの方が大きく、REGは設定1と6で1/688.6と1/608.4の差です。",
+    "救済機能（天井）は200G・333G・555G・777G・999Gの5種類（基本は999G）とされていますが、振り分けと到達時の平均獲得が未公表のため、天井期待値は表示していません。"
+  ]
+}

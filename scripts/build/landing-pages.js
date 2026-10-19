@@ -308,7 +308,8 @@ function generatePage(machine) {
     }
     faqItems.push({
         q: `${machine.name}の設定${s6key}の${machine.bigLabel}確率は？`,
-        a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。`
+        a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。` +
+           (pending ? "導入前の解析サイトの掲載値で、サイトによって違うことや、変わることがあります。" : "")
     });
     if (!pending) {
         const day = discriminationProbability(machine, DAY_GAMES);

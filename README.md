@@ -587,7 +587,9 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `garo_yami` | L牙狼 闇を照らす者 |
 | `ragnador` | スマスロ ラグナドール |
 | `seiya_ougon` | L聖闘士星矢 黄金十二宮（解析待ち） |
-| `sao_ggo` | L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン（解析待ち） |
+| `sao_ggo` | L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン |
+| `vivy` | スロット Vivy -Fluorite Eye's Song-（解析待ち） |
+| `haihai_shiosai_re` | スマート沖スロ ハイハイシオサイRe |
 
 ### Aタイプ
 

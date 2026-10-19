@@ -1,0 +1,41 @@
+{
+  "id": "vivy",
+  "name": "スロット Vivy -Fluorite Eye's Song-",
+  "aliases": ["ゔぃゔぃ", "びびー", "ヴィヴィ", "ふろーらいとあいずそんぐ"],
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 276.5, "reg": null, "koyaku": null, "payout": 97.7 },
+    "2": { "big": 251.7, "reg": null, "koyaku": null, "payout": 98.7 },
+    "3": { "big": 272.1, "reg": null, "koyaku": null, "payout": 100.2 },
+    "4": { "big": 222.8, "reg": null, "koyaku": null, "payout": 104.7 },
+    "5": { "big": 235.9, "reg": null, "koyaku": null, "payout": 108.3 },
+    "6": { "big": 210.3, "reg": null, "koyaku": null, "payout": 112.8 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-11-02",
+  "pending": {
+    "known": [
+      "初当たりはすべて直ATです。設定1のAT初当たりは1/276.5で、設定1〜4の値（1/276.5・1/251.7・1/272.1・1/222.8）は解析サイト間で一致しています。",
+      "天井はAT間800G＋αで、到達するとAT当選です。6周期のスルー天井もあるとされています。",
+      "ATは純増約3.2枚/Gの差枚数管理型です。特定役で直近15Gのレア役を再生する「レア役再生機能」があります。"
+    ],
+    "unknown": [
+      "設定5・6の確率と機械割：サイトによって設定5が1/235.9か1/210.3、設定6が1/210.3・1/201.3・1/248.8、設定6の機械割が112.8%か112.5%と食い違っています。ここではなな徹の表を仮に載せていますが、揃うまで計算ツールには入れていません。",
+      "設定変更後の天井：500G＋αとするサイトと599G＋αとするサイトがあります。",
+      "天井到達時のATの平均獲得枚数：未公表のため、天井期待値はまだ計算できません。"
+    ]
+  },
+  "cautions": [
+    "2026年11月2日導入予定の新台です。導入前のため、数値は解析サイトの掲載値で、変わることがあります。",
+    "掲載されている表では、AT初当たりは偶数設定が奇数設定より軽い並び（設定2が設定3より、設定4が設定5より軽い）になっています。"
+  ]
+}
