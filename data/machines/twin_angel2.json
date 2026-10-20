@@ -1,0 +1,30 @@
+{
+  "id": "twin_angel2",
+  "name": "スマスロ 快盗天使ツインエンジェル2",
+  "aliases": ["かいとうてんしついんえんじぇる2", "ツインエンジェル2", "ついんえんじぇる", "ツイン2"],
+  "type": "AT",
+  "bigLabel": "BIG",
+  "regLabel": "MB",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 273.1, "reg": 448.9, "koyaku": null, "payout": 97.9 },
+    "2": { "big": 267.5, "reg": 436.9, "koyaku": null, "payout": 99.0 },
+    "3": { "big": 262.1, "reg": 425.6, "koyaku": null, "payout": 101.3 },
+    "4": { "big": 253.0, "reg": 344.9, "koyaku": null, "payout": 105.0 },
+    "5": { "big": 248.2, "reg": 337.8, "koyaku": null, "payout": 107.0 },
+    "6": { "big": 243.6, "reg": 331.0, "koyaku": null, "payout": 109.0 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-07",
+  "cautions": [
+    "2026年12月7日導入予定の新台です。数値は導入前に解析サイト（なな徹・DMMぱちタウンで一致）に掲載された値で、変わることがあります。ボーナス＋ART「エンジェルタイム」のA+ARTタイプで、入力はBIG（SPECIAL BIGを含む）とMB（MIDDLE BONUS）の回数です。",
+    "設定差はMBが大きく、設定3と4の間で開きます（1/425.6→1/344.9）。BIGは設定1と6で1/273.1と1/243.6の差です。機械割は通常時の値で、完全攻略時は設定1で99.4%、設定6で110.8%です。",
+    "天井は非搭載とするサイトと「調査中」とするサイトがあり、天井期待値は表示していません。"
+  ]
+}

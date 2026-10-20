@@ -1,0 +1,30 @@
+{
+  "id": "zegapain_etr",
+  "name": "スマスロゼーガペインETR",
+  "aliases": ["ぜーがぺいん", "ゼーガ"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "ボーナス初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 159.4, "reg": 323.9, "koyaku": null, "payout": 97.5 },
+    "2": { "big": 156.8, "reg": 313.6, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 150.1, "reg": 296.0, "koyaku": null, "payout": 100.7 },
+    "4": { "big": 144.9, "reg": 276.8, "koyaku": null, "payout": 104.5 },
+    "5": { "big": 138.9, "reg": 256.9, "koyaku": null, "payout": 109.4 },
+    "6": { "big": 136.0, "reg": 248.8, "koyaku": null, "payout": 112.5 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-07",
+  "cautions": [
+    "2026年12月7日導入予定の新台です。数値は導入前に解析サイト（なな徹・DMMぱちタウン・ちょんぼりすたで一致）に掲載された値で、変わることがあります。入力はCZ「シズノ覚醒ゾーン」とボーナスの初当たり回数です。",
+    "設定差はCZで約1.17倍（設定1で1/159.4、設定6で1/136.0）、ボーナス初当たりで約1.30倍（1/323.9→1/248.8）です。設定5と6の差は小さく、見分けにくい機種です。",
+    "天井は導入前で未公表のため、天井期待値は表示していません。"
+  ]
+}
