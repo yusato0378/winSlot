@@ -1,0 +1,30 @@
+{
+  "id": "basilisk4",
+  "name": "スマスロ バジリスク～甲賀忍法帖～Ⅳ",
+  "aliases": ["ばじりすく4", "バジリスク4", "バジ4", "こうがにんぽうちょう"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 285.5, "reg": 334.7, "koyaku": null, "payout": 97.8 },
+    "2": { "big": 256.9, "reg": 299.4, "koyaku": null, "payout": 98.7 },
+    "3": { "big": 282.4, "reg": 329.4, "koyaku": null, "payout": 101.4 },
+    "4": { "big": 229.7, "reg": 264.6, "koyaku": null, "payout": 106.0 },
+    "5": { "big": 238.4, "reg": 274.1, "koyaku": null, "payout": 109.8 },
+    "6": { "big": 220.1, "reg": 251.7, "koyaku": null, "payout": 114.2 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-21",
+  "cautions": [
+    "2026年12月21日導入予定の新台です。数値は導入前に解析サイト（なな徹・DMMぱちタウン・ちょんぼりすたで一致）に掲載された値で、変わることがあります。入力はCZ（開眼チャレンジ・破幻チャレンジの合算）とAT「バジリスクタイム」の初当たり回数です。",
+    "CZ・ATとも偶数設定が優遇された並びで、設定2は設定3より、設定4は設定5より初当たりが軽くなっています。初当たりの軽さだけで高設定と決めつけず、機械割の高い奇数設定の可能性も残して見てください。",
+    "天井は導入前で未公表のため、天井期待値は表示していません。"
+  ]
+}

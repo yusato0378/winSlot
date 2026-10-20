@@ -591,6 +591,9 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `vivy` | スロット Vivy -Fluorite Eye's Song-（解析待ち） |
 | `haihai_shiosai_re` | スマート沖スロ ハイハイシオサイRe |
 | `godzilla_eva2` | Lパチスロ ゴジラ対エヴァンゲリオン2 |
+| `zegapain_etr` | スマスロゼーガペインETR |
+| `twin_angel2` | スマスロ 快盗天使ツインエンジェル2 |
+| `basilisk4` | スマスロ バジリスク～甲賀忍法帖～Ⅳ |
 
 ### Aタイプ
 
