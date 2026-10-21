@@ -1,0 +1,30 @@
+{
+  "id": "shaka_rush",
+  "name": "スマスロ シャカラッシュ",
+  "aliases": ["しゃからっしゅ", "シャカラ"],
+  "type": "AT",
+  "bigLabel": "ボーナス初当たり",
+  "regLabel": "SHAKA GAME初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 220.1, "reg": 467.2, "koyaku": null, "payout": 97.7 },
+    "2": { "big": 209.0, "reg": 414.7, "koyaku": null, "payout": 98.7 },
+    "3": { "big": 208.4, "reg": 420.7, "koyaku": null, "payout": 101.2 },
+    "4": { "big": 188.6, "reg": 330.5, "koyaku": null, "payout": 104.4 },
+    "5": { "big": 199.0, "reg": 377.1, "koyaku": null, "payout": 107.5 },
+    "6": { "big": 175.0, "reg": 282.7, "koyaku": null, "payout": 112.3 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-01-12",
+  "cautions": [
+    "2027年1月導入予定の新台です（導入日はサイトにより1月12日・25日などと違います）。数値は導入前に解析サイト（パチマガ・DMMぱちタウン・ジャグラーズネットで一致）に掲載された値で、変わることがあります。入力はボーナスとSHAKA GAMEの初当たり回数です。",
+    "設定4は設定5よりボーナス（1/188.6と1/199.0）・SHAKA GAME（1/330.5と1/377.1）とも軽く、設定2と3もほぼ同じ値です。初当たりの軽さだけで設定を決めつけず、機械割の高い設定5の可能性も残して見てください。",
+    "天井は導入前で未公表のため、天井期待値は表示していません。"
+  ]
+}
