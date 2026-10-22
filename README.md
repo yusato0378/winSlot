@@ -594,6 +594,8 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `zegapain_etr` | スマスロゼーガペインETR |
 | `twin_angel2` | スマスロ 快盗天使ツインエンジェル2 |
 | `basilisk4` | スマスロ バジリスク～甲賀忍法帖～Ⅳ |
+| `monkey_turn_red` | スマスロモンキーターンRED |
+| `shaka_rush` | スマスロ シャカラッシュ |
 
 ### Aタイプ
 

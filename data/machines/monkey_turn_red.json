@@ -1,0 +1,30 @@
+{
+  "id": "monkey_turn_red",
+  "name": "スマスロモンキーターンRED",
+  "aliases": ["もんきーたーんれっど", "モンキーRED", "もんきーれっど"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 260.3, "reg": 422.9, "koyaku": null, "payout": 97.9 },
+    "2": { "big": 260.0, "reg": 405.9, "koyaku": null, "payout": 98.9 },
+    "3": { "big": 259.7, "reg": 386.6, "koyaku": null, "payout": 100.5 },
+    "4": { "big": 259.5, "reg": 357.8, "koyaku": null, "payout": 105.0 },
+    "5": { "big": 259.0, "reg": 355.6, "koyaku": null, "payout": 109.1 },
+    "6": { "big": 258.9, "reg": 354.7, "koyaku": null, "payout": 113.2 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-01-12",
+  "cautions": [
+    "2027年1月12日導入予定の新台です。数値は導入前に解析サイト（なな徹・パチマガ・ちょんぼりすたで一致）に掲載された値で、変わることがあります。入力はCZ（SGチャレンジ・超抜チャレンジREDの合算）とATの初当たり回数です。",
+    "CZ合算は設定差がほとんどなく（設定1で1/260.3、設定6で1/258.9）、判別の主軸はAT初当たり（1/422.9→1/354.7）です。設定4〜6はAT初当たりの差も小さく、機械割の差（105.0〜113.2%）ほどには見分けられません。",
+    "天井は導入前で未公表のため、天井期待値は表示していません。"
+  ]
+}
