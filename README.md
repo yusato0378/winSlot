@@ -274,7 +274,7 @@ git config --unset core.hooksPath
 
 ### 解析待ちの新台（先行ページ）
 
-設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: `seiya_ougon.json`）。
+設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: `vivy.json`）。
 
 - `pending.known` … 判明していること、`pending.unknown` … まだ分かっていないこと（どちらも文章の配列）。機種ページの冒頭に出る。
 - `settings` は分かっている設定・値だけ入れ、分からない `reg` は `null`（スペック表に「調査中」と出る）。`big` は全設定に数値が必要。天井は `ceiling` ではなく `known` に文章で書く。
@@ -586,7 +586,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `mahoako` | L魔法少女にあこがれて |
 | `garo_yami` | L牙狼 闇を照らす者 |
 | `ragnador` | スマスロ ラグナドール |
-| `seiya_ougon` | L聖闘士星矢 黄金十二宮（解析待ち） |
+| `seiya_ougon` | L聖闘士星矢 黄金十二宮 |
 | `sao_ggo` | L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン |
 | `vivy` | スロット Vivy -Fluorite Eye's Song-（解析待ち） |
 | `haihai_shiosai_re` | スマート沖スロ ハイハイシオサイRe |
