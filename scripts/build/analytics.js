@@ -2,7 +2,7 @@
  * Google アナリティクス（GA4）の計測タグを dist/ の全 HTML の </head> 直前に入れる。
  * ソースの HTML は手で管理しているページが多く、1枚ずつ書くと入れ忘れが出るので出力側で入れる。
  *
- * 本番（Vercel の production デプロイ）だけで入れる。ローカルの確認やプレビューで
+ * 本番（Vercel の production デプロイ、または DEPLOY_ENV=production の AWS デプロイ）だけで入れる。ローカルの確認やプレビューで
  * 自分のアクセスが計測に混ざらないようにするため。
  * 送るのはページの閲覧と、ツールの使い方の種類（app.js の trackAnalyze）だけ。入力したゲーム数・回数などの数値は送らない（プライバシーポリシー参照）。
  */
@@ -23,7 +23,7 @@ function injectAnalytics(dir) {
         console.log("Analytics: 測定 ID が未設定のためスキップ");
         return;
     }
-    if (process.env.VERCEL_ENV !== "production") {
+    if (process.env.VERCEL_ENV !== "production" && process.env.DEPLOY_ENV !== "production") {
         console.log("Analytics: 本番デプロイではないためスキップ");
         return;
     }
