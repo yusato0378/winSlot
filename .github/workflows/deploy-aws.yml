@@ -1,0 +1,61 @@
+# main への push で dist/ をビルドし、S3 + CloudFront に配信する（Vercel と並行稼働中）。
+# AWS へは OIDC でログインするので、アクセスキーは GitHub に置かない。
+# ロールの ARN とディストリビューション ID はリポジトリの Variables（Settings → Secrets and variables → Actions）に置く。
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # OIDC のトークン発行に必要
+  contents: read
+
+concurrency:
+  group: deploy-aws
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ap-northeast-1
+  S3_BUCKET: pachislot-setting-site
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+  # ブラウザは毎回確認（Vercel と同じ）、CloudFront はデプロイ時のキャッシュ削除まで持つ
+  CACHE_PAGES: "public, max-age=0, s-maxage=31536000, must-revalidate"
+  CACHE_IMAGES: "public, max-age=86400, s-maxage=31536000"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # sitemap の lastmod に全履歴が要る（scripts/build/lastmod.js）
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/build.js
+        env:
+          DEPLOY_ENV: production # GA4 タグを入れる（scripts/build/analytics.js）
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # 画像は1日、それ以外（HTML・CSS・JS・JSON・sw.js など。ファイル名にハッシュがない）は毎回確認
+      - name: Upload to S3
+        run: |
+          IMAGES=(--include "*.png" --include "*.jpg" --include "*.jpeg" --include "*.webp" --include "*.gif" --include "*.svg" --include "*.ico")
+          aws s3 sync dist/ "s3://$S3_BUCKET/" --delete --exclude "*" "${IMAGES[@]}" --cache-control "$CACHE_IMAGES"
+          aws s3 sync dist/ "s3://$S3_BUCKET/" --delete --exclude "*.png" --exclude "*.jpg" --exclude "*.jpeg" --exclude "*.webp" --exclude "*.gif" --exclude "*.svg" --exclude "*.ico" --cache-control "$CACHE_PAGES"
+          # 拡張子から Content-Type が決まらないもの
+          aws s3 cp dist/manifest.webmanifest "s3://$S3_BUCKET/manifest.webmanifest" --content-type "application/manifest+json" --cache-control "$CACHE_PAGES"
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
