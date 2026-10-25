@@ -7,6 +7,11 @@ function handler(event) {
     var uri = request.uri;
     var m;
 
+    // wwwなし（apex）→ www。Vercel と同じくパスとクエリはそのまま渡す
+    if (request.headers.host && request.headers.host.value === "pachislot-setting.com") {
+        return redirect("https://www.pachislot-setting.com" + uri, request);
+    }
+
     if (uri === "/index.html") {
         return redirect("/", request);
     }
