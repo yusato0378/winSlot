@@ -596,6 +596,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `basilisk4` | スマスロ バジリスク～甲賀忍法帖～Ⅳ |
 | `monkey_turn_red` | スマスロモンキーターンRED |
 | `shaka_rush` | スマスロ シャカラッシュ |
+| `majo_to_yaju` | スマスロ 魔女と野獣 |
 
 ### Aタイプ
 

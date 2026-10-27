@@ -1,0 +1,29 @@
+{
+  "id": "majo_to_yaju",
+  "name": "スマスロ 魔女と野獣",
+  "aliases": ["まじょとやじゅう", "魔女野獣"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "2": { "big": 229.2, "reg": 383.2, "koyaku": null, "payout": 97.9 },
+    "3": { "big": 226.5, "reg": 381.6, "koyaku": null, "payout": 99.1 },
+    "4": { "big": 216.0, "reg": 372.2, "koyaku": null, "payout": 104.1 },
+    "5": { "big": 206.5, "reg": 360.7, "koyaku": null, "payout": 109.2 },
+    "6": { "big": 197.1, "reg": 353.3, "koyaku": null, "payout": 113.7 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-21",
+  "cautions": [
+    "2026年12月21日導入予定の新台です。数値は導入前に解析サイト（ちょんぼりすた・パチマガ、両サイトで一致）に掲載された値で、変わることがあります。掲載されている表は設定2〜6の5段階で設定1の記載が無いため、当ツールの推測も5段階で行っています。入力はCZとAT初当たりの回数です。",
+    "設定差は小さく、CZで約1.16倍（設定2で1/229.2、設定6で1/197.1）、AT初当たりで約1.08倍（1/383.2→1/353.3）です。設定2・3はほとんど差がありません。",
+    "天井はCZ間600G（CZ当選）とST間999G（ST当選）と掲載されています（ちょんぼりすた。他サイトは2026年10月28日時点で未掲載）。天井到達時の平均獲得枚数が未公表のため、天井期待値は表示していません。"
+  ]
+}
