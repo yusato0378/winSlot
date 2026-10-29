@@ -1,0 +1,30 @@
+{
+  "id": "blue_reflection_tei",
+  "name": "Lブルーリフレクション帝",
+  "aliases": ["ぶるーりふれくしょんたい", "ぶるりふ"],
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 162.6, "reg": null, "koyaku": null, "payout": 97.8 },
+    "2": { "big": 161.0, "reg": null, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 158.1, "reg": null, "koyaku": null, "payout": 100.8 },
+    "4": { "big": 154.8, "reg": null, "koyaku": null, "payout": 103.5 },
+    "5": { "big": 152.0, "reg": null, "koyaku": null, "payout": 106.4 },
+    "6": { "big": 150.1, "reg": null, "koyaku": null, "payout": 110.6 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-21",
+  "cautions": [
+    "2026年12月21日導入予定の新台です（なな徹・ちょんぼりすた・スロベース・DMMぱちタウンで一致）。数値は導入前に解析サイト（ちょんぼりすた・スロベース、両サイトで一致）に掲載された値で、変わることがあります。入力はAT初当たりの回数です。",
+    "AT初当たりの設定差はとても小さく（設定1で1/162.6、設定6で1/150.1＝約1.08倍）、初当たりの回数だけでは1日打っても設定はほとんど絞れません。機械割の差（97.8〜110.6%）はAT中の性能によるものとみられます。",
+    "天井はCZ間300G＋α（CZ当選）と掲載されています（ちょんぼりすた・スロベース・DMMぱちタウン）。天井到達時の恩恵と平均獲得枚数が未公表のため、天井期待値は表示していません。"
+  ]
+}

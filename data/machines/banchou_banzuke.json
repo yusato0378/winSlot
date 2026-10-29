@@ -1,0 +1,30 @@
+{
+  "id": "banchou_banzuke",
+  "name": "L押忍！番長番付",
+  "aliases": ["おすばんちょうばんづけ", "ばんちょうばんづけ", "ばんづけ"],
+  "type": "AT",
+  "bigLabel": "AT初当たり",
+  "regLabel": null,
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 365.1, "reg": null, "koyaku": null, "payout": 97.6 },
+    "2": { "big": 315.6, "reg": null, "koyaku": null, "payout": 98.6 },
+    "3": { "big": 359.7, "reg": null, "koyaku": null, "payout": 100.1 },
+    "4": { "big": 282.1, "reg": null, "koyaku": null, "payout": 105.0 },
+    "5": { "big": 344.1, "reg": null, "koyaku": null, "payout": 113.0 },
+    "6": { "big": 272.3, "reg": null, "koyaku": null, "payout": 114.0 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-07",
+  "cautions": [
+    "2026年12月7日導入予定の新台です（なな徹・ちょんぼりすた・スロベース。DMMぱちタウンは12月上旬）。数値は導入前に解析サイト（ちょんぼりすた・スロベース、両サイトで一致）に掲載された値で、変わることがあります。入力はAT初当たりの回数です。",
+    "掲載されている表では、AT初当たりは偶数設定が奇数設定より大幅に軽い並びです（設定2で1/315.6、設定3で1/359.7、設定4で1/282.1、設定5で1/344.1）。機械割は設定5が113.0%と高いので、初当たりが重いことだけで低設定と決めつけないでください。",
+    "天井はCZ間900pt（CZ当選）とAT間999G（AT当選）と掲載されています（ちょんぼりすた・スロベース・DMMぱちタウン）。天井到達時の恩恵と平均獲得枚数が未公表のため、天井期待値は表示していません。"
+  ]
+}

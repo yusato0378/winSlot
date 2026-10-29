@@ -1,0 +1,39 @@
+{
+  "id": "ryza_atelier",
+  "name": "パチスロ ライザのアトリエ～常闇の女王と秘密の隠れ家～",
+  "aliases": ["らいざのあとりえ", "らいざ", "ライザ", "とこやみのじょおう"],
+  "type": "AT",
+  "bigLabel": "BB",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 316.0, "reg": 472.2, "koyaku": null, "payout": 98.3 },
+    "2": { "big": 316.0, "reg": 420.6, "koyaku": null, "payout": 99.5 },
+    "3": { "big": 310.9, "reg": 369.0, "koyaku": null, "payout": 103.8 },
+    "4": { "big": 302.2, "reg": 355.4, "koyaku": null, "payout": 106.3 },
+    "5": { "big": 298.2, "reg": 306.8, "koyaku": null, "payout": 110.7 },
+    "6": { "big": 294.2, "reg": 299.3, "koyaku": null, "payout": 112.1 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-01-12",
+  "pending": {
+    "known": [
+      "北電子のAT機（スマスロ）です。エレメントに対応した小役と対応数（シングル・ダブル・トリプル）に応じて恩恵が変わります。",
+      "救済機能（天井）は通常時AT間1280G＋α、設定変更時AT間777G＋αと掲載されています（スロベース）。",
+      "AT純増は2.2枚または4.0枚、50枚あたり約31.7Gと掲載されています（スロベース）。"
+    ],
+    "unknown": [
+      "設定別の確率と機械割：いまは1サイト（スロベース。設定1でBB 1/316.0・AT 1/472.2・機械割98.3%、設定6でBB 1/294.2・AT 1/299.3・機械割112.1%）だけの掲載で、ちょんぼりすた・DMMぱちタウンは「調査中」「掲載準備中」です。別のサイトで確認できるまで計算ツールには入れていません。",
+      "天井到達時の恩恵と平均獲得枚数：未公表のため、天井期待値はまだ計算できません。"
+    ]
+  },
+  "cautions": [
+    "2027年1月導入予定の新台です（ちょんぼりすた・DMMぱちタウンは1月12日、スロベースは1月18日）。導入前のため、数値は解析サイトの掲載値で、変わることがあります。"
+  ]
+}
