@@ -1,0 +1,30 @@
+{
+  "id": "dragons_dogma2",
+  "name": "スマスロ ドラゴンズドグマ2",
+  "aliases": ["どらごんずどぐま", "ドグマ2", "どぐま"],
+  "type": "AT",
+  "bigLabel": "CZ初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 302.9, "reg": 493.8, "koyaku": null, "payout": 97.4 },
+    "2": { "big": 295.4, "reg": 484.7, "koyaku": null, "payout": 98.5 },
+    "3": { "big": 280.4, "reg": 467.5, "koyaku": null, "payout": 100.4 },
+    "4": { "big": 265.2, "reg": 444.4, "koyaku": null, "payout": 104.1 },
+    "5": { "big": 262.8, "reg": 437.3, "koyaku": null, "payout": 109.0 },
+    "6": { "big": 261.3, "reg": 435.8, "koyaku": null, "payout": 113.3 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-21",
+  "cautions": [
+    "2026年12月21日導入予定の新台です（なな徹・スロベースの新台カレンダー）。ちょんぼりすたは2027年3月8日、DMMぱちタウン・パチマガは導入日未定としており、延期の可能性があります。数値は導入前に解析サイト（ちょんぼりすた・スロベース、両サイトで一致）に掲載された値で、変わることがあります。入力はCZとAT初当たりの回数です。",
+    "設定差は設定3と4の間で開きます（CZ1/280.4→1/265.2、AT初当たり1/467.5→1/444.4）。設定4〜6どうしはCZ・AT初当たりとも差がほとんどなく、機械割の差（104.1〜113.3%）ほどには見分けられません。",
+    "天井は1500G＋αと掲載されています（ちょんぼりすた・スロベース）。天井到達時の恩恵と平均獲得枚数が未公表のため、天井期待値は表示していません。"
+  ]
+}

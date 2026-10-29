@@ -597,6 +597,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `monkey_turn_red` | スマスロモンキーターンRED |
 | `shaka_rush` | スマスロ シャカラッシュ |
 | `majo_to_yaju` | スマスロ 魔女と野獣 |
+| `dragons_dogma2` | スマスロ ドラゴンズドグマ2 |
 
 ### Aタイプ
 
