@@ -1,0 +1,30 @@
+{
+  "id": "assault_lily",
+  "name": "Lアサルトリリィ",
+  "aliases": ["あさりり"],
+  "type": "AT",
+  "bigLabel": "初当たり",
+  "regLabel": "AT初当たり",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 273.4, "reg": 417.7, "koyaku": null, "payout": 97.5 },
+    "2": { "big": 266.6, "reg": 401.0, "koyaku": null, "payout": 98.8 },
+    "3": { "big": 257.0, "reg": 377.4, "koyaku": null, "payout": 100.5 },
+    "4": { "big": 243.5, "reg": 345.9, "koyaku": null, "payout": 104.3 },
+    "5": { "big": 232.3, "reg": 320.4, "koyaku": null, "payout": 107.8 },
+    "6": { "big": 220.6, "reg": 296.8, "koyaku": null, "payout": 112.5 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2026-12-07",
+  "cautions": [
+    "2026年12月7日導入予定の新台です（なな徹・ちょんぼりすた・スロベース。DMMぱちタウンは導入日未定）。数値は導入前に解析サイト（ちょんぼりすた・スロベース、両サイトで一致）に掲載された値で、変わることがあります。入力は初当たり（ボーナス・ATの合算）とAT初当たりの回数です。",
+    "設定差は初当たりで約1.24倍（設定1で1/273.4、設定6で1/220.6）、AT初当たりで約1.41倍（1/417.7→1/296.8）です。判別の主軸はAT初当たりで、設定ごとにほぼ均等に軽くなります。",
+    "天井はボーナス間800G・AT間1400Gと掲載されています（ちょんぼりすた・スロベース）。天井到達時の恩恵と平均獲得枚数が未公表のため、天井期待値は表示していません。"
+  ]
+}
