@@ -12,7 +12,7 @@
 - [ディレクトリ構成](#ディレクトリ構成)
 - [ローカルでの確認](#ローカルでの確認)
 - [コミット後の自動 `git push`（任意）](#コミット後の自動-git-push任意)
-- [デプロイ（Vercel）](#デプロイvercel)
+- [デプロイ（AWS）](#デプロイaws)
 - [ビルドスクリプト](#ビルドスクリプト)
 - [解説記事の追加](#解説記事の追加パターンb)
 - [機種別ランディングページの再生成](#機種別ランディングページの再生成)
@@ -54,7 +54,7 @@
 
 ## ディレクトリ構成
 
-**ビルド方式**: ソース（`index.html`・`app.js`・`articles/`・`templates/`・`data/machines/`）を git 管理し、`node scripts/build.js` が **`dist/` に全ページを生成**します。Vercel はこの `dist/` を配信します。`guide/`・`machines/*/index.html`・`setGuessElement/index.html`・`sitemap.xml`・`machines-data.js` は**生成物のため git 管理外**（`.gitignore` 済み）です。
+**ビルド方式**: ソース（`index.html`・`app.js`・`articles/`・`templates/`・`data/machines/`）を git 管理し、`node scripts/build.js` が **`dist/` に全ページを生成**します。GitHub Actions がこの `dist/` を S3 に上げ、CloudFront が配信します。`guide/`・`machines/*/index.html`・`setGuessElement/index.html`・`sitemap.xml`・`machines-data.js` は**生成物のため git 管理外**（`.gitignore` 済み）です。
 
 **機種データの正本は `data/machines/*.json`（1機種1ファイル）**です。以前は `app.js` と LP生成側に同じ配列が二重に存在していましたが、JSON に一本化しました。ビルドが `dist/machines-data.js`（`window.MACHINES`）を生成し、`index.html` が `app.js` より前に読み込みます。
 
@@ -63,11 +63,10 @@ winSlot/
 ├── index.html              # メインアプリ（machines-data.js → app.js の順で読み込む）
 ├── app.js                  # 推測・UI ロジックのみ（MACHINES は window から取得）
 ├── style.css
-├── 404.html                # Vercel が未存在URLに配信（noindex）
+├── 404.html                # CloudFront が未存在URLに配信（noindex）
 ├── og-default.png          # OGP / Twitter カード用（トップ）
 ├── ads.txt                 # AdSense 用（公開ルートに配置）
 ├── robots.txt
-├── vercel.json             # buildCommand / outputDirectory / リダイレクト
 │
 ├── data/
 │   └── machines/           # ★ 機種データの正本（1機種1 JSON）
@@ -90,7 +89,7 @@ winSlot/
 │       ├── landing-pages.js  # machines/・setGuessElement/index・sitemap.xml を生成
 │       └── setguess-seo.js   # setGuessElement の meta / 機種LP 導線を付与
 │
-├── dist/                   # ビルド出力（git 管理外。Vercel が配信）
+├── dist/                   # ビルド出力（git 管理外。CloudFront が配信）
 ├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
 └── .cursor/
     └── skills/             # Cursor Agent Skills（リポジトリ単位・任意）
@@ -130,7 +129,7 @@ winSlot/
 ## コミット後の自動 `git push`（任意）
 
 **ファイルを保存しただけでは GitHub に送られません。**  
-Git は「コミット」された変更だけを push できます。このリポジトリでは、**コミットが終わった直後に `git push` する** Git フックを用意しています（Vercel は従来どおり **GitHub への push をトリガー**にデプロイ）。
+Git は「コミット」された変更だけを push できます。このリポジトリでは、**コミットが終わった直後に `git push` する** Git フックを用意しています（本番は **main への push をトリガー**に GitHub Actions がデプロイ）。
 
 ### 注意
 
@@ -166,12 +165,13 @@ git config --unset core.hooksPath
 
 ---
 
-## デプロイ（Vercel）
+## デプロイ（AWS）
 
-- Vercel は `vercel.json` の **`buildCommand`（`node scripts/build.js`）を実行**し、**`outputDirectory`（`dist/`）を配信**します。GitHub への push がトリガーです。生成物は git に含めません。  
-- `vercel.json` では `/articles/:slug` → `/guide/:slug`、および旧機種LPパス（`/machines/:id/ceiling`・`setting`・`beginner` など）→ `/machines/:id/` の **301 リダイレクト**を定義しています（`trailingSlash: true` に合わせ、末尾スラッシュあり／なしの両方をカバー）。  
-- 未存在URLには `dist/404.html`（`noindex`）が **HTTP 404** で返ります（以前の「全URLに index.html を 200 で返す catch-all rewrite」はソフト404の原因になるため廃止）。  
-- **`vercel.json` のリダイレクト定義**は `node scripts/verify-vercel-machine-redirects.js` で確認できます（デプロイ前のチェックに利用）。  
+- 本番は **S3 + CloudFront** です（2026-10-25 に Vercel から移行）。DNS は Route 53 で、`pachislot-setting.com`・`www` とも CloudFront を向いています。  
+- **main への push** で `.github/workflows/deploy-aws.yml` が `node scripts/build.js` を実行し、`dist/` を S3 に同期して CloudFront のキャッシュを消します。AWS へは OIDC でログインし、ロール ARN とディストリビューション ID はリポジトリの Actions Variables（`AWS_ROLE_ARN`・`CLOUDFRONT_DISTRIBUTION_ID`）に置いています。PR のプレビューはありません（確認は手元の `npm run preview`）。生成物は git に含めません。  
+- 旧URLのリダイレクトは CloudFront Functions の `infra/cloudfront/viewer-request.js` です。wwwなし → www、`/articles/:slug` → `/guide/:slug.html`、旧機種LPパス（`/machines/:id/ceiling`・`setting`・`beginner`）→ `/machines/:id/` を **308** で寄せ、末尾スラッシュをそろえ、ディレクトリ URL に `index.html` を補います。  
+- **この関数はデプロイでは更新されません。** 直したら `node scripts/verify-cloudfront-redirects.js` を通し、AWS コンソールの CloudFront → 関数 で貼り替えて「発行」します。  
+- 未存在URLには `dist/404.html`（`noindex`）が **HTTP 404** で返ります（CloudFront のカスタムエラーで 403/404 → `/404.html`）。  
 - **デプロイ直後（本番）**: Search Console の **URL 検査**で旧パス（例: `/machines/hokuto/ceiling/`）が正規の `machines/{id}/` へリダイレクトされることを確認し、必要なら **インデックス登録をリクエスト**。**サイトマップ**から `sitemap.xml` の再送信も推奨。数週間後に **ページ** レポートでインデックスの推移を確認する（即時には完了しない運用タスク）。  
 - 本番ドメイン（例: `pachislot-setting.com`）に合わせて、`index.html` の `canonical` / `og:url`、各ページの絶対URL、`contact.html` の Formspree `_next`、**Search Console の所有権確認**などを揃えてください。
 
@@ -179,7 +179,7 @@ git config --unset core.hooksPath
 
 ## ビルドスクリプト
 
-`node scripts/build.js`（= `npm run build`）が**唯一のビルド入口**です。`dist/` を空にして静的ファイルをコピーし、以下のモジュールを順に呼んで全ページを生成します。Vercel もこのコマンドを実行します。
+`node scripts/build.js`（= `npm run build`）が**唯一のビルド入口**です。`dist/` を空にして静的ファイルをコピーし、以下のモジュールを順に呼んで全ページを生成します。本番のデプロイ（GitHub Actions）もこのコマンドを実行します。
 
 | モジュール | 内容 |
 |----------|------|
@@ -209,7 +209,7 @@ git config --unset core.hooksPath
 |----------|------|
 | `node scripts/gsc-analyze.js data/gsc.csv` | Search Console のCSV/TSV（検索パフォーマンス）を解析し、CTR低/順位11〜20の改善候補を `reports/gsc-actions.md` に出力 |
 | `node scripts/update-access-ranking-from-gsc.js data/gsc.csv` | GSC エクスポートからクリック数上位5件を `data/access-ranking.json` に更新（トップのアクセスランキング表示用） |
-| `node scripts/verify-vercel-machine-redirects.js` | `vercel.json` の 301 定義が揃っているか検証 |
+| `node scripts/verify-cloudfront-redirects.js` | CloudFront Functions（`infra/cloudfront/viewer-request.js`）のリダイレクトを検証 |
 
 ---
 
@@ -285,7 +285,7 @@ git config --unset core.hooksPath
 ### 仕組み
 
 - `scripts/build/machines.js` が `data/machines/` を読み、`MACHINES`（LP生成・サイトマップ用）と `window.MACHINES`（ブラウザ用 `dist/machines-data.js`）の両方を供給します。  
-- 旧構成の `/machines/{id}/ceiling/` 等へのリンクは、本番の `vercel.json` で同一の `machines/{id}/` に 301 されます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
+- 旧構成の `/machines/{id}/ceiling/` 等へのリンクは、本番の CloudFront Functions で同一の `machines/{id}/` にリダイレクトされます（ページ内 `#lp-ceiling` 等へは手動でスクロール）。
 
 ---
 
@@ -405,7 +405,7 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 ## Google AdSense / ads.txt
 
 - 各ページ `<head>` に AdSense スクリプトを埋め込んでいます（クライアントIDはご自身のものに差し替え可能）。  
-- **`ads.txt`** をサイト**ルート**に置き、クローラが `https://ドメイン/ads.txt` で取得できるようにしてください（Vercel ならリポジトリ直下でOK）。
+- **`ads.txt`** をサイト**ルート**に置き、クローラが `https://ドメイン/ads.txt` で取得できるようにしてください（リポジトリ直下に置けばビルドで `dist/` のルートにコピーされます）。
 
 ---
 
@@ -427,7 +427,7 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 - **`sitemap.xml`**: `dist/sitemap.xml` としてビルド時に生成されます。新ドメインへ移行した場合は生成元（`scripts/build/landing-pages.js` の `SITE_URL`）を本番ドメインに統一してください。  
 - **`robots.txt`**: `Sitemap:` の URL も本番に合わせることを推奨します。  
 - **`og-default.png`**: トップの SNS シェア用（`og:image` / `twitter:image`）。差し替える場合は 1200×630 前後の PNG を推奨します。
-- **機種ページの OGP 画像**: `scripts/build/og-images.js` がビルド時に `dist/machines/{id}/og.png`（1200×630）を機種ごとに描きます。機種名・天井・等価で期待値がプラスになる回転数・機械割を、機種ページと同じ計算から入れます（解析待ちの機種は「解析待ち」バッジと導入日）。SVG を `@resvg/resvg-js` で PNG にしており（X は SVG の og:image を表示しないため）、フォントは `assets/fonts/` の Noto Sans JP Bold（SIL OFL、`OFL.txt`）だけを使います。Vercel のビルド環境に日本語フォントが無いので、このファイルは消さないでください。全機種の描画には約45秒かかりますが、描いた画像は `node_modules/.cache/og-images/` に残し、機種データ（画像に載る値）が変わった機種だけ描き直します。
+- **機種ページの OGP 画像**: `scripts/build/og-images.js` がビルド時に `dist/machines/{id}/og.png`（1200×630）を機種ごとに描きます。機種名・天井・等価で期待値がプラスになる回転数・機械割を、機種ページと同じ計算から入れます（解析待ちの機種は「解析待ち」バッジと導入日）。SVG を `@resvg/resvg-js` で PNG にしており（X は SVG の og:image を表示しないため）、フォントは `assets/fonts/` の Noto Sans JP Bold（SIL OFL、`OFL.txt`）だけを使います。ビルド環境（GitHub Actions）に日本語フォントが無いので、このファイルは消さないでください。全機種の描画には約45秒かかりますが、描いた画像は `node_modules/.cache/og-images/` に残し、機種データ（画像に載る値）が変わった機種だけ描き直します。
 
 ### PWA（ホーム画面に追加）
 
@@ -440,7 +440,7 @@ node scripts/dev/suggestion-sanity.js  # 校正ガードレール（要 npm run 
 ### アクセス解析（GA4）
 
 - `scripts/build/analytics.js` がビルドの最後に、`dist/` の全 HTML の `</head>` 直前へ GA4 の計測タグを入れます（ソースの HTML には書かない。手で管理しているページが多く入れ忘れが出るため）。
-- 測定 ID はこのファイルの `GA_MEASUREMENT_ID`。空のあいだと、本番以外（`VERCEL_ENV` が `production` でない＝ローカル・プレビュー）のビルドでは入れません。
+- 測定 ID はこのファイルの `GA_MEASUREMENT_ID`。空のあいだと、本番以外（`DEPLOY_ENV` が `production` でない＝ローカル）のビルドでは入れません。
 - 送るのはページの閲覧だけです。計算ツールに入力した回数などを送るイベントを足す場合は、先に `privacy.html` を直してください（「入力内容は送信しない」と書いてあります）。
 
 ### Lighthouse（パフォーマンスの目安）

@@ -1,6 +1,6 @@
 /**
  * サイト全体ビルド
- * 実行: node scripts/build.js（Vercel の buildCommand からも実行される）
+ * 実行: node scripts/build.js（GitHub Actions の deploy-aws.yml からも実行される）
  *
  * 1. dist/ をクリアして静的ファイルをコピー（許可リスト方式。plan.md や reports/ 等は配信しない）
  * 2. 機種データと示唆ランクから dist/machines-data.js・suggestion-rates.js を生成（ブラウザ app.js 用）

@@ -4,7 +4,7 @@
  *
  * X などでシェアされたときに、トップ共通の画像ではなく機種名と天井・機械割が見えるようにする。
  * SVG で組み立てて resvg で PNG にする（X は SVG の og:image を表示しないため）。
- * Vercel のビルド環境には日本語フォントが無いので、assets/fonts/ の Noto Sans JP だけを使う。
+ * ビルド環境（GitHub Actions の ubuntu）には日本語フォントが無いので、assets/fonts/ の Noto Sans JP だけを使う。
  */
 const crypto = require("crypto");
 const fs = require("fs");

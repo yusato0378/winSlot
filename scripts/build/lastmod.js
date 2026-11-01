@@ -17,9 +17,9 @@ function loadGitDates(root, paths) {
         cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"],
     });
     try {
-        // Vercel は浅いクローンが既定。環境変数 VERCEL_DEEP_CLONE=true で全履歴を取得する
+        // actions/checkout は浅いクローンが既定。deploy-aws.yml では fetch-depth: 0 で全履歴を取得する
         if (git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") {
-            return { reason: "浅いクローンで履歴が途中までしかない（VERCEL_DEEP_CLONE=true で全履歴になる）" };
+            return { reason: "浅いクローンで履歴が途中までしかない（actions/checkout なら fetch-depth: 0 で全履歴になる）" };
         }
         const dates = new Map();
         let current = null;
