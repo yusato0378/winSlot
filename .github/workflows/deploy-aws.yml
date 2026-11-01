@@ -1,4 +1,4 @@
-# main への push で dist/ をビルドし、S3 + CloudFront に配信する（Vercel と並行稼働中）。
+# main への push で dist/ をビルドし、S3 + CloudFront に配信する。
 # AWS へは OIDC でログインするので、アクセスキーは GitHub に置かない。
 # ロールの ARN とディストリビューション ID はリポジトリの Variables（Settings → Secrets and variables → Actions）に置く。
 name: Deploy to AWS
@@ -20,7 +20,7 @@ env:
   AWS_REGION: ap-northeast-1
   S3_BUCKET: pachislot-setting-site
   CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-  # ブラウザは毎回確認（Vercel と同じ）、CloudFront はデプロイ時のキャッシュ削除まで持つ
+  # ブラウザは毎回確認、CloudFront はデプロイ時のキャッシュ削除まで持つ
   CACHE_PAGES: "public, max-age=0, s-maxage=31536000, must-revalidate"
   CACHE_IMAGES: "public, max-age=86400, s-maxage=31536000"
 

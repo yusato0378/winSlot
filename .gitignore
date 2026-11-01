@@ -3,7 +3,7 @@ data/gsc*.tsv
 data/gsc*.txt
 reports/gsc-actions*.md
 
-# ビルド出力（node scripts/build.js が dist/ に生成。Vercel が配信）
+# ビルド出力（node scripts/build.js が dist/ に生成。GitHub Actions が S3 に上げて CloudFront が配信）
 dist/
 
 # 生成物（ソースは articles/・templates/・scripts/build/landing-pages.js の機種データ）

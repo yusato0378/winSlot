@@ -1,13 +1,14 @@
 // CloudFront Functions（viewer request, cloudfront-js-2.0）
-// vercel.json の redirects と trailingSlash: true を再現し、ディレクトリ URL を index.html に補う。
-// リダイレクト先は Vercel の多段リダイレクト（末尾スラッシュ付与 → 本来の移動先）を1回にまとめている。
+// 旧URLのリダイレクトと末尾スラッシュの統一（以前の vercel.json の redirects と trailingSlash: true）を行い、
+// ディレクトリ URL を index.html に補う。scripts/verify-cloudfront-redirects.js で確認できる。
+// Vercel では多段だったリダイレクト（末尾スラッシュ付与 → 本来の移動先）を1回にまとめている。
 
 function handler(event) {
     var request = event.request;
     var uri = request.uri;
     var m;
 
-    // wwwなし（apex）→ www。Vercel と同じくパスとクエリはそのまま渡す
+    // wwwなし（apex）→ www。パスとクエリはそのまま渡す
     if (request.headers.host && request.headers.host.value === "pachislot-setting.com") {
         return redirect("https://www.pachislot-setting.com" + uri, request);
     }
