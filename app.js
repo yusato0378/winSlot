@@ -59,7 +59,6 @@ const $resetBtn      = document.getElementById("reset-btn");
 const $currentGamesGroup = document.getElementById("current-games-group");
 const $resetMode     = document.getElementById("reset-mode");
 const $resetModeRow  = document.getElementById("reset-mode-row");
-const $formRestored  = document.getElementById("form-restored");
 const $formError     = document.getElementById("form-error");
 const $exchangeRate  = document.getElementById("exchange-rate");
 const $summarySetting = document.getElementById("summary-setting");
@@ -1070,7 +1069,8 @@ function clearFormError() {
 // ============================================================
 // 入力内容の保存・復元
 // スマホのブラウザは裏に回したタブを読み込み直すことが多く、ホールで台を打ちながら
-// アプリを切り替えると入力が消えてしまう。この端末のブラウザにだけ保存して開き直したときに戻す。
+// アプリを切り替えると入力が消えてしまう。そのタブの中だけ（sessionStorage）に保存して読み直したときに戻す。
+// 新しく開いたときは空から始める（前の台の数字が残っていると毎回消す手間になるため）。
 // ============================================================
 const STORAGE_KEY_FORM = "winslot:form";
 // 1日の稼働（開店〜閉店）に収まる長さ。翌日に前日の台のデータが出てこないようにする
@@ -1099,7 +1099,7 @@ function saveFormState() {
         analyzed: $resultsSection.style.display !== "none",
     };
     try {
-        localStorage.setItem(STORAGE_KEY_FORM, JSON.stringify(state));
+        sessionStorage.setItem(STORAGE_KEY_FORM, JSON.stringify(state));
     } catch (e) {
         // 保存できない環境（プライベートモード等）では復元されないだけで、入力自体は動く
     }
@@ -1107,7 +1107,7 @@ function saveFormState() {
 
 function clearFormState() {
     try {
-        localStorage.removeItem(STORAGE_KEY_FORM);
+        sessionStorage.removeItem(STORAGE_KEY_FORM);
     } catch (e) {
         // 同上
     }
@@ -1116,7 +1116,9 @@ function clearFormState() {
 function restoreFormState() {
     let state;
     try {
-        state = JSON.parse(localStorage.getItem(STORAGE_KEY_FORM));
+        // 以前は localStorage に保存していたので、残っている分を消しておく
+        localStorage.removeItem(STORAGE_KEY_FORM);
+        state = JSON.parse(sessionStorage.getItem(STORAGE_KEY_FORM));
     } catch (e) {
         return;
     }
@@ -1155,14 +1157,6 @@ function restoreFormState() {
     if (anySuggestion) $suggestionInputs.querySelector("details").open = true;
 
     updateBonusProb();
-    if (!machine && !hasFormInput()) return;
-
-    const saved = new Date(state.savedAt);
-    const hh = String(saved.getHours()).padStart(2, "0");
-    const mm = String(saved.getMinutes()).padStart(2, "0");
-    $formRestored.textContent = `前回の入力を復元しました（${saved.getMonth() + 1}/${saved.getDate()} ${hh}:${mm} 保存）`;
-    $formRestored.hidden = false;
-
     if (state.analyzed && machine) analyze({ scroll: false });
 }
 
@@ -1195,7 +1189,6 @@ function onReset() {
     $suggestionInputs.innerHTML = "";
     $suggestionInputs.style.display = "none";
     $currentGamesGroup.style.display = "";
-    $formRestored.hidden = true;
     $resetModeRow.hidden = true;
     lastMachineId = null;
     clearFormError();
