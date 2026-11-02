@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": null,
   "addedDate": "2026-11-02",
+  "guessElementPath": "setGuessElement/godzillaEva2/index.html",
   "cautions": [
     "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（ちょんぼりすた・スロベース、2サイトで一致）に掲載された値で、変わることがあります。入力は初当たり（ボーナス）とAT初当たりの回数です。",
     "設定差は初当たりで約1.20倍（設定1で1/234.2、設定6で1/195.0）、AT初当たりで約1.30倍（1/460.5→1/355.5）です。設定1〜3は差が小さく、設定3と4の間で開きます。",

@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": null,
   "addedDate": "2026-11-02",
+  "guessElementPath": "setGuessElement/ragnador/index.html",
   "cautions": [
     "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（必勝本・ちょんぼりすた、両サイトで一致）に掲載された値で、変わることがあります。",
     "設定差は設定3と4の間で大きく開きます（CZ初当たり1/161.8→1/145.0、AT初当たり1/307.7→1/271.2）。設定4〜6どうしは差が小さく、見分けにくい機種です。",

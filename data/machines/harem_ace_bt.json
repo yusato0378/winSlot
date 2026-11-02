@@ -39,6 +39,6 @@
   "avgBonusReward": 350,
   "normalCostPerGame": 1.2,
   "addedDate": "2026-04-01",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/haremAceBt/index.html",
   "cautions": null
 }

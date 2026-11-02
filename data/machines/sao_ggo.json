@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": null,
   "addedDate": "2026-11-02",
+  "guessElementPath": "setGuessElement/saoGgo/index.html",
   "cautions": [
     "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（ちょんぼりすた・1geki、2サイトで一致）に掲載された値で、変わることがあります。入力は初当たり（引き戻しを含む）とSJ（ST「スクワッドジャム」）初当たりの回数です。",
     "初当たり・SJ初当たりとも設定5と6の差が小さく（初当たり1/155.4と1/153.9）、設定1〜2もほとんど差がありません。設定差は設定3と4、4と5の間で開きます。",
