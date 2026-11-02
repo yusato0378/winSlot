@@ -492,7 +492,6 @@ ${pendingSection}
             <div class="lp-pillar" id="lp-setting" aria-label="設定推測・設定差">
             <section class="card lp-section" id="spec">
                 <h3 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h3>
-                <p class="lp-desc">${escapeHtml(machine.name)}（${escapeHtml(meta.typeLabel)}）の設定別スペック表です。${escapeHtml(machine.bigLabel)}確率と出玉率に注目して設定判別に活用してください。</p>
                 <div class="table-wrapper">
                     <table class="spec-table lp-spec-table">
                         <thead>
