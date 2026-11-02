@@ -39,6 +39,6 @@
   "avgBonusReward": 400,
   "normalCostPerGame": 1.4,
   "addedDate": "2026-04-01",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/shakeBt/index.html",
   "cautions": null
 }

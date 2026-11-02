@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": null,
   "addedDate": "2026-11-02",
+  "guessElementPath": "setGuessElement/seiyaOugon/index.html",
   "cautions": [
     "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（ジャグラーズネット・パチマガ、両サイトで一致）に掲載された値で、変わることがあります。入力はCZ（「WHO ARE YOU？」と「影ノ襲来」の合算）とAT初当たりの回数です。",
     "掲載されている表では、CZ確率は設定5（1/197.2）より設定6（1/200.3）の方が重く、設定1〜3はほとんど差がありません。",

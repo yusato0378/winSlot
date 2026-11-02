@@ -51,6 +51,6 @@
   "avgBonusReward": 400,
   "normalCostPerGame": 2.2,
   "addedDate": "2026-04-01",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/eurekaSevenArt/index.html",
   "cautions": null
 }

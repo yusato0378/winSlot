@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": 1.5,
   "addedDate": "2026-11-02",
+  "guessElementPath": "setGuessElement/garoYami/index.html",
   "cautions": [
     "2026年11月2日導入予定の新台です。数値は導入前に解析サイト（必勝本・ちょんぼりすた、両サイトで一致）に掲載された値で、変わることがあります。入力はCZ（トータル）とボーナスの初当たり回数です。",
     "CZ・ボーナスとも設定差は小さく（設定1と6でCZ約1.11倍、ボーナス約1.13倍）、ゲーム数を重ねないと見分けにくい機種です。",

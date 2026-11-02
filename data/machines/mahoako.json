@@ -22,6 +22,7 @@
   "avgBonusReward": null,
   "normalCostPerGame": null,
   "addedDate": "2026-10-19",
+  "guessElementPath": "setGuessElement/mahoako/index.html",
   "cautions": [
     "2026年10月19日導入。数値は導入前に解析サイト（スロベース・なな徹・1geki、3サイトで一致）に掲載された値で、変わることがあります。入力はCZとAT初当たりの回数です。",
     "設定差は設定3と4の間で大きく開きます（CZ1/310.7→1/273.3、AT初当たり1/401.4→1/352.4）。ボーナス合算は設定に関係なく1/249.6なので、ボーナスの回数は判別に使えません。",

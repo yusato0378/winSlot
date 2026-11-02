@@ -58,6 +58,6 @@
     "note": "設定1の機械割97.6%・コイン持ち34.2G/50枚・純増3.2枚/Gから1回の当たりの平均獲得を逆算し、解析サイト（なな徹）のゲーム数別期待値に合うよう調整しています。天井はモードにより649G・349G・199G・99Gで、ここでは最大の649Gで計算しています。"
   },
   "addedDate": "2026-04-01",
-  "guessElementPath": null,
+  "guessElementPath": "setGuessElement/granbelm/index.html",
   "cautions": null
 }
