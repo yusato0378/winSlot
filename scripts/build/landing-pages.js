@@ -380,7 +380,6 @@ ${resetEvTableRows}
 
     const tocItems = [];
     if (pending) tocItems.push(`<li><a href="#pending">判明していること・まだ分かっていないこと</a></li>`);
-    tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
     if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">1日回したときの設定の見分けやすさ</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
@@ -407,12 +406,6 @@ ${resetEvTableRows}
                 </div>
                 <p class="lp-desc lp-tool-extra"><a href="${guideHowToHref}">使い方ガイド（初心者向け）</a></p>
             </section>`;
-
-    const pillarSettingIntro = `
-            <div class="card lp-section lp-pillar-head">
-                <h2 class="card-title" id="lp-setting"><span class="card-icon">&#127922;</span> 設定推測・設定差</h2>
-                <p class="lp-desc">${escapeHtml(machine.name)}の設定別スペックと、該当機種のみ設定推測要素への導線をまとめています。</p>
-            </div>`;
 
     // 換金率別の回転数（結論）を先に、ゲーム数別の表（詳細）を後に置く
     const ceilingPillarInner = hasCeiling ? `${breakEvenSection}
@@ -496,8 +489,7 @@ ${pendingSection}
                 </ul>
             </nav>
 
-            <div class="lp-pillar" aria-label="設定推測・設定差">
-${pillarSettingIntro}
+            <div class="lp-pillar" id="lp-setting" aria-label="設定推測・設定差">
             <section class="card lp-section" id="spec">
                 <h3 class="card-title"><span class="card-icon">&#128203;</span> 設定別スペック一覧</h3>
                 <p class="lp-desc">${escapeHtml(machine.name)}（${escapeHtml(meta.typeLabel)}）の設定別スペック表です。${escapeHtml(machine.bigLabel)}確率と出玉率に注目して設定判別に活用してください。</p>
