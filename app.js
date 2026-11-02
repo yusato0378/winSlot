@@ -631,13 +631,16 @@ function initAccessRanking() {
 
 // ============================================================
 // 新台ピックアップ（MACHINES の addedDate 降順 上位5件）
+// addedDate が今日より後の機種（導入前）は出さない
 // ============================================================
 function initNewMachines() {
     const $list = document.getElementById("new-machines-list");
     if (!$list) return;
 
+    const now = new Date();
+    const today = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
     const withDate = ALL_MACHINES
-        .filter(m => m.addedDate)
+        .filter(m => m.addedDate && m.addedDate <= today)
         .sort((a, b) => (b.addedDate > a.addedDate ? 1 : b.addedDate < a.addedDate ? -1 : 0))
         .slice(0, 5);
 
