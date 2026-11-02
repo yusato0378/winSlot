@@ -14,7 +14,7 @@ const {
 const SITE_URL = "https://www.pachislot-setting.com";
 
 // data/machines/ から読み込んだデータを格納（buildLandingPages 開始時にセット）
-let MACHINES, GUESS_ELEMENT_PAGES, CAUTIONS_BY_ID;
+let MACHINES, GUESS_ELEMENT_PAGES;
 
 function escapeHtml(str) {
     if (str == null) return "";
@@ -25,29 +25,6 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;");
 }
 
-
-/**
- * 主要機種だけ「注意点（運用/入力/モデル外）」を追加して差別化する。
- * - 量産ページでも、検索意図に対して「判断ミスしやすい所」を短く提示するのが狙い
- * - 文言は“断定”せず「店舗運用差」「モデル外」前提で書く
- */
-
-function buildCautionSection(machine) {
-    const items = CAUTIONS_BY_ID[machine.id];
-    if (!items || items.length === 0) return "";
-    const lis = items
-        .slice(0, 3)
-        .map((t) => `                    <li>${escapeHtml(t)}</li>`)
-        .join("\n");
-    return `
-            <section class="card lp-section" id="cautions">
-                <h2 class="card-title"><span class="card-icon">&#9888;</span> 注意点（先に確認）</h2>
-                <ul class="lp-caution-list">
-${lis}
-                </ul>
-                <p class="lp-note">※ 本ページの数値・文章は参考情報です。店舗運用・個体差・遊技ルールに従ってご利用ください。</p>
-            </section>`;
-}
 
 
 
@@ -284,7 +261,6 @@ function generatePage(machine) {
     const pending = !!machine.pending;
     const discriminationSection = pending ? "" : buildDiscriminationSection(machine);
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
-    const hasCaution = CAUTIONS_BY_ID[machine.id] && CAUTIONS_BY_ID[machine.id].length > 0;
 
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
     const s1key = settingKeys[0];
@@ -403,7 +379,6 @@ ${resetEvTableRows}
             </section>` : "";
 
     const tocItems = [];
-    if (hasCaution) tocItems.push(`<li><a href="#cautions">注意点（先に確認）</a></li>`);
     if (pending) tocItems.push(`<li><a href="#pending">判明していること・まだ分かっていないこと</a></li>`);
     tocItems.push(`<li><a href="#lp-setting">設定推測・設定差</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
@@ -414,7 +389,7 @@ ${resetEvTableRows}
     if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
     tocItems.push(`<li><a href="#tool">${pending ? "計算ツールへの対応" : "設定推測ツールで計算"}</a></li>`);
 
-    const cautionSection = buildCautionSection(machine) + (pending ? buildPendingSection(machine) : "");
+    const pendingSection = pending ? buildPendingSection(machine) : "";
     const guideHowToHref = `${paths.basePrefix}guide/how-to-use.html`;
     const toolSection = pending ? `
             <section class="card lp-section" id="tool">
@@ -513,7 +488,7 @@ ${breadcrumbJsonLd}
                     <li>${escapeHtml(machine.name)}</li>
                 </ol>
             </nav>
-${cautionSection}
+${pendingSection}
             <nav class="card lp-section">
                 <h2 class="card-title"><span class="card-icon">&#128204;</span> 目次</h2>
                 <ul class="lp-toc">
@@ -577,7 +552,7 @@ ${lpCeilingAnchorNoTable}${toolSection.replace(/^\n/, "")}
  * @param {string} out  出力ルート（dist）
  */
 function buildLandingPages(root, out, data) {
-({ MACHINES, GUESS_ELEMENT_PAGES, CAUTIONS_BY_ID } = data || loadMachines(root));
+({ MACHINES, GUESS_ELEMENT_PAGES } = data || loadMachines(root));
 const machinesDir = path.join(out, "machines");
 if (!fs.existsSync(machinesDir)) fs.mkdirSync(machinesDir, { recursive: true });
 
