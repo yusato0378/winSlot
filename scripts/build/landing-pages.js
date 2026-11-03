@@ -235,7 +235,31 @@ function getMachinePageMeta(machine) {
     } else {
         descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}${hasCombinedRate(machine) ? "・合算" : ""}・出玉率）と設定推測ツールへの導線を掲載。`;
     }
-    return { titleKeyword, descKeywords, typeLabel };
+    const launch = newMachineLabel(machine);
+    return launch
+        ? { titleKeyword: `${titleKeyword}（${launch}）`, descKeywords: `${launch}。${descKeywords}`, typeLabel }
+        : { titleKeyword, descKeywords, typeLabel };
+}
+
+// 導入日から何日までを「新台」として title・description に導入日を入れるか
+const NEW_MACHINE_PAGE_DAYS = 28;
+
+/** ビルドした日（日本時間）の YYYY-MM-DD */
+function todayJst() {
+    return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+/**
+ * 導入前〜導入後 NEW_MACHINE_PAGE_DAYS 日の機種は「12/21導入の新台」を返す（それ以外は空文字）。
+ * 導入前から機種ページを公開しているので、「機種名 導入日」「機種名 新台」の検索にも出るようにする。
+ * 解析待ち（pending）は title に導入日をすでに入れているので、呼び出し側で対象外にしている。
+ */
+function newMachineLabel(machine, today = todayJst()) {
+    if (!machine.addedDate) return "";
+    const days = (Date.parse(today) - Date.parse(machine.addedDate)) / (24 * 60 * 60 * 1000);
+    if (days > NEW_MACHINE_PAGE_DAYS) return "";
+    const [, mo, d] = machine.addedDate.split("-");
+    return `${Number(mo)}/${Number(d)}導入の新台`;
 }
 
 /**
