@@ -201,15 +201,21 @@ function buildSpecTable(machine) {
     return { thead, tbody: rows.join("\n") };
 }
 
-/** 機種LPは `/machines/{id}/` のみ。タイトル・description は設定差＋天井の1ページ構成を示す。 */
+/**
+ * 機種LPは `/machines/{id}/` のみ。タイトル・description は設定差＋天井の1ページ構成を示す。
+ * タイトルは実際の検索語（「機種名 天井期待値」「機種名 リセット期待値」「機種名 期待値表」「機種名 設定判別」）を前に寄せる。
+ */
 function getMachinePageMeta(machine) {
     const isAT = machine.type === "AT";
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
+    const evSupported = hasCeiling && isCeilingEvSupported(machine);
     const typeLabel = isAT ? "AT/ART機（スマスロ）" : "Aタイプ";
     const regFrag = machine.regLabel ? `・${machine.regLabel}確率` : "";
-    const titleKeyword = isAT
-        ? `${machine.name} 設定推測・設定差と天井期待値`
-        : `${machine.name} 設定判別・設定差とスペック`;
+    const titleKeyword = !isAT ? `${machine.name} 設定判別・設定差とスペック`
+        : !hasCeiling ? `${machine.name} 設定判別・設定差`
+        : !evSupported ? `${machine.name} 天井と設定判別・設定差`
+        : machine.resetCeiling ? `${machine.name} 天井期待値・朝一リセット期待値表と設定判別`
+        : `${machine.name} 天井期待値表と設定判別・設定差`;
     let descKeywords;
     if (machine.pending) {
         const [, mo, d] = (machine.addedDate || "").split("-");
@@ -223,13 +229,29 @@ function getMachinePageMeta(machine) {
     if (isAT) {
         descKeywords = !hasCeiling
             ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`
-            : isCeilingEvSupported(machine)
-            ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井期待値をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜。ゲーム数別の期待値一覧とトップの計算ツールへの導線。`
-            : `${machine.name}の設定差・設定推測（${machine.bigLabel}確率・出玉率）と天井をこのページで確認。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜（天井の仕組みが特殊なため期待値表はありません）。`;
+            : evSupported
+            ? atEvDescription(machine)
+            : `${machine.name}の天井と設定差・設定判別（${machine.bigLabel}確率・出玉率）を掲載。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜（天井の仕組みが特殊なため期待値表はありません）。`;
     } else {
         descKeywords = `${machine.name}の設定判別用スペック（${machine.bigLabel}・${machine.regLabel}${machine.koyakuName ? `・${machine.koyakuName}` : ""}${hasCombinedRate(machine) ? "・合算" : ""}・出玉率）と設定推測ツールへの導線を掲載。`;
     }
     return { titleKeyword, descKeywords, typeLabel };
+}
+
+/**
+ * 天井期待値を出せるAT機の description。検索結果で答えが見えるよう、等価で期待値がプラスになる回転数を入れる。
+ * 入力値が出玉率と矛盾してその回転数を載せない機種や、天井までマイナスの機種は解析上の狙い目で代える。
+ */
+function atEvDescription(machine) {
+    const reset = machine.resetCeiling;
+    const be = breakEvenTable(machine);
+    const equal = be && be[0];
+    const plusFrom = equal && equal.normal !== null
+        ? `当サイトの計算では等価なら${equal.normal}Gから期待値プラス${reset && equal.reset !== null ? `（朝一リセット後は${equal.reset}Gから）` : ""}`
+        : `狙い目は${machine.ceilingTarget}G〜`;
+    return `${machine.name}の天井期待値表（ゲーム数別）${reset ? "と朝一リセット期待値" : ""}を掲載。` +
+        `天井${machine.ceiling}G${reset ? `（朝一リセット後${reset}G）` : ""}、${plusFrom}。` +
+        `設定差・設定判別（${machine.bigLabel}確率・出玉率）も確認でき、計算ツールで今の台を判定できます。`;
 }
 
 function getMachinePagePaths(machine) {
@@ -280,6 +302,13 @@ function generatePage(machine) {
             q: `${machine.name}は何ゲームから打つと期待値がプラス？`,
             a: `当サイトの計算では、等価なら${at(be[0])}、5.6枚交換なら${at(be[2])}から期待値がプラスになります` +
                (machine.resetCeiling ? `（朝一リセット後は等価で${formatBreakEven(be[0].reset)}）` : "") + "。"
+        });
+    }
+    if (hasCeiling && machine.resetCeiling) {
+        faqItems.push({
+            q: `${machine.name}の朝一リセット（設定変更）後の天井は？`,
+            a: `${machine.name}は朝一リセット後の天井が${machine.resetCeiling}Gに短縮されます。狙い目は${machine.resetCeilingTarget}G〜が目安です。` +
+               (be && be[0].reset !== null ? `当サイトの計算では、等価なら${be[0].reset}Gから期待値がプラスになります。` : "")
         });
     }
     faqItems.push({
@@ -335,7 +364,7 @@ ${evTableRows}
                 <p class="lp-note">※ 期待値は設定${s1key}を基準に、通常時の消費メダルと天井での当たりから算出した概算値です。実際の期待値はモード状態や前兆等により変動します。</p>`;
     const ceilingSection = hasCeiling ? `
             <section class="card lp-section" id="lp-ceiling">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> ${evSupported ? "期待値一覧（ゲーム数別）" : "天井情報"}</h3>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> ${evSupported ? "天井期待値表（ゲーム数別）" : "天井情報"}</h3>
                 <p class="lp-desc">${evSupported
                     ? `設定${s1key}基準・等価（1メダル=20円）換算の一覧です。判定は期待値がプラスなら○、あと100G以内でプラスなら△です（設定推測ツールの判定と同じ基準）。解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。`
                     : `解析上の狙い目は<strong>${machine.ceilingTarget}G〜</strong>です。この機種は期待値を計算していません：${escapeHtml(machine.ceilingEvUnsupported)}`}</p>
@@ -348,7 +377,7 @@ ${showCeilingReward ? `                    <div class="lp-ceiling-item"><span cl
 
     const resetCeilingSection = hasCeiling && machine.resetCeiling && evSupported ? `
             <section class="card lp-section" id="reset-ceiling-ev">
-                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット時の期待値一覧</h3>
+                <h3 class="card-title"><span class="card-icon">&#127919;</span> 朝一リセット期待値表（ゲーム数別）</h3>
                 <p class="lp-desc">朝一リセット時の天井は<strong>${machine.resetCeiling}G</strong>に短縮されます。判定の基準は通常時の表と同じです。解析上の狙い目は<strong>${machine.resetCeilingTarget}G〜</strong>です。</p>
                 <div class="lp-ceiling-info">
                     <div class="lp-ceiling-item"><span class="lp-ceil-label">リセット天井</span><span class="lp-ceil-val">${machine.resetCeiling}G</span></div>
@@ -384,8 +413,8 @@ ${resetEvTableRows}
     if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">1日回したときの設定の見分けやすさ</a></li>`);
     if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
     if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
-    if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "期待値一覧（表）" : "天井情報"}</a></li>`);
-    if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット時の期待値</a></li>`);
+    if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "天井期待値表" : "天井情報"}</a></li>`);
+    if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット期待値表</a></li>`);
     tocItems.push(`<li><a href="#tool">${pending ? "計算ツールへの対応" : "設定推測ツールで計算"}</a></li>`);
 
     const pendingSection = pending ? buildPendingSection(machine) : "";
