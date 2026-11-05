@@ -171,8 +171,6 @@ function isNewMachine(m) {
 const COMBO_FILTERS = [
     { id: "a",       label: "Aタイプ",  group: "type", test: m => m.type === "A" },
     { id: "at",      label: "AT・ART",  group: "type", test: m => m.type !== "A" },
-    { id: "ceiling", label: "天井あり",               test: m => !!m.ceiling },
-    { id: "suggest", label: "示唆あり",               test: m => !!m.suggestions },
     { id: "new",     label: "新台",                   test: isNewMachine },
 ];
 
