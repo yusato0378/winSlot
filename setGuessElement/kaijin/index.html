@@ -6,10 +6,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon.png">
     <link rel="apple-touch-icon" href="../../favicon.png">
     <meta name="google-site-verification" content="notZvvy3fn5NBCAcfut0i4SBJp3iOduLrxj6DJH0j0E" />
-    <meta name="description" content="L海人の設定推測要素（BIG・REG初当たりの設定差／BIG後・REG後・設定変更後の天井／IREGUI）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
+    <meta name="description" content="L海人の設定推測要素（JACセグ・ENDセグの設定示唆と出現率／BIG・REG初当たりの設定差／謎当たり／BIG後・REG後・設定変更後の天井）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
     <link rel="canonical" href="https://www.pachislot-setting.com/setGuessElement/kaijin/">
     <meta property="og:title" content="L海人 設定推測要素 | Setting Analyzer Pro">
-    <meta property="og:description" content="L海人の設定推測要素（BIG・REG初当たりの設定差／BIG後・REG後・設定変更後の天井／IREGUI）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
+    <meta property="og:description" content="L海人の設定推測要素（JACセグ・ENDセグの設定示唆と出現率／BIG・REG初当たりの設定差／謎当たり／BIG後・REG後・設定変更後の天井）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://www.pachislot-setting.com/setGuessElement/kaijin/">
     <meta property="og:locale" content="ja_JP">
@@ -19,7 +19,7 @@
     <meta property="og:image:alt" content="パチスロ設定推測・天井期待値ツール Setting Analyzer Pro">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="L海人 設定推測要素 | Setting Analyzer Pro">
-    <meta name="twitter:description" content="L海人の設定推測要素（BIG・REG初当たりの設定差／BIG後・REG後・設定変更後の天井／IREGUI）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
+    <meta name="twitter:description" content="L海人の設定推測要素（JACセグ・ENDセグの設定示唆と出現率／BIG・REG初当たりの設定差／謎当たり／BIG後・REG後・設定変更後の天井）を一覧。当サイトでは設定別スペック表も掲載。Setting Analyzer Pro。">
     <meta name="twitter:image" content="https://www.pachislot-setting.com/og-default.png">
     <title>L海人 設定推測要素 | Setting Analyzer Pro</title>
     <link rel="stylesheet" href="../../style.css">
@@ -48,6 +48,7 @@
                 <ul class="ge-toc">
                     <li><a href="#signs">設定示唆・演出</a></li>
                     <li><a href="#hatsuatari">BIG・REG初当たり確率</a></li>
+                    <li><a href="#others">そのほかの設定差</a></li>
                     <li><a href="#tenjou">天井</a></li>
                     <li><a href="#spec">基本スペック</a></li>
                 </ul>
@@ -55,8 +56,70 @@
 
             <section class="card ge-section" id="signs">
                 <h2 class="card-title"><span class="card-icon">&#127912;</span> 設定示唆・演出</h2>
-                <p class="ge-desc">2026年10月19日導入の新台です。<strong>導入前の情報をもとに作成</strong>しており、設定示唆演出の多くは導入後に判明します。判明しだい本ページを更新します。</p>
-                <p class="ge-desc">設定示唆演出は<strong>導入前のため未公表</strong>です。現時点ではBIG初当たり確率で判断してください。</p>
+                <p class="ge-desc">2026年10月19日導入。設定示唆は<strong>BB中のJAC IN時のセグ色（JACセグ）</strong>と<strong>ボーナス終了時の「END」の文字色（ENDセグ）</strong>の2つで、どちらも赤で設定4以上、紫で設定5以上、虹で設定6濃厚です（スロベース 2026年10月27日更新・1geki 2026年10月26日更新で一致）。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table">
+                        <thead>
+                            <tr><th>JACセグの色</th><th>示唆内容</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>白</td><td><span class="ge-badge-inline ge-badge-default">目押し失敗時</span></td></tr>
+                            <tr><td>青</td><td><span class="ge-badge-inline ge-badge-default">デフォルト</span></td></tr>
+                            <tr><td>黄</td><td><span class="ge-badge-inline ge-badge-high-weak">高設定示唆（弱）</span></td></tr>
+                            <tr><td>緑</td><td><span class="ge-badge-inline ge-badge-high-strong">高設定示唆</span></td></tr>
+                            <tr><td>赤</td><td><span class="ge-badge-inline ge-badge-confirm4">設定4以上濃厚</span></td></tr>
+                            <tr><td>紫</td><td><span class="ge-badge-inline ge-badge-confirm5">設定5以上濃厚</span></td></tr>
+                            <tr><td>虹</td><td><span class="ge-badge-inline ge-badge-confirm6">設定6濃厚</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-desc">JACセグはBB中のJAC INナビ発生時に<strong>左リール中〜下段へBARを目押し</strong>すると青以上に変化します（BB1回につき最大3回）。出現率は目押し成功時のJAC IN 1回あたりです。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>黄</th><th>緑</th><th>赤</th><th>紫</th><th>虹</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>1/16.0</td><td>1/64.0</td><td>―</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/15.1</td><td>1/51.2</td><td>―</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/14.2</td><td>1/42.7</td><td>1/512.0</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/13.8</td><td>1/36.6</td><td>1/409.6</td><td>1/1024.0</td><td>―</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>1/13.5</td><td>1/32.0</td><td>1/341.3</td><td>1/682.7</td><td>1/1638.4</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table">
+                        <thead>
+                            <tr><th>ENDセグの色</th><th>示唆内容</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>白</td><td><span class="ge-badge-inline ge-badge-default">デフォルト</span></td></tr>
+                            <tr><td>青</td><td><span class="ge-badge-inline ge-badge-high-weak">高設定示唆（弱）</span></td></tr>
+                            <tr><td>黄</td><td><span class="ge-badge-inline ge-badge-high-strong">高設定示唆</span></td></tr>
+                            <tr><td>緑</td><td><span class="ge-badge-inline ge-badge-confirm2">設定2以上濃厚</span></td></tr>
+                            <tr><td>赤</td><td><span class="ge-badge-inline ge-badge-confirm4">設定4以上濃厚</span></td></tr>
+                            <tr><td>紫</td><td><span class="ge-badge-inline ge-badge-confirm5">設定5以上濃厚</span></td></tr>
+                            <tr><td>虹</td><td><span class="ge-badge-inline ge-badge-confirm6">設定6濃厚</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-desc">ENDセグの出現率はボーナス終了1回あたりです。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>青</th><th>黄</th><th>緑</th><th>赤</th><th>紫</th><th>虹</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>1/40.0</td><td>1/160.6</td><td>―</td><td>―</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/38.5</td><td>1/160.6</td><td>1/50.0</td><td>―</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/37.1</td><td>1/91.5</td><td>1/50.0</td><td>1/159.8</td><td>―</td><td>―</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/35.8</td><td>1/64.0</td><td>1/50.0</td><td>1/159.8</td><td>1/321.3</td><td>―</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>1/34.6</td><td>1/50.0</td><td>1/50.0</td><td>1/159.8</td><td>1/321.3</td><td>1/655.4</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ どちらもストックしたボーナスを含む<strong>すべてのボーナス</strong>で確認できるため、ツールの入力（通常時からのBIG・REG初当たり回数）とは回数が合いません。当ツールの判別計算には組み込んでいないので、出現した色はこの表で確認してください。</p>
                 <div class="ge-highlight-box">
                     <p class="ge-highlight-title">ポイント</p>
                     <ul class="ge-highlight-list">
@@ -65,7 +128,15 @@
                         <li>設定2→4で1/453.2→1/390.0と<strong>大きな段差</strong>。BIGが1/400を切るペースなら設定4以上を意識してよい</li>
                         <li>ボーナス後32G間がアツい<strong>沖スロタイプ</strong>の擬似ボーナス機。BIGは約202枚（純増約3.8枚/G）、REGは約53枚（純増約4.5枚/G）</li>
                         <li>ボーナスストックゾーン<strong>「IREGUI」</strong>は8G継続で平均約4.6個のストックを獲得。ストック消化後は32Gの約80%ループ</li>
+                        <li>ENDセグの<strong>緑は設定2以上</strong>だが、設定2〜6で同じ1/50.0。設定差がはっきり出るのは<strong>黄</strong>（設定1・2で1/160.6、設定6で1/50.0）</li>
+                        <li>JACセグは毎回の目押しで確認できる。黄・緑は全設定で出るので、回数を重ねて比べる</li>
                     </ul>
+                </div>
+                <div class="ge-external-link">
+                    <a href="https://slobase.jp/machines/umindo" target="_blank" rel="noopener">&#128203; JACセグ・ENDセグの出現率（スロベース）</a>
+                </div>
+                <div class="ge-external-link">
+                    <a href="https://1geki.jp/slot/l_umc/0/" target="_blank" rel="noopener">&#128203; 設定判別（1geki）</a>
                 </div>
                 <div class="ge-external-link">
                     <a href="https://chonborista.com/slot/okazaki-slot/265573/" target="_blank" rel="noopener">&#128203; 画像付き詳細（ちょんぼりすた）</a>
@@ -89,7 +160,27 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="ge-note">※ 設定差は導入前のメーカー公表値（初当たり・出玉率）のみです。小役確率などの設定差は導入後に更新します。</p>
+                <p class="ge-note">※ 初当たり・出玉率はメーカー公表値です。小役確率は全設定共通とされています（スロベース）。</p>
+            </section>
+
+            <section class="card ge-section" id="others">
+                <h2 class="card-title"><span class="card-icon">&#128202;</span> そのほかの設定差</h2>
+                <p class="ge-desc"><strong>謎当たり</strong>（低確中の告知のない直撃）の出現率に設定差があります（スロベース 2026年10月27日更新・1geki 2026年10月26日更新で一致）。</p>
+                <div class="table-wrapper">
+                    <table class="spec-table ge-table ge-table-setting">
+                        <thead>
+                            <tr><th>設定</th><th>謎当たり</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ge-setting s1">設定1</td><td>1/4261.2</td></tr>
+                            <tr><td class="ge-setting s2">設定2</td><td>1/3652.2</td></tr>
+                            <tr><td class="ge-setting s4">設定4</td><td>1/1782.9</td></tr>
+                            <tr><td class="ge-setting s5">設定5</td><td>1/1596.9</td></tr>
+                            <tr><td class="ge-setting s6">設定6</td><td>1/1532.9</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="ge-note">※ このほか、ゾロ目ゲーム数到達時の当選率や、ボーナス当選時のBB・RB振り分けにも設定差があるとされています（スロベースのみの掲載）。</p>
             </section>
 
             <section class="card ge-section" id="tenjou">
@@ -106,7 +197,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="ge-note">※ 天井は直前のボーナスの種類で変わり、ストック込みの1回あたりの平均獲得枚数も導入前で未解析のため、<strong>当ツールでは天井期待値を表示していません</strong>。判明しだい追加します。</p>
+                <p class="ge-note">※ 天井は直前のボーナスの種類で変わり、ストック込みの1回あたりの平均獲得枚数も未公表のため（2026年11月3日時点）、<strong>当ツールでは天井期待値を表示していません</strong>。判明しだい追加します。</p>
             </section>
 
             <section class="card ge-section" id="spec">
