@@ -1,0 +1,31 @@
+{
+  "id": "wonder_venus",
+  "name": "LBワンダーヴィーナス",
+  "aliases": ["わんだーびーなす", "ヴィーナス", "びーなす"],
+  "type": "A",
+  "bigLabel": "BB",
+  "regLabel": "CB",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 461.5, "reg": 481.9, "koyaku": null, "payout": 98.4 },
+    "2": { "big": 434.0, "reg": 448.9, "koyaku": null, "payout": 99.9 },
+    "3": { "big": 417.4, "reg": 428.3, "koyaku": null, "payout": 101.0 },
+    "4": { "big": 362.1, "reg": 366.1, "koyaku": null, "payout": 105.1 },
+    "5": { "big": 339.6, "reg": 341.3, "koyaku": null, "payout": 107.1 },
+    "6": { "big": 318.1, "reg": 318.1, "koyaku": null, "payout": 109.2 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-02-08",
+  "cautions": [
+    "2027年2月導入予定の新台です（ちょんぼりすたの新台カレンダーでは2月8日。DMMぱちタウンは2027年2月予定、なな徹は未定）。数値はメーカー（北電子）の公式サイトの確率表（工場データからの予測値）で、ちょんぼりすたの値とも一致しています。",
+    "ボーナストリガー機で、ボーナスはWV（ワンダーヴィーナス）・BB・CBの3種類です。WVはBT「ブーストタイム」（継続率約70%）の契機で、全設定共通の1/606.8のため設定差がありません。入力はBBとCBの回数です（WVは数えません）。",
+    "設定差はBBで約1.45倍（設定1で1/461.5、設定6で1/318.1）、CBで約1.51倍（1/481.9→1/318.1）です。設定3と4の間で大きく開きます。",
+    "天井は非搭載です（ちょんぼりすた）。ゲーム数による狙い目はなく、設定推測がメインになります。"
+  ]
+}
