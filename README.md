@@ -604,6 +604,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `akamatar` | Lアカマター（解析待ち） |
 | `ryza_atelier` | パチスロ ライザのアトリエ～常闇の女王と秘密の隠れ家～（解析待ち） |
 | `hidan_aria_hihigami` | L緋弾のアリア 緋緋神降臨 |
+| `girls_und_panzer_l` | Lガールズ＆パンツァー |
 
 ### Aタイプ
 
