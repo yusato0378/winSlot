@@ -626,6 +626,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `rooteisu` | ローティス |
 | `taco_slot` | スマスロ タコスロ |
 | `my_juggler_vi` | マイジャグラーVI |
+| `wonder_venus` | LBワンダーヴィーナス |
 
 LP のパスは `machines/{ID}/index.html` です。
 
