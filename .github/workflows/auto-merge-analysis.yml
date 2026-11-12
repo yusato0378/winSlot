@@ -1,0 +1,59 @@
+# 毎朝のルーチンが作る解析更新の PR（auto/analysis-* ブランチ）を、チェックが通ったら自動でマージする。
+# ルーチンの中ではマージが権限チェックで止められることがあるため、マージは GitHub 側で行う（2026-11-12 ユーザー依頼）。
+# GITHUB_TOKEN でのマージは push のワークフローを起こさないので、デプロイは workflow_dispatch で起動する。
+name: Auto-merge analysis PRs
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: auto-merge-analysis
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    if: startsWith(github.head_ref, 'auto/analysis-') && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR: ${{ github.event.pull_request.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0 # sitemap の lastmod に全履歴が要る（scripts/build/lastmod.js）
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/dev/baseline.js
+      - run: node scripts/dev/suggestion-check.js
+      - run: node scripts/dev/suggestion-sanity.js
+
+      # ルーチンが先にマージしていれば何もしない。コンフリクトなどで失敗したら PR を残す
+      - name: Merge
+        id: merge
+        run: |
+          state=$(gh pr view "$PR" --repo "$GITHUB_REPOSITORY" --json state --jq .state)
+          if [ "$state" != "OPEN" ]; then
+            echo "PR #$PR is $state; skip"
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          gh pr merge "$PR" --repo "$GITHUB_REPOSITORY" --squash --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy
+        if: steps.merge.outputs.merged == 'true'
+        run: gh workflow run deploy-aws.yml --repo "$GITHUB_REPOSITORY" --ref main
