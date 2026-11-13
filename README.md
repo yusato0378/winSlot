@@ -274,7 +274,7 @@ git config --unset core.hooksPath
 
 ### 解析待ちの新台（先行ページ）
 
-設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: 通常機種に移す前の `vivy.json`。2026年11月10日時点では `akamatar.json`・`ryza_atelier.json` が解析待ち）。
+設定別の確率が揃っていない新台も、導入前から検索されるので機種ページだけ先に出せます。JSON に `pending` を入れると「解析待ち」の機種になります（例: 通常機種に移す前の `vivy.json`。2026年11月14日時点では `akamatar.json`・`ryza_atelier.json`・`mononogatari.json`・`kaiun_japan_bt.json` が解析待ち）。
 
 - `pending.known` … 判明していること、`pending.unknown` … まだ分かっていないこと（どちらも文章の配列）。機種ページの冒頭に出る。
 - `settings` は分かっている設定・値だけ入れ、分からない `reg` は `null`（スペック表に「調査中」と出る）。`big` は全設定に数値が必要。天井は `ceiling` ではなく `known` に文章で書く。
@@ -605,6 +605,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `ryza_atelier` | パチスロ ライザのアトリエ～常闇の女王と秘密の隠れ家～（解析待ち） |
 | `hidan_aria_hihigami` | L緋弾のアリア 緋緋神降臨 |
 | `girls_und_panzer_l` | Lガールズ＆パンツァー |
+| `mononogatari` | Lパチスロ もののがたり（解析待ち） |
 
 ### Aタイプ
 
@@ -628,6 +629,7 @@ node scripts/gsc-analyze.js data/gsc.csv
 | `taco_slot` | スマスロ タコスロ |
 | `my_juggler_vi` | マイジャグラーVI |
 | `wonder_venus` | LBワンダーヴィーナス |
+| `kaiun_japan_bt` | A-SLOT+ 開運JAPAN BT（解析待ち） |
 
 LP のパスは `machines/{ID}/index.html` です。
 

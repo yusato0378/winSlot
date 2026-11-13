@@ -1,0 +1,38 @@
+{
+  "id": "kaiun_japan_bt",
+  "name": "A-SLOT+ 開運JAPAN BT",
+  "aliases": ["かいうんじゃぱん", "かいうん", "開運ジャパン"],
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 297.9, "reg": 394.8, "koyaku": null, "payout": null },
+    "2": { "big": 293.9, "reg": 387.8, "koyaku": null, "payout": null },
+    "3": { "big": 287.4, "reg": 378.8, "koyaku": null, "payout": null },
+    "4": { "big": 278.9, "reg": 366.1, "koyaku": null, "payout": null },
+    "5": { "big": 271.9, "reg": 356.2, "koyaku": null, "payout": null },
+    "6": { "big": 265.3, "reg": 346.8, "koyaku": null, "payout": null }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-02-08",
+  "pending": {
+    "known": [
+      "サミーのAタイプ（ボーナストリガー搭載）です。BIGは消化後のBT込みで約401枚、REGは約103枚です（ちょんぼりすた・遊技日本で一致）。",
+      "BIG・REG確率は設定1でBIG 1/297.9・REG 1/394.8（合算1/169.8）、設定6でBIG 1/265.3・REG 1/346.8（合算1/150.3）で、設定1〜6の値がちょんぼりすた（2026年11月12日）と遊技日本（2026年11月11日、メーカー発表の記事）で一致しています。",
+      "天井は非搭載です（ちょんぼりすた）。"
+    ],
+    "unknown": [
+      "設定別の機械割（出玉率）：ちょんぼりすたは「調査中」、遊技日本は掲載なし、なな徹も「調査中」（2026年11月12日更新）です。BTの継続ゲーム数も調査中のため、機械割が出るまで計算ツールには入れていません。"
+    ]
+  },
+  "cautions": [
+    "2027年2月8日導入予定の新台です（なな徹・ちょんぼりすた・遊技日本）。導入前のため、数値は解析サイトの掲載値で、変わることがあります。"
+  ]
+}
