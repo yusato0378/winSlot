@@ -33,8 +33,8 @@
         "items": [
           { "id": "odd", "label": "ジェイ／アルロー／ガレアス（いずれか1人）", "rank": "oddWeak" },
           { "id": "even", "label": "ロンディーネ／ルーチカ", "rank": "evenWeak" },
-          { "id": "fiorayne", "label": "フィオレーネ＆アイルー", "rank": "highWeak" },
-          { "id": "chichae", "label": "チッチェ＆アイルー＆ガルク", "rank": "highStrong" },
+          { "id": "fiorayne", "label": "フィオレーネ＆アイルー", "rank": "highWeak", "rates": { "1": 0.05, "2": 0.05, "3": 0.05, "4": 0.1, "5": 0.1, "6": 0.1 } },
+          { "id": "chichae", "label": "チッチェ＆アイルー＆ガルク", "rank": "highStrong", "rates": { "1": 0.005, "2": 0.01, "3": 0.02, "4": 0.033, "5": 0.039, "6": 0.05 } },
           { "id": "fioRon", "label": "フィオレーネ＆ロンディーネ", "rank": "not2" },
           { "id": "trio", "label": "ジェイ＆アルロー＆ガレアス（3人）", "rank": "not3" },
           { "id": "hinoe", "label": "ヒノエ＆ミノト", "rank": "ge2" },
