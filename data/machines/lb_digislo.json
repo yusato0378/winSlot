@@ -1,0 +1,37 @@
+{
+  "id": "lb_digislo",
+  "name": "LBデジスロ",
+  "aliases": ["でじすろ", "デジスロ"],
+  "type": "A",
+  "bigLabel": "BIG",
+  "regLabel": "REG",
+  "koyakuName": null,
+  "settings": {
+    "1": { "big": 344.9, "reg": 344.9, "koyaku": null, "payout": 98.0 },
+    "2": { "big": 336.1, "reg": 336.1, "koyaku": null, "payout": 99.5 },
+    "3": { "big": 324.4, "reg": 324.4, "koyaku": null, "payout": 101.5 },
+    "4": { "big": 313.6, "reg": 313.6, "koyaku": null, "payout": 103.5 },
+    "5": { "big": 303.4, "reg": 303.4, "koyaku": null, "payout": 105.5 },
+    "6": { "big": 291.3, "reg": 291.3, "koyaku": null, "payout": 108.0 }
+  },
+  "ceiling": null,
+  "ceilingTarget": null,
+  "ceilingReward": null,
+  "resetCeiling": null,
+  "resetCeilingTarget": null,
+  "avgBonusReward": null,
+  "normalCostPerGame": null,
+  "addedDate": "2027-02-08",
+  "pending": {
+    "known": [
+      "ベルコのボーナストリガー機（型式名 LBデジスロ SH2）です。天井は非搭載です（ちょんぼりすた）。",
+      "ちょんぼりすた（2026年11月17日）は、ビッグ・レギュラー確率を全設定で同じ値（設定1でそれぞれ1/344.9・合算1/172.5、設定6でそれぞれ1/291.3・合算1/145.6）、出玉率を設定1の98.0%から設定6の108.0%と掲載しています。"
+    ],
+    "unknown": [
+      "設定別の確率と出玉率：いまは1サイト（ちょんぼりすた）だけの掲載で、ほかの解析サイトには機種ページが見当たりません（2026年11月19日確認）。ビッグとレギュラーが全設定で同じ値になっている点も含め、別のサイトで確認できるまで計算ツールには入れていません。"
+    ]
+  },
+  "cautions": [
+    "2027年2月8日導入予定の新台です（ちょんぼりすた）。導入前のため、数値は解析サイトの掲載値で、変わることがあります。"
+  ]
+}
