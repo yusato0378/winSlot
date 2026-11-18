@@ -1796,7 +1796,8 @@ function renderFactors(machine, totalGames, bigCount, regCount, koyakuCount = 0)
         $factorResults.appendChild(el);
     });
 
-    const geUrl = machine.guessElementPath ? machine.guessElementPath.replace(/index\.html$/, "") : null;
+    // 設定推測要素は機種ページに載せている
+    const geUrl = machine.guessElementPath ? `machines/${machine.id}/#guess-element` : null;
     if (geUrl) {
         const linkBox = document.createElement("div");
         linkBox.className = "ge-link-box";

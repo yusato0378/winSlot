@@ -118,68 +118,6 @@ function breakEvenTable(machine) {
     }));
 }
 
-// 人が1日に回せるのは多くて1万G前後。「1日」は打ち始めから閉店までしっかり回した場合の目安
-const DAY_GAMES = 8000;
-const HALF_DAY_GAMES = 3000;
-
-/**
- * 1ゲームあたりの対数尤度比（高設定 / 低設定）の平均と分散。真の設定が高設定のときの値。
- * 当選確率 pH（高設定）・pL（低設定）のベルヌーイ1回ぶん。
- */
-function bernoulliLlr(pH, pL) {
-    const win = Math.log(pH / pL);
-    const lose = Math.log((1 - pH) / (1 - pL));
-    const mean = pH * win + (1 - pH) * lose;              // = KL(pH || pL)
-    const variance = pH * (1 - pH) * (win - lose) ** 2;
-    return { mean, variance };
-}
-
-/** 標準正規分布の累積分布関数（Abramowitz & Stegun 7.1.26。誤差 1.5e-7 以下） */
-function normalCdf(x) {
-    const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2);
-    const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
-    const erf = 1 - poly * Math.exp(-(x * x) / 2);
-    return x >= 0 ? (1 + erf) / 2 : (1 - erf) / 2;
-}
-
-/**
- * 最高設定の台を games ゲーム回したとき、データが最低設定より最高設定寄りになる確率。
- * 対数尤度比の和を正規近似して求める（P = Φ(√N・μ/σ)）。
- * 必要なゲーム数を出す形だと、多くの機種で人が1日に回せる量（約1万G）を超えて現実的でないため、
- * ゲーム数を固定して確率で見せる。
- * @returns {{ low: number, high: number, prob: number | null }} prob は 0〜1。設定差が無ければ null
- */
-function discriminationProbability(machine, games) {
-    const keys = settingKeysOf(machine);
-    const low = keys[0];
-    const high = keys[keys.length - 1];
-    const L = machine.settings[low];
-    const H = machine.settings[high];
-
-    let mean = 0;
-    let variance = 0;
-    const add = (pH, pL) => {
-        if (!(pH > 0 && pL > 0) || pH === pL) return;
-        const r = bernoulliLlr(pH, pL);
-        mean += r.mean;
-        variance += r.variance;
-    };
-    add(1 / H.big, 1 / L.big);
-    if (H.reg !== null && L.reg !== null) add(1 / H.reg, 1 / L.reg);
-
-    if (!(mean > 0)) return { low, high, prob: null };
-    return { low, high, prob: normalCdf(Math.sqrt(games) * mean / Math.sqrt(variance)) };
-}
-
-/** 1日（DAY_GAMES）回したときの確率から、見分けやすさを一言で */
-function discriminationLevel(prob) {
-    if (prob === null) return "ゲーム数では見分けられない";
-    if (prob >= 0.9) return "1日回せばかなり見分けられる";
-    if (prob >= 0.8) return "1日回すと傾向が見える";
-    if (prob >= 0.7) return "1日回してもまだ迷いやすい";
-    return "ゲーム数だけでは見分けにくい";
-}
-
 module.exports = {
     hasCombinedRate,
     settingKeysOf,
@@ -191,8 +129,4 @@ module.exports = {
     breakEvenGames,
     breakEvenTable,
     isCeilingModelConsistent,
-    discriminationProbability,
-    discriminationLevel,
-    DAY_GAMES,
-    HALF_DAY_GAMES,
 };

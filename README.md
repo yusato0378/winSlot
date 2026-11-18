@@ -36,7 +36,7 @@
 | **設定推測** | 総ゲーム数・BIG/REG（機種によりラベル変更）から、各設定の推定確率（％）を算出 |
 | **天井期待値** | 現在ゲーム数から天井到達までの期待値・狙い目ゲーム数。機種により**通常時／朝一リセット時**を表示 |
 | **機種スペック表** | 選択機種の設定別スペックを一覧表示 |
-| **設定推測要素ページ** | `setGuessElement/` 配下に機種別の判別要素（外部画像リンク含む） |
+| **設定推測要素** | `setGuessElement/` 配下の原稿（機種別の判別要素）を、ビルド時に機種ページへ差し込む |
 | **解説記事** | `guide/` に設定・天井・ツールの使い方などの記事（テンプレート＋本文で生成） |
 
 - **天井のみ**：機種名と現在ゲーム数だけ入力して「推測する」でも、天井期待値ブロックのみ表示可能。
@@ -73,7 +73,7 @@ winSlot/
 │       ├── index.json      #   表示順を保った id の配列
 │       └── {id}.json       #   スペック・天井・cautions・guessElementPath
 │
-├── setGuessElement/        # 設定推測要素ページ（*/index.html は手動メンテのソース）
+├── setGuessElement/        # 設定推測要素の原稿（*/index.html は手動メンテのソース。公開は機種ページに差し込んだ形）
 │                           #   ※ ルートの index.html はビルド生成（git 管理外）
 ├── templates/
 │   └── article-layout.html # 解説記事の共通レイアウト
@@ -87,7 +87,7 @@ winSlot/
 │       ├── machines.js       # data/machines/ のローダ（唯一の正本読み込み）
 │       ├── articles.js       # guide/ を生成
 │       ├── landing-pages.js  # machines/・setGuessElement/index・sitemap.xml を生成
-│       └── setguess-seo.js   # setGuessElement の meta / 機種LP 導線を付与
+│       └── guess-content.js  # setGuessElement の原稿から節を取り出す・旧URLの転送ページを生成
 │
 ├── dist/                   # ビルド出力（git 管理外。CloudFront が配信）
 ├── .githooks/              # Git フック（post-commit で自動 push 用・任意）
@@ -187,7 +187,7 @@ git config --unset core.hooksPath
 | `scripts/build/suggestion-rates.js` | 設定示唆ランク → 設定別出現率の生成器。Node（スキーマ検証）とブラウザ（尤度計算）の両対応で、ビルドが `dist/suggestion-rates.js` にコピーする |
 | `scripts/build/articles.js` | `templates/article-layout.html` + `articles/*` から `dist/guide/*.html` と `dist/guide/index.html` を生成 |
 | `scripts/build/landing-pages.js` | 機種データから `dist/machines/*/index.html`・`dist/setGuessElement/index.html` を生成し、`dist/sitemap.xml` を出力 |
-| `scripts/build/setguess-seo.js` | `dist/setGuessElement/*/index.html`（コピー済み）に meta / OG / パンくず / 機種LP導線を付与。**既存の手書き description は上書きしない** |
+| `scripts/build/guess-content.js` | `setGuessElement/*/index.html`（原稿）の `<section class="card ge-section">` を取り出して機種ページに差し込む。「基本スペック」「初当たり確率」の節は表を外して説明文だけをスペック一覧の下に、「天井」の節は天井期待値表の後ろに置く。`dist/setGuessElement/*/index.html` は機種ページ（`#guess-element`）への転送ページに置き換える（2026-11-18〜。旧URLの検索流入を引き継ぐため canonical と meta refresh を付ける） |
 
 `build.js` は機種データを1回だけロードして各モジュールに渡し、ブラウザ用の `dist/machines-data.js`（`window.MACHINES` / `window.SUGGESTION_RANKS`）と `dist/suggestion-rates.js` も生成します。
 
@@ -270,7 +270,7 @@ git config --unset core.hooksPath
 2. `data/machines/index.json` の配列に **`id` を1行追加**する（この配列の順序が一覧・サイトマップの表示順になる）。  
 3. `node scripts/build.js` を実行 → `dist/machines/{id}/index.html`・`dist/machines-data.js`・`dist/sitemap.xml` が更新される。  
 4. トップの **`index.html`** の「対応機種一覧」（静的 `<ul>`）にも `<li><a href="machines/{id}/">…</a></li>` を追加する。  
-5. 設定推測要素ページを置く場合は `setGuessElement/{dir}/index.html` を作成し、JSON の `guessElementPath` をそのパスに合わせる。
+5. 設定推測要素を載せる場合は `setGuessElement/{dir}/index.html`（原稿）を作成し、JSON の `guessElementPath` をそのパスに合わせる。原稿の `<section class="card ge-section" id="…">` が機種ページに差し込まれる（head はビルドで使わない）。
 
 ### 解析待ちの新台（先行ページ）
 
@@ -279,7 +279,7 @@ git config --unset core.hooksPath
 - `pending.known` … 判明していること、`pending.unknown` … まだ分かっていないこと（どちらも文章の配列）。機種ページの冒頭に出る。
 - `settings` は分かっている設定・値だけ入れ、分からない `reg` は `null`（スペック表に「調査中」と出る）。`big` は全設定に数値が必要。天井は `ceiling` ではなく `known` に文章で書く。
 - 計算ツールの機種選択には出さない（残った設定だけで推測してしまうため）。新台ピックアップには「導入・解析待ち」として出す。「N機種対応」の数にも含めない。
-- 1日回したときの設定の見分けやすさ・合算列・期待値表は出さない。トップの「対応機種一覧」（手順4）にも追加しない。
+- 合算列・期待値表は出さない。トップの「対応機種一覧」（手順4）にも追加しない。
 - 解析が揃ったら `pending` を消し、ふつうの機種として値を埋めて手順4を行う。
 
 ### 仕組み
