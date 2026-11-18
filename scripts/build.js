@@ -6,7 +6,7 @@
  * 2. 機種データと示唆ランクから dist/machines-data.js・suggestion-rates.js を生成（ブラウザ app.js 用）
  * 3. 解説記事を dist/guide/ に生成
  * 4. 機種LP・setGuessElement/index.html・sitemap.xml を dist/ に生成し、機種LPごとの OGP 画像（og.png）を描く
- * 5. setGuessElement 各ページ（dist 上のコピー）に SEO パッチを適用
+ * 5. setGuessElement 各ページ（dist 上のコピー）を機種ページへの転送ページに置き換える（内容は機種ページに差し込み済み）
  * 6. 「…/index.html」へのリンクをディレクトリ URL に書き換え（/index.html は / へ転送しているため）
  * 7. 本番デプロイだけ GA4 の計測タグを全ページに入れる
  * 8. PWA（manifest・アイコン・Service Worker）を生成
@@ -17,7 +17,7 @@ const path = require("path");
 const { loadMachines } = require("./build/machines");
 const { buildArticles } = require("./build/articles");
 const { buildLandingPages } = require("./build/landing-pages");
-const { patchSetGuessPages } = require("./build/setguess-seo");
+const { writeGuessRedirects } = require("./build/guess-content");
 const { buildOgImages } = require("./build/og-images");
 const { buildPwa } = require("./build/pwa");
 const { injectAnalytics } = require("./build/analytics");
@@ -158,7 +158,7 @@ function main() {
     buildArticles(ROOT, OUT, data);
     buildLandingPages(ROOT, OUT, data);
     buildOgImages(OUT, data);
-    patchSetGuessPages(OUT, data);
+    writeGuessRedirects(OUT, data);
     rewriteIndexLinks(OUT);
     injectAnalytics(OUT);
     // バージョンを他の生成物の中身から決めるので最後に呼ぶ

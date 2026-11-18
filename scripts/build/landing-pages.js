@@ -9,12 +9,12 @@ const { loadMachines } = require("./machines");
 const { createLastmod } = require("./lastmod");
 const {
     hasCombinedRate, settingKeysOf, MEDAL_RENT_YEN, calculateCeilingEV, breakEvenGames, breakEvenTable, isCeilingModelConsistent, isCeilingEvSupported,
-    discriminationProbability, discriminationLevel, DAY_GAMES, HALF_DAY_GAMES,
 } = require("./machine-insights");
+const { loadGuessContent } = require("./guess-content");
 const SITE_URL = "https://www.pachislot-setting.com";
 
-// data/machines/ から読み込んだデータを格納（buildLandingPages 開始時にセット）
-let MACHINES, GUESS_ELEMENT_PAGES;
+// data/machines/ から読み込んだデータとリポジトリルートを格納（buildLandingPages 開始時にセット）
+let MACHINES, GUESS_ELEMENT_PAGES, ROOT;
 
 function escapeHtml(str) {
     if (str == null) return "";
@@ -98,48 +98,6 @@ ${rows}
             </section>`;
 }
 
-/** 確率の表示。四捨五入で100%にならないよう、99%を超えたら「99%以上」 */
-function formatPercent(prob) {
-    return prob >= 0.99 ? "99%以上" : `約${Math.round(prob * 100)}%`;
-}
-
-/** 判別に使う当たりの名前（REG 側に設定差が無い・値が無い機種は BIG 側だけ） */
-function discriminationLabel(machine, d) {
-    return machine.regLabel && machine.settings[d.high].reg !== null && machine.settings[d.low].reg !== null
-        ? `${machine.bigLabel}・${machine.regLabel}`
-        : machine.bigLabel;
-}
-
-/**
- * 1日回したときの設定の見分けやすさ（このサイトの計算による独自データ）。
- * 「何G必要か」だと多くの機種で1日に回せる量（約1万G）を超えてしまうので、1日・半日回したときの確率で見せる。
- */
-function buildDiscriminationSection(machine) {
-    const day = discriminationProbability(machine, DAY_GAMES);
-    const half = discriminationProbability(machine, HALF_DAY_GAMES);
-    const level = discriminationLevel(day.prob);
-    const label = discriminationLabel(machine, day);
-    const guessHint = machine.suggestions ? "設定示唆演出" : "終了画面や示唆演出などの設定推測要素";
-    const value = day.prob === null ? "設定差なし" : formatPercent(day.prob);
-    const advice = day.prob === null
-        ? `設定${day.low}と設定${day.high}で${escapeHtml(label)}の確率が同じため、ゲーム数を重ねても見分けられません。${guessHint}で判断してください。`
-        : `設定${day.high}の台を1日（${DAY_GAMES.toLocaleString()}G）回すと、${formatPercent(day.prob)}の確率で${escapeHtml(label)}のデータが設定${day.low}より設定${day.high}寄りになります。` +
-          `半日（${HALF_DAY_GAMES.toLocaleString()}G）なら${formatPercent(half.prob)}です。` +
-          (day.prob < 0.8
-              ? `1日回しても偶然の偏りに埋もれやすいので、${guessHint}を合わせて判断するのが現実的です。`
-              : "ゲーム数が少ないうちは偶然の偏りが大きいので、結果は参考程度に見てください。");
-    return `
-            <section class="card lp-section" id="lp-discrimination">
-                <h3 class="card-title"><span class="card-icon">&#128202;</span> 1日回したときの設定の見分けやすさ</h3>
-                <div class="lp-ceiling-info">
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">1日（${DAY_GAMES.toLocaleString()}G）で設定${day.low}と${day.high}を見分けられる確率</span><span class="lp-ceil-val">${value}</span></div>
-                    <div class="lp-ceiling-item"><span class="lp-ceil-label">見分けやすさ</span><span class="lp-ceil-val">${level}</span></div>
-                </div>
-                <p class="lp-desc">${advice}</p>
-                <p class="lp-note">※ ${escapeHtml(label)}の設定差だけから当サイトで計算した目安です（設定${day.high}の台を打ったとき、データが設定${day.low}より設定${day.high}を支持する確率）。50%なら当てずっぽうと同じです。設定推測要素は含みません。</p>
-            </section>`;
-}
-
 /**
  * 解析待ちの機種（pending）の案内。判明している情報と、まだの情報を分けて出す。
  * 新台は導入前から検索されるので、確率が揃う前でもページだけは先に出しておく。
@@ -207,12 +165,13 @@ function buildSpecTable(machine) {
  */
 function getMachinePageMeta(machine) {
     const isAT = machine.type === "AT";
+    const hasGuess = !!GUESS_ELEMENT_PAGES[machine.id];
     const hasCeiling = machine.ceiling !== null && machine.ceiling > 0;
     const evSupported = hasCeiling && isCeilingEvSupported(machine);
     const typeLabel = isAT ? "AT/ART機（スマスロ）" : "Aタイプ";
     const regFrag = machine.regLabel ? `・${machine.regLabel}確率` : "";
     const titleKeyword = !isAT ? `${machine.name} 設定判別・設定差とスペック`
-        : !hasCeiling ? `${machine.name} 設定判別・設定差`
+        : !hasCeiling ? `${machine.name} 設定判別・${hasGuess ? "設定示唆と設定差" : "設定差"}`
         : !evSupported ? `${machine.name} 天井と設定判別・設定差`
         : machine.resetCeiling ? `${machine.name} 天井期待値・朝一リセット期待値表と設定判別`
         : `${machine.name} 天井期待値表と設定判別・設定差`;
@@ -228,7 +187,7 @@ function getMachinePageMeta(machine) {
     }
     if (isAT) {
         descKeywords = !hasCeiling
-            ? `${machine.name}の設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`
+            ? `${machine.name}の${hasGuess ? "設定示唆（終了画面など）と" : ""}設定差・設定推測（${machine.bigLabel}確率${regFrag}・出玉率）を掲載。天井は非搭載または解析中のため期待値表はありません。`
             : evSupported
             ? atEvDescription(machine)
             : `${machine.name}の天井と設定差・設定判別（${machine.bigLabel}確率・出玉率）を掲載。天井${machine.ceiling}G、狙い目${machine.ceilingTarget}G〜（天井の仕組みが特殊なため期待値表はありません）。`;
@@ -303,10 +262,9 @@ function generatePage(machine) {
     const evTableRows = buildEvTable(machine, machine.ceiling);
     const resetEvTableRows = machine.resetCeiling ? buildEvTable(machine, machine.resetCeiling) : "";
     const breakEvenSection = hasCeiling ? buildBreakEvenSection(machine) : "";
-    // 解析待ちの機種は確率が確定していないので、設定の見分けやすさは計算しない
     const pending = !!machine.pending;
-    const discriminationSection = pending ? "" : buildDiscriminationSection(machine);
     const guessElementPath = GUESS_ELEMENT_PAGES[machine.id];
+    const guess = guessElementPath ? loadGuessContent(ROOT, guessElementPath) : { sections: [], ceilingSections: [], specNotes: "" };
 
     const settingKeys = Object.keys(machine.settings).map(Number).sort((a, b) => a - b);
     const s1key = settingKeys[0];
@@ -340,16 +298,6 @@ function generatePage(machine) {
         a: `設定${s6key}の${machine.bigLabel}確率は1/${Number(machine.settings[s6key].big).toFixed(1)}です。出玉率は${machine.settings[s6key].payout}%です。` +
            (pending ? "導入前の解析サイトの掲載値で、サイトによって違うことや、変わることがあります。" : "")
     });
-    if (!pending) {
-        const day = discriminationProbability(machine, DAY_GAMES);
-        const label = discriminationLabel(machine, day);
-        faqItems.push({
-            q: `${machine.name}は1日回せば設定判別できる？`,
-            a: day.prob === null
-                ? `設定${day.low}と設定${day.high}で${label}の確率が同じため、ゲーム数では見分けられません。設定推測要素で判断してください。`
-                : `当サイトの計算では、設定${day.high}の台を1日（${DAY_GAMES.toLocaleString()}G）回すと、${formatPercent(day.prob)}の確率で${label}のデータが設定${day.low}より設定${day.high}寄りになります（${discriminationLevel(day.prob)}）。`
-        });
-    }
 
     const faqJsonLd = JSON.stringify({
         "@context": "https://schema.org",
@@ -420,25 +368,25 @@ ${resetEvTableRows}
                 <p class="lp-note">※ 朝一リセット時の天井${machine.resetCeiling}Gを基準に算出した概算値です。</p>
             </section>` : "";
 
-    const guessElementHref = guessElementPath ? `${paths.basePrefix}${guessElementPath.replace(/index\.html$/, "")}` : "";
-    const guessElementLink = guessElementPath
-        ? `
-            <section class="card lp-section" id="guess-element">
-                <h3 class="card-title"><span class="card-icon">&#128270;</span> 設定推測要素</h3>
-                <p class="lp-desc">${machine.bigLabel}確率以外の設定推測要素（終了画面、子役確率など）を確認できます。</p>
-                <div class="lp-cta">
-                    <a href="${guessElementHref}" class="btn-primary lp-btn">設定推測要素の詳細を見る</a>
-                </div>
-            </section>` : "";
+    // 設定推測要素の原稿から取り出した節（設定示唆・そのほかの設定差など）
+    const guessSectionsHtml = guess.sections.length
+        ? `            <div class="lp-pillar" id="guess-element" aria-label="設定推測要素">
+${guess.sections.map(x => x.html).join("\n")}
+            </div>`
+        : "";
+    const specNotesHtml = guess.specNotes ? `
+                <div class="lp-spec-notes">
+                ${guess.specNotes}
+                </div>` : "";
 
     const tocItems = [];
     if (pending) tocItems.push(`<li><a href="#pending">判明していること・まだ分かっていないこと</a></li>`);
     tocItems.push(`<li><a href="#spec">設定別スペック一覧</a></li>`);
-    if (discriminationSection) tocItems.push(`<li><a href="#lp-discrimination">1日回したときの設定の見分けやすさ</a></li>`);
-    if (guessElementPath) tocItems.push(`<li><a href="#guess-element">設定推測要素</a></li>`);
+    guess.sections.forEach(x => tocItems.push(`<li><a href="#${x.id}">${escapeHtml(x.title)}</a></li>`));
     if (breakEvenSection) tocItems.push(`<li><a href="#lp-break-even">換金率別・期待値がプラスになる回転数</a></li>`);
     if (hasCeiling) tocItems.push(`<li><a href="#lp-ceiling">${evSupported ? "天井期待値表" : "天井情報"}</a></li>`);
     if (resetCeilingSection) tocItems.push(`<li><a href="#reset-ceiling-ev">朝一リセット期待値表</a></li>`);
+    guess.ceilingSections.forEach(x => tocItems.push(`<li><a href="#${x.id}">${escapeHtml(x.title)}</a></li>`));
     tocItems.push(`<li><a href="#tool">${pending ? "計算ツールへの対応" : "設定推測ツールで計算"}</a></li>`);
 
     const pendingSection = pending ? buildPendingSection(machine) : "";
@@ -461,9 +409,12 @@ ${resetEvTableRows}
             </section>`;
 
     // 換金率別の回転数（結論）を先に、ゲーム数別の表（詳細）を後に置く
-    const ceilingPillarInner = hasCeiling ? `${breakEvenSection}
+    // 設定推測要素の原稿にある天井の説明（短縮条件・解析サイトの期待値など）は、計算した表の後ろに置く
+    const guessCeilingHtml = guess.ceilingSections.map(x => x.html).join("\n");
+    const ceilingPillarInner = (hasCeiling ? `${breakEvenSection}
 ${ceilingSection}
-${resetCeilingSection}` : "";
+${resetCeilingSection}` : "") + (guessCeilingHtml ? `
+${guessCeilingHtml}` : "");
     const ceilingPillarHtml = ceilingPillarInner.trim()
         ? `            <div class="lp-pillar" aria-label="期待値の表">
 ${ceilingPillarInner}
@@ -504,6 +455,7 @@ ${ceilingPillarInner}
     <title>${escapeHtml(pageTitle)}</title>
     <link rel="stylesheet" href="${paths.styleHref}">
     <link rel="stylesheet" href="${paths.lpCssHref}">
+    <link rel="stylesheet" href="${paths.basePrefix}setGuessElement/guess-element.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -554,11 +506,10 @@ ${pendingSection}
 ${spec.tbody}
                         </tbody>
                     </table>
-                </div>
+                </div>${specNotesHtml}
             </section>
-${discriminationSection}
-${guessElementLink}
             </div>
+${guessSectionsHtml}
 
 ${ceilingPillarHtml}
 ${lpCeilingAnchorNoTable}${toolSection.replace(/^\n/, "")}
@@ -597,11 +548,12 @@ ${lpCeilingAnchorNoTable}${toolSection.replace(/^\n/, "")}
  */
 function buildLandingPages(root, out, data) {
 ({ MACHINES, GUESS_ELEMENT_PAGES } = data || loadMachines(root));
+ROOT = root;
 const machinesDir = path.join(out, "machines");
 if (!fs.existsSync(machinesDir)) fs.mkdirSync(machinesDir, { recursive: true });
 
 // lastmod はページの元になったファイルの最終コミット日。生成テンプレート（このファイル等）の変更も含めて新しい方を使う
-const lastmodOf = createLastmod(root, ["index.html", "data/machines", "setGuessElement", "scripts/build/landing-pages.js", "scripts/build/setguess-seo.js"]);
+const lastmodOf = createLastmod(root, ["index.html", "data/machines", "setGuessElement", "scripts/build/landing-pages.js", "scripts/build/guess-content.js"]);
 const lastmodTag = date => (date ? `\n    <lastmod>${date}</lastmod>` : "");
 
 const sitemapUrls = [`  <url>\n    <loc>${SITE_URL}/</loc>${lastmodTag(lastmodOf("index.html"))}\n    <priority>1.0</priority>\n  </url>`];
@@ -621,7 +573,9 @@ MACHINES.forEach(m => {
     fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
     console.log(`Created: machines/${m.id}/index.html`);
 
-    const machineLastmod = lastmodOf(`data/machines/${m.id}.json`, "scripts/build/landing-pages.js");
+    // 設定推測要素の原稿を差し込んでいるので、原稿の更新日も含める
+    const guessRel = GUESS_ELEMENT_PAGES[m.id];
+    const machineLastmod = lastmodOf(`data/machines/${m.id}.json`, ...(guessRel ? [guessRel, "scripts/build/guess-content.js"] : []), "scripts/build/landing-pages.js");
     sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/machines/${m.id}/</loc>${lastmodTag(machineLastmod)}\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`);
 });
 
@@ -629,9 +583,8 @@ MACHINES.forEach(m => {
 const machineNameMap = Object.fromEntries(MACHINES.map(m => [m.id, m.name]));
 const sgListItems = Object.entries(GUESS_ELEMENT_PAGES)
     .map(([id, rel]) => {
-        const dirName = path.basename(path.dirname(rel));
         const name = machineNameMap[id] || id;
-        return `                    <li class="guide-article-list-item"><a href="${dirName}/">${name} 設定推測要素</a></li>`;
+        return `                    <li class="guide-article-list-item"><a href="../machines/${id}/#guess-element">${escapeHtml(name)}</a></li>`;
     })
     .join("\n");
 
@@ -689,16 +642,10 @@ const sgIndexPath = path.join(out, "setGuessElement", "index.html");
 fs.writeFileSync(sgIndexPath, sgIndexHtml, "utf-8");
 console.log("Created: setGuessElement/index.html");
 
-// setGuessElement pages（サイトマップ：ルート一覧ページ + 各機種ページ）
-// 一覧ページは、各機種ページと一覧を作るこのファイルのうち最も新しい日付
+// 設定推測要素の一覧ページ（各機種の内容は機種ページに差し込んだので、旧URLはサイトマップに載せない）
+// 一覧ページは、原稿と一覧を作るこのファイルのうち最も新しい日付
 const sgIndexLastmod = lastmodOf(...Object.values(GUESS_ELEMENT_PAGES), "scripts/build/landing-pages.js");
 sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/setGuessElement/</loc>${lastmodTag(sgIndexLastmod)}\n    <priority>0.7</priority>\n  </url>`);
-Object.values(GUESS_ELEMENT_PAGES).forEach(p => {
-    // 各ページはソースの HTML に、ビルド時の SEO パッチ（setguess-seo.js）をかけたもの
-    const pageLastmod = lastmodOf(p, "scripts/build/setguess-seo.js");
-    sitemapUrls.push(`  <url>\n    <loc>${SITE_URL}/${p.replace("index.html","")}</loc>${lastmodTag(pageLastmod)}\n    <priority>0.6</priority>\n  </url>`);
-});
-
 // guide/ 解説記事（manifest.json の published/updated を lastmod に使用）
 const guideManifestPath = path.join(root, "articles", "manifest.json");
 const guideManifestData = fs.existsSync(guideManifestPath)

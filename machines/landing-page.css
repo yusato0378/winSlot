@@ -152,6 +152,11 @@
     line-height: 1.6;
 }
 
+/* 設定推測要素の原稿から移した、スペック一覧の下の説明文・注記 */
+.lp-spec-notes {
+    margin-top: 16px;
+}
+
 /* スペック表 */
 .lp-spec-table {
     width: 100%;
