@@ -99,6 +99,8 @@
                     <div class="machine-info-bar" id="machine-info-bar" style="display:none;">
                         <span id="machine-type-badge" class="badge"></span>
                         <span id="machine-ceiling-info" class="badge badge-sub"></span>
+                        <!-- 判別要素だけ見たい人向け。入力途中の値が消えないよう新しいタブで開く（app.js が推測要素のある機種だけ出す） -->
+                        <a id="machine-guess-link" class="machine-guess-link" target="_blank" rel="noopener" hidden>設定判別要素を見る &rsaquo;</a>
                     </div>
 
                     <!-- 天井計算用。台を探しながら機種名＋現在ゲーム数だけ入れる使い方が多いので、機種名の直後に置く。
