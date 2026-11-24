@@ -64,13 +64,63 @@
         "items": [
           {
             "id": "normal",
-            "label": "通常キャラ",
+            "label": "デフォルト",
             "rank": "default"
           },
           {
-            "id": "special",
-            "label": "特殊キャラ",
-            "rank": "highMid"
+            "id": "chris",
+            "label": "クリス",
+            "rank": "odd"
+          },
+          {
+            "id": "sheva",
+            "label": "シェバ",
+            "rank": "even"
+          },
+          {
+            "id": "wesker1",
+            "label": "ウェスカー①",
+            "rank": "highWeak"
+          },
+          {
+            "id": "wesker2",
+            "label": "ウェスカー②",
+            "rank": "highStrong"
+          },
+          {
+            "id": "josh",
+            "label": "ジョッシュ",
+            "rank": "not1"
+          },
+          {
+            "id": "irving",
+            "label": "アーヴィング",
+            "rank": "not2"
+          },
+          {
+            "id": "excella",
+            "label": "エクセラ",
+            "rank": "not3"
+          },
+          {
+            "id": "majini",
+            "label": "マジニ",
+            "rank": "ge3"
+          },
+          {
+            "id": "chrisSheva",
+            "label": "クリス＆シェバ",
+            "rank": "ge4"
+          },
+          {
+            "id": "congrats",
+            "label": "Congratulations!",
+            "rank": "ge5"
+          },
+          {
+            "id": "lion",
+            "label": "エンタライオン",
+            "rank": "eq6"
           }
         ]
       },
@@ -82,17 +132,22 @@
           {
             "id": "bronze",
             "label": "銅",
-            "rank": "highWeak"
+            "rank": "ge2"
           },
           {
             "id": "silver",
             "label": "銀",
-            "rank": "highStrong"
+            "rank": "ge3"
           },
           {
             "id": "gold",
             "label": "金",
             "rank": "ge4"
+          },
+          {
+            "id": "momiji",
+            "label": "紅葉",
+            "rank": "ge5"
           },
           {
             "id": "rainbow",
@@ -103,27 +158,32 @@
       },
       {
         "id": "medal",
-        "label": "AT終了時の獲得枚数表示",
+        "label": "AT中の獲得枚数表示",
         "exclusive": false,
         "items": [
           {
             "id": "m256",
-            "label": "256枚",
-            "rank": "ge2"
+            "label": "256枚OVER",
+            "rank": "set",
+            "settings": [
+              2,
+              5,
+              6
+            ]
           },
           {
             "id": "m456",
-            "label": "456枚",
+            "label": "456枚OVER",
             "rank": "ge4"
           },
           {
             "id": "m810",
-            "label": "810枚",
-            "rank": "highMid"
+            "label": "810枚OVER",
+            "rank": "ge5"
           },
           {
             "id": "m666",
-            "label": "666枚",
+            "label": "666枚OVER",
             "rank": "eq6"
           }
         ]
