@@ -111,6 +111,16 @@
             "id": "allCindy",
             "label": "全員シンディ",
             "rank": "eq6"
+          },
+          {
+            "id": "allMia",
+            "label": "ALLミア",
+            "rank": "ge2"
+          },
+          {
+            "id": "allCampbell",
+            "label": "ALLキャンベル",
+            "rank": "ge5"
           }
         ]
       },
@@ -126,8 +136,23 @@
           },
           {
             "id": "even",
-            "label": "アフロ小人 ×2",
+            "label": "アフロ小人 ×2 or ×4",
             "rank": "even"
+          },
+          {
+            "id": "zero",
+            "label": "アフロ小人 ×0（全員通常の小人）",
+            "rank": "ge2"
+          },
+          {
+            "id": "five",
+            "label": "アフロ小人 ×5",
+            "rank": "ge5"
+          },
+          {
+            "id": "six",
+            "label": "アフロ小人 ×6",
+            "rank": "eq6"
           }
         ]
       }
