@@ -496,6 +496,22 @@ input::placeholder {
     border-color: rgba(38, 198, 218, 0.25);
 }
 
+/* 機種を選んだ直後に出す、機種ページの設定推測要素へのリンク */
+.machine-guess-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.machine-guess-link[hidden] {
+    display: none;
+}
+
 .form-hint {
     margin-top: 4px;
     margin-bottom: 2px;

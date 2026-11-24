@@ -44,6 +44,7 @@ const $koyakuGroup   = document.getElementById("koyaku-group");
 const $machineInfoBar   = document.getElementById("machine-info-bar");
 const $machineTypeBadge = document.getElementById("machine-type-badge");
 const $machineCeilingInfo = document.getElementById("machine-ceiling-info");
+const $machineGuessLink = document.getElementById("machine-guess-link");
 const $resultsSection = document.getElementById("results-section");
 const $settingSection = document.getElementById("setting-section");
 const $settingResults = document.getElementById("setting-results");
@@ -838,6 +839,9 @@ function onMachineChange() {
 
     $machineInfoBar.style.display = "flex";
     $machineTypeBadge.textContent = machine.type === "A" ? "Aタイプ" : "AT / ART機";
+    // 設定推測要素は機種ページに載せている
+    $machineGuessLink.hidden = !machine.guessElementPath;
+    if (machine.guessElementPath) $machineGuessLink.href = `machines/${machine.id}/#guess-element`;
 
     if (machine.ceiling) {
         $machineCeilingInfo.textContent = `天井: ${machine.ceiling}G` + (machine.resetCeiling ? `（朝一 ${machine.resetCeiling}G）` : "");
