@@ -41,7 +41,7 @@
       "big": 240.9,
       "reg": 404.5,
       "koyaku": null,
-      "payout": 110.9
+      "payout": 110.0
     }
   },
   "ceiling": null,
@@ -66,11 +66,6 @@
             "id": "normal",
             "label": "通常パターン",
             "rank": "default"
-          },
-          {
-            "id": "gendou",
-            "label": "ゲンドウ・冬月",
-            "rank": "highMid"
           },
           {
             "id": "kaworu",
