@@ -78,12 +78,12 @@
           {
             "id": "kenshiro",
             "label": "ケンシロウ「戦うのが…」",
-            "rank": "ge4"
+            "rank": "highStrong"
           },
           {
             "id": "yuria",
             "label": "ユリア「まちつづける…」",
-            "rank": "ge5"
+            "rank": "highStrong"
           }
         ]
       },
