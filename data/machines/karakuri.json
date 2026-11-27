@@ -62,7 +62,23 @@
           {
             "id": "kanbu",
             "label": "敵幹部",
-            "rank": "highMid"
+            "rank": [
+              "odd",
+              "highMid"
+            ]
+          },
+          {
+            "id": "heroine5",
+            "label": "ヒロイン5人",
+            "rank": [
+              "even",
+              "highMid"
+            ]
+          },
+          {
+            "id": "ashihana",
+            "label": "阿紫花＆ギイ",
+            "rank": "ge2"
           },
           {
             "id": "shirogane",
